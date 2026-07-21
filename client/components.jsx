@@ -27,6 +27,15 @@ const Icon = {
 /* ============ HEADER ============ */
 const Header = () => (
   <header className="header">
+    <div className="topbar">
+      <div className="container topbar-inner">
+        <span>Manufacturer &amp; Supplier · Yamunanagar · Since 1997</span>
+        <div>
+          <a href="mailto:pentagonplywood@gmail.com">pentagonplywood@gmail.com</a>
+          <a href="tel:+917206104340">+91 7206 104 340</a>
+        </div>
+      </div>
+    </div>
     <div className="container header-inner">
       <a href="#" className="brand">
         <div className="brand-mark"><Icon.Pentagon/></div>
@@ -107,12 +116,12 @@ const Trust = () => (
           <div className="trust-lbl"><strong>Est. Yamunanagar</strong>Nearly three decades of plywood manufacturing legacy</div>
         </div>
         <div className="trust-item">
-          <div className="trust-num">08</div>
-          <div className="trust-lbl"><strong>Signature Brands</strong>From Pentagon Gold to Escotel Marine — a range for every application</div>
+          <div className="trust-num">200</div>
+          <div className="trust-lbl"><strong>Skilled Team</strong>Experienced people supporting manufacturing and supply</div>
         </div>
         <div className="trust-item">
-          <div className="trust-num">3+</div>
-          <div className="trust-lbl"><strong>Product Categories</strong>Plywood, blockboards and doors — engineered under one roof</div>
+          <div className="trust-num">ISO</div>
+          <div className="trust-lbl"><strong>Quality Driven</strong>Certified processes with checks at every production stage</div>
         </div>
       </div>
     </div>
@@ -137,6 +146,13 @@ const Products = () => (
         <p className="lede">
           A curated range of plywood, boards and doors — each engineered for a specific application and finished to a standard that outlasts trends. Every board is manufactured, pressed and inspected in-house.
         </p>
+      </div>
+      <div className="product-tabs" aria-label="Product categories">
+        <a className="active" href="#products">All products</a>
+        <a href="#products">Plywood</a>
+        <a href="#products">Laminated doors</a>
+        <a href="#products">Blockboards</a>
+        <a href="#enquiry">Get product advice</a>
       </div>
       <div className="product-grid">
         {products.map((p, i) => (

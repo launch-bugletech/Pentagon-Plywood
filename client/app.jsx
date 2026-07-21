@@ -13,7 +13,7 @@ import {
 } from './tweaks_panel.jsx';
 
 const PALETTES = [
-  { id: "cream", name: "Cream & Timber", swatch: ["#F5EFE4", "#6B4423", "#B8823A"] },
+  { id: "cream", name: "Pentagon Red", swatch: ["#FFFFFF", "#1D1D1D", "#E31E24"] },
   { id: "charcoal", name: "Ivory & Ember", swatch: ["#F2EFEA", "#1A1918", "#C48A2E"] },
   { id: "sage", name: "Ivory & Sage", swatch: ["#F4F1EA", "#4C6B4E", "#1F2A20"] },
 ];
