@@ -93,7 +93,7 @@ const Hero = () => (
         </div>
         <div>
           <div className="hero-image-wrap">
-            <img src="../client/assets/hero.png" alt="Warm interior with plywood cabinet ry"/>
+            <img src="../assets/hero.png" alt="Warm interior with plywood cabinet ry"/>
             <div className="hero-image-tag">
               <span className="badge">Escotel Marine · Kitchen</span>
               <span>Fig. 01</span>
