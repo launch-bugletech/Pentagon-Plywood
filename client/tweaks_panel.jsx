@@ -156,20 +156,43 @@ const __TWEAKS_STYLE = `
   .twk-chip>span>i:first-child{box-shadow:none}
   .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
     filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+  .twk-launcher{position:fixed;bottom:16px;z-index:2147483646;display:flex;align-items:center;gap:8px;
+    min-height:38px;padding:0 14px;border:1px solid rgba(255,255,255,.65);border-radius:999px;
+    background:rgba(25,25,25,.9);color:#fff;box-shadow:0 8px 28px rgba(0,0,0,.22);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    font:600 11px/1 ui-sans-serif,system-ui,-apple-system,sans-serif;letter-spacing:.02em;cursor:pointer}
+  .twk-launcher:hover{background:#e31e24;transform:translateY(-1px)}
+  .twk-launcher-left{left:16px}.twk-launcher-right{right:16px}
+  .twk-launcher span{font-size:14px;color:#ff6267}
+  .twk-launcher:hover span{color:#fff}
 `;
 
 // ── useTweaks ───────────────────────────────────────────────────────────────
 // Single source of truth for tweak values. setTweak persists via the host
 // (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
-function useTweaks(defaults) {
-  const [values, setValues] = React.useState(defaults);
+function useTweaks(defaults, { storageKey } = {}) {
+  const [values, setValues] = React.useState(() => {
+    if (!storageKey) return defaults;
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey));
+      return saved && typeof saved === 'object' ? { ...defaults, ...saved } : defaults;
+    } catch {
+      return defaults;
+    }
+  });
   const setTweak = React.useCallback((keyOrEdits, val) => {
     const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
       ? keyOrEdits : { [keyOrEdits]: val };
-    setValues((prev) => ({ ...prev, ...edits }));
+    setValues((prev) => {
+      const next = { ...prev, ...edits };
+      if (storageKey) {
+        try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch {}
+      }
+      return next;
+    });
     window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
     window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
-  }, []);
+  }, [storageKey]);
   return [values, setTweak];
 }
 
@@ -180,7 +203,7 @@ function useTweaks(defaults) {
 // The close button posts __edit_mode_dismissed so the host's toolbar toggle
 // flips off in lockstep; the host echoes __deactivate_edit_mode back which
 // is what actually hides the panel.
-function TweaksPanel({ title = 'Tweaks', noDeckControls = false, children }) {
+function TweaksPanel({ title = 'Tweaks', noDeckControls = false, standalone = false, placement = 'right', children }) {
   const [open, setOpen] = React.useState(false);
   const dragRef = React.useRef(null);
   // Auto-inject a rail toggle when a <deck-stage> is on the page. The
@@ -229,9 +252,10 @@ function TweaksPanel({ title = 'Tweaks', noDeckControls = false, children }) {
       x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
       y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
     };
-    panel.style.right = offsetRef.current.x + 'px';
+    panel.style[placement] = offsetRef.current.x + 'px';
+    panel.style[placement === 'left' ? 'right' : 'left'] = 'auto';
     panel.style.bottom = offsetRef.current.y + 'px';
-  }, []);
+  }, [placement]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -266,11 +290,13 @@ function TweaksPanel({ title = 'Tweaks', noDeckControls = false, children }) {
     if (!panel) return;
     const r = panel.getBoundingClientRect();
     const sx = e.clientX, sy = e.clientY;
-    const startRight = window.innerWidth - r.right;
+    const startX = placement === 'left' ? r.left : window.innerWidth - r.right;
     const startBottom = window.innerHeight - r.bottom;
     const move = (ev) => {
       offsetRef.current = {
-        x: startRight - (ev.clientX - sx),
+        x: placement === 'left'
+          ? startX + (ev.clientX - sx)
+          : startX - (ev.clientX - sx),
         y: startBottom - (ev.clientY - sy),
       };
       clampToViewport();
@@ -283,12 +309,32 @@ function TweaksPanel({ title = 'Tweaks', noDeckControls = false, children }) {
     window.addEventListener('mouseup', up);
   };
 
-  if (!open) return null;
+  if (!open) {
+    if (!standalone) return null;
+    return (
+      <>
+        <style>{__TWEAKS_STYLE}</style>
+        <button
+          type="button"
+          className={`twk-launcher twk-launcher-${placement}`}
+          aria-label="Open design customizer"
+          onClick={() => setOpen(true)}
+        >
+          <span aria-hidden="true">✦</span>
+          Customize
+        </button>
+      </>
+    );
+  }
   return (
     <>
       <style>{__TWEAKS_STYLE}</style>
       <div ref={dragRef} className="twk-panel" data-noncommentable=""
-           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+           style={{
+             [placement]: offsetRef.current.x,
+             [placement === 'left' ? 'right' : 'left']: 'auto',
+             bottom: offsetRef.current.y,
+           }}>
         <div className="twk-hd" onMouseDown={onDragStart}>
           <b>{title}</b>
           <button className="twk-x" aria-label="Close tweaks"
