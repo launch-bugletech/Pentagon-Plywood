@@ -83,7 +83,7 @@ const Hero = () => (
           </h1>
           <div className="hero-caption-row">
             <p className="hero-caption">
-              Premium manufacturing of unmatched plywood, blockboards and doors — engineered for India's finest interiors, three decades in the making.
+              Premium manufacturing of unmatched plywood, blockboards and doors engineered for India's finest interiors, three decades in the making.
             </p>
             <div className="hero-actions">
               <a href="#products" className="btn btn-primary">Explore our products <Icon.Arr/></a>
@@ -93,7 +93,7 @@ const Hero = () => (
         </div>
         <div>
           <div className="hero-image-wrap">
-            <img src="assets/hero.png" alt="Warm interior with plywood cabinetry"/>
+            <img src="client\assets\hero.png" alt="Warm interior with plywood cabinetry"/>
             <div className="hero-image-tag">
               <span className="badge">Escotel Marine · Kitchen</span>
               <span>Fig. 01</span>
