@@ -1,6 +1,7 @@
 /* Pentagon Plywood — Homepage Components */
 
 import React from 'react';
+import heroImage from './assets/hero.png';
 
 /* ============ ICONS ============ */
 const Icon = {
@@ -93,7 +94,7 @@ const Hero = () => (
         </div>
         <div>
           <div className="hero-image-wrap">
-            <img src="../assets/hero.png" alt="Warm interior with plywood cabinet ry"/>
+           <img src={heroImage} alt="Warm interior with plywood cabinetry" />
             <div className="hero-image-tag">
               <span className="badge">Escotel Marine · Kitchen</span>
               <span>Fig. 01</span>
@@ -237,7 +238,7 @@ const Brands = () => (
           <h2 className="h-section">Eight brands.<br/><em className="italic-em">One standard.</em></h2>
         </div>
         <p className="lede">
-          From economy to elite marine grade — every Pentagon brand is manufactured in the same Yamunanagar facility, held to the same quality benchmark, and priced for the range it serves.
+          From economy to elite marine grade every Pentagon brand is manufactured in the same Yamunanagar facility, held to the same quality benchmark, and priced for the range it serves.
         </p>
       </div>
       <div className="brands-grid">
