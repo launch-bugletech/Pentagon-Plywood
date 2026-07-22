@@ -1,7 +1,16 @@
-/* Pentagon Plywood — Homepage Components */
+/* Pentagon Plywood : Homepage Components */
 
 import React from 'react';
 import heroImage from './assets/hero.png';
+import residentialImage from './assets/homepage/Duroply-Feature-Images-and-Blog-Images-8-1024x576.jpg';
+import manufacturingImage from './assets/homepage/Plywood-Manufacturing-1024x683.jpg';
+import marinePlywoodImage from './assets/homepage/products/Marine-plywood-1000x1000.webp';
+import mrPlywoodImage from './assets/homepage/products/mr-grade-plywood-1671449588-6629452.webp';
+import blockboardImage from './assets/homepage/products/is303-blockboard-1671450145-6629496.webp';
+import flushDoorImage from './assets/homepage/products/waterproof-flush-door-1671449760-6629491.webp';
+import isoCertificateImage from './assets/homepage/certificates/iso-9001-2000-logo-png_seeklogo-73813.png';
+import bisCertificateImage from './assets/homepage/certificates/bis-bureau-of-indian-standards-logo-png_seeklogo-19843.png';
+import labCertificateImage from './assets/homepage/certificates/lab-tested-certified-approval-stamp-260nw-2640833869.png';
 
 /* ============ ICONS ============ */
 const Icon = {
@@ -131,21 +140,21 @@ const Trust = () => (
 
 /* ============ PRODUCTS ============ */
 const products = [
-  { tag: "01 · Plywood", name: "Marine Plywood", desc: "Ultimate water resistance for the toughest environments — kitchens, bathrooms and outdoor joinery.", standard: "IS 710 · BWP Grade", ph: "marine plywood · cross-section" },
-  { tag: "02 · Plywood", name: "MR Grade Plywood", desc: "Commercial plywood built for long-lasting premium interior woodwork and everyday joinery.", standard: "IS 303 · MR Grade", ph: "MR plywood · flat lay" },
-  { tag: "03 · Boards", name: "IS 303 Blockboards", desc: "Engineered for exceptional structural integrity and high load-bearing capacity across large spans.", standard: "IS 1659 · Blockboard", ph: "blockboard · edge detail" },
-  { tag: "04 · Doors", name: "Premium Doors", desc: "Waterproof flush, membrane and laminated door solutions for complete aesthetic control.", standard: "IS 2202 · Flush Door", ph: "flush door · elevation" },
+  { tag: "01 · Plywood", name: "Marine Plywood", desc: "Ultimate water resistance for the toughest environments  kitchens, bathrooms and outdoor joinery.", standard: "IS 710 · BWP Grade", image: marinePlywoodImage, alt: "Stack of marine-grade plywood sheets", imageLabel: "Marine plywood · Cross-section" },
+  { tag: "02 · Plywood", name: "MR Grade Plywood", desc: "Commercial plywood built for long-lasting premium interior woodwork and everyday joinery.", standard: "IS 303 · MR Grade", image: mrPlywoodImage, alt: "MR-grade plywood veneers stacked in a workshop", imageLabel: "MR plywood · Veneer detail" },
+  { tag: "03 · Boards", name: "IS 303 Blockboards", desc: "Engineered for exceptional structural integrity and high load-bearing capacity across large spans.", standard: "IS 1659 · Blockboard", image: blockboardImage, alt: "Finished wooden blockboard profiles", imageLabel: "Blockboard · Edge detail" },
+  { tag: "04 · Doors", name: "Premium Doors", desc: "Waterproof flush, membrane and laminated door solutions for complete aesthetic control.", standard: "IS 2202 · Flush Door", image: flushDoorImage, alt: "Selection of premium waterproof wooden doors", imageLabel: "Waterproof doors · Collection" },
 ];
 const Products = () => (
   <section id="products" className="section">
     <div className="container">
       <div className="sec-head">
         <div>
-          <div className="eyebrow"><span className="dot"/>Section 03 · Product Range</div>
+          <div className="eyebrow"><span className="dot"/>Product Range</div>
           <h2 className="h-section">Discover our<br/><em className="italic-em">core collection.</em></h2>
         </div>
         <p className="lede">
-          A curated range of plywood, boards and doors — each engineered for a specific application and finished to a standard that outlasts trends. Every board is manufactured, pressed and inspected in-house.
+          A curated range of plywood, boards and doors each engineered for a specific application and finished to a standard that outlasts trends. Every board is manufactured, pressed and inspected in-house.
         </p>
       </div>
       <div className="product-tabs" aria-label="Product categories">
@@ -158,7 +167,10 @@ const Products = () => (
       <div className="product-grid">
         {products.map((p, i) => (
           <div className="product-card" key={i}>
-            <div className="product-img"><div className="ph" data-label={p.ph}/></div>
+            <div className="product-img">
+              <img src={p.image} alt={p.alt} loading="lazy" />
+              <span className="product-image-label">{p.imageLabel}</span>
+            </div>
             <div className="product-body">
               <div className="product-tag">{p.tag}</div>
               <div className="product-name">{p.name}</div>
@@ -263,7 +275,7 @@ const Brands = () => (
           <div className="eyebrow" style={{marginBottom: 20}}><span className="dot"/>Flagship Spotlight</div>
           <h3 className="brand-spotlight-head">Escotel Marine</h3>
           <p className="brand-spotlight-lede">
-            Our flagship marine-grade plywood — engineered with advanced anti-borer and termite-proof treatment for lifetime performance in kitchens, bathrooms and any surface that faces water.
+            Our flagship marine-grade plywood engineered with advanced anti-borer and termite-proof treatment for lifetime performance in kitchens, bathrooms and any surface that faces water.
           </p>
           <div className="brand-spotlight-feats">
             <div className="brand-spotlight-feat"><strong>BWP</strong><span>IS 710 Grade</span></div>
@@ -280,13 +292,13 @@ const Brands = () => (
 
 /* ============ WHY PENTAGON ============ */
 const whys = [
-  { n: "01", icon: <Icon.Water/>, t: "Waterproof at the core", p: "Advanced phenolic resins bond every layer to withstand extreme moisture — verified through 72-hour boil testing." },
+  { n: "01", icon: <Icon.Water/>, t: "Waterproof at the core", p: "Advanced phenolic resins bond every layer to withstand extreme moisture verified through 72-hour boil testing." },
   { n: "02", icon: <Icon.Shield/>, t: "Termite & borer resistant", p: "Chemically treated timber and preservative infusion at the veneer stage delivers lifetime protection against pests." },
   { n: "03", icon: <Icon.Beam/>, t: "High strength & durability", p: "Precision-pressed cores engineered to bear heavy loads without warping, sagging or delamination over decades of use." },
   { n: "04", icon: <Icon.Leaf/>, t: "Responsibly sourced", p: "Carefully selected raw materials from managed forests, with conscientious manufacturing practices at every stage." },
 ];
 const Why = () => (
-  <section className="section" style={{background: 'var(--bg-alt)'}}>
+  <section id="promise" className="section promise-section">
     <div className="container">
       <div className="sec-head">
         <div>
@@ -294,16 +306,21 @@ const Why = () => (
           <h2 className="h-section">Why interior<br/>professionals <em className="italic-em">choose us.</em></h2>
         </div>
         <p className="lede">
-          Four decisions we make on every panel we press — each one measurable, testable, and non-negotiable. This is what "made in Pentagon" means.
+          Four decisions we make on every panel we press each one measurable, testable, and non-negotiable. This is what "made in Pentagon" means.
         </p>
       </div>
       <div className="why-grid">
         {whys.map((w, i) => (
           <div className="why-item" key={i}>
-            <div className="why-icon">{w.icon}</div>
-            <div className="n">{w.n}</div>
-            <h3>{w.t}</h3>
-            <p>{w.p}</p>
+            <div className="why-item-top">
+              <div className="why-icon">{w.icon}</div>
+              <div className="n">{w.n}</div>
+            </div>
+            <div className="why-item-copy">
+              <h3>{w.t}</h3>
+              <p>{w.p}</p>
+            </div>
+            <div className="why-standard"><span/>Pentagon performance standard</div>
           </div>
         ))}
       </div>
@@ -317,7 +334,10 @@ const Manufacturing = () => (
     <div className="container">
       <div className="mfg-grid">
         <div>
-          <div className="mfg-img"/>
+          <div className="mfg-img">
+            <img src={manufacturingImage} alt="Plywood panels moving through a modern manufacturing line" loading="lazy" />
+            <span>Factory · Yamunanagar</span>
+          </div>
         </div>
         <div>
           <div className="eyebrow" style={{marginBottom: 24}}><span className="dot"/>Section 07 · Manufacturing Excellence</div>
@@ -349,9 +369,9 @@ const Quality = () => (
         <h2 className="h-section">Uncompromising<br/><em className="italic-em">quality standards.</em></h2>
       </div>
       <div className="quality-grid">
-        <div>
+        <div className="quality-process">
           <p className="lede">
-            Quality is not a promise — it is a process. Every panel that leaves our factory has passed stringent inspection at raw material selection, veneer preparation, bonding, pressing and final finishing.
+            Quality is not a promise; it is a process. Every panel that leaves our factory has passed stringent inspection at raw material selection, veneer preparation, bonding, pressing and final finishing.
           </p>
           <ol className="quality-list">
             <li><span className="n">01</span><div><strong>Raw material inspection</strong><span>Every timber log is graded before it enters the peeling line.</span></div></li>
@@ -360,25 +380,32 @@ const Quality = () => (
             <li><span className="n">04</span><div><strong>Standards compliance</strong><span>Manufactured to IS 303, IS 710 and IS 2202 Bureau of Indian Standards.</span></div></li>
           </ol>
         </div>
-        <div>
+        <div className="quality-cert-panel">
+          <div className="quality-cert-head">
+            <div>
+              <span className="quality-cert-kicker">Verified performance</span>
+              <h3>Certified at every level.</h3>
+            </div>
+            <span className="quality-verified-mark" aria-hidden="true">✓</span>
+          </div>
           <div className="cert-row">
             <div className="cert-card">
-              <div className="cert-mark">ISO</div>
+              <div className="cert-logo-wrap"><img className="cert-logo" src={isoCertificateImage} alt="ISO 9001:2000 certified quality system mark" loading="lazy" /></div>
               <div className="cert-name">ISO 9001-2000</div>
               <div className="cert-desc">Quality management system certified</div>
             </div>
             <div className="cert-card">
-              <div className="cert-mark">IS</div>
+              <div className="cert-logo-wrap"><img className="cert-logo" src={bisCertificateImage} alt="Bureau of Indian Standards mark" loading="lazy" /></div>
               <div className="cert-name">IS 303 · IS 710</div>
               <div className="cert-desc">Bureau of Indian Standards compliance</div>
             </div>
             <div className="cert-card">
-              <div className="cert-mark">QC</div>
+              <div className="cert-logo-wrap"><img className="cert-logo" src={labCertificateImage} alt="Lab tested certification mark" loading="lazy" /></div>
               <div className="cert-name">In-House Lab</div>
               <div className="cert-desc">Batch-level testing & records</div>
             </div>
           </div>
-          <div style={{display: 'flex', gap: 16, marginTop: 40, flexWrap: 'wrap'}}>
+          <div className="quality-actions">
             <a href="#" className="btn btn-outline">View certifications <Icon.Arr/></a>
             <a href="#" className="btn btn-ghost">Learn about our quality process →</a>
           </div>
@@ -390,7 +417,7 @@ const Quality = () => (
 
 /* ============ APPLICATIONS ============ */
 const apps = [
-  { size: "big", label: "Residential Interiors", sub: "Kitchens · Wardrobes · Furniture", ph: "warm home interior · living room" },
+  { size: "big", label: "Residential Interiors", sub: "Kitchens · Wardrobes · Furniture", ph: "warm home interior · living room", image: residentialImage, alt: "Contemporary plywood kitchen and dining interior" },
   { size: "med", label: "Commercial Offices", sub: "Partitions · Workstations", ph: "modern office joinery" },
   { size: "sm", label: "Hospitality", sub: "Restaurants · Hotels", ph: "restaurant fit-out" },
   { size: "med", label: "Retail Interiors", sub: "Displays · Kiosks", ph: "retail store fit-out" },
@@ -412,7 +439,12 @@ const Applications = () => (
       <div className="apps-grid">
         {apps.map((a, i) => (
           <div className={`app-tile ${a.size}`} key={i}>
-            <div className="app-tile-ph"><div className="ph" data-label={a.ph}/></div>
+            <div className="app-tile-ph">
+              {a.image
+                ? <img src={a.image} alt={a.alt} loading="lazy" />
+                : <div className="ph" data-label={a.ph}/>
+              }
+            </div>
             <div className="app-tile-label"><small>{a.sub}</small>{a.label}</div>
           </div>
         ))}
@@ -424,7 +456,7 @@ const Applications = () => (
 /* ============ PROJECTS ============ */
 const projects = [
   { type: "Residential", loc: "Chandigarh", title: "A quiet home in the foothills.", desc: "Wardrobes and kitchen cabinetry finished with Escotel Marine BWP for a modernist bungalow.", ph: "residential interior · warm" },
-  { type: "Hospitality", loc: "Delhi NCR", title: "Cafeteria fit-out, ground up.", desc: "Full interior joinery for a 60-cover café — bar, banquettes and partitions in Pentagon Gold MR.", ph: "café interior · joinery detail" },
+  { type: "Hospitality", loc: "Delhi NCR", title: "Cafeteria fit-out, ground up.", desc: "Full interior joinery for a 60-cover café bar, banquettes and partitions in Pentagon Gold MR.", ph: "café interior · joinery detail" },
   { type: "Commercial", loc: "Mumbai", title: "Workstations at scale.", desc: "Bulk supply of Kalinga Gold and IS 303 blockboards for a 22,000 sq ft office fit-out.", ph: "office fit-out · overview" },
 ];
 const Projects = () => (
@@ -436,7 +468,7 @@ const Projects = () => (
           <h2 className="h-section">Our plywood<br/><em className="italic-em">in action.</em></h2>
         </div>
         <p className="lede">
-          A few of the interiors that Pentagon has quietly built into being — from single-home kitchens to full commercial fit-outs, across residential, hospitality and workplace projects in India.
+          A few of the interiors that Pentagon has quietly built into being; from single-home kitchens to full commercial fit-outs, across residential, hospitality and workplace projects in India.
         </p>
       </div>
       <div className="projects-grid">
@@ -472,7 +504,7 @@ const Dealer = () => (
           <div className="eyebrow" style={{marginBottom: 24}}><span className="dot"/>Section 11 · Business Partnership</div>
           <h2 className="h-section">Partner with a<br/><em className="italic-em">legacy brand.</em></h2>
           <p className="lede" style={{marginTop: 32}}>
-            Join a growing network of dealers, distributors and project buyers who source directly from the factory. Whether you run a showroom, specify boards for architects, or need bulk-order pricing — we have a partnership model built for you.
+            Join a growing network of dealers, distributors and project buyers who source directly from the factory. Whether you run a showroom, specify boards for architects, or need bulk-order pricing; we have a partnership model built for you.
           </p>
           <div className="dealer-actions">
             <a href="#enquiry" className="btn btn-accent">Become a dealer <Icon.Arr/></a>
@@ -498,7 +530,7 @@ const Dealer = () => (
 /* ============ TESTIMONIALS ============ */
 const testimonials = [
   { q: "Pentagon Plywood provides top-notch products at reasonable prices. Highly recommended for any serious project.", a: "Vikram Singh", r: "Interior Contractor · Delhi" },
-  { q: "Remarkable product — innovative, user-friendly and reliable. The finish quality is consistent batch after batch.", a: "Shiv Kumar Yadav", r: "Furniture Manufacturer · Yamunanagar" },
+  { q: "Remarkable product innovative, user-friendly and reliable. The finish quality is consistent batch after batch.", a: "Shiv Kumar Yadav", r: "Furniture Manufacturer · Yamunanagar" },
   { q: "The packaging was eco-friendly, reflecting a real commitment to sustainability. Small detail, but it matters.", a: "Saurabh Mehta", r: "Architect · Chandigarh" },
 ];
 const Testimonials = () => (
@@ -528,8 +560,8 @@ const Testimonials = () => (
 
 /* ============ RESOURCES ============ */
 const resources = [
-  { tag: "Buying Guide", title: "Marine vs. MR Grade plywood — which one, and when?", desc: "The single most-asked question we get from architects and homeowners, answered with a specification-first approach.", meta: "8 min read · Feb 2026" },
-  { tag: "Technical", title: "How to identify genuine borer-proof plywood.", desc: "Six checks you can run on any board in a shop — no lab required. Includes a printable one-page checklist.", meta: "5 min read · Jan 2026" },
+  { tag: "Buying Guide", title: "Marine vs. MR Grade plywood which one, and when?", desc: "The single most-asked question we get from architects and homeowners, answered with a specification-first approach.", meta: "8 min read · Feb 2026" },
+  { tag: "Technical", title: "How to identify genuine borer-proof plywood.", desc: "Six checks you can run on any board in a shop;   no lab required. Includes a printable one-page checklist.", meta: "5 min read · Jan 2026" },
   { tag: "Catalogue", title: "Pentagon complete product catalogue, 2026.", desc: "All 8 brands, grades, thicknesses and finishes in a single PDF. Free download, updated quarterly.", meta: "PDF · 12 MB" },
 ];
 const Resources = () => (
@@ -541,7 +573,7 @@ const Resources = () => (
           <h2 className="h-section">Industry insights<br/>& <em className="italic-em">buying guides.</em></h2>
         </div>
         <p className="lede">
-          A growing archive of specification notes, buying guides and technical downloads — written by the people who make the boards, for the people who specify them.
+          A growing archive of specification notes, buying guides and technical downloads written by the people who make the boards, for the people who specify them.
         </p>
       </div>
       <div className="resources-grid">
@@ -561,7 +593,7 @@ const Resources = () => (
 
 /* ============ ENQUIRY ============ */
 const Enquiry = () => (
-  <section id="enquiry" className="section" style={{background: 'var(--bg-deep)'}}>
+  <section id="enquiry" className="section enquiry-section">
     <div className="container">
       <div className="enquiry-grid">
         <div className="enquiry-left">
@@ -570,56 +602,65 @@ const Enquiry = () => (
           <p className="lede" style={{marginTop: 24}}>
             Reach out for bulk enquiries, custom quotes, dealership discussions or technical assistance. Every enquiry is answered by our sales team within one business day.
           </p>
+          <div className="contact-response"><span/>Sales desk online · Mon–Sat, 9am–7pm IST</div>
           <div className="contact-block">
             <div className="contact-item">
-              <span className="lbl">Location</span>
-              <span className="val">Khajuri, Yamunanagar<small>Haryana · India</small></span>
+              <span className="contact-icon"><Icon.Pin/></span>
+              <span className="contact-copy"><span className="lbl">Location</span><span className="val">Khajuri, Yamunanagar<small>Haryana · India</small></span></span>
             </div>
             <div className="contact-item">
-              <span className="lbl">Phone</span>
-              <span className="val">+91 7206 104 340<small>Also: +91 1732 239 416</small></span>
+              <span className="contact-icon"><Icon.Phone/></span>
+              <span className="contact-copy"><span className="lbl">Phone</span><a className="val" href="tel:+917206104340">+91 7206 104 340<small>Also: +91 1732 239 416</small></a></span>
             </div>
             <div className="contact-item">
-              <span className="lbl">Email</span>
-              <span className="val">pentagonplywood<br/>@gmail.com</span>
+              <span className="contact-icon"><Icon.Mail/></span>
+              <span className="contact-copy"><span className="lbl">Email</span><a className="val" href="mailto:pentagonplywood@gmail.com">pentagonplywood@gmail.com</a></span>
             </div>
             <div className="contact-item">
-              <span className="lbl">Whatsapp</span>
-              <span className="val">Chat with sales<small>Instant reply, weekdays 9am – 7pm IST</small></span>
+              <span className="contact-icon contact-icon-whatsapp"><Icon.Whatsapp/></span>
+              <span className="contact-copy"><span className="lbl">WhatsApp</span><a className="val" href="https://wa.me/917206104340">Chat with sales<small>Fast replies during business hours</small></a></span>
             </div>
           </div>
         </div>
         <div>
           <form className="enquiry-form" onSubmit={(e) => e.preventDefault()}>
-            <div className="form-row">
-              <div className="field"><label>Name</label><input placeholder="Your full name"/></div>
-              <div className="field"><label>Phone number</label><input placeholder="+91 · · · · ·"/></div>
+            <div className="enquiry-form-head">
+              <div>
+                <span>Project enquiry</span>
+                <h3>Request a tailored quote.</h3>
+                <p>Share a few details and our team will recommend the right grade, quantity and next step.</p>
+              </div>
+              <span className="enquiry-form-step">01</span>
             </div>
             <div className="form-row">
-              <div className="field"><label>Email</label><input placeholder="you@company.com"/></div>
-              <div className="field"><label>City & state</label><input placeholder="e.g. Chandigarh, Punjab"/></div>
+              <div className="field"><label htmlFor="enquiry-name">Name</label><input id="enquiry-name" name="name" autoComplete="name" placeholder="Your full name" required/></div>
+              <div className="field"><label htmlFor="enquiry-phone">Phone number</label><input id="enquiry-phone" name="phone" type="tel" autoComplete="tel" placeholder="+91 · · · · ·" required/></div>
+            </div>
+            <div className="form-row">
+              <div className="field"><label htmlFor="enquiry-email">Email</label><input id="enquiry-email" name="email" type="email" autoComplete="email" placeholder="you@company.com"/></div>
+              <div className="field"><label htmlFor="enquiry-city">City & state</label><input id="enquiry-city" name="city" autoComplete="address-level2" placeholder="e.g. Chandigarh, Punjab"/></div>
             </div>
             <div className="form-row">
               <div className="field">
-                <label>I am a</label>
-                <select><option>Homeowner / Retail buyer</option><option>Architect / Interior designer</option><option>Contractor</option><option>Dealer / Distributor</option><option>Project / Bulk buyer</option><option>OEM enquiry</option></select>
+                <label htmlFor="enquiry-profile">I am a</label>
+                <select id="enquiry-profile" name="profile"><option>Homeowner / Retail buyer</option><option>Architect / Interior designer</option><option>Contractor</option><option>Dealer / Distributor</option><option>Project / Bulk buyer</option><option>OEM enquiry</option></select>
               </div>
               <div className="field">
-                <label>Enquiry type</label>
-                <select><option>Product enquiry</option><option>Request a quote</option><option>Bulk order</option><option>Dealership enquiry</option><option>Project requirement</option><option>Other</option></select>
+                <label htmlFor="enquiry-type">Enquiry type</label>
+                <select id="enquiry-type" name="enquiryType"><option>Product enquiry</option><option>Request a quote</option><option>Bulk order</option><option>Dealership enquiry</option><option>Project requirement</option><option>Other</option></select>
               </div>
             </div>
             <div className="field">
-              <label>Product of interest</label>
-              <select><option>Marine Plywood (Escotel · BWP)</option><option>MR Grade Plywood (Pentagon Gold · Kalinga Gold)</option><option>IS 303 Blockboards (Supremoo Plus)</option><option>Flush / Membrane / Laminated Doors</option><option>Multiple / Not sure — please advise</option></select>
+              <label htmlFor="enquiry-product">Product of interest</label>
+              <select id="enquiry-product" name="product"><option>Marine Plywood (Escotel · BWP)</option><option>MR Grade Plywood (Pentagon Gold · Kalinga Gold)</option><option>IS 303 Blockboards (Supremoo Plus)</option><option>Flush / Membrane / Laminated Doors</option><option>Multiple / Not sure please advise</option></select>
             </div>
             <div className="field">
-              <label>Requirement details</label>
-              <textarea placeholder="Tell us thickness, sheet count, timeline, and where the boards will be used…"/>
+              <label htmlFor="enquiry-details">Requirement details</label>
+              <textarea id="enquiry-details" name="details" placeholder="Tell us thickness, sheet count, timeline, and where the boards will be used…"/>
             </div>
-            <div style={{display: 'flex', gap: 16, marginTop: 12, flexWrap: 'wrap'}}>
+            <div className="enquiry-submit-row">
               <button type="submit" className="btn btn-primary">Send enquiry <Icon.Arr/></button>
-              <a href="#" className="btn btn-ghost">Or WhatsApp us directly →</a>
+              <span className="enquiry-privacy">Your details stay private.<br/>No promotional spam.</span>
             </div>
           </form>
         </div>
@@ -641,7 +682,7 @@ const Footer = () => (
               <small>Plywood · Est. 1997</small>
             </div>
           </a>
-          <div className="footer-tagline">Crafting excellence, building trust — since 1997.</div>
+          <div className="footer-tagline">Crafting excellence, building trust since 1997.</div>
         </div>
         <div>
           <h5>Company</h5>
