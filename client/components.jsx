@@ -83,7 +83,7 @@ const Hero = () => (
       <div className="hero-grid">
         <div className="hero-left">
           <div className="hero-eyebrow">
-            <span className="rule"/>
+            {/* <span className="rule"/> */}
             <span className="eyebrow">Pentagon Plywood · Yamunanagar · Since 1997</span>
           </div>
           <h1 className="h-display hero-title">
