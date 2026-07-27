@@ -870,7 +870,7 @@ const PlyWhatsapp = () => (
 /* ============ PAGE ROOT ============ */
 function PlywoodPage() {
   React.useEffect(() => {
-    document.documentElement.setAttribute('data-palette', 'cream');
+    document.documentElement.setAttribute('data-palette', 'crafted-heritage');
     document.title = 'Plywood Products | Pentagon Plywood';
   }, []);
   return (

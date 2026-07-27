@@ -12,7 +12,7 @@ import {
 } from './TweaksPanel.jsx';
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/ {
-  palette: "cream",
+  palette: "crafted-heritage",
   headingFont: "oswald",
   headingSize: 64,
   headingWeight: 500,
@@ -132,9 +132,42 @@ const TEXT_FONT_OPTIONS = [
 ];
 
 const PALETTES = [
-  { id: 'cream', name: 'Pentagon Red', swatch: ['#FFFFFF', '#1D1D1D', '#E31E24'] },
-  { id: 'charcoal', name: 'Ivory & Ember', swatch: ['#F2EFEA', '#1A1918', '#C48A2E'] },
-  { id: 'sage', name: 'Ivory & Sage', swatch: ['#F4F1EA', '#4C6B4E', '#1F2A20'] },
+  {
+    id: 'crafted-heritage',
+    name: 'Crafted Heritage',
+    description: 'Cream, walnut and restrained gold',
+    swatch: ['#F4EFE7', '#292825', '#8C684F', '#C7AA80'],
+  },
+  {
+    id: 'warm-oak',
+    name: 'Warm Oak',
+    description: 'Warm, premium, naturally wooden',
+    swatch: ['#F5EFE5', '#29231E', '#A45F32'],
+  },
+  {
+    id: 'walnut-workshop',
+    name: 'Walnut Workshop',
+    description: 'Darker, mature, craftsmanship-focused',
+    swatch: ['#EEE7DC', '#211B17', '#71452E'],
+  },
+  {
+    id: 'forest-timber',
+    name: 'Forest & Timber',
+    description: 'Sustainable and natural',
+    swatch: ['#F1EFE7', '#223027', '#596B4D'],
+  },
+  {
+    id: 'teak-charcoal',
+    name: 'Teak & Charcoal',
+    description: 'Modern industrial wood brand',
+    swatch: ['#F3EADF', '#201E1B', '#B66A32'],
+  },
+  {
+    id: 'luxury-mahogany',
+    name: 'Luxury Mahogany',
+    description: 'Premium with a subtle Pentagon red',
+    swatch: ['#F4ECE7', '#291B1A', '#8B3F32'],
+  },
 ];
 
 function SiteCustomizer() {
@@ -144,7 +177,7 @@ function SiteCustomizer() {
 
   React.useEffect(() => {
     const root = document.documentElement;
-    root.setAttribute('data-palette', tweaks.palette || 'cream');
+    root.setAttribute('data-palette', tweaks.palette || 'crafted-heritage');
     root.setAttribute('data-hero-panel-side', tweaks.heroPanelSide || 'right');
     root.setAttribute('data-card-shadows', tweaks.cardShadows ? 'on' : 'off');
     root.setAttribute('data-section-labels', tweaks.sectionLabels ? 'on' : 'off');
@@ -253,7 +286,12 @@ function SiteCustomizer() {
                   <span key={color} style={{ width: 18, height: 18, borderRadius: 3, background: color }} />
                 ))}
               </span>
-              <span>{palette.name}</span>
+              <span style={{ display: 'grid', gap: 1, textAlign: 'left' }}>
+                <strong style={{ fontSize: 12, fontWeight: 650 }}>{palette.name}</strong>
+                <small style={{ color: 'rgba(0,0,0,.55)', fontSize: 9, lineHeight: 1.25 }}>
+                  {palette.description}
+                </small>
+              </span>
             </button>
           ))}
         </div>

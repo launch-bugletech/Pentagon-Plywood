@@ -1,7 +1,7 @@
 /* Pentagon Plywood — Warm & Crafted Editorial
    Design system:
    - Type: DM Serif Display (display) + Manrope (body) + JetBrains Mono (eyebrows/labels)
-   - 3 palette themes toggleable via data-palette on <html>
+   - 6 wood-led palette themes toggleable via data-palette on <html>
 */
   
 /* ============ TOKENS ============ */
@@ -30,55 +30,115 @@
   --site-nav-font-size: 15px;
 }
 
-:root, [data-palette="cream"] {
-  --bg:            #FFFFFF;
-  --bg-alt:        #F6F6F6;
-  --bg-deep:       #ECECEC;
-  --ink:           #1D1D1D;
-  --ink-soft:      #444444;
-  --ink-muted:     #777777;
-  --line:          #D8D8D8;
-  --line-soft:     #E8E8E8;
-  --accent:        #E31E24;
-  --accent-deep:   #C9151B;
-  --accent-soft:   #FFDDE0;
-  --secondary:     #8A9B90;
-  --dark-panel:    #191919;
-  --dark-panel-ink:#FFFFFF;
+:root, [data-palette="crafted-heritage"] {
+  --cream:         #F4EFE7;
+  --cream-deep:    #E2D5C4;
+  --charcoal:      #292825;
+  --forest:        #302E2A;
+  --forest-light:  #46423C;
+  --walnut:        #8C684F;
+  --gold:          #C7AA80;
+  --white:         #FFFFFF;
+
+  --bg:            var(--cream);
+  --bg-alt:        #FAF7F2;
+  --bg-deep:       var(--cream-deep);
+  --ink:           var(--charcoal);
+  --ink-soft:      var(--forest-light);
+  --ink-muted:     #706A62;
+  --line:          #CDBDA8;
+  --line-soft:     #E1D6C8;
+  --accent:        var(--walnut);
+  --accent-deep:   #6E4E3A;
+  --accent-soft:   #DCC8B9;
+  --secondary:     var(--gold);
+  --dark-panel:    var(--forest);
+  --dark-panel-ink:var(--white);
 }
 
-[data-palette="charcoal"] {
-  --bg:            #F2EFEA;
-  --bg-alt:        #FAF8F4;
-  --bg-deep:       #E2DED6;
-  --ink:           #1A1918;
-  --ink-soft:      #35322E;
-  --ink-muted:     #6E6A63;
-  --line:          #CFC9BF;
-  --line-soft:     #E4E0D7;
-  --accent:        #C48A2E;
-  --accent-deep:   #8F5F16;
-  --accent-soft:   #E8C58A;
-  --secondary:     #6D6357;
-  --dark-panel:    #17161A;
-  --dark-panel-ink:#F2EFEA;
+[data-palette="warm-oak"] {
+  --bg:            #F5EFE5;
+  --bg-alt:        #FBF8F2;
+  --bg-deep:       #E9DDCE;
+  --ink:           #29231E;
+  --ink-soft:      #51463E;
+  --ink-muted:     #796D63;
+  --line:          #D6C6B5;
+  --line-soft:     #E6DACD;
+  --accent:        #A45F32;
+  --accent-deep:   #7E4425;
+  --accent-soft:   #E8C7AD;
+  --secondary:     #7B6654;
+  --dark-panel:    #201B17;
+  --dark-panel-ink:#F5EFE5;
 }
 
-[data-palette="sage"] {
-  --bg:            #F4F1EA;
-  --bg-alt:        #FBF9F4;
-  --bg-deep:       #E5E1D5;
-  --ink:           #1F2A20;
-  --ink-soft:      #3A4A3B;
-  --ink-muted:     #6D7A6C;
-  --line:          #CBD1BF;
-  --line-soft:     #DEE2D0;
-  --accent:        #4C6B4E;      /* forest sage */
-  --accent-deep:   #2E4930;
-  --accent-soft:   #A9BAA1;
-  --secondary:     #B8823A;
-  --dark-panel:    #1A2019;
-  --dark-panel-ink:#F4F1EA;
+[data-palette="walnut-workshop"] {
+  --bg:            #EEE7DC;
+  --bg-alt:        #F8F4ED;
+  --bg-deep:       #DED2C2;
+  --ink:           #211B17;
+  --ink-soft:      #44372F;
+  --ink-muted:     #706158;
+  --line:          #C9BAAA;
+  --line-soft:     #DED2C5;
+  --accent:        #71452E;
+  --accent-deep:   #4D2D1E;
+  --accent-soft:   #D2AD94;
+  --secondary:     #8C725E;
+  --dark-panel:    #191411;
+  --dark-panel-ink:#EEE7DC;
+}
+
+[data-palette="forest-timber"] {
+  --bg:            #F1EFE7;
+  --bg-alt:        #F8F7F2;
+  --bg-deep:       #E0DED2;
+  --ink:           #223027;
+  --ink-soft:      #405044;
+  --ink-muted:     #687368;
+  --line:          #C7CCBF;
+  --line-soft:     #DCE0D5;
+  --accent:        #596B4D;
+  --accent-deep:   #3B4D33;
+  --accent-soft:   #BBC7AE;
+  --secondary:     #98714C;
+  --dark-panel:    #19231C;
+  --dark-panel-ink:#F1EFE7;
+}
+
+[data-palette="teak-charcoal"] {
+  --bg:            #F3EADF;
+  --bg-alt:        #FAF6F0;
+  --bg-deep:       #E4D4C2;
+  --ink:           #201E1B;
+  --ink-soft:      #48423C;
+  --ink-muted:     #736B63;
+  --line:          #CFC0B0;
+  --line-soft:     #E2D7CB;
+  --accent:        #B66A32;
+  --accent-deep:   #884A22;
+  --accent-soft:   #EDC39F;
+  --secondary:     #6A625A;
+  --dark-panel:    #191817;
+  --dark-panel-ink:#F3EADF;
+}
+
+[data-palette="luxury-mahogany"] {
+  --bg:            #F4ECE7;
+  --bg-alt:        #FBF7F4;
+  --bg-deep:       #E6D6CF;
+  --ink:           #291B1A;
+  --ink-soft:      #513835;
+  --ink-muted:     #7C625E;
+  --line:          #D2BBB4;
+  --line-soft:     #E4D4CF;
+  --accent:        #8B3F32;
+  --accent-deep:   #642A23;
+  --accent-soft:   #D9AAA1;
+  --secondary:     #806259;
+  --dark-panel:    #211515;
+  --dark-panel-ink:#F4ECE7;
 }
 
 /* ============ RESET / BASE ============ */

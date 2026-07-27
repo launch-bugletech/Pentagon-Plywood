@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
-    allowedHosts: [".trycloudflare.com", "akunthaform.mehulsinhchauhan.me"],
+    allowedHosts: [".trycloudflare.com", ".mehulsinhchauhan.me"],
   },
   resolve: {
     alias: {
