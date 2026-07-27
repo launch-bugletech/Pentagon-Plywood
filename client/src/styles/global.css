@@ -2220,7 +2220,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   letter-spacing: var(--site-card-title-spacing);
 }
 
-#main-content p,
+:where(#main-content) p,
 .lede {
   font-family: var(--site-paragraph-font);
   font-size: var(--site-paragraph-size);
@@ -2350,15 +2350,17 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   }
 
   .hero-grid {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto clamp(300px, 48vw, 390px);
-    min-height: 0;
+    grid-template-rows: minmax(700px, auto);
+    min-height: 700px;
+    overflow: hidden;
   }
 
   .hero-grid > div,
   .hero-grid > div:nth-child(2) {
-    grid-area: auto;
+    grid-area: 1 / 1;
   }
 
   .hero-left,
@@ -2372,47 +2374,20 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
     background: transparent;
     box-shadow: none;
     backdrop-filter: none;
+    position: relative;
+    z-index: 2;
   }
 
   .mobile-hero-anniversary {
-    width: max-content;
+    width: clamp(210px, 32vw, 270px);
     margin-bottom: 24px;
-    display: grid;
-    grid-template-columns: auto auto;
-    align-items: center;
-    column-gap: 8px;
-    color: var(--accent);
-    text-transform: uppercase;
+    display: block;
   }
 
-  .mobile-hero-anniversary::before,
-  .mobile-hero-anniversary::after {
-    content: "";
-    grid-row: 1 / span 2;
-    width: 18px;
-    height: 30px;
-    border-top: 1px solid currentColor;
-    border-bottom: 1px solid currentColor;
-    border-radius: 50%;
-    opacity: .75;
-  }
-
-  .mobile-hero-anniversary::before {
-    grid-column: 1;
-  }
-
-  .mobile-hero-anniversary span,
-  .mobile-hero-anniversary strong {
-    grid-column: 2;
-  }
-
-  .mobile-hero-anniversary span {
-    font: 700 10px/1.2 var(--site-small-label-font);
-    letter-spacing: .14em;
-  }
-
-  .mobile-hero-anniversary strong {
-    font: 700 24px/1 var(--site-heading-font);
+  .mobile-hero-anniversary img {
+    display: block;
+    width: 75%;
+    height: auto;
   }
 
   .hero-eyebrow,
@@ -2436,7 +2411,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
   .hero-caption-row p {
     max-width: 42ch;
-    font-size: 15px;
+    font-size: 18px;
     line-height: 1.6;
   }
 
@@ -2445,11 +2420,18 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   }
 
   .hero-grid > div:nth-child(2) {
-    position: relative;
+    position: absolute;
+    inset: 0;
     min-width: 0;
+    z-index: 1;
+    pointer-events: none;
   }
 
   .hero-image-wrap {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
     min-height: 0;
     height: 100%;
     background: #f6efe5;
@@ -2463,7 +2445,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 
   .hero-image-wrap img {
     object-fit: cover;
-    object-position: center 58%;
+    object-position: center bottom;
   }
 
   .trust-strip {
@@ -2549,7 +2531,8 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   }
 
   .hero-grid {
-    grid-template-rows: auto 330px;
+    grid-template-rows: minmax(660px, auto);
+    min-height: 660px;
   }
 
   .hero-left,
@@ -2558,28 +2541,48 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
     padding: 34px 20px 22px;
   }
 
+  .hero-image-wrap {
+    width: 170%;
+    height: 90%;
+  }
+
+  .hero-image-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      #f6efe5 0%,
+      rgba(246, 239, 229, .82) 12%,
+      rgba(246, 239, 229, 0) 38%
+    );
+    pointer-events: none;
+  }
+
   .mobile-hero-anniversary {
-    margin: 0 auto 24px;
+    width: min(240px, 72vw);
+    margin: 0 0 24px;
   }
 
   .hero .h-display {
     max-width: 10ch;
-    font-size: clamp(40px, 12vw, 52px);
+    font-size: clamp(40px, 10vw, 52px);
   }
 
   .hero-actions {
-    width: min(230px, 100%);
+    width: 100%;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+    gap: 10px;
   }
 
   .hero-actions .btn {
     width: 100%;
     min-height: 44px;
-    padding: 11px 16px;
+    padding: 11px 10px;
     border-radius: 12px;
     justify-content: center;
+    white-space: nowrap;
   }
 
   .hero-actions .btn-ghost {
@@ -2605,6 +2608,6 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   }
 
   .trust-lbl strong {
-    font-size: 8px;
+    font-size: 12px;
   }
 }

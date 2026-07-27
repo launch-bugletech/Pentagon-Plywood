@@ -2,7 +2,8 @@
 
 import React from 'react';
 import heroImage from '../../assets/hero.png';
-import mobileHeroImage from '../../assets/product/marine plywood/marine-plywood-layered-board.png';
+import mobileHeroImage from "../../assets/Wooden layered boards.png";
+import anniversaryImage from '../../assets/Celebrating_25+_years_with_laurels.png';
 
 //  Application images
 import modularImage from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";
@@ -54,8 +55,7 @@ const Hero = () => (
       <div className="hero-grid">
         <div className="hero-left">
           <div className="mobile-hero-anniversary" aria-hidden="true">
-            <span>Celebrating</span>
-            <strong>25+ Years</strong>
+            <img src={anniversaryImage} alt="" />
           </div>
           <div className="hero-eyebrow">
             {/* <span className="rule"/> */}
@@ -71,8 +71,8 @@ const Hero = () => (
               Premium manufacturing of unmatched plywood, blockboards and doors engineered for India's finest interiors, three decades in the making.
             </p>
             <div className="hero-actions">
-              <a href="#products" className="btn btn-primary">Explore our products <Icon.Arr/></a>
-              <a href="#enquiry" className="btn btn-ghost">Request a quote →</a>
+              <a href="/products" className="btn btn-primary">Explore our products <Icon.Arr/></a>
+              <a href="/enquiry" className="btn btn-ghost">Request a quote →</a>
             </div>
           </div>
         </div>
@@ -84,7 +84,6 @@ const Hero = () => (
             </picture>
             <div className="hero-image-tag">
               <span className="badge">Escotel Marine · Kitchen</span>
-              <span>Fig. 01</span>
             </div>
           </div>
         </div>
