@@ -1,9 +1,9 @@
 /* Pentagon Plywood : Homepage Components */
 
 import React from 'react';
-import heroImage from '../../assets/hero.png';
-import mobileHeroImage from "../../assets/Wooden layered boards.png";
-import anniversaryImage from '../../assets/Celebrating_25+_years_with_laurels.png';
+import heroImage from '../../assets/hero-home-desktop.png';
+import mobileHeroImage from '../../assets/hero-home-mobile.png';
+import anniversaryImage from '../../assets/hero-anniversary-laurels.png';
 
 //  Application images
 import modularImage from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";

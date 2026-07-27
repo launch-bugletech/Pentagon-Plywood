@@ -31,3 +31,7 @@ assets/hero.png -filter -diff -merge -text
 
 # Homepage assets must be present as real files in Vercel's Git build checkout.
 assets/homepage/** -filter -diff -merge -text
+
+# Vite imports assets from src/assets. Vercel's Git build must receive the
+# real binaries instead of 100-byte Git LFS pointer files.
+src/assets/** -filter -diff -merge -text
