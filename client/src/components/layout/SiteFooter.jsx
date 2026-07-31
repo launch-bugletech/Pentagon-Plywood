@@ -10,10 +10,10 @@ const footerGroups = [
   {
     title: 'Company',
     links: [
-      ['About Pentagon', comingSoonUrl('About Pentagon')],
+      ['About Pentagon', ROUTES.about],
       ['Manufacturing', HOME_SECTIONS.manufacturing],
       ['Quality & Certifications', HOME_SECTIONS.quality],
-      ['Contact us', HOME_SECTIONS.enquiry],
+      ['Contact us', ROUTES.contact],
       ['Careers', comingSoonUrl('Careers')],
     ],
   },
@@ -21,7 +21,7 @@ const footerGroups = [
     title: 'Products',
     links: [
       ['Marine Plywood', PLYWOOD_SECTIONS.marine],
-      ['MR Grade Plywood', PLYWOOD_SECTIONS.mrGrade],
+      ['MR Grade Plywood', ROUTES.mrGradePlywood],
       ['Compare plywood grades', PLYWOOD_SECTIONS.range],
       ['IS 303 Blockboards', HOME_SECTIONS.products],
       ['Flush Doors', HOME_SECTIONS.products],
@@ -40,10 +40,11 @@ const footerGroups = [
   {
     title: 'Business',
     links: [
-      ['Become a dealer', HOME_SECTIONS.dealers],
-      ['Bulk orders', HOME_SECTIONS.enquiry],
-      ['Architect support', HOME_SECTIONS.enquiry],
-      ['Request a quote', HOME_SECTIONS.enquiry],
+      ['Find a dealer', `${ROUTES.dealers}#dealer-locator`],
+      ['Become a dealer', `${ROUTES.dealers}#partner-application`],
+      ['Bulk orders', `${ROUTES.contact}#contact-form`],
+      ['Architect support', `${ROUTES.contact}#contact-form`],
+      ['Request a quote', `${ROUTES.contact}#contact-form`],
     ],
   },
 ];

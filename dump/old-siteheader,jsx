@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { comingSoonUrl, CONTACT_SECTIONS, HOME_SECTIONS, PLYWOOD_SECTIONS, ROUTES } from '../../app/routes.js';
 
 const ArrowIcon = () => (
@@ -16,10 +16,9 @@ const PentagonIcon = () => (
 const productGroups = [
   {
     title: 'Plywood',
-    icon: 'plywood',
     href: ROUTES.plywood,
     links: [
-      ['MR Grade Plywood', ROUTES.mrGradePlywood],
+      ['MR Grade Plywood', PLYWOOD_SECTIONS.mrGrade],
       ['BWR / BWP Plywood', comingSoonUrl('BWR and BWP Plywood')],
       ['Marine Plywood', PLYWOOD_SECTIONS.marine],
       ['Commercial Plywood', comingSoonUrl('Commercial Plywood')],
@@ -27,7 +26,6 @@ const productGroups = [
   },
   {
     title: 'Blockboards',
-    icon: 'blockboard',
     href: comingSoonUrl('Blockboards'),
     links: [
       ['Blockboards Overview', comingSoonUrl('Blockboards')],
@@ -36,7 +34,6 @@ const productGroups = [
   },
   {
     title: 'MDF Boards',
-    icon: 'mdf',
     href: comingSoonUrl('MDF Boards'),
     links: [
       ['MDF Boards Overview', comingSoonUrl('MDF Boards')],
@@ -46,7 +43,6 @@ const productGroups = [
   },
   {
     title: 'WPC Boards',
-    icon: 'wpc',
     href: comingSoonUrl('WPC and Composite Boards'),
     links: [
       ['WPC & Composite Overview', comingSoonUrl('WPC and Composite Boards')],
@@ -55,7 +51,6 @@ const productGroups = [
   },
   {
     title: 'Decorative Surfaces',
-    icon: 'surface',
     href: comingSoonUrl('Decorative Surfaces'),
     links: [
       ['Decorative Surfaces Overview', comingSoonUrl('Decorative Surfaces')],
@@ -90,50 +85,6 @@ const ChevronIcon = () => (
   </svg>
 );
 
-const ProductCategoryIcon = ({ type }) => {
-  const paths = {
-    plywood: (
-      <>
-        <path d="m3 8 9-4 9 4-9 4-9-4Z" />
-        <path d="m3 11 9 4 9-4M3 14l9 4 9-4" />
-      </>
-    ),
-    blockboard: (
-      <>
-        <path d="m3 7 9-4 9 4-9 4-9-4Z" />
-        <path d="M3 7v9l9 5 9-5V7M7 9v9M11 11v9M15 10v9M19 8v9" />
-      </>
-    ),
-    mdf: (
-      <>
-        <path d="M5 4h14v16H5z" />
-        <path d="M8 4v16M16 4v16" />
-      </>
-    ),
-    wpc: (
-      <>
-        <path d="m3 9 9-5 9 5-9 5-9-5Z" />
-        <path d="m5 13 7 4 7-4M7 17l5 3 5-3" />
-      </>
-    ),
-    surface: (
-      <>
-        <path d="m3 7 9-4 9 4-9 4-9-4Z" />
-        <path d="m3 11 9 4 9-4M3 15l9 4 9-4" />
-        <path d="M6 6.5 12 9l6-2.5" />
-      </>
-    ),
-  };
-
-  return (
-    <span className="nav-product-icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round">
-        {paths[type]}
-      </svg>
-    </span>
-  );
-};
-
 const NavItemIcon = ({ type }) => {
   const paths = {
     furniture: <><path d="M4 13V9a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" /><path d="M3 13h18v5H3zM6 18v3M18 18v3" /></>,
@@ -161,82 +112,18 @@ const NavItemIcon = ({ type }) => {
 function SiteHeader({ activePage = 'home' }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
-  const [pinnedMenu, setPinnedMenu] = useState(null);
-  const headerRef = useRef(null);
-  const closeTimerRef = useRef(null);
   const enquiryHref = CONTACT_SECTIONS.form;
-
-  const clearCloseTimer = () => {
-    if (closeTimerRef.current) {
-      window.clearTimeout(closeTimerRef.current);
-      closeTimerRef.current = null;
-    }
-  };
-
   const closeMenu = () => {
-    clearCloseTimer();
     setMenuOpen(false);
     setOpenMenu(null);
-    setPinnedMenu(null);
   };
 
   const toggleDropdown = (menu) => {
-    clearCloseTimer();
-    if (pinnedMenu === menu) {
-      setPinnedMenu(null);
-      setOpenMenu(null);
-      return;
-    }
-
-    setPinnedMenu(menu);
-    setOpenMenu(menu);
+    setOpenMenu((current) => current === menu ? null : menu);
   };
-
-  const openDropdown = (menu) => {
-    clearCloseTimer();
-    if (pinnedMenu && pinnedMenu !== menu) {
-      setPinnedMenu(null);
-    }
-    setOpenMenu(menu);
-  };
-
-  const scheduleDropdownClose = (menu) => {
-    clearCloseTimer();
-    if (pinnedMenu === menu) return;
-
-    closeTimerRef.current = window.setTimeout(() => {
-      setOpenMenu((current) => current === menu ? null : current);
-      closeTimerRef.current = null;
-    }, 420);
-  };
-
-  useEffect(() => {
-    const handleDocumentClick = (event) => {
-      if (!headerRef.current?.contains(event.target)) {
-        clearCloseTimer();
-        setOpenMenu(null);
-        setPinnedMenu(null);
-      }
-    };
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') {
-        clearCloseTimer();
-        setOpenMenu(null);
-        setPinnedMenu(null);
-      }
-    };
-
-    document.addEventListener('click', handleDocumentClick);
-    document.addEventListener('keydown', handleEscape);
-    return () => {
-      clearCloseTimer();
-      document.removeEventListener('click', handleDocumentClick);
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, []);
 
   return (
-    <header ref={headerRef} className={`header${menuOpen ? ' mobile-menu-open' : ''}`}>
+    <header className={`header${menuOpen ? ' mobile-menu-open' : ''}`}>
       <div className="topbar">
         <div className="container topbar-inner">
           <span>CELEBRATING 25+ YEARS OF TRUST, QUALITY & INNOVATION
@@ -267,24 +154,20 @@ function SiteHeader({ activePage = 'home' }) {
           <a href={ROUTES.home} className={activePage === 'home' ? 'nav-active' : undefined} aria-current={activePage === 'home' ? 'page' : undefined} onClick={closeMenu}>Home</a>
           <a href={ROUTES.about} className={activePage === 'about' ? 'nav-active' : undefined} aria-current={activePage === 'about' ? 'page' : undefined} onClick={closeMenu}>About Us</a>
 
-          <div
-            className={`nav-dropdown nav-products${openMenu === 'products' ? ' is-open' : ''}`}
-            onMouseEnter={() => openDropdown('products')}
-            onMouseLeave={() => scheduleDropdownClose('products')}
-          >
+          <div className={`nav-dropdown nav-products${openMenu === 'products' ? ' is-open' : ''}`}>
             <button type="button" className={activePage === 'plywood' ? 'nav-trigger nav-active' : 'nav-trigger'} aria-expanded={openMenu === 'products'} onClick={() => toggleDropdown('products')}>
               Products <ChevronIcon />
             </button>
-            <div className="nav-mega nav-mega-products" data-watermark="MATERIALS">
+            <div className="nav-mega nav-mega-products">
               <div className="nav-mega-intro">
                 <span>Product Library</span>
                 <strong>Materials for every part of the build.</strong>
                 <a href={ROUTES.plywood} onClick={closeMenu}>Explore plywood <ArrowIcon /></a>
               </div>
               <div className="nav-product-groups">
-                {productGroups.map((group) => (
+                {productGroups.map((group, index) => (
                   <div className="nav-menu-group" key={group.title}>
-                    <ProductCategoryIcon type={group.icon} />
+                    <span>0{index + 1}</span>
                     <a className="nav-group-title" href={group.href} onClick={closeMenu}>{group.title}</a>
                     {group.links.map(([label, href]) => <a href={href} key={label} onClick={closeMenu}>{label}</a>)}
                   </div>
@@ -293,15 +176,11 @@ function SiteHeader({ activePage = 'home' }) {
             </div>
           </div>
 
-          <div
-            className={`nav-dropdown${openMenu === 'applications' ? ' is-open' : ''}`}
-            onMouseEnter={() => openDropdown('applications')}
-            onMouseLeave={() => scheduleDropdownClose('applications')}
-          >
+          <div className={`nav-dropdown${openMenu === 'applications' ? ' is-open' : ''}`}>
             <button type="button" className="nav-trigger" aria-expanded={openMenu === 'applications'} onClick={() => toggleDropdown('applications')}>
               Applications <ChevronIcon />
             </button>
-            <div className="nav-mega nav-mega-compact" data-watermark="SPACES">
+            <div className="nav-mega nav-mega-compact">
               <div className="nav-mega-intro">
                 <span>Application Guide</span>
                 <strong>Start with the space you are making.</strong>
@@ -314,15 +193,11 @@ function SiteHeader({ activePage = 'home' }) {
             </div>
           </div>
 
-          <div
-            className={`nav-dropdown${openMenu === 'resources' ? ' is-open' : ''}`}
-            onMouseEnter={() => openDropdown('resources')}
-            onMouseLeave={() => scheduleDropdownClose('resources')}
-          >
+          <div className={`nav-dropdown${openMenu === 'resources' ? ' is-open' : ''}`}>
             <button type="button" className="nav-trigger" aria-expanded={openMenu === 'resources'} onClick={() => toggleDropdown('resources')}>
               Resources <ChevronIcon />
             </button>
-            <div className="nav-mega nav-mega-compact nav-mega-resources" data-watermark="KNOWLEDGE">
+            <div className="nav-mega nav-mega-compact nav-mega-resources">
               <div className="nav-mega-intro">
                 <span>Knowledge Centre</span>
                 <strong>Useful information before you specify.</strong>

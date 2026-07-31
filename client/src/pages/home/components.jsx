@@ -24,6 +24,7 @@ import flushDoorImage from '../../assets/homepage/products/waterproof-flush-door
 import isoCertificateImage from '../../assets/homepage/certificates/iso-9001-2000-logo-png_seeklogo-73813.png';
 import bisCertificateImage from '../../assets/homepage/certificates/bis-bureau-of-indian-standards-logo-png_seeklogo-19843.png';
 import labCertificateImage from '../../assets/homepage/certificates/lab-tested-certified-approval-stamp-260nw-2640833869.png';
+import { CONTACT_SECTIONS, ROUTES } from '../../app/routes.js';
 
 /* ============ ICONS ============ */
 const Icon = {
@@ -475,11 +476,11 @@ const Projects = () => (
 
 /* ============ DEALER ============ */
 const dealerBenefits = [
-  "Competitive dealer pricing across all 8 brand ranges",
-  "Priority stock allocation from our Yamunanagar factory",
-  "Marketing & display support for showroom partners",
-  "Direct technical support for architect & project enquiries",
-  "OEM and private-label options for larger partners",
+  "Partnership review based on your market and capability",
+  "Product discussions grounded in actual local demand",
+  "Supply planning based on quantity, location and freight",
+  "Clear distinction between dealer and distributor routes",
+  "Verified partner visibility considered after approval",
 ];
 const Dealer = () => (
   <section id="dealers" className="dealer">
@@ -489,11 +490,11 @@ const Dealer = () => (
           <div className="eyebrow" style={{marginBottom: 24}}>Business Partnership</div>
           <h2 className="h-section">Partner with a<br/><em className="italic-em">legacy brand.</em></h2>
           <p className="lede" style={{marginTop: 32}}>
-            Join a growing network of dealers, distributors and project buyers who source directly from the factory. Whether you run a showroom, specify boards for architects, or need bulk-order pricing; we have a partnership model built for you.
+            Explore a channel partnership built around your market, infrastructure and product demand. Every dealer or distributor application is reviewed before either side makes a commitment.
           </p>
           <div className="dealer-actions">
-            <a href="#enquiry" className="btn btn-accent">Become a dealer <Icon.Arr/></a>
-            <a href="#enquiry" className="btn btn-outline">Discuss bulk requirement <Icon.Arr/></a>
+            <a href={ROUTES.dealers} className="btn btn-accent">Explore dealer partnership <Icon.Arr/></a>
+            <a href={CONTACT_SECTIONS.form} className="btn btn-outline">Discuss bulk requirement <Icon.Arr/></a>
           </div>
         </div>
         <div>

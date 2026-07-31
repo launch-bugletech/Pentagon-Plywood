@@ -54,7 +54,13 @@ const Breadcrumb = () => (
 );
 
 /* ============ HERO ============ */
-const PlyHero = () => (
+const PlyHero = () => {
+  const [mobileGrade, setMobileGrade] = React.useState('mr');
+  const mobileProduct = mobileGrade === 'mr'
+    ? { image: MRPlywood, alt: 'MR Grade plywood sheets for indoor furniture' }
+    : { image: MarinePlywood, alt: 'Marine plywood sheets for moisture-prone applications' };
+
+  return (
   <section className="ply-hero">
     <div className="wood-grain-bg"/>
     <div className="container">
@@ -70,6 +76,27 @@ const PlyHero = () => (
           <p className="ply-hero-copy">
             Compare MR Grade and Marine Plywood by application, moisture exposure and performance not only by thickness.
           </p>
+          <div className="ply-hero-mobile-switch" aria-label="Plywood grade">
+            <button
+              type="button"
+              className={mobileGrade === 'mr' ? 'is-active' : undefined}
+              aria-pressed={mobileGrade === 'mr'}
+              onClick={() => setMobileGrade('mr')}
+            >
+              MR Grade (IS 303)
+            </button>
+            <button
+              type="button"
+              className={mobileGrade === 'marine' ? 'is-active' : undefined}
+              aria-pressed={mobileGrade === 'marine'}
+              onClick={() => setMobileGrade('marine')}
+            >
+              Marine (IS 710)
+            </button>
+          </div>
+          <div className="ply-hero-mobile-image">
+            <img src={mobileProduct.image} alt={mobileProduct.alt} />
+          </div>
           <div className="ply-hero-actions">
             <a href="#range" className="btn btn-primary">Explore the range <P.Arr/></a>
             <a href="#enquiry" className="btn btn-ghost">Discuss your requirement →</a>
@@ -77,18 +104,22 @@ const PlyHero = () => (
 
           <div className="ply-hero-quick">
             <div className="ply-hero-quick-item">
+              <span className="quick-icon"><P.Drop/></span>
               <span className="lbl">Grades</span>
               <span className="val">MR &amp; Marine</span>
             </div>
             <div className="ply-hero-quick-item">
+              <span className="quick-icon"><P.Layers/></span>
               <span className="lbl">Thicknesses</span>
               <span className="val">From 4 to 18 mm</span>
             </div>
             <div className="ply-hero-quick-item">
+              <span className="quick-icon"><P.Clipboard/></span>
               <span className="lbl">Sheet Sizes</span>
               <span className="val">Standard IS</span>
             </div>
             <div className="ply-hero-quick-item">
+              <span className="quick-icon"><P.Pin/></span>
               <span className="lbl">Manufactured</span>
               <span className="val">Yamunanagar</span>
             </div>
@@ -108,7 +139,8 @@ const PlyHero = () => (
     </div>
     <div className="hero-side-meta">Vol. 02 · Product · Plywood</div>
   </section>
-);
+  );
+};
 
 /* ============ RANGE SELECTION ============ */
 const PlyRange = () => (
@@ -145,7 +177,7 @@ const PlyRange = () => (
                 <li><P.Check/> Interior partitions</li>
               </ul>
             </div>
-            <a href="#mr-grade" className="btn btn-outline">Explore MR Grade Plywood <P.Arr/></a>
+            <a href={ROUTES.mrGradePlywood} className="btn btn-outline">Explore MR Grade Plywood <P.Arr/></a>
           </div>
         </div>
 
@@ -235,7 +267,7 @@ const Compare = () => {
           <div className="compare-row compare-actions">
             <div className="compare-cell compare-label"></div>
             <div className="compare-cell compare-mr">
-              <a href="#mr-grade" className="btn btn-outline">View MR range <P.Arr/></a>
+              <a href={ROUTES.mrGradePlywood} className="btn btn-outline">View MR range <P.Arr/></a>
             </div>
             <div className="compare-cell compare-marine">
               <a href="#marine" className="btn btn-primary">View Marine range <P.Arr/></a>

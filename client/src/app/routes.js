@@ -1,6 +1,10 @@
 export const ROUTES = Object.freeze({
   home: '/',
+  about: '/about',
+  contact: '/contact-us',
+  dealers: '/dealers-distributors',
   plywood: '/plywood',
+  mrGradePlywood: '/products/plywood/mr-grade-plywood',
   comingSoon: '/coming-soon',
 });
 
@@ -20,6 +24,49 @@ export const PLYWOOD_SECTIONS = Object.freeze({
   marine: `${ROUTES.plywood}#marine`,
   faq: `${ROUTES.plywood}#faq`,
   enquiry: `${ROUTES.plywood}#enquiry`,
+});
+
+export const MR_GRADE_SECTIONS = Object.freeze({
+  overview: `${ROUTES.mrGradePlywood}#overview`,
+  applications: `${ROUTES.mrGradePlywood}#applications`,
+  limitations: `${ROUTES.mrGradePlywood}#limitations`,
+  specifications: `${ROUTES.mrGradePlywood}#specifications`,
+  thickness: `${ROUTES.mrGradePlywood}#thickness-guide`,
+  comparison: `${ROUTES.mrGradePlywood}#grade-comparison`,
+  quality: `${ROUTES.mrGradePlywood}#quality`,
+  faq: `${ROUTES.mrGradePlywood}#mr-faq`,
+  enquiry: `${ROUTES.mrGradePlywood}#mr-enquiry`,
+});
+
+export const ABOUT_SECTIONS = Object.freeze({
+  story: `${ROUTES.about}#story`,
+  journey: `${ROUTES.about}#journey`,
+  leadership: `${ROUTES.about}#leadership`,
+  manufacturing: `${ROUTES.about}#about-manufacturing`,
+  quality: `${ROUTES.about}#about-quality`,
+  visit: `${ROUTES.about}#visit`,
+  faq: `${ROUTES.about}#about-faq`,
+  enquiry: `${ROUTES.about}#about-enquiry`,
+});
+
+export const CONTACT_SECTIONS = Object.freeze({
+  form: `${ROUTES.contact}#contact-form`,
+  enquiryTypes: `${ROUTES.contact}#enquiry-types`,
+  direct: `${ROUTES.contact}#direct-contact`,
+  location: `${ROUTES.contact}#location`,
+  process: `${ROUTES.contact}#next-step`,
+  faq: `${ROUTES.contact}#contact-faq`,
+});
+
+export const DEALER_SECTIONS = Object.freeze({
+  routes: `${ROUTES.dealers}#choose-route`,
+  partnership: `${ROUTES.dealers}#partnership`,
+  portfolio: `${ROUTES.dealers}#partner-products`,
+  comparison: `${ROUTES.dealers}#partner-types`,
+  process: `${ROUTES.dealers}#application-process`,
+  locator: `${ROUTES.dealers}#dealer-locator`,
+  application: `${ROUTES.dealers}#partner-application`,
+  faq: `${ROUTES.dealers}#dealer-faq`,
 });
 
 export function comingSoonUrl(feature) {
