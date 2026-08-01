@@ -9,6 +9,7 @@ import "./mr-grade-page.css";
 
 import plywoodImage from "../../assets/product/mr plywood/mr-grade-plywood-1671449588-6629452.webp";
 import bedroomImage from "../../assets/product/mr plywood/Cozy minimalist bedroom with natural light.png";
+import heroRoomBg from "../../assets/product/mr plywood/mr-hero-bg-room.png";
 import edgeImage from "../../assets/product/mr plywood/Wood veneer layers on plywood edge.png";
 import surfaceImage from "../../assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
 import wardrobeImage from "../../assets/product/Applications/Modern wardrobe with sliding doors.png";
@@ -128,10 +129,10 @@ const Icon = {
 };
 
 const quickFacts = [
-  ["Interior use", "Furniture & cabinetry", Icon.Shield],
-  ["Grade", "Moisture resistant", Icon.Drop],
-  ["Thickness", "4 mm to 18 mm", Icon.Ruler],
-  ["Origin", "Made in India", Icon.Factory],
+  ["INTERIOR USE", "Furniture & cabinetry", Icon.Shield],
+  ["GRADE", "Moisture resistant", Icon.Drop],
+  ["THICKNESS", "4 mm to 18 mm", Icon.Ruler],
+  ["MADE IN", "India", Icon.Factory],
 ];
 
 const benefits = [
@@ -435,79 +436,95 @@ function MRGradePage() {
 
   return (
     <div className="mr-page">
-      <nav className="mr-breadcrumb" aria-label="Breadcrumb">
-        <div className="container">
-          <a href={ROUTES.home}>Home</a>
-          <span>›</span>
-          <span>Products</span>
-          <span>›</span>
-          <a href={ROUTES.plywood}>Plywood</a>
-          <span>›</span>
-          <strong>MR Grade Plywood</strong>
-        </div>
-      </nav>
-
       <section className="mr-hero">
-        <div className="container mr-hero-grid">
-          <div className="mr-hero-copy">
-            <div className="mr-kicker">
-              Interior Grade Plywood <span>MR Grade</span>
-            </div>
-            <h1>
-              A practical foundation for <em>everyday interior furniture.</em>
-            </h1>
-            <p>
-              Pentagon MR Grade Plywood is developed for furniture, cabinetry
-              and interior installations in relatively dry indoor spaces.
-            </p>
-            <p>
-              It resists the normal moisture and humidity encountered inside
-              homes, offices and commercial interiors making it a practical
-              choice for everyday furniture requirements.
-            </p>
-            <div className="mr-actions">
-              <a className="btn btn-primary" href={MR_GRADE_SECTIONS.enquiry}>
-                Request a Quote <Icon.Arrow />
-              </a>
-              <a className="btn btn-outline" href={CONTACT_SECTIONS.form}>
-                Discuss Your Application <Icon.Arrow />
-              </a>
-            </div>
-            <div className="mr-hero-note">
-              <Icon.Drop />
-              <span>
-                <strong>MR means Moisture Resistant.</strong> It does not mean
-                completely waterproof.
-              </span>
-            </div>
-          </div>
-          <div className="mr-hero-media">
-            <img
-              className="mr-hero-room"
-              src={bedroomImage}
-              alt="Bedroom furniture suited to MR Grade Plywood"
-            />
-            <div className="mr-hero-product">
-              <img
-                src={plywoodImage}
-                alt="MR Grade plywood sheet with visible layered edge"
-              />
-              <span>MR Grade · Interior use</span>
-            </div>
-          </div>
+        {/* Background Interior Room */}
+        <div className="mr-hero-bg-container">
+          <img
+            src={heroRoomBg}
+            alt="Interior bedroom background with wooden wardrobe and natural lighting"
+            className="mr-hero-bg-img"
+          />
+          {/* Dark curved arch overlay */}
+          <div className="mr-hero-arch-overlay" />
+          {/* Decorative Dot Matrix Pattern */}
+          <div className="mr-hero-dot-pattern" />
         </div>
-        <div className="container mr-quickfacts">
-          {quickFacts.map(([label, value, FactIcon]) => (
-            <div key={label}>
-              <FactIcon />
-              <span>{label}</span>
-              <strong>{value}</strong>
+
+        <div className="container mr-hero-content-wrapper">
+          <nav className="mr-hero-breadcrumb" aria-label="Breadcrumb">
+            <a href={ROUTES.home}>Home</a>
+            <span className="sep">›</span>
+            <span>Products</span>
+            <span className="sep">›</span>
+            <a href={ROUTES.plywood}>Plywood</a>
+            <span className="sep">›</span>
+            <strong>MR Grade Plywood</strong>
+          </nav>
+
+          <div className="mr-hero-grid">
+            <div className="mr-hero-copy">
+              <div className="mr-kicker">
+                <span>INTERIOR GRADE PLYWOOD</span>
+                <span className="mr-pill-tag">MR GRADE</span>
+              </div>
+              <h1>
+                A reliable foundation <span className="mr-hero-accent">for everyday interior</span> furniture.
+              </h1>
+              <p className="mr-hero-lead">
+                Pentagon MR Grade Plywood is crafted for furniture, cabinetry
+                and interior installations in relatively dry indoor spaces.
+              </p>
+              <p className="mr-hero-sub">
+                It resists the normal moisture and humidity encountered inside
+                homes, offices and commercial interiors—making it a practical
+                choice for everyday furniture requirements.
+              </p>
+              <div className="mr-actions">
+                <a className="btn btn-primary" href={MR_GRADE_SECTIONS.enquiry}>
+                  Request a Quote <Icon.Arrow />
+                </a>
+                <a className="btn btn-outline" href={CONTACT_SECTIONS.form}>
+                  Discuss Your Application <Icon.Arrow />
+                </a>
+              </div>
             </div>
-          ))}
-          <div>
-            <Icon.Layers />
-            <span>Supply</span>
-            <strong>MOQ 50 pieces</strong>
+
+            {/* Central Floating Product Card over Arch */}
+            <div className="mr-hero-product-card-wrapper">
+              <div className="mr-hero-product-card">
+                <img
+                  src={plywoodImage}
+                  alt="Pentagon MR Grade plywood sheet showing stacked wood layers"
+                />
+                <div className="mr-hero-product-badge">
+                  <span>MR GRADE · INTERIOR USE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Floating Quick Facts Bar */}
+          <div className="mr-quickfacts-bar">
+            {quickFacts.map(([label, value, FactIcon]) => (
+              <div className="mr-quickfact-item" key={label}>
+                <div className="mr-quickfact-icon-wrapper">
+                  <FactIcon />
+                </div>
+                <div className="mr-quickfact-text">
+                  <span className="mr-quickfact-label">{label}</span>
+                  <strong className="mr-quickfact-val">{value}</strong>
+                </div>
+              </div>
+            ))}
+            <div className="mr-quickfact-item">
+              <div className="mr-quickfact-icon-wrapper">
+                <Icon.Layers />
+              </div>
+              <div className="mr-quickfact-text">
+                <span className="mr-quickfact-label">SUPPLY</span>
+                <strong className="mr-quickfact-val">MOQ 50 pieces</strong>
+              </div>
+            </div>
           </div>
         </div>
       </section>
