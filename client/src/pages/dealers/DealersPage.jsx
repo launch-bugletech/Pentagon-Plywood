@@ -192,13 +192,19 @@ const partnerExpectations = [
 ];
 
 const faqItems = [
-  ['How do I locate an authorized Pentagon Plywood dealer near me?', 'Use our interactive network locator above. You can search by State, City, PIN code, or Product category to find verified stockists and distributors with direct contact details.'],
-  ['How can I become an authorized Pentagon Plywood dealer?', 'Fill out our 5-step channel application form on this page with your business, location, and storage details. Our network evaluation team will review your application and contact you within 48 hours.'],
-  ['What is the difference between a Dealer and a Distributor?', 'A Dealer primarily serves local retail customers, contractors, and carpenters within a city. A Distributor maintains larger stock reserves and supplies a network of sub-dealers across multiple districts or an entire state.'],
-  ['Is there a minimum investment or opening order requirement?', 'Opening order requirements vary based on location, product mix, and partnership model. Details are customized during the commercial discussion step.'],
-  ['Can a new hardware or building supply store apply?', 'Yes! We welcome new entrepreneurs with suitable commercial premises, market commitment, and relevant trade capabilities.'],
-  ['How long does the dealer verification process take?', 'Initial application reviews take 1 to 2 business days. If approved, capability verification and onboarding are typically completed within 5 to 7 days.'],
-  ['Does Pentagon provide marketing support and store display kits?', 'Yes. Approved partners receive product sample boards, brand brochures, digital locator verification, and store branding support during onboarding.'],
+   ['How can I become a Pentagon Plywood dealer?', 'Submit the partnership application with your business, location, experience, infrastructure and product interests. Pentagon will review the opportunity and contact relevant applicants.'],
+  ['Who can apply for a dealership?', 'Plywood dealers, building-material retailers, wholesalers, timber and board sellers, interior-material showrooms, stockists and other businesses with relevant capability may apply.'],
+  ['Can a new business apply?', 'Yes. Pentagon will assess its location, business plan, infrastructure, product knowledge and market opportunity. An application does not guarantee appointment.'],
+  ['What is the difference between a dealer and a distributor?', 'A dealer usually serves a local market. A distributor generally holds more stock and supplies a broader territory or network of dealers. Pentagon determines the appropriate relationship after review.'],
+  ['Is there a minimum investment?', 'Pentagon has not published a fixed investment requirement. It may depend on product range, stock plan, location, infrastructure and the commercial arrangement.'],
+  ['Is a minimum opening order required?', 'Opening-order requirements are confirmed during commercial discussion and may vary by product, quantity, freight and territory.'],
+  ['Will I receive an exclusive territory?', 'No exclusivity is created by submitting an application. Any protected territory must be specifically reviewed, approved and documented.'],
+  ['Does Pentagon offer credit?', 'Payment and credit terms are subject to commercial review and written approval.'],
+  ['Does Pentagon provide samples or marketing material?', 'Available samples, catalogues, product images and other partner material are discussed during onboarding.'],
+  ['Which products can dealers stock?', 'Applicants can discuss plywood, blockboard and flush doors. Selected allied products may be available through sourcing or trading, subject to current availability.'],
+  ['Can I apply for more than one city or district?', 'Yes. State the complete proposed coverage. Pentagon will assess it against network coverage, logistics and business capability.'],
+  ['How can customers find my business on this website?', 'Selected approved partners may be added to the locator after verification and consent to publish. Listing is not automatic.'],
+  ['Does Pentagon supply throughout India?', 'Each enquiry is reviewed according to product, quantity, location, freight and channel availability. The website does not promise that every order can be served directly.'],
 ];
 
 const PRODUCT_CHIPS = [
@@ -470,18 +476,28 @@ function DealersPage() {
               Bring Better Material Choices <em>Closer to Your Market.</em>
             </h1>
             <p>
-              Pentagon Plywood partners with authorized dealers, stockists, and regional distributors to make dependable wood-panel and door solutions easily accessible across India.
+              Pentagon Plywood partners with authorized dealers, stockists, and
+              regional distributors to make dependable wood-panel and door
+              solutions easily accessible across India.
             </p>
             <div className="dealer-actions">
-              <button type="button" className="btn btn-primary" onClick={() => chooseRoute('dealer')}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => chooseRoute("dealer")}
+              >
                 Become a Channel Partner <Arrow />
               </button>
-              <button type="button" className="btn btn-outline" onClick={() => chooseRoute('seller')}>
+              <button
+                type="button"
+                className="btn btn-outline"
+                onClick={() => chooseRoute("seller")}
+              >
                 Find a Pentagon Seller <Arrow />
               </button>
             </div>
 
-            <div className="dealer-hero-highlights">
+            {/* <div className="dealer-hero-highlights">
               <div className="highlight-pill">
                 <strong>28+ Years</strong>
                 <span>Yamunanagar Manufacturing Trust</span>
@@ -494,32 +510,45 @@ function DealersPage() {
                 <strong>Direct</strong>
                 <span>Factory Depot Freight Route</span>
               </div>
-            </div>
+            </div> */}
           </div>
 
-          <div className="dealer-map-card" aria-label="Pentagon partner network map of India">
+          <div
+            className="dealer-map-card"
+            aria-label="Pentagon partner network map of India"
+          >
             <div className="dealer-map-label">
               <span>Primary Supply Hubs</span>
               <strong>India Network</strong>
             </div>
 
             <div className="dealer-map-stage">
-              <svg className="dealer-india-map" viewBox="0 0 430 500" role="img" aria-label="Outline map of India showing verified regional hubs">
+              <svg
+                className="dealer-india-map"
+                viewBox="0 0 430 500"
+                role="img"
+                aria-label="Outline map of India showing verified regional hubs"
+              >
                 <path d="M155 35l46 17 38-13 27 20 40 5 12 34 34 19-8 30 21 35-19 33 4 36-24 29-20 43-31 24-9 42-26 36-18 48-24-25-9-54-23-26-20-43-30-15-16-39-31-23 12-38-23-31 21-24-13-37 28-24 4-38 39-12 28-29z" />
-                
+
                 {/* Hotspot Pins */}
                 {MOCK_DEALERS.map((dealer) => (
                   <g
                     key={dealer.id}
-                    className={`map-pin-group ${dealer.isHQ ? 'is-hq' : ''}`}
+                    className={`map-pin-group ${dealer.isHQ ? "is-hq" : ""}`}
                     transform={`translate(${dealer.mapPos.x}, ${dealer.mapPos.y})`}
                     onClick={() => selectMapHub(dealer)}
                     onMouseEnter={() => setHoveredHub(dealer)}
                     onMouseLeave={() => setHoveredHub(null)}
                   >
-                    <circle className="pin-pulse" r={dealer.isHQ ? '14' : '10'} />
-                    <circle className="pin-core" r={dealer.isHQ ? '6' : '4'} />
-                    <text y="-10" className="pin-label">{dealer.city}</text>
+                    <circle
+                      className="pin-pulse"
+                      r={dealer.isHQ ? "14" : "10"}
+                    />
+                    <circle className="pin-core" r={dealer.isHQ ? "6" : "4"} />
+                    <text y="-10" className="pin-label">
+                      {dealer.city}
+                    </text>
                   </g>
                 ))}
               </svg>
@@ -528,24 +557,40 @@ function DealersPage() {
                 <div className="map-tooltip">
                   <span className="tooltip-tag">{hoveredHub.type}</span>
                   <strong>{hoveredHub.name}</strong>
-                  <small>{hoveredHub.city}, {hoveredHub.state}</small>
+                  <small>
+                    {hoveredHub.city}, {hoveredHub.state}
+                  </small>
                   <p>Click to search this location</p>
                 </div>
               )}
             </div>
 
             <div className="dealer-map-empty">
-              <span>Click pins above or search below to view verified seller details</span>
+              <span>
+                Click pins above or search below to view verified seller details
+              </span>
             </div>
           </div>
         </div>
 
         <div className="container dealer-trust-strip">
           {[
-            ['Direct Factory Base', 'Yamunanagar manufacturing facility with strict QC'],
-            ['Comprehensive Range', 'Calibrated Plywood, Blockboard & Flush Doors'],
-            ['Regional Freight', 'Logistics coordination for bulk or dealer dispatches'],
-            ['Dedicated Partner Cell', 'Direct commercial support & digital locator listing'],
+            [
+              "Direct Factory Base",
+              "Yamunanagar manufacturing facility with strict QC",
+            ],
+            [
+              "Comprehensive Range",
+              "Calibrated Plywood, Blockboard & Flush Doors",
+            ],
+            [
+              "Regional Freight",
+              "Logistics coordination for bulk or dealer dispatches",
+            ],
+            [
+              "Dedicated Partner Cell",
+              "Direct commercial support & digital locator listing",
+            ],
           ].map(([title, desc], index) => (
             <div key={title}>
               <span>0{index + 1}</span>
@@ -561,19 +606,50 @@ function DealersPage() {
       {/* PARTNER ROUTES */}
       <section className="dealer-section dealer-routes" id="choose-route">
         <div className="container">
-          <Heading eyebrow="Network Options" title="Looking to Buy—or Looking to Grow With Pentagon?" />
+          <Heading
+            eyebrow="Network Options"
+            title="Looking to Buy or Looking to Grow With Pentagon?"
+          />
           <div className="dealer-route-grid">
             {partnerRoutes.map(([value, number, title, copy, action]) => (
-              <article className={route === value ? 'is-active' : ''} key={value}>
+              <article
+                className={route === value ? "is-active" : ""}
+                key={value}
+              >
                 <div className="route-header">
                   <span>{number}</span>
-                  <div className="route-badge">{value === 'seller' ? 'Locator' : value === 'distributor' ? 'Regional' : 'Retail'}</div>
+                  <div className="route-badge">
+                    {value === "seller"
+                      ? "Locator"
+                      : value === "distributor"
+                        ? "Regional"
+                        : "Retail"}
+                  </div>
                 </div>
                 <h3>{title}</h3>
                 <p>{copy}</p>
                 <button type="button" onClick={() => chooseRoute(value)}>
                   {action} <Arrow />
                 </button>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* why pentagon */}
+      <section className="dealer-section dealer-opportunity">
+        <div className="container">
+          <Heading
+            eyebrow="The Pentagon Opportunity"
+            title="Manufacturing Experience Behind You. Local Market Knowledge In Front."
+          />
+          <div className="dealer-opportunity-grid">
+            {opportunities.map(([title, copy], index) => (
+              <article key={title}>
+                <span>0{index + 1}</span>
+                <h3>{title}</h3>
+                <p>{copy}</p>
               </article>
             ))}
           </div>
@@ -587,18 +663,26 @@ function DealersPage() {
             <div className="quiz-intro">
               <span>Interactive Helper</span>
               <h2>Which Partnership Model Fits Your Business?</h2>
-              <p>Answer two quick questions to see our recommended commercial engagement route.</p>
+              <p>
+                Answer two quick questions to see our recommended commercial
+                engagement route.
+              </p>
             </div>
-            
+
             <div className="quiz-body">
               <div className="quiz-step">
                 <label>1. Select Your Business Infrastructure:</label>
                 <div className="quiz-options">
-                  {['Retail Showroom / Hardware Store', 'Warehousing / Bulk Yard', 'Project Supply / Contractor', 'New Venture Startup'].map((opt) => (
+                  {[
+                    "Retail Showroom / Hardware Store",
+                    "Warehousing / Bulk Yard",
+                    "Project Supply / Contractor",
+                    "New Venture Startup",
+                  ].map((opt) => (
                     <button
                       type="button"
                       key={opt}
-                      className={quizSetup === opt ? 'is-selected' : ''}
+                      className={quizSetup === opt ? "is-selected" : ""}
                       onClick={() => setQuizSetup(opt)}
                     >
                       {opt}
@@ -610,11 +694,15 @@ function DealersPage() {
               <div className="quiz-step">
                 <label>2. Select Target Operating Reach:</label>
                 <div className="quiz-options">
-                  {['Local City / Retail', 'Multi-District / State-Wide', 'Special B2B Projects'].map((opt) => (
+                  {[
+                    "Local City / Retail",
+                    "Multi-District / State-Wide",
+                    "Special B2B Projects",
+                  ].map((opt) => (
                     <button
                       type="button"
                       key={opt}
-                      className={quizReach === opt ? 'is-selected' : ''}
+                      className={quizReach === opt ? "is-selected" : ""}
                       onClick={() => setQuizReach(opt)}
                     >
                       {opt}
@@ -626,7 +714,9 @@ function DealersPage() {
               {quizRecommendation && (
                 <div className="quiz-result animate-fade-in">
                   <div className="quiz-result-header">
-                    <span className="check-badge"><CheckIcon /></span>
+                    <span className="check-badge">
+                      <CheckIcon />
+                    </span>
                     <div>
                       <small>Recommended Route</small>
                       <h3>{quizRecommendation.title}</h3>
@@ -637,8 +727,13 @@ function DealersPage() {
                     type="button"
                     className="btn btn-primary"
                     onClick={() => {
-                      setForm((c) => ({ ...c, partnerType: quizRecommendation.type }));
-                      document.getElementById('partner-application')?.scrollIntoView({ behavior: 'smooth' });
+                      setForm((c) => ({
+                        ...c,
+                        partnerType: quizRecommendation.type,
+                      }));
+                      document
+                        .getElementById("partner-application")
+                        ?.scrollIntoView({ behavior: "smooth" });
                     }}
                   >
                     Apply as {quizRecommendation.type} <Arrow />
@@ -660,11 +755,11 @@ function DealersPage() {
           />
 
           <div className="dealer-region-pills">
-            {['All', 'North', 'West', 'South'].map((reg) => (
+            {["All", "North", "West", "South"].map((reg) => (
               <button
                 type="button"
                 key={reg}
-                className={activeRegion === reg ? 'is-active' : ''}
+                className={activeRegion === reg ? "is-active" : ""}
                 onClick={() => setActiveRegion(reg)}
               >
                 {reg} Region
@@ -675,7 +770,10 @@ function DealersPage() {
           <div className="dealer-search">
             <label>
               <span>State</span>
-              <select value={searchState} onChange={(e) => setSearchState(e.target.value)}>
+              <select
+                value={searchState}
+                onChange={(e) => setSearchState(e.target.value)}
+              >
                 <option value="">All States</option>
                 <option value="Haryana">Haryana</option>
                 <option value="Delhi">Delhi NCR</option>
@@ -711,7 +809,10 @@ function DealersPage() {
 
             <label>
               <span>Product Required</span>
-              <select value={searchProduct} onChange={(e) => setSearchProduct(e.target.value)}>
+              <select
+                value={searchProduct}
+                onChange={(e) => setSearchProduct(e.target.value)}
+              >
                 <option value="">All Products</option>
                 <option value="Plywood">Plywood</option>
                 <option value="Blockboard">Blockboard</option>
@@ -720,11 +821,23 @@ function DealersPage() {
             </label>
 
             <div className="search-actions-wrap">
-              <button className="btn btn-primary" type="button" onClick={() => {}}>
+              <button
+                className="btn btn-primary"
+                type="button"
+                onClick={() => {}}
+              >
                 <SearchIcon /> Search
               </button>
-              {(searchState || searchCity || searchPin || searchProduct || activeRegion !== 'All') && (
-                <button className="btn btn-ghost reset-btn" type="button" onClick={resetFilters}>
+              {(searchState ||
+                searchCity ||
+                searchPin ||
+                searchProduct ||
+                activeRegion !== "All") && (
+                <button
+                  className="btn btn-ghost reset-btn"
+                  type="button"
+                  onClick={resetFilters}
+                >
                   Clear Filters
                 </button>
               )}
@@ -735,27 +848,45 @@ function DealersPage() {
           {filteredDealers.length > 0 ? (
             <div className="dealer-cards-grid">
               {filteredDealers.map((dealer) => (
-                <article key={dealer.id} className={`dealer-card ${dealer.isHQ ? 'is-hq-card' : ''}`}>
+                <article
+                  key={dealer.id}
+                  className={`dealer-card ${dealer.isHQ ? "is-hq-card" : ""}`}
+                >
                   <div className="dealer-card-top">
                     <span className="dealer-type-badge">{dealer.type}</span>
-                    {dealer.verified && <span className="verified-badge"><CheckIcon /> Verified</span>}
+                    {dealer.verified && (
+                      <span className="verified-badge">
+                        <CheckIcon /> Verified
+                      </span>
+                    )}
                   </div>
                   <h3>{dealer.name}</h3>
                   <div className="dealer-card-address">
                     <MapPinIcon />
-                    <span>{dealer.address}, <strong>{dealer.city}</strong>, {dealer.state} - {dealer.pin}</span>
+                    <span>
+                      {dealer.address}, <strong>{dealer.city}</strong>,{" "}
+                      {dealer.state} - {dealer.pin}
+                    </span>
                   </div>
 
                   <div className="dealer-card-products">
                     {dealer.products.map((p) => (
-                      <span key={p} className="product-tag">{p}</span>
+                      <span key={p} className="product-tag">
+                        {p}
+                      </span>
                     ))}
                   </div>
 
                   <div className="dealer-card-contact">
-                    <span>Contact: <strong>{dealer.contactPerson}</strong></span>
+                    <span>
+                      Contact: <strong>{dealer.contactPerson}</strong>
+                    </span>
                     <div className="contact-btns">
-                      <a href={`tel:${dealer.phone}`} className="contact-btn phone-btn" title="Call Dealer">
+                      <a
+                        href={`tel:${dealer.phone}`}
+                        className="contact-btn phone-btn"
+                        title="Call Dealer"
+                      >
                         <PhoneIcon /> {dealer.phone}
                       </a>
                       <a
@@ -779,9 +910,15 @@ function DealersPage() {
               </div>
               <div>
                 <span>No published seller matching your search</span>
-                <h3>We do not have a published partner in this specific location yet.</h3>
+                <h3>
+                  We do not have a published partner in this specific location
+                  yet.
+                </h3>
                 <p>
-                  Share your city, product and required volume. Pentagon’s channel team will check whether your requirement can be served directly from our manufacturing base or through our nearest regional stockist.
+                  Share your city, product and required volume. Pentagon’s
+                  channel team will check whether your requirement can be served
+                  directly from our manufacturing base or through our nearest
+                  regional stockist.
                 </p>
                 <a className="btn btn-outline" href={CONTACT_SECTIONS.form}>
                   Help Me Source Pentagon Products <Arrow />
@@ -804,24 +941,56 @@ function DealersPage() {
             <article>
               <span>Manufactured Product · 01</span>
               <h3>Plywood</h3>
-              <p>Calibrated core plywood options for furniture, interior carpentry, and exterior applications.</p>
+              <p>
+                Calibrated core plywood options for furniture, interior
+                carpentry, and exterior applications.
+              </p>
               <ul>
-                <li>MR Moisture Resistant Grade</li><li>BWP/BWR Boiling Water Proof</li><li>Calibrated Architectural Plywood</li>
+                <li>MR Moisture Resistant Grade</li>
+                <li>BWP/BWR Boiling Water Proof</li>
+                <li>Calibrated Architectural Plywood</li>
               </ul>
-              <a href={ROUTES.plywood}>Explore Plywood <Arrow /></a>
+              <a href={ROUTES.plywood}>
+                Explore Plywood <Arrow />
+              </a>
             </article>
             <article>
               <span>Manufactured Product · 02</span>
               <h3>Blockboard</h3>
-              <p>Solid wood-strip-core panels engineered for shutters, wardrobes, shelving, and heavy doors.</p>
-              <a href={comingSoonUrl('Blockboards')}>Explore Blockboard <Arrow /></a>
+              <p>
+                Solid wood-strip-core panels engineered for shutters, wardrobes,
+                shelving, and heavy doors.
+              </p>
+              <a href={comingSoonUrl("Blockboards")}>
+                Explore Blockboard <Arrow />
+              </a>
             </article>
             <article>
               <span>Manufactured Product · 03</span>
               <h3>Flush Doors</h3>
-              <p>Precision-pressed door solutions for residential, commercial, and large project applications.</p>
-              <a href={comingSoonUrl('Flush Doors')}>Explore Doors <Arrow /></a>
+              <p>
+                Precision-pressed door solutions for residential, commercial,
+                and large project applications.
+              </p>
+              <a href={comingSoonUrl("Flush Doors")}>
+                Explore Doors <Arrow />
+              </a>
             </article>
+          </div>
+          <div className="dealer-allied">
+            <span>Additional Materials Available on Enquiry</span>
+            <h3>
+              MDF, HDHMR, WPC, laminates and veneers may be sourced or traded
+              according to the requirement.
+            </h3>
+            <p>
+              Tell us the complete material list. Availability, brand,
+              specification, quantity and dispatch feasibility will be confirmed
+              against the enquiry.
+            </p>
+            <a className="btn btn-outline" href={CONTACT_SECTIONS.form}>
+              Discuss the Complete Range <Arrow />
+            </a>
           </div>
         </div>
       </section>
@@ -829,7 +998,10 @@ function DealersPage() {
       {/* COMPARISON MATRIX */}
       <section className="dealer-section dealer-comparison" id="partner-types">
         <div className="container">
-          <Heading eyebrow="Choose the Right Model" title="Retail Dealer vs Regional Distributor" />
+          <Heading
+            eyebrow="Choose the Right Model"
+            title="Retail Dealer vs Regional Distributor"
+          />
           <div className="dealer-table-wrap">
             <table>
               <thead>
@@ -841,11 +1013,31 @@ function DealersPage() {
               </thead>
               <tbody>
                 {[
-                  ['Primary Role', 'Direct supply to local trade professionals and retail customers', 'Managing inventory for a network of sub-dealers and large accounts'],
-                  ['Territory Reach', 'City or district level market', 'Multi-district, region or state-wide territory'],
-                  ['Order Profile', 'Flexible, repeat project and retail dispatches', 'Bulk planned inventory movement and container dispatches'],
-                  ['Infrastructure', 'Showroom, retail outlet or local counter', 'Warehousing, sales team & regional logistics setup'],
-                  ['Branding Support', 'Digital locator listing & store sample kits', 'Exclusive territory support & marketing collateral'],
+                  [
+                    "Primary Role",
+                    "Direct supply to local trade professionals and retail customers",
+                    "Managing inventory for a network of sub-dealers and large accounts",
+                  ],
+                  [
+                    "Territory Reach",
+                    "City or district level market",
+                    "Multi-district, region or state-wide territory",
+                  ],
+                  [
+                    "Order Profile",
+                    "Flexible, repeat project and retail dispatches",
+                    "Bulk planned inventory movement and container dispatches",
+                  ],
+                  [
+                    "Infrastructure",
+                    "Showroom, retail outlet or local counter",
+                    "Warehousing, sales team & regional logistics setup",
+                  ],
+                  [
+                    "Branding Support",
+                    "Digital locator listing & store sample kits",
+                    "Exclusive territory support & marketing collateral",
+                  ],
                 ].map((row) => (
                   <tr key={row[0]}>
                     {row.map((cell, idx) => (
@@ -859,10 +1051,42 @@ function DealersPage() {
         </div>
       </section>
 
+      {/* new section */}
+      <section className="dealer-section dealer-applicants">
+        <div className="container dealer-two-column">
+          <div>
+            <Heading
+              eyebrow="Potential Channel Partners"
+              title="If You Understand the Market, We Want to Understand Your Business."
+            />
+            <ul>
+              {applicantTypes.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div className="dealer-kicker">What Helps Us Evaluate</div>
+            <h3>Useful signals not automatic acceptance criteria.</h3>
+            <ul>
+              {evaluationFactors.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* PROCESS STEPS */}
-      <section className="dealer-section dealer-process" id="application-process">
+      <section
+        className="dealer-section dealer-process"
+        id="application-process"
+      >
         <div className="container">
-          <Heading eyebrow="Clear Pathway" title="From Application to Active Partner" />
+          <Heading
+            eyebrow="Clear Pathway"
+            title="A Clear Process Before Either Side Makes a Commitment. "
+          />
           <div className="dealer-process-grid">
             {processSteps.map(([number, title, copy]) => (
               <article key={number}>
@@ -875,8 +1099,56 @@ function DealersPage() {
         </div>
       </section>
 
+      {/* new section understand the market */}
+      <section className="dealer-section dealer-coverage">
+        <div className="container dealer-coverage-grid">
+          <div>
+            <Heading
+              eyebrow="Growing Across Markets"
+              title="Local Relationships. A Wider Supply Network."
+            />
+            <p>
+              Pentagon’s network can become more useful through verified partner
+              locations, clearer regional opportunities and better routing
+              according to supply and freight feasibility.
+            </p>
+            <div className="dealer-stat-row">
+              <div>
+                <strong>Since 1997</strong>
+                <span>Pentagon Plywood</span>
+              </div>
+              <div>
+                <strong>Yamunanagar</strong>
+                <span>Manufacturing base</span>
+              </div>
+            </div>
+          </div>
+          <div className="dealer-freight">
+            <div className="dealer-kicker">Supply Must Make Business Sense</div>
+            <h3>The Right Product Also Needs the Right Route to Market.</h3>
+            <p>
+              Wood panels and doors are freight-sensitive. Serviceability
+              depends on product, quantity, destination, transport cost, stock
+              and channel availability.
+            </p>
+            <ul>
+              <li>Approved local seller</li>
+              <li>Regional distributor</li>
+              <li>Consolidated bulk dispatch</li>
+              <li>Direct supply where commercially feasible</li>
+            </ul>
+            <a href={CONTACT_SECTIONS.form}>
+              Check Supply Feasibility <Arrow />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* APPLICATION FORM SECTION */}
-      <section className="dealer-section dealer-application" id="partner-application">
+      <section
+        className="dealer-section dealer-application"
+        id="partner-application"
+      >
         <div className="container">
           <Heading
             eyebrow="Channel Partnership Application"
@@ -888,33 +1160,64 @@ function DealersPage() {
             <div className="dealer-success" role="status">
               <span>✓</span>
               <div>
-                <div className="dealer-kicker">Application Submitted Successfully</div>
+                <div className="dealer-kicker">
+                  Application Submitted Successfully
+                </div>
                 <h3>Welcome to Pentagon Channel Cell</h3>
                 <p>
-                  Application Reference: <strong>PP-PARTNER-{new Date().getFullYear()}-{Math.floor(1000 + Math.random() * 9000)}</strong>
+                  Application Reference:{" "}
+                  <strong>
+                    PP-PARTNER-{new Date().getFullYear()}-
+                    {Math.floor(1000 + Math.random() * 9000)}
+                  </strong>
                 </p>
                 <p>
-                  We have received your details for <strong>{form.legalName || 'your business'}</strong> in {form.city}, {form.state}. A Pentagon Channel Manager will reach out within 1 to 2 business days.
+                  We have received your details for{" "}
+                  <strong>{form.legalName || "your business"}</strong> in{" "}
+                  {form.city}, {form.state}. A Pentagon Channel Manager will
+                  reach out within 1 to 2 business days.
                 </p>
-                <button className="btn btn-outline" type="button" onClick={() => setSubmitted(false)}>
+                <button
+                  className="btn btn-outline"
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                >
                   Submit Another Application
                 </button>
               </div>
             </div>
           ) : (
-            <form className="dealer-application-form" onSubmit={submitApplication}>
-              <div className="dealer-form-progress" aria-label={`Step ${formStep} of 5`}>
-                {['Interest', 'Business', 'Experience', 'Infrastructure', 'Requirement & Review'].map((label, index) => (
+            <form
+              className="dealer-application-form"
+              onSubmit={submitApplication}
+            >
+              <div
+                className="dealer-form-progress"
+                aria-label={`Step ${formStep} of 5`}
+              >
+                {[
+                  "Interest",
+                  "Business",
+                  "Experience",
+                  "Infrastructure",
+                  "Requirement & Review",
+                ].map((label, index) => (
                   <button
                     type="button"
-                    className={formStep === index + 1 ? 'is-current' : formStep > index + 1 ? 'is-complete' : ''}
+                    className={
+                      formStep === index + 1
+                        ? "is-current"
+                        : formStep > index + 1
+                          ? "is-complete"
+                          : ""
+                    }
                     onClick={() => {
-                      setStepError('');
+                      setStepError("");
                       setFormStep(index + 1);
                     }}
                     key={label}
                   >
-                    <span>{formStep > index + 1 ? '✓' : index + 1}</span>
+                    <span>{formStep > index + 1 ? "✓" : index + 1}</span>
                     <strong>{label}</strong>
                   </button>
                 ))}
@@ -925,7 +1228,17 @@ function DealersPage() {
                   <span>0{formStep}</span>
                   <div>
                     <small>Step {formStep} of 5</small>
-                    <h3>{['Partnership Interest', 'Business Details', 'Market Experience', 'Infrastructure', 'Requirement & Final Review'][formStep - 1]}</h3>
+                    <h3>
+                      {
+                        [
+                          "Partnership Interest",
+                          "Business Details",
+                          "Market Experience",
+                          "Infrastructure",
+                          "Requirement & Final Review",
+                        ][formStep - 1]
+                      }
+                    </h3>
                   </div>
                 </div>
 
@@ -934,11 +1247,18 @@ function DealersPage() {
                   <div className="dealer-form-grid">
                     <Field label="Selecting Role" required wide>
                       <div className="partner-type-cards">
-                        {['Dealer / Retailer', 'Wholesaler', 'Distributor', 'Stockist'].map((type) => (
+                        {[
+                          "Dealer / Retailer",
+                          "Wholesaler",
+                          "Distributor",
+                          "Stockist",
+                        ].map((type) => (
                           <div
                             key={type}
-                            className={`type-select-card ${form.partnerType === type ? 'is-selected' : ''}`}
-                            onClick={() => setForm((c) => ({ ...c, partnerType: type }))}
+                            className={`type-select-card ${form.partnerType === type ? "is-selected" : ""}`}
+                            onClick={() =>
+                              setForm((c) => ({ ...c, partnerType: type }))
+                            }
                           >
                             <span className="radio-dot" />
                             <strong>{type}</strong>
@@ -950,7 +1270,7 @@ function DealersPage() {
                     <Field label="Products of Interest" required wide>
                       <input
                         value={form.products}
-                        onChange={update('products')}
+                        onChange={update("products")}
                         placeholder="Click chip tags below or type products..."
                         required
                       />
@@ -963,10 +1283,13 @@ function DealersPage() {
                               <button
                                 type="button"
                                 key={chip}
-                                className={`dealer-chip ${isSel ? 'is-selected' : ''}`}
-                                onClick={() => toggleChipInField('products', chip)}
+                                className={`dealer-chip ${isSel ? "is-selected" : ""}`}
+                                onClick={() =>
+                                  toggleChipInField("products", chip)
+                                }
                               >
-                                {isSel ? '✓ ' : '+ '}{chip}
+                                {isSel ? "✓ " : "+ "}
+                                {chip}
                               </button>
                             );
                           })}
@@ -975,11 +1298,21 @@ function DealersPage() {
                     </Field>
 
                     <Field label="Proposed State" required>
-                      <input value={form.state} onChange={update('state')} placeholder="e.g. Haryana, Delhi, Punjab" required />
+                      <input
+                        value={form.state}
+                        onChange={update("state")}
+                        placeholder="e.g. Haryana, Delhi, Punjab"
+                        required
+                      />
                     </Field>
 
                     <Field label="Proposed City / District" required>
-                      <input value={form.territory} onChange={update('territory')} placeholder="e.g. Yamunanagar, Ambala" required />
+                      <input
+                        value={form.territory}
+                        onChange={update("territory")}
+                        placeholder="e.g. Yamunanagar, Ambala"
+                        required
+                      />
                     </Field>
                   </div>
                 )}
@@ -988,37 +1321,91 @@ function DealersPage() {
                 {formStep === 2 && (
                   <div className="dealer-form-grid">
                     <Field label="Legal Business Name" required>
-                      <input value={form.legalName} onChange={update('legalName')} placeholder="e.g. Shree Ram Plywood Traders" required />
+                      <input
+                        value={form.legalName}
+                        onChange={update("legalName")}
+                        placeholder="e.g. Shree Ram Plywood Traders"
+                        required
+                      />
                     </Field>
                     <Field label="Trade Name / Brand Outlet">
-                      <input value={form.tradeName} onChange={update('tradeName')} placeholder="e.g. Ram Plywood & Hardware" />
+                      <input
+                        value={form.tradeName}
+                        onChange={update("tradeName")}
+                        placeholder="e.g. Ram Plywood & Hardware"
+                      />
                     </Field>
                     <Field label="Contact Person" required>
-                      <input value={form.contactName} onChange={update('contactName')} placeholder="Full Name" required />
+                      <input
+                        value={form.contactName}
+                        onChange={update("contactName")}
+                        placeholder="Full Name"
+                        required
+                      />
                     </Field>
                     <Field label="Designation">
-                      <input value={form.designation} onChange={update('designation')} placeholder="Proprietor / Partner / Director" />
+                      <input
+                        value={form.designation}
+                        onChange={update("designation")}
+                        placeholder="Proprietor / Partner / Director"
+                      />
                     </Field>
                     <Field label="Mobile Number" required>
-                      <input type="tel" value={form.mobile} onChange={update('mobile')} placeholder="10-digit mobile" required />
+                      <input
+                        type="tel"
+                        value={form.mobile}
+                        onChange={update("mobile")}
+                        placeholder="10-digit mobile"
+                        required
+                      />
                     </Field>
                     <Field label="WhatsApp Number">
-                      <input type="tel" value={form.whatsapp} onChange={update('whatsapp')} placeholder="WhatsApp number" />
+                      <input
+                        type="tel"
+                        value={form.whatsapp}
+                        onChange={update("whatsapp")}
+                        placeholder="WhatsApp number"
+                      />
                     </Field>
                     <Field label="Email Address" required>
-                      <input type="email" value={form.email} onChange={update('email')} placeholder="email@company.com" required />
+                      <input
+                        type="email"
+                        value={form.email}
+                        onChange={update("email")}
+                        placeholder="email@company.com"
+                        required
+                      />
                     </Field>
                     <Field label="GSTIN">
-                      <input value={form.gstin} onChange={update('gstin')} placeholder="Optional GSTIN" />
+                      <input
+                        value={form.gstin}
+                        onChange={update("gstin")}
+                        placeholder="Optional GSTIN"
+                      />
                     </Field>
                     <Field label="Business Address" required wide>
-                      <textarea value={form.address} onChange={update('address')} placeholder="Shop / Office address..." required />
+                      <textarea
+                        value={form.address}
+                        onChange={update("address")}
+                        placeholder="Shop / Office address..."
+                        required
+                      />
                     </Field>
                     <Field label="City" required>
-                      <input value={form.city} onChange={update('city')} required />
+                      <input
+                        value={form.city}
+                        onChange={update("city")}
+                        required
+                      />
                     </Field>
                     <Field label="PIN Code" required>
-                      <input value={form.pin} onChange={update('pin')} inputMode="numeric" placeholder="6-digit PIN" required />
+                      <input
+                        value={form.pin}
+                        onChange={update("pin")}
+                        inputMode="numeric"
+                        placeholder="6-digit PIN"
+                        required
+                      />
                     </Field>
                   </div>
                 )}
@@ -1027,7 +1414,12 @@ function DealersPage() {
                 {formStep === 3 && (
                   <div className="dealer-form-grid">
                     <Field label="Current Business Categories" required wide>
-                      <textarea value={form.categories} onChange={update('categories')} placeholder="Select category chips below or type..." required />
+                      <textarea
+                        value={form.categories}
+                        onChange={update("categories")}
+                        placeholder="Select category chips below or type..."
+                        required
+                      />
                       <div className="chip-selector">
                         <small>Quick select current categories:</small>
                         <div className="chip-group">
@@ -1037,10 +1429,13 @@ function DealersPage() {
                               <button
                                 type="button"
                                 key={chip}
-                                className={`dealer-chip ${isSel ? 'is-selected' : ''}`}
-                                onClick={() => toggleChipInField('categories', chip)}
+                                className={`dealer-chip ${isSel ? "is-selected" : ""}`}
+                                onClick={() =>
+                                  toggleChipInField("categories", chip)
+                                }
                               >
-                                {isSel ? '✓ ' : '+ '}{chip}
+                                {isSel ? "✓ " : "+ "}
+                                {chip}
                               </button>
                             );
                           })}
@@ -1048,10 +1443,19 @@ function DealersPage() {
                       </div>
                     </Field>
                     <Field label="Brands Currently Handled">
-                      <input value={form.brands} onChange={update('brands')} placeholder="e.g. Local or national brands" />
+                      <input
+                        value={form.brands}
+                        onChange={update("brands")}
+                        placeholder="e.g. Local or national brands"
+                      />
                     </Field>
                     <Field label="Why Partner With Pentagon?" required wide>
-                      <textarea value={form.reason} onChange={update('reason')} placeholder="Share your market goal or why Pentagon fits your business..." required />
+                      <textarea
+                        value={form.reason}
+                        onChange={update("reason")}
+                        placeholder="Share your market goal or why Pentagon fits your business..."
+                        required
+                      />
                     </Field>
                   </div>
                 )}
@@ -1060,22 +1464,36 @@ function DealersPage() {
                 {formStep === 4 && (
                   <div className="dealer-form-grid">
                     <Field label="Showroom Available">
-                      <select value={form.showroom} onChange={update('showroom')}>
+                      <select
+                        value={form.showroom}
+                        onChange={update("showroom")}
+                      >
                         <option>Yes</option>
                         <option>No</option>
                       </select>
                     </Field>
                     <Field label="Warehouse Available">
-                      <select value={form.warehouse} onChange={update('warehouse')}>
+                      <select
+                        value={form.warehouse}
+                        onChange={update("warehouse")}
+                      >
                         <option>Yes</option>
                         <option>No</option>
                       </select>
                     </Field>
                     <Field label="Warehouse Area (sq ft)">
-                      <input value={form.warehouseArea} onChange={update('warehouseArea')} placeholder="e.g. 1,500 sq ft" />
+                      <input
+                        value={form.warehouseArea}
+                        onChange={update("warehouseArea")}
+                        placeholder="e.g. 1,500 sq ft"
+                      />
                     </Field>
                     <Field label="Sales Team Size">
-                      <input value={form.teamSize} onChange={update('teamSize')} placeholder="e.g. 3 sales persons" />
+                      <input
+                        value={form.teamSize}
+                        onChange={update("teamSize")}
+                        placeholder="e.g. 3 sales persons"
+                      />
                     </Field>
                   </div>
                 )}
@@ -1086,38 +1504,85 @@ function DealersPage() {
                     <div className="form-recap-box">
                       <h4>Application Summary Review</h4>
                       <div className="recap-grid">
-                        <div><span>Role:</span> <strong>{form.partnerType}</strong></div>
-                        <div><span>Products:</span> <strong>{form.products || 'Not specified'}</strong></div>
-                        <div><span>Location:</span> <strong>{form.city || '-'}, {form.state || '-'}</strong></div>
-                        <div><span>Applicant:</span> <strong>{form.contactName || '-'} ({form.legalName || '-'})</strong></div>
-                        <div><span>Phone:</span> <strong>{form.mobile || '-'}</strong></div>
-                        <div><span>Email:</span> <strong>{form.email || '-'}</strong></div>
+                        <div>
+                          <span>Role:</span> <strong>{form.partnerType}</strong>
+                        </div>
+                        <div>
+                          <span>Products:</span>{" "}
+                          <strong>{form.products || "Not specified"}</strong>
+                        </div>
+                        <div>
+                          <span>Location:</span>{" "}
+                          <strong>
+                            {form.city || "-"}, {form.state || "-"}
+                          </strong>
+                        </div>
+                        <div>
+                          <span>Applicant:</span>{" "}
+                          <strong>
+                            {form.contactName || "-"} ({form.legalName || "-"})
+                          </strong>
+                        </div>
+                        <div>
+                          <span>Phone:</span>{" "}
+                          <strong>{form.mobile || "-"}</strong>
+                        </div>
+                        <div>
+                          <span>Email:</span>{" "}
+                          <strong>{form.email || "-"}</strong>
+                        </div>
                       </div>
                     </div>
 
                     <Field label="Territory Requested" required wide>
-                      <input value={form.territoryRequested} onChange={update('territoryRequested')} placeholder="Specify target area or district" required />
+                      <input
+                        value={form.territoryRequested}
+                        onChange={update("territoryRequested")}
+                        placeholder="Specify target area or district"
+                        required
+                      />
                     </Field>
 
                     <label className="dealer-consent">
-                      <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required />
+                      <input
+                        type="checkbox"
+                        checked={consent}
+                        onChange={(e) => setConsent(e.target.checked)}
+                        required
+                      />
                       <span>
-                        I confirm that all submitted business details are accurate. I understand that submitting this application does not guarantee appointment or territory exclusivity. I agree that Pentagon Plywood may contact me for channel evaluation.
+                        I confirm that all submitted business details are
+                        accurate. I understand that submitting this application
+                        does not guarantee appointment or territory exclusivity.
+                        I agree that Pentagon Plywood may contact me for channel
+                        evaluation.
                       </span>
                     </label>
                   </div>
                 )}
 
-                {stepError && <p className="dealer-step-error" role="alert">{stepError}</p>}
+                {stepError && (
+                  <p className="dealer-step-error" role="alert">
+                    {stepError}
+                  </p>
+                )}
 
                 <div className="dealer-form-actions">
                   {formStep > 1 && (
-                    <button className="btn btn-outline" type="button" onClick={previousStep}>
+                    <button
+                      className="btn btn-outline"
+                      type="button"
+                      onClick={previousStep}
+                    >
                       Previous Step
                     </button>
                   )}
                   {formStep < 5 ? (
-                    <button className="btn btn-primary" type="button" onClick={nextStep}>
+                    <button
+                      className="btn btn-primary"
+                      type="button"
+                      onClick={nextStep}
+                    >
                       Continue <Arrow />
                     </button>
                   ) : (
@@ -1128,7 +1593,8 @@ function DealersPage() {
                 </div>
 
                 <a className="dealer-discuss-link" href={PHONE}>
-                  Prefer to discuss directly? Call Pentagon Channel Cell: +91 72061 04340
+                  Prefer to discuss directly? Call Pentagon Channel Cell: +91
+                  72061 04340
                 </a>
               </div>
             </form>
@@ -1136,50 +1602,112 @@ function DealersPage() {
         </div>
       </section>
 
+      {/* Working Together */}
+      <section className="dealer-section dealer-commitments">
+        <div className="container dealer-commitment-grid">
+          <div>
+            <Heading
+              eyebrow="Working Together"
+              title="Clear Products. Clear Requirements. Clear Commitments."
+            />
+            {[
+              [
+                "Product Information",
+                "Current specifications, grades, dimensions and usage guidance for approved products.",
+              ],
+              [
+                "Order Coordination",
+                "Availability, dispatch, freight and payment conditions confirmed through the agreed process.",
+              ],
+              [
+                "Enquiry Communication",
+                "Local demand and requirements shared so product discussions stay grounded in the market.",
+              ],
+              [
+                "Digital Dealer Visibility",
+                "Selected verified partners may appear in the locator after consent to publish.",
+              ],
+            ].map(([title, copy]) => (
+              <article key={title}>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </article>
+            ))}
+          </div>
+          <div className="dealer-dark-list">
+            <div className="dealer-kicker">A Two Way Commitment</div>
+            <h2>
+              The Brand Is Represented Wherever the Product Is Recommended.
+            </h2>
+            <ul>
+              {partnerExpectations.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ SECTION WITH SEARCH */}
       <section className="dealer-section dealer-faq" id="dealer-faq">
         <div className="container dealer-faq-grid">
+          <Heading
+            eyebrow="Frequently Asked Questions"
+            title="Before You Apply."
+          />
           <div>
-            <Heading eyebrow="Frequently Asked Questions" title="Channel & Partnership Queries" />
-            <div className="faq-search-box">
-              <SearchIcon />
-              <input
-                type="text"
-                value={faqFilter}
-                onChange={(e) => setFaqFilter(e.target.value)}
-                placeholder="Search FAQ topics..."
-              />
-            </div>
+            {faqItems.map(([question, answer], index) => (
+              <details key={question}>
+                <summary>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  {question}
+                  <i>+</i>
+                </summary>
+                <p>{answer}</p>
+              </details>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <div>
-            {displayedFaqs.length > 0 ? (
-              displayedFaqs.map(([question, answer], index) => {
-                const isOpen = openFaqIndex === index;
-                return (
-                  <details key={question} open={isOpen} onClick={(e) => { e.preventDefault(); setOpenFaqIndex(isOpen ? -1 : index); }}>
-                    <summary>
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                      {question}
-                      <i>{isOpen ? '−' : '+'}</i>
-                    </summary>
-                    {isOpen && <p>{answer}</p>}
-                  </details>
-                );
-              })
-            ) : (
-              <p className="dealer-note">No FAQs matching &quot;{faqFilter}&quot;. Call +91 72061 04340 for direct assistance.</p>
-            )}
+      <section className="dealer-final">
+        <div className="container">
+          <div className="dealer-kicker">
+            Your Market. Our Next Conversation.
+          </div>
+          <h2>
+            See an Opportunity for Pentagon in Your City?{" "}
+            <em>Let’s Examine It Together.</em>
+          </h2>
+          <p>
+            Tell us where you operate, who you serve, which products the market
+            needs and how you plan to grow the category.
+          </p>
+          <div className="dealer-actions">
+            <a className="btn btn-primary" href={DEALER_SECTIONS.application}>
+              Apply to Join the Network <Arrow />
+            </a>
+            <a className="btn btn-outline" href={ROUTES.contact}>
+              Speak With Our Team <Arrow />
+            </a>
           </div>
         </div>
       </section>
 
       {/* MOBILE STICKY FLOATING ACTION BAR */}
       <div className="mobile-sticky-bar">
-        <button type="button" className="mobile-action-btn" onClick={() => chooseRoute('seller')}>
+        <button
+          type="button"
+          className="mobile-action-btn"
+          onClick={() => chooseRoute("seller")}
+        >
           <SearchIcon /> Find Seller
         </button>
-        <button type="button" className="mobile-action-btn primary" onClick={() => chooseRoute('dealer')}>
+        <button
+          type="button"
+          className="mobile-action-btn primary"
+          onClick={() => chooseRoute("dealer")}
+        >
           Apply Partner <Arrow />
         </button>
       </div>
