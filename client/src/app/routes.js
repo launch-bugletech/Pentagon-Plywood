@@ -3,9 +3,24 @@ export const ROUTES = Object.freeze({
   about: '/about',
   contact: '/contact-us',
   dealers: '/dealers-distributors',
+  applications: '/applications',
   plywood: '/plywood',
   mrGradePlywood: '/products/plywood/mr-grade-plywood',
   comingSoon: '/coming-soon',
+});
+
+export const APPLICATION_SECTIONS = Object.freeze({
+  explore: `${ROUTES.applications}#explore-applications`,
+  guide: `${ROUTES.applications}#material-guide`,
+  furniture: `${ROUTES.applications}#home-furniture`,
+  kitchens: `${ROUTES.applications}#modular-kitchens`,
+  wardrobes: `${ROUTES.applications}#wardrobes-storage`,
+  doors: `${ROUTES.applications}#doors-shutters`,
+  walls: `${ROUTES.applications}#wall-panelling`,
+  commercial: `${ROUTES.applications}#commercial-interiors`,
+  trade: `${ROUTES.applications}#trade-supply`,
+  faq: `${ROUTES.applications}#applications-faq`,
+  enquiry: `${ROUTES.applications}#application-enquiry`,
 });
 
 export const HOME_SECTIONS = Object.freeze({

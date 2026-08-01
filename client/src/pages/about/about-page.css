@@ -435,6 +435,206 @@
 .about-final-cta p { max-width: 66ch; margin: 28px auto 0; color: rgba(255,255,255,.7); font-size: var(--site-paragraph-size); line-height: 1.65; }
 .about-final-cta .about-actions { justify-content: center; }
 
+/* Eco-Luxe material backgrounds — About page prototype */
+.about-hero,
+.about-section,
+.about-leadership,
+.about-manufacturing,
+.about-team,
+.about-visit,
+.about-final-cta {
+  position: relative;
+  isolation: isolate;
+}
+
+.about-page section > .container,
+.about-team > * { position: relative; z-index: 1; }
+
+/* Light birch-paper canvas with a broad architectural halo. */
+.about-hero {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 8% 14%, color-mix(in srgb, var(--secondary) 13%, transparent) 0 1px, transparent 2px),
+    radial-gradient(ellipse at 82% 28%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 58%),
+    repeating-linear-gradient(90deg, transparent 0 118px, color-mix(in srgb, var(--accent) 4%, transparent) 119px 120px);
+  background-size: 18px 18px, auto, auto;
+}
+
+.about-hero::before {
+  position: absolute;
+  z-index: 0;
+  top: 46px;
+  right: -190px;
+  width: 620px;
+  height: 620px;
+  border: 1px solid color-mix(in srgb, var(--accent) 10%, transparent);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 58px color-mix(in srgb, var(--accent) 3%, transparent),
+    0 0 0 116px color-mix(in srgb, var(--accent) 2%, transparent);
+  content: '';
+  pointer-events: none;
+}
+
+/* Cross-laid veneer fibres behind the origin story. */
+.about-intro {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(17deg, transparent 0 46px, color-mix(in srgb, var(--accent) 4%, transparent) 47px 48px),
+    repeating-linear-gradient(163deg, transparent 0 82px, color-mix(in srgb, var(--secondary) 4%, transparent) 83px 84px);
+}
+
+.about-intro::after {
+  position: absolute;
+  z-index: 0;
+  right: 5vw;
+  bottom: 7%;
+  width: 22vw;
+  height: 22vw;
+  min-width: 220px;
+  min-height: 220px;
+  border: 1px solid color-mix(in srgb, var(--secondary) 18%, transparent);
+  content: '';
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+/* Fine vertical birch bands make the facts feel measured and ordered. */
+.about-snapshot {
+  background-color: var(--bg-alt);
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent 22%, transparent 78%, color-mix(in srgb, var(--secondary) 5%, transparent)),
+    repeating-linear-gradient(90deg, transparent 0 31px, color-mix(in srgb, var(--ink) 3%, transparent) 32px 33px);
+}
+
+.about-stats article {
+  background: color-mix(in srgb, var(--bg-alt) 87%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+/* Expanding rings suggest time and accumulated manufacturing experience. */
+.about-journey {
+  background-color: var(--bg);
+  background-image:
+    repeating-radial-gradient(circle at 94% 52%, transparent 0 52px, color-mix(in srgb, var(--accent) 7%, transparent) 53px 54px),
+    linear-gradient(110deg, transparent 55%, color-mix(in srgb, var(--secondary) 5%, transparent));
+}
+
+.about-leadership {
+  background-color: var(--bg-deep);
+  background-image:
+    linear-gradient(100deg, color-mix(in srgb, var(--accent) 7%, transparent), transparent 47%),
+    repeating-linear-gradient(116deg, transparent 0 88px, color-mix(in srgb, var(--accent) 6%, transparent) 89px 90px);
+}
+
+/* Product library uses a restrained specification-paper grid. */
+.about-products {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 4%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 12% 88%, color-mix(in srgb, var(--secondary) 8%, transparent), transparent 28%);
+  background-size: 72px 72px, 72px 72px, auto;
+}
+
+.about-product-grid article {
+  box-shadow: 0 18px 45px color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+/* Tree rings over deep pine — visible, but kept away from primary copy. */
+.about-manufacturing {
+  background-color: var(--dark-panel);
+  background-image:
+    repeating-radial-gradient(ellipse at 88% 30%, transparent 0 43px, color-mix(in srgb, var(--secondary) 12%, transparent) 44px 45px),
+    linear-gradient(115deg, color-mix(in srgb, #000 13%, transparent), transparent 55%);
+}
+
+.about-manufacturing::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: linear-gradient(90deg, var(--dark-panel) 0%, transparent 48%);
+  content: '';
+  pointer-events: none;
+}
+
+/* A technical blueprint grid reinforces process and verification. */
+.about-quality {
+  background-color: var(--bg-alt);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(135deg, transparent 73%, color-mix(in srgb, var(--secondary) 8%, transparent));
+  background-size: 34px 34px, 34px 34px, auto;
+}
+
+.about-team-content {
+  background-image:
+    repeating-linear-gradient(118deg, transparent 0 74px, color-mix(in srgb, var(--dark-panel-ink) 6%, transparent) 75px 76px),
+    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--secondary) 13%, transparent), transparent 43%);
+}
+
+.about-principles {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(28deg, transparent 0 96px, color-mix(in srgb, var(--accent) 4%, transparent) 97px 98px),
+    linear-gradient(90deg, transparent 60%, color-mix(in srgb, var(--secondary) 5%, transparent));
+}
+
+.about-principle-grid article {
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+}
+
+/* Alternating timber strips make the buyer section feel less like a plain list. */
+.about-audiences {
+  background-color: var(--bg-deep);
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 104px, color-mix(in srgb, var(--accent) 6%, transparent) 105px 106px),
+    linear-gradient(140deg, color-mix(in srgb, var(--secondary) 7%, transparent), transparent 44%);
+}
+
+.about-audience-list article {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--bg) 34%, transparent), transparent 78%);
+}
+
+.about-forward {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 25%),
+    repeating-linear-gradient(145deg, transparent 0 118px, color-mix(in srgb, var(--secondary) 4%, transparent) 119px 120px);
+}
+
+.about-commitment-grid article {
+  background-color: color-mix(in srgb, var(--bg-alt) 92%, transparent);
+  background-image: linear-gradient(135deg, transparent 72%, color-mix(in srgb, var(--accent) 8%, transparent));
+  box-shadow: 0 22px 48px color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+.about-visit {
+  background-color: var(--dark-panel);
+  background-image:
+    repeating-radial-gradient(circle at 82% 50%, transparent 0 50px, color-mix(in srgb, var(--secondary) 11%, transparent) 51px 52px),
+    linear-gradient(90deg, color-mix(in srgb, #000 12%, transparent), transparent 70%);
+}
+
+.about-faq {
+  background-color: var(--bg-alt);
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 44px, color-mix(in srgb, var(--accent) 4%, transparent) 45px 46px),
+    radial-gradient(circle at 8% 12%, color-mix(in srgb, var(--secondary) 7%, transparent), transparent 24%);
+}
+
+.about-final-cta {
+  background-color: var(--forest);
+  background-image:
+    repeating-radial-gradient(ellipse at 50% 130%, transparent 0 55px, color-mix(in srgb, var(--gold) 13%, transparent) 56px 57px),
+    linear-gradient(120deg, color-mix(in srgb, #000 14%, transparent), transparent 50%, color-mix(in srgb, var(--gold) 8%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-product-grid article { box-shadow: none; }
+}
+
 @media (max-width: 1100px) {
   .about-hero-grid { grid-template-columns: 1fr 1fr; min-height: 610px; padding-top: 46px; padding-bottom: 46px; }
   .about-hero-content { padding-right: 34px; }

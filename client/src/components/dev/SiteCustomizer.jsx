@@ -12,7 +12,7 @@ import {
 } from './TweaksPanel.jsx';
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/ {
-  palette: "crafted-heritage",
+  palette: "forest-timber-honey",
   headingFont: "oswald",
   headingSize: 64,
   headingWeight: 500,
@@ -133,40 +133,28 @@ const TEXT_FONT_OPTIONS = [
 
 const PALETTES = [
   {
-    id: 'crafted-heritage',
-    name: 'Crafted Heritage',
-    description: 'Cream, walnut and restrained gold',
-    swatch: ['#F4EFE7', '#292825', '#8C684F', '#C7AA80'],
+    id: 'forest-timber-honey',
+    name: 'Forest Timber & Honey Teak',
+    description: 'Deep pine, honey teak and ivory linen',
+    swatch: ['#FDFBF8', '#14211A', '#143D2B', '#D99143'],
   },
   {
-    id: 'warm-oak',
-    name: 'Warm Oak',
-    description: 'Warm, premium, naturally wooden',
-    swatch: ['#F5EFE5', '#29231E', '#A45F32'],
+    id: 'emerald-architectural',
+    name: 'Emerald Architectural',
+    description: 'Architectural emerald with brass undertones',
+    swatch: ['#FCFBF7', '#10241C', '#005C45', '#B88A3C'],
   },
   {
-    id: 'walnut-workshop',
-    name: 'Walnut Workshop',
-    description: 'Darker, mature, craftsmanship-focused',
-    swatch: ['#EEE7DC', '#211B17', '#71452E'],
+    id: 'alpine-cedar-evergreen',
+    name: 'Alpine Cedar & Evergreen',
+    description: 'Alpine forest with golden cedar highlights',
+    swatch: ['#FBF9F4', '#16251D', '#1C4A35', '#C77B36'],
   },
   {
-    id: 'forest-timber',
-    name: 'Forest & Timber',
-    description: 'Sustainable and natural',
-    swatch: ['#F1EFE7', '#223027', '#596B4D'],
-  },
-  {
-    id: 'teak-charcoal',
-    name: 'Teak & Charcoal',
-    description: 'Modern industrial wood brand',
-    swatch: ['#F3EADF', '#201E1B', '#B66A32'],
-  },
-  {
-    id: 'luxury-mahogany',
-    name: 'Luxury Mahogany',
-    description: 'Premium with a subtle Pentagon red',
-    swatch: ['#F4ECE7', '#291B1A', '#8B3F32'],
+    id: 'nordic-birch-pine',
+    name: 'Nordic Birch & Pine',
+    description: 'Scandinavian spruce with light ash neutrals',
+    swatch: ['#FEFDFC', '#17231E', '#2F5B49', '#B98A52'],
   },
 ];
 
@@ -177,7 +165,7 @@ function SiteCustomizer() {
 
   React.useEffect(() => {
     const root = document.documentElement;
-    root.setAttribute('data-palette', tweaks.palette || 'crafted-heritage');
+    root.setAttribute('data-palette', tweaks.palette || 'forest-timber-honey');
     root.setAttribute('data-hero-panel-side', tweaks.heroPanelSide || 'right');
     root.setAttribute('data-card-shadows', tweaks.cardShadows ? 'on' : 'off');
     root.setAttribute('data-section-labels', tweaks.sectionLabels ? 'on' : 'off');
@@ -211,7 +199,7 @@ function SiteCustomizer() {
 
   return (
     <TweaksPanel
-      title="Site customizer"
+      title="Theme controls"
       standalone={isStandalonePreview}
       placement="left"
     >
@@ -263,7 +251,7 @@ function SiteCustomizer() {
         <TweakSlider label="Letter spacing" value={tweaks.smallLabelSpacing} min={0} max={5} step={0.1} unit="px" onChange={(value) => setTweak('smallLabelSpacing', value)} />
       </TweakSection>
 
-      <TweakSection label="Palette">
+      <TweakSection label="Eco-Luxe themes">
         <div style={{ display: 'grid', gap: 10 }}>
           {PALETTES.map((palette) => (
             <button

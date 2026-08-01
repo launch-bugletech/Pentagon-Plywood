@@ -3,6 +3,7 @@ import HomePage from '../pages/home/HomePage.jsx';
 import AboutPage from '../pages/about/AboutPage.jsx';
 import ContactPage from '../pages/contact/ContactPage.jsx';
 import DealersPage from '../pages/dealers/DealersPage.jsx';
+import ApplicationsPage from '../pages/applications/ApplicationsPage.jsx';
 import PlywoodPage from '../pages/plywood/PlywoodPage.jsx';
 import MRGradePage from '../pages/mr-grade/MRGradePage.jsx';
 import ComingSoonPage from '../pages/system/ComingSoonPage.jsx';
@@ -21,6 +22,7 @@ const routes = {
   [ROUTES.about]: { Page: AboutPage, activePage: 'about' },
   [ROUTES.contact]: { Page: ContactPage, activePage: 'contact' },
   [ROUTES.dealers]: { Page: DealersPage, activePage: 'dealers' },
+  [ROUTES.applications]: { Page: ApplicationsPage, activePage: 'applications' },
   [ROUTES.plywood]: { Page: PlywoodPage, activePage: 'plywood' },
   [ROUTES.mrGradePlywood]: { Page: MRGradePage, activePage: 'plywood' },
   [ROUTES.comingSoon]: { Page: ComingSoonPage, activePage: null },

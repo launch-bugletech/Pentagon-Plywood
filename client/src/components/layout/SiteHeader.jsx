@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { comingSoonUrl, CONTACT_SECTIONS, HOME_SECTIONS, PLYWOOD_SECTIONS, ROUTES } from '../../app/routes.js';
+import { APPLICATION_SECTIONS, comingSoonUrl, CONTACT_SECTIONS, HOME_SECTIONS, PLYWOOD_SECTIONS, ROUTES } from '../../app/routes.js';
 
 const ArrowIcon = () => (
   <svg className="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
@@ -68,12 +68,15 @@ const productGroups = [
 ];
 
 const applicationLinks = [
-  ['Home Furniture', comingSoonUrl('Home Furniture Applications'), 'furniture'],
-  ['Modular Kitchens', comingSoonUrl('Modular Kitchen Applications'), 'kitchen'],
-  ['Wardrobes & Storage', comingSoonUrl('Wardrobes and Storage Applications'), 'wardrobe'],
-  ['Wall Panelling & Interiors', comingSoonUrl('Wall Panelling and Interiors'), 'panelling'],
-  ['Commercial Interiors', comingSoonUrl('Commercial Interior Applications'), 'commercial'],
-  ['Dealer & Bulk Supply', ROUTES.dealers, 'dealer'],
+  ['Applications Overview', ROUTES.applications, 'guide'],
+  ['Home Furniture', APPLICATION_SECTIONS.furniture, 'furniture'],
+  ['Modular Kitchens', APPLICATION_SECTIONS.kitchens, 'kitchen'],
+  ['Wardrobes & Storage', APPLICATION_SECTIONS.wardrobes, 'wardrobe'],
+  ['Doors & Shutters', APPLICATION_SECTIONS.doors, 'door'],
+  ['Wall Panelling', APPLICATION_SECTIONS.walls, 'panelling'],
+  ['Commercial Interiors', APPLICATION_SECTIONS.commercial, 'commercial'],
+  ['Retail & Hospitality', `${ROUTES.applications}#retail-hospitality`, 'retail'],
+  ['Dealer & Bulk Supply', APPLICATION_SECTIONS.trade, 'dealer'],
 ];
 
 const resourceLinks = [
@@ -141,6 +144,8 @@ const NavItemIcon = ({ type }) => {
     wardrobe: <><path d="M5 3h14v18H5zM12 3v18" /><circle cx="10" cy="12" r=".7" fill="currentColor" stroke="none" /><circle cx="14" cy="12" r=".7" fill="currentColor" stroke="none" /></>,
     panelling: <><path d="M4 3h16v18H4zM9 3v18M15 3v18" /><path d="M4 8h16M4 16h16" /></>,
     commercial: <><path d="M4 21V7h16v14M8 7V3h8v4" /><path d="M8 11h2M14 11h2M8 15h2M14 15h2M10 21v-3h4v3" /></>,
+    door: <><path d="M5 3h14v18H5zM8 6h8v15H8z" /><circle cx="14" cy="13" r=".8" fill="currentColor" stroke="none" /></>,
+    retail: <><path d="M4 9h16l-2-5H6L4 9Z" /><path d="M6 9v11h12V9M9 13h6M9 17h4" /></>,
     dealer: <><path d="M3 9h18l-2-5H5L3 9Z" /><path d="M5 9v11h14V9M9 20v-6h6v6" /><path d="M3 9c0 2 3 2 3 0 0 2 3 2 3 0 0 2 3 2 3 0 0 2 3 2 3 0 0 2 3 2 3 0" /></>,
     catalogue: <><path d="M4 4h6a3 3 0 0 1 3 3v13a3 3 0 0 0-3-3H4z" /><path d="M20 4h-6a3 3 0 0 0-3 3M13 20a3 3 0 0 1 3-3h4V4" /></>,
     guide: <><circle cx="12" cy="12" r="9" /><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" /></>,
@@ -193,6 +198,7 @@ function SiteHeader({ activePage = 'home' }) {
   };
 
   const openDropdown = (menu) => {
+    if (window.matchMedia('(max-width: 1100px)').matches) return;
     clearCloseTimer();
     if (pinnedMenu && pinnedMenu !== menu) {
       setPinnedMenu(null);
@@ -201,6 +207,7 @@ function SiteHeader({ activePage = 'home' }) {
   };
 
   const scheduleDropdownClose = (menu) => {
+    if (window.matchMedia('(max-width: 1100px)').matches) return;
     clearCloseTimer();
     if (pinnedMenu === menu) return;
 
@@ -298,13 +305,14 @@ function SiteHeader({ activePage = 'home' }) {
             onMouseEnter={() => openDropdown('applications')}
             onMouseLeave={() => scheduleDropdownClose('applications')}
           >
-            <button type="button" className="nav-trigger" aria-expanded={openMenu === 'applications'} onClick={() => toggleDropdown('applications')}>
+            <button type="button" className={activePage === 'applications' ? 'nav-trigger nav-active' : 'nav-trigger'} aria-expanded={openMenu === 'applications'} onClick={() => toggleDropdown('applications')}>
               Applications <ChevronIcon />
             </button>
             <div className="nav-mega nav-mega-compact" data-watermark="SPACES">
               <div className="nav-mega-intro">
                 <span>Application Guide</span>
                 <strong>Start with the space you are making.</strong>
+                <a href={ROUTES.applications} onClick={closeMenu}>Explore all applications <ArrowIcon /></a>
               </div>
               <div className="nav-link-list">
                 {applicationLinks.map(([label, href, icon]) => (

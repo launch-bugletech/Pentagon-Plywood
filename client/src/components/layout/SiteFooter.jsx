@@ -30,7 +30,7 @@ const footerGroups = [
   {
     title: 'Resources',
     links: [
-      ['Applications', HOME_SECTIONS.applications],
+      ['Applications', ROUTES.applications],
       ['Buying guides', HOME_SECTIONS.resources],
       ['Catalogues (PDF)', comingSoonUrl('Product catalogues')],
       ['Technical downloads', comingSoonUrl('Technical downloads')],
