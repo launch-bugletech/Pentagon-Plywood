@@ -2,7 +2,13 @@ import { useEffect } from 'react';
 import { HOME_SECTIONS, ROUTES } from '../../app/routes.js';
 
 function ComingSoonPage() {
-  const feature = new URLSearchParams(window.location.search).get('feature') || 'This page';
+  const pathFeature = window.location.pathname
+    .split('/')
+    .filter(Boolean)
+    .at(-1)
+    ?.replace(/-/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+  const feature = new URLSearchParams(window.location.search).get('feature') || pathFeature || 'This page';
 
   useEffect(() => {
     document.title = `${feature} | Coming Soon`;
@@ -16,7 +22,7 @@ function ComingSoonPage() {
         <h1>{feature} is coming soon.</h1>
         <p>We are preparing this part of the Pentagon Plywood website. For information today, speak with our sales team or browse the current plywood range.</p>
         <div className="system-actions">
-          <a className="btn btn-primary" href={ROUTES.plywood}>Browse plywood</a>
+          <a className="btn btn-primary" href={ROUTES.products}>Browse all products</a>
           <a className="btn btn-outline" href={HOME_SECTIONS.enquiry}>Contact our team</a>
         </div>
       </div>

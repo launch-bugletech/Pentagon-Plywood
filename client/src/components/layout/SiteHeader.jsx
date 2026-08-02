@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { APPLICATION_SECTIONS, comingSoonUrl, CONTACT_SECTIONS, HOME_SECTIONS, PLYWOOD_SECTIONS, ROUTES } from '../../app/routes.js';
+import { manufacturedNavigation, sourcedNavigation } from '../../data/productCatalog.js';
 
 const ArrowIcon = () => (
   <svg className="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
@@ -12,60 +13,6 @@ const PentagonIcon = () => (
     <path d="M12 3l9 6.5-3.4 10.5H6.4L3 9.5 12 3z" />
   </svg>
 );
-
-const productGroups = [
-  {
-    title: 'Plywood',
-    icon: 'plywood',
-    href: ROUTES.plywood,
-    links: [
-      ['MR Grade Plywood', ROUTES.mrGradePlywood],
-      ['BWR / BWP Plywood', comingSoonUrl('BWR and BWP Plywood')],
-      ['Marine Plywood', PLYWOOD_SECTIONS.marine],
-      ['Commercial Plywood', comingSoonUrl('Commercial Plywood')],
-    ],
-  },
-  {
-    title: 'Blockboards',
-    icon: 'blockboard',
-    href: comingSoonUrl('Blockboards'),
-    links: [
-      ['Blockboards Overview', comingSoonUrl('Blockboards')],
-      ['MR Grade Blockboard', comingSoonUrl('MR Grade Blockboard')],
-    ],
-  },
-  {
-    title: 'MDF Boards',
-    icon: 'mdf',
-    href: comingSoonUrl('MDF Boards'),
-    links: [
-      ['MDF Boards Overview', comingSoonUrl('MDF Boards')],
-      ['Plain MDF Boards', comingSoonUrl('Plain MDF Boards')],
-      ['Pre-Laminated MDF Boards', comingSoonUrl('Pre-Laminated MDF Boards')],
-    ],
-  },
-  {
-    title: 'WPC Boards',
-    icon: 'wpc',
-    href: comingSoonUrl('WPC and Composite Boards'),
-    links: [
-      ['WPC & Composite Overview', comingSoonUrl('WPC and Composite Boards')],
-      ['WPC Boards', comingSoonUrl('WPC Boards')],
-    ],
-  },
-  {
-    title: 'Decorative Surfaces',
-    icon: 'surface',
-    href: comingSoonUrl('Decorative Surfaces'),
-    links: [
-      ['Decorative Surfaces Overview', comingSoonUrl('Decorative Surfaces')],
-      ['Natural Veneers', comingSoonUrl('Natural Veneers')],
-      ['Decorative Veneers', comingSoonUrl('Decorative Veneers')],
-      ['Laminates (Sunmica)', comingSoonUrl('Laminates and Sunmica')],
-      ['Pre-Laminated Boards', comingSoonUrl('Pre-Laminated Boards')],
-    ],
-  },
-];
 
 const applicationLinks = [
   ['Applications Overview', ROUTES.applications, 'guide'],
@@ -126,6 +73,11 @@ const ProductCategoryIcon = ({ type }) => {
         <path d="M6 6.5 12 9l6-2.5" />
       </>
     ),
+    'flush-doors': <><path d="M5 3h14v18H5z" /><path d="M8 6h8v15H8z" /><circle cx="14" cy="13" r=".8" fill="currentColor" stroke="none" /></>,
+    'industrial-chemicals': <><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3" /><path d="M7.5 15h9" /></>,
+    'decorative-materials': <><path d="M4 4h16v16H4z" /><path d="M4 9h16M9 4v16" /></>,
+    'engineered-boards': <><path d="m3 8 9-4 9 4-9 4-9-4Z" /><path d="m3 12 9 4 9-4M3 16l9 4 9-4" /></>,
+    'laminated-products': <><path d="M4 5h16v14H4z" /><path d="M7 8h10M7 12h10M7 16h6" /></>,
   };
 
   return (
@@ -134,6 +86,24 @@ const ProductCategoryIcon = ({ type }) => {
         {paths[type]}
       </svg>
     </span>
+  );
+};
+
+const MobileProductBranch = ({ branch, owner, expanded, onToggle, onNavigate }) => {
+  const key = `${owner}-${branch.id}`;
+  const isOpen = Boolean(expanded[key]);
+
+  return (
+    <div className="nav-mobile-branch">
+      <button type="button" aria-expanded={isOpen} onClick={() => onToggle(key)}>
+        <span>{branch.label}</span><span aria-hidden="true">{isOpen ? '−' : '+'}</span>
+      </button>
+      {isOpen && (
+        <div className="nav-mobile-leaves">
+          {branch.children.map(([label, href]) => <a href={href} key={label} onClick={onNavigate}>{label}</a>)}
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -168,6 +138,7 @@ function SiteHeader({ activePage = 'home' }) {
   const [openMenu, setOpenMenu] = useState(null);
   const [pinnedMenu, setPinnedMenu] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileProductOpen, setMobileProductOpen] = useState({});
   const headerRef = useRef(null);
   const closeTimerRef = useRef(null);
   const enquiryHref = CONTACT_SECTIONS.form;
@@ -193,6 +164,11 @@ function SiteHeader({ activePage = 'home' }) {
     setMenuOpen(false);
     setOpenMenu(null);
     setPinnedMenu(null);
+    setMobileProductOpen({});
+  };
+
+  const toggleMobileProductBranch = (key) => {
+    setMobileProductOpen((current) => ({ ...current, [key]: !current[key] }));
   };
 
   const toggleDropdown = (menu) => {
@@ -303,23 +279,57 @@ function SiteHeader({ activePage = 'home' }) {
             onMouseEnter={() => openDropdown('products')}
             onMouseLeave={() => scheduleDropdownClose('products')}
           >
-            <button type="button" className={activePage === 'plywood' ? 'nav-trigger nav-active' : 'nav-trigger'} aria-expanded={openMenu === 'products'} onClick={() => toggleDropdown('products')}>
+            <button type="button" className={['products', 'plywood'].includes(activePage) ? 'nav-trigger nav-active' : 'nav-trigger'} aria-expanded={openMenu === 'products'} onClick={() => toggleDropdown('products')}>
               Products <ChevronIcon />
             </button>
             <div className="nav-mega nav-mega-products" data-watermark="MATERIALS">
               <div className="nav-mega-intro">
-                <span>Product Library</span>
-                <strong>Materials for every part of the build.</strong>
-                <a href={ROUTES.plywood} onClick={closeMenu}>Explore plywood <ArrowIcon /></a>
+                <span>Product Portfolio</span>
+                <strong>Made in-house. Sourced for the complete requirement.</strong>
+                <a href={ROUTES.products} onClick={closeMenu}>View all products <ArrowIcon /></a>
               </div>
-              <div className="nav-product-groups">
-                {productGroups.map((group) => (
-                  <div className="nav-menu-group" key={group.title}>
-                    <ProductCategoryIcon type={group.icon} />
-                    <a className="nav-group-title" href={group.href} onClick={closeMenu}>{group.title}</a>
-                    {group.links.map(([label, href]) => <a href={href} key={label} onClick={closeMenu}>{label}</a>)}
+              <div className="nav-products-desktop">
+                <section className="nav-product-owner is-made">
+                  <div className="nav-owner-heading"><span>Made by Pentagon</span><a href={ROUTES.manufacturedProducts} onClick={closeMenu}>Manufactured range <ArrowIcon /></a></div>
+                  <div className="nav-owner-groups">
+                    {manufacturedNavigation.map((group) => (
+                      <div className="nav-menu-group" key={group.id}>
+                        <ProductCategoryIcon type={group.id} />
+                        <a className="nav-group-title" href={group.href} onClick={closeMenu}>{group.label}</a>
+                        {group.children.map(([label, href]) => <a href={href} key={label} onClick={closeMenu}>{label}</a>)}
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </section>
+                <section className="nav-product-owner is-sourced">
+                  <div className="nav-owner-heading"><span>Sourced by Pentagon</span><a href={ROUTES.tradedProducts} onClick={closeMenu}>Traded range <ArrowIcon /></a></div>
+                  <div className="nav-owner-groups">
+                    {sourcedNavigation.map((group) => (
+                      <div className="nav-menu-group" key={group.id}>
+                        <ProductCategoryIcon type={group.id} />
+                        <span className="nav-group-title">{group.label}</span>
+                        {group.children.map(([label, href]) => <a href={href} key={label} onClick={closeMenu}>{label}</a>)}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
+              <div className="nav-products-mobile">
+                <a className="nav-mobile-all-products" href={ROUTES.products} onClick={closeMenu}>All Products <ArrowIcon /></a>
+                <div className="nav-mobile-owner">
+                  <button type="button" aria-expanded={Boolean(mobileProductOpen.manufactured)} onClick={() => toggleMobileProductBranch('manufactured')}><span><small>Made by Pentagon</small>Manufactured</span><b aria-hidden="true">{mobileProductOpen.manufactured ? '−' : '+'}</b></button>
+                  {mobileProductOpen.manufactured && <div className="nav-mobile-owner-content">
+                    <a className="nav-mobile-overview" href={ROUTES.manufacturedProducts} onClick={closeMenu}>Manufactured overview</a>
+                    {manufacturedNavigation.map((branch) => <MobileProductBranch key={branch.id} branch={branch} owner="made" expanded={mobileProductOpen} onToggle={toggleMobileProductBranch} onNavigate={closeMenu} />)}
+                  </div>}
+                </div>
+                <div className="nav-mobile-owner is-sourced">
+                  <button type="button" aria-expanded={Boolean(mobileProductOpen.sourced)} onClick={() => toggleMobileProductBranch('sourced')}><span><small>Sourced by Pentagon</small>Traded &amp; Sourced</span><b aria-hidden="true">{mobileProductOpen.sourced ? '−' : '+'}</b></button>
+                  {mobileProductOpen.sourced && <div className="nav-mobile-owner-content">
+                    <a className="nav-mobile-overview" href={ROUTES.tradedProducts} onClick={closeMenu}>Traded products overview</a>
+                    {sourcedNavigation.map((branch) => <MobileProductBranch key={branch.id} branch={branch} owner="sourced" expanded={mobileProductOpen} onToggle={toggleMobileProductBranch} onNavigate={closeMenu} />)}
+                  </div>}
+                </div>
               </div>
             </div>
           </div>
@@ -369,6 +379,10 @@ function SiteHeader({ activePage = 'home' }) {
 
           <a href={ROUTES.dealers} className={activePage === 'dealers' ? 'nav-active' : undefined} aria-current={activePage === 'dealers' ? 'page' : undefined} onClick={closeMenu}>Dealers</a>
           <a href={ROUTES.contact} className={activePage === 'contact' ? 'nav-active' : undefined} aria-current={activePage === 'contact' ? 'page' : undefined} onClick={closeMenu}>Contact Us</a>
+          <div className="mobile-nav-actions">
+            <a className="mobile-nav-quote" href={enquiryHref} onClick={closeMenu}>Request a Quote <ArrowIcon /></a>
+            <a className="mobile-nav-call" href="https://wa.me/917206104340" onClick={closeMenu}>Call / WhatsApp <ArrowIcon /></a>
+          </div>
         </nav>
         <button
           className="mobile-menu-toggle"

@@ -7,12 +7,13 @@ import DealersPage from '../pages/dealers/DealersPage.jsx';
 import ApplicationsPage from '../pages/applications/ApplicationsPage.jsx';
 import PlywoodPage from '../pages/plywood/PlywoodPage.jsx';
 import MRGradePage from '../pages/mr-grade/MRGradePage.jsx';
+import ProductsPage from '../pages/products/ProductsPage.jsx';
 import ComingSoonPage from '../pages/system/ComingSoonPage.jsx';
 import NotFoundPage from '../pages/system/NotFoundPage.jsx';
 import SiteHeader from '../components/layout/SiteHeader.jsx';
 import SiteFooter from '../components/layout/SiteFooter.jsx';
 import SiteCustomizer from '../components/dev/SiteCustomizer.jsx';
-import { normalizePath, ROUTES } from './routes.js';
+import { normalizePath, PRODUCT_ROUTES, ROUTES } from './routes.js';
 
 // const TWEAKS_ENABLED = import.meta.env.DEV
 //   && import.meta.env.VITE_ENABLE_TWEAKS === 'true';
@@ -25,14 +26,24 @@ const routes = {
   [ROUTES.contactV2]: { Page: ContactV2Page, activePage: 'contact' },
   [ROUTES.dealers]: { Page: DealersPage, activePage: 'dealers' },
   [ROUTES.applications]: { Page: ApplicationsPage, activePage: 'applications' },
+  [ROUTES.products]: { Page: ProductsPage, activePage: 'products' },
+  [ROUTES.manufacturedProducts]: { Page: ProductsPage, activePage: 'products' },
+  [ROUTES.tradedProducts]: { Page: ProductsPage, activePage: 'products' },
+  [ROUTES.plywoodOverview]: { Page: PlywoodPage, activePage: 'products' },
   [ROUTES.plywood]: { Page: PlywoodPage, activePage: 'plywood' },
   [ROUTES.mrGradePlywood]: { Page: MRGradePage, activePage: 'plywood' },
   [ROUTES.comingSoon]: { Page: ComingSoonPage, activePage: null },
 };
 
+const productPlaceholderPaths = new Set(
+  Object.values(PRODUCT_ROUTES).filter((path) => !routes[path]),
+);
+
 function App() {
   const path = normalizePath(window.location.pathname);
-  const route = routes[path];
+  const route = routes[path] || (productPlaceholderPaths.has(path)
+    ? { Page: ComingSoonPage, activePage: 'products' }
+    : undefined);
   const Page = route?.Page || NotFoundPage;
 
   useEffect(() => {
