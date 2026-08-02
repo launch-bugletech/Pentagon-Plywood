@@ -167,9 +167,19 @@ function SiteHeader({ activePage = 'home' }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
   const [pinnedMenu, setPinnedMenu] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const headerRef = useRef(null);
   const closeTimerRef = useRef(null);
   const enquiryHref = CONTACT_SECTIONS.form;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const clearCloseTimer = () => {
     if (closeTimerRef.current) {
@@ -223,6 +233,7 @@ function SiteHeader({ activePage = 'home' }) {
         clearCloseTimer();
         setOpenMenu(null);
         setPinnedMenu(null);
+        setMenuOpen(false);
       }
     };
     const handleEscape = (event) => {
@@ -230,6 +241,7 @@ function SiteHeader({ activePage = 'home' }) {
         clearCloseTimer();
         setOpenMenu(null);
         setPinnedMenu(null);
+        setMenuOpen(false);
       }
     };
 
@@ -243,20 +255,32 @@ function SiteHeader({ activePage = 'home' }) {
   }, []);
 
   return (
-    <header ref={headerRef} className={`header${menuOpen ? ' mobile-menu-open' : ''}`}>
+    <>
       <div className="topbar">
         <div className="container topbar-inner">
-          <span>CELEBRATING 25+ YEARS OF TRUST, QUALITY & INNOVATION
-          </span>
-          <div>
-            <a href="mailto:pentagonplywood@gmail.com">
+          <div className="topbar-badge">
+            <span className="topbar-badge-icon">🏆</span>
+            <span>25+ YEARS OF TRUST & MANUFACTURING EXCELLENCE</span>
+          </div>
+          <div className="topbar-contact">
+            <a href="mailto:pentagonplywood@gmail.com" className="topbar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
               pentagonplywood@gmail.com
             </a>
-            <a href="tel:+917206104340">+91 7206 104 340</a>
+            <span className="topbar-divider">|</span>
+            <a href="tel:+917206104340" className="topbar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+              +91 7206 104 340
+            </a>
           </div>
         </div>
       </div>
-      <div className="container header-inner">
+      <header ref={headerRef} className={`header ${isScrolled ? 'is-scrolled' : 'is-top'}${menuOpen ? ' mobile-menu-open' : ''}`}>
+        <div className="container header-inner">
         <a
           href={ROUTES.home}
           className="brand"
@@ -368,7 +392,8 @@ function SiteHeader({ activePage = 'home' }) {
         </div>
       </div>
     </header>
-  );
+  </>
+);
 }
 
 export default SiteHeader;

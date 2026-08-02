@@ -2,6 +2,7 @@ export const ROUTES = Object.freeze({
   home: '/',
   about: '/about',
   contact: '/contact-us',
+  contactV2: '/contact-v2',
   dealers: '/dealers-distributors',
   applications: '/applications',
   plywood: '/plywood',

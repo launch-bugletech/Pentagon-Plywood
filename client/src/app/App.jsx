@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import HomePage from '../pages/home/HomePage.jsx';
 import AboutPage from '../pages/about/AboutPage.jsx';
 import ContactPage from '../pages/contact/ContactPage.jsx';
+import ContactV2Page from '../pages/contact-v2/ContactV2Page.jsx';
 import DealersPage from '../pages/dealers/DealersPage.jsx';
 import ApplicationsPage from '../pages/applications/ApplicationsPage.jsx';
 import PlywoodPage from '../pages/plywood/PlywoodPage.jsx';
@@ -21,6 +22,7 @@ const routes = {
   [ROUTES.home]: { Page: HomePage, activePage: 'home' },
   [ROUTES.about]: { Page: AboutPage, activePage: 'about' },
   [ROUTES.contact]: { Page: ContactPage, activePage: 'contact' },
+  [ROUTES.contactV2]: { Page: ContactV2Page, activePage: 'contact' },
   [ROUTES.dealers]: { Page: DealersPage, activePage: 'dealers' },
   [ROUTES.applications]: { Page: ApplicationsPage, activePage: 'applications' },
   [ROUTES.plywood]: { Page: PlywoodPage, activePage: 'plywood' },
