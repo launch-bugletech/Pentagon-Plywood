@@ -1,16 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { APPLICATION_SECTIONS, comingSoonUrl, CONTACT_SECTIONS, HOME_SECTIONS, PLYWOOD_SECTIONS, ROUTES } from '../../app/routes.js';
 import { manufacturedNavigation, sourcedNavigation } from '../../data/productCatalog.js';
-
+import pentagonHeaderLogo from "../../assets/Brand/logos/Pentagon-header.svg"
 const ArrowIcon = () => (
   <svg className="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
     <path d="M5 12h14M13 5l7 7-7 7" />
-  </svg>
-);
-
-const PentagonIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true">
-    <path d="M12 3l9 6.5-3.4 10.5H6.4L3 9.5 12 3z" />
   </svg>
 );
 
@@ -263,12 +257,11 @@ function SiteHeader({ activePage = 'home' }) {
           aria-label="Pentagon Plywood home"
           onClick={closeMenu}
         >
-          <div className="brand-mark">
-            <PentagonIcon />
-          </div>
-          <div className="brand-name">
-            PentagonPlywood <small> Est. 1997</small>
-          </div>
+          <img
+            src={pentagonHeaderLogo}
+            alt="Pentagon Plywood"
+            className="header-logo-img"
+          />
         </a>
         <nav className="nav" aria-label="Main navigation">
           <a href={ROUTES.home} className={activePage === 'home' ? 'nav-active' : undefined} aria-current={activePage === 'home' ? 'page' : undefined} onClick={closeMenu}>Home</a>

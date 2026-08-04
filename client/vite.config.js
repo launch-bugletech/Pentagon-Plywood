@@ -2,7 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from "@tailwindcss/vite";  
 import { defineConfig } from "vite";
 
 // https://vite.dev/config/

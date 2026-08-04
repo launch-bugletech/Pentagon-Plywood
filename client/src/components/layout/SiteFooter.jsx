@@ -1,10 +1,5 @@
 import { comingSoonUrl, HOME_SECTIONS, PLYWOOD_SECTIONS, ROUTES } from '../../app/routes.js';
-
-const PentagonIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true">
-    <path d="M12 3l9 6.5-3.4 10.5H6.4L3 9.5 12 3z" />
-  </svg>
-);
+import pentagonFooterLogo from "../../assets/Brand/logos/Pentagon-footer.svg"
 
 const footerGroups = [
   {
@@ -55,9 +50,12 @@ function SiteFooter() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <a href={ROUTES.home} className="brand" aria-label="Pentagon Plywood home">
-              <div className="brand-mark"><PentagonIcon /></div>
-              <div className="brand-name">Pentagon<small>Plywood · Est. 1997</small></div>
+            <a href={ROUTES.home} className="brand footer-brand-link" aria-label="Pentagon Plywood home">
+              <img
+                src={pentagonFooterLogo}
+                alt="Pentagon Plywood"
+                className="footer-logo-img"
+              />
             </a>
             <div className="footer-tagline">Crafting excellence, building trust since 1997.</div>
           </div>
