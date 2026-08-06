@@ -1,201 +1,66 @@
-import { useEffect, useState } from 'react';
-import { CONTACT_SECTIONS, DEALER_SECTIONS, ROUTES, comingSoonUrl } from '../../app/routes.js';
-import './dealers-page.css';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  ArrowRight, BadgeCheck, Boxes, Building2, Check, ChevronLeft, CircleCheck,
+  ClipboardCheck, Factory, Handshake, Map, MapPin, MessageCircle, PackageCheck,
+  Phone, Search, ShieldCheck, Store, Truck, Users, Warehouse, X,
+} from 'lucide-react';
+import { CONTACT_SECTIONS, DEALER_SECTIONS, ROUTES } from '../../app/routes.js';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../components/ui/accordion.jsx';
+import { Badge } from '../../components/ui/badge.jsx';
+import { Button } from '../../components/ui/button.jsx';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card.jsx';
+import { Input } from '../../components/ui/input.jsx';
+import { Textarea } from '../../components/ui/textarea.jsx';
 
 const PHONE = 'tel:+917206104340';
 const WHATSAPP_BASE = 'https://wa.me/917206104340?text=';
 
-const MOCK_DEALERS = [
-  {
-    id: 'd-101',
-    name: 'Pentagon Yamunanagar Flagship Depot & Works',
-    type: 'Manufacturing HQ & Primary Depot',
-    contactPerson: 'Pentagon Channel Cell',
-    phone: '+917206104340',
-    whatsapp: '917206104340',
-    address: 'Industrial Area, Radaur Road',
-    city: 'Yamunanagar',
-    state: 'Haryana',
-    pin: '135001',
-    region: 'North',
-    products: ['MR, BWP, Marine & Fire Retardant Plywood', 'Blockboard', 'Flush Doors', 'Sourced / traded materials'],
-    verified: true,
-    isHQ: true,
-    mapPos: { x: 190, y: 110 },
-  },
-  {
-    id: 'd-102',
-    name: 'Capital Timber & Plywood Traders',
-    type: 'Authorized Stockist',
-    contactPerson: 'Rajesh Sharma',
-    phone: '+919811022334',
-    whatsapp: '919811022334',
-    address: 'Shop 14, Timber Market, Kirti Nagar',
-    city: 'New Delhi',
-    state: 'Delhi',
-    pin: '110015',
-    region: 'North',
-    products: ['Plywood', 'Flush Doors'],
-    verified: true,
-    mapPos: { x: 180, y: 135 },
-  },
-  {
-    id: 'd-103',
-    name: 'Grand City Wood Panels',
-    type: 'Regional Distributor',
-    contactPerson: 'Vikramjit Singh',
-    phone: '+919876543210',
-    whatsapp: '919876543210',
-    address: 'Plot 45, Sector 82 Industrial Area',
-    city: 'Mohali',
-    state: 'Punjab',
-    pin: '160055',
-    region: 'North',
-    products: ['Plywood', 'Blockboard', 'Flush Doors'],
-    verified: true,
-    mapPos: { x: 170, y: 100 },
-  },
-  {
-    id: 'd-104',
-    name: 'Royal Heritage Building Solutions',
-    type: 'Authorized Dealer',
-    contactPerson: 'Sanjay Toshniwal',
-    phone: '+919414012345',
-    whatsapp: '919414012345',
-    address: 'Near New Aatish Market, Mansarovar',
-    city: 'Jaipur',
-    state: 'Rajasthan',
-    pin: '302020',
-    region: 'North',
-    products: ['Plywood', 'Blockboard'],
-    verified: true,
-    mapPos: { x: 145, y: 185 },
-  },
-  {
-    id: 'd-105',
-    name: 'Apex Interior & Plywood Hub',
-    type: 'Regional Distributor',
-    contactPerson: 'Pradeep Agarwal',
-    phone: '+919839054321',
-    whatsapp: '919839054321',
-    address: 'Transport Nagar, Kanpur Road',
-    city: 'Lucknow',
-    state: 'Uttar Pradesh',
-    pin: '226012',
-    region: 'North',
-    products: ['Plywood', 'Flush Doors'],
-    verified: true,
-    mapPos: { x: 235, y: 175 },
-  },
-  {
-    id: 'd-106',
-    name: 'Western Panel & Board House',
-    type: 'Authorized Stockist',
-    contactPerson: 'Jitendra Patel',
-    phone: '+919825011223',
-    whatsapp: '919825011223',
-    address: 'GIDC Commercial Zone, Naroda',
-    city: 'Ahmedabad',
-    state: 'Gujarat',
-    pin: '382330',
-    region: 'West',
-    products: ['Plywood', 'Blockboard', 'Flush Doors'],
-    verified: true,
-    mapPos: { x: 110, y: 240 },
-  },
-  {
-    id: 'd-107',
-    name: 'Metropolitan Wood Crafts',
-    type: 'Regional Distributor',
-    contactPerson: 'Mahesh Shah',
-    phone: '+919820098765',
-    whatsapp: '919820098765',
-    address: 'LBS Marg, Ghatkopar West',
-    city: 'Mumbai',
-    state: 'Maharashtra',
-    pin: '400086',
-    region: 'West',
-    products: ['Plywood', 'Flush Doors'],
-    verified: true,
-    mapPos: { x: 130, y: 310 },
-  },
-  {
-    id: 'd-108',
-    name: 'Deccan Plywood & Timber Agencies',
-    type: 'Authorized Dealer',
-    contactPerson: 'Ramesh Gowda',
-    phone: '+919845033445',
-    whatsapp: '919845033445',
-    address: 'NT Pet, Mysuru Road',
-    city: 'Bengaluru',
-    state: 'Karnataka',
-    pin: '560002',
-    region: 'South',
-    products: ['Plywood', 'Blockboard'],
-    verified: true,
-    mapPos: { x: 175, y: 410 },
-  },
-];
+const dealers = [
+  ['d-101', 'Pentagon Yamunanagar Flagship Depot & Works', 'Manufacturing HQ & Primary Depot', 'Pentagon Channel Cell', '+917206104340', '917206104340', 'Industrial Area, Radaur Road', 'Yamunanagar', 'Haryana', '135001', 'North', ['MR, BWP, Marine & Fire Retardant Plywood', 'Blockboard', 'Flush Doors', 'Sourced / traded materials'], true],
+  ['d-102', 'Capital Timber & Plywood Traders', 'Authorized Stockist', 'Rajesh Sharma', '+919811022334', '919811022334', 'Shop 14, Timber Market, Kirti Nagar', 'New Delhi', 'Delhi', '110015', 'North', ['Plywood', 'Flush Doors']],
+  ['d-103', 'Grand City Wood Panels', 'Regional Distributor', 'Vikramjit Singh', '+919876543210', '919876543210', 'Plot 45, Sector 82 Industrial Area', 'Mohali', 'Punjab', '160055', 'North', ['Plywood', 'Blockboard', 'Flush Doors']],
+  ['d-104', 'Royal Heritage Building Solutions', 'Authorized Dealer', 'Sanjay Toshniwal', '+919414012345', '919414012345', 'Near New Aatish Market, Mansarovar', 'Jaipur', 'Rajasthan', '302020', 'North', ['Plywood', 'Blockboard']],
+  ['d-105', 'Apex Interior & Plywood Hub', 'Regional Distributor', 'Pradeep Agarwal', '+919839054321', '919839054321', 'Transport Nagar, Kanpur Road', 'Lucknow', 'Uttar Pradesh', '226012', 'North', ['Plywood', 'Flush Doors']],
+  ['d-106', 'Western Panel & Board House', 'Authorized Stockist', 'Jitendra Patel', '+919825011223', '919825011223', 'GIDC Commercial Zone, Naroda', 'Ahmedabad', 'Gujarat', '382330', 'West', ['Plywood', 'Blockboard', 'Flush Doors']],
+  ['d-107', 'Metropolitan Wood Crafts', 'Regional Distributor', 'Mahesh Shah', '+919820098765', '919820098765', 'LBS Marg, Ghatkopar West', 'Mumbai', 'Maharashtra', '400086', 'West', ['Plywood', 'Flush Doors']],
+  ['d-108', 'Deccan Plywood & Timber Agencies', 'Authorized Dealer', 'Ramesh Gowda', '+919845033445', '919845033445', 'NT Pet, Mysuru Road', 'Bengaluru', 'Karnataka', '560002', 'South', ['Plywood', 'Blockboard']],
+].map(([id, name, type, contactPerson, phone, whatsapp, address, city, state, pin, region, products, isHQ = false]) => ({
+  id, name, type, contactPerson, phone, whatsapp, address, city, state, pin, region, products, isHQ,
+}));
 
 const partnerRoutes = [
-  ['seller', '01', 'Find a Seller', 'Looking for Pentagon products for furniture, interiors, construction or resale? Search the approved partner network serving your location.', 'Find a Seller Near Me'],
-  ['dealer', '02', 'Become a Dealer', 'Already selling plywood, boards, doors, laminates, hardware or building materials? Tell us about your business and market.', 'Apply as a Dealer'],
-  ['distributor', '03', 'Become a Distributor', 'Have the infrastructure, sales reach and relationships to serve multiple dealers or a wider territory?', 'Apply as a Distributor'],
+  ['seller', '01', 'Find a Seller', 'Looking for Pentagon products for furniture, interiors, construction or resale? Search the approved partner network serving your location.', 'Find a Seller Near Me', Store],
+  ['dealer', '02', 'Become a Dealer', 'Already selling plywood, boards, doors, laminates, hardware or building materials? Tell us about your business and market.', 'Apply as a Dealer', Handshake],
+  ['distributor', '03', 'Become a Distributor', 'Have the infrastructure, sales reach and relationships to serve multiple dealers or a wider territory?', 'Apply as a Distributor', Warehouse],
 ];
 
 const opportunities = [
-  ['Manufacturing Base Yamunanagar', 'Pentagon manufactures plywood, blockboard and flush doors directly from India’s premier wood-panel industrial cluster.'],
-  ['Manufactured and Sourced Portfolio', 'Discuss Pentagon-manufactured MR, BWP, Marine and Fire Retardant Plywood, blockboard and flush doors alongside sourced or traded materials, subject to availability.'],
-  ['Direct B2B Freight Feasibility', 'Optimized dispatch planning from factory to warehouse, reducing transit delays and damage risks.'],
-  ['Enquiry-Based Supply Planning', 'Dedicated territory assessments ensuring brand partners enjoy steady supply without local market overcrowding.'],
-  ['Verified Digital Dealer Locator', 'Approved partners get listed on Pentagon’s digital locator, driving local B2B and consumer leads directly to your store.'],
-  ['Requirement-Led Commercial Discussion', 'Product availability, grade, quantity, freight, delivery and commercial terms are discussed for the specific territory and requirement.'],
+  ['Manufacturing Base: Yamunanagar', 'Pentagon manufactures plywood, blockboard and flush doors directly from India’s premier wood-panel industrial cluster.', Factory],
+  ['Manufactured and Sourced Portfolio', 'Discuss Pentagon-manufactured MR, BWP, Marine and Fire Retardant Plywood, blockboard and flush doors alongside sourced or traded materials, subject to availability.', Boxes],
+  ['Direct B2B Freight Feasibility', 'Dispatch planning from factory to warehouse is reviewed for each location and order requirement.', Truck],
+  ['Enquiry-Based Supply Planning', 'Territory assessments help align channel coverage, product demand and practical supply planning.', ClipboardCheck],
+  ['Verified Digital Dealer Locator', 'Approved partners may be listed on Pentagon’s digital locator after verification and consent.', MapPin],
+  ['Requirement-Led Commercial Discussion', 'Product availability, grade, quantity, freight, delivery and commercial terms are discussed for the specific requirement.', MessageCircle],
 ];
 
 const processSteps = [
-  ['01', 'Submit Business Profile', 'Share your store location, existing product portfolio, warehousing infrastructure, and preferred partnership route.'],
-  ['02', 'Territory & Demand Review', 'Pentagon reviews market coverage, logistics feasibility, and channel growth opportunity in your target territory.'],
-  ['03', 'Commercial Discussion', 'Our channel team connects with you to discuss product ranges, opening order plans, pricing structure, and delivery terms.'],
-  ['04', 'Capability Verification', 'Quick validation of business documents, shop/warehouse photos, or trade references to complete compliance.'],
-  ['05', 'Commercial Agreement', 'Territory allocation, minimum order commitments, brand guidelines, and channel terms are formally documented.'],
-  ['06', 'Onboarding & Supply', 'Receive official dealer signage, product sampling kits, digital locator listing, and initial stock dispatch.'],
+  ['01', 'Submit Business Profile', 'Share your store location, existing portfolio, infrastructure and preferred partnership route.'],
+  ['02', 'Territory & Demand Review', 'Pentagon reviews market coverage, logistics feasibility and the opportunity in your territory.'],
+  ['03', 'Commercial Discussion', 'Discuss product ranges, opening-order plans, pricing structure and delivery terms.'],
+  ['04', 'Capability Verification', 'Business documents, facility details and trade references may be reviewed.'],
+  ['05', 'Commercial Agreement', 'Approved terms, territory, commitments and brand guidelines are documented.'],
+  ['06', 'Onboarding & Supply', 'Approved partners move into product, material and initial dispatch coordination.'],
 ];
 
-const applicantTypes = [
-  'Existing plywood and wood-panel dealers',
-  'Building-material retailers & hardware stores',
-  'Timber and board wholesalers',
-  'Door, laminate and interior surface sellers',
-  'Interior-material showrooms & design hubs',
-  'Furniture manufacturing material suppliers',
-  'Regional stockists & bulk suppliers',
-  'Infrastructure & project material suppliers',
-  'New entrepreneurs with suitable infrastructure',
-];
-
-const evaluationFactors = [
-  'Established business identity and GST registration',
-  'Suitable showroom, shop, or warehousing facility',
-  'Understanding of local plywood & wood-panel trade',
-  'Active relationships with local carpenters, contractors & interior designers',
-  'Financial capability to maintain appropriate stock levels',
-  'Dedicated sales or logistics setup for local distribution',
-];
-
-const partnerExpectations = [
-  'Communicate product grades and technical specs transparently to buyers',
-  'Maintain appropriate stock handling and moisture-controlled storage',
-  'Communicate Pentagon product grades and available specifications accurately in your operational area',
-  'Provide prompt feedback on market demand and customer requirements',
-  'Follow documented commercial terms and territory guidelines',
-  'Protect commercial brand representation in all store marketing',
-];
+const applicantTypes = ['Existing plywood and wood-panel dealers', 'Building-material retailers & hardware stores', 'Timber and board wholesalers', 'Door, laminate and interior surface sellers', 'Interior-material showrooms & design hubs', 'Furniture manufacturing material suppliers', 'Regional stockists & bulk suppliers', 'Infrastructure & project material suppliers', 'New entrepreneurs with suitable infrastructure'];
+const evaluationFactors = ['Established business identity and GST registration', 'Suitable showroom, shop, or warehousing facility', 'Understanding of local plywood & wood-panel trade', 'Active relationships with carpenters, contractors and interior designers', 'Financial capability to maintain appropriate stock levels', 'Dedicated sales or logistics setup for local distribution'];
+const partnerExpectations = ['Communicate product grades and technical specifications transparently', 'Maintain appropriate stock handling and moisture-controlled storage', 'Represent available Pentagon grades accurately in your operating area', 'Provide prompt feedback on demand and customer requirements', 'Follow documented commercial terms and territory guidelines', 'Protect brand representation in store and market communication'];
 
 const faqItems = [
-   ['How can I become a Pentagon Plywood dealer?', 'Submit the partnership application with your business, location, experience, infrastructure and product interests. Pentagon will review the opportunity and contact relevant applicants.'],
+  ['How can I become a Pentagon Plywood dealer?', 'Submit the partnership application with your business, location, experience, infrastructure and product interests. Pentagon will review the opportunity and contact relevant applicants.'],
   ['Who can apply for a dealership?', 'Plywood dealers, building-material retailers, wholesalers, timber and board sellers, interior-material showrooms, stockists and other businesses with relevant capability may apply.'],
   ['Can a new business apply?', 'Yes. Pentagon will assess its location, business plan, infrastructure, product knowledge and market opportunity. An application does not guarantee appointment.'],
-  ['What is the difference between a dealer and a distributor?', 'A dealer usually serves a local market. A distributor generally holds more stock and supplies a broader territory or network of dealers. Pentagon determines the appropriate relationship after review.'],
+  ['What is the difference between a dealer and a distributor?', 'A dealer usually serves a local market. A distributor generally holds more stock and supplies a broader territory or network. Pentagon determines the appropriate relationship after review.'],
   ['Is there a minimum investment?', 'Pentagon has not published a fixed investment requirement. It may depend on product range, stock plan, location, infrastructure and the commercial arrangement.'],
   ['Is a minimum opening order required?', 'Opening-order requirements are confirmed during commercial discussion and may vary by product, quantity, freight and territory.'],
   ['Will I receive an exclusive territory?', 'No exclusivity is created by submitting an application. Any protected territory must be specifically reviewed, approved and documented.'],
@@ -207,1514 +72,128 @@ const faqItems = [
   ['Does Pentagon supply throughout India?', 'Each enquiry is reviewed according to product, quantity, location, freight and channel availability. The website does not promise that every order can be served directly.'],
 ];
 
-const PRODUCT_CHIPS = [
-  'MR Grade Plywood',
-  'BWP Grade Plywood',
-  'Calibrated Plywood',
-  'Blockboard',
-  'Flush Doors',
-  'Marine Grade Plywood',
-  'Fire Retardant Plywood',
-  'Sourced / traded materials',
-  'HDHMR / WPC',
-  'Architectural Laminates',
-];
+const products = ['MR Grade Plywood', 'BWP Grade Plywood', 'Marine Grade Plywood', 'Fire Retardant Plywood', 'Blockboard', 'Flush Doors', 'Sourced / traded materials', 'HDHMR / WPC', 'Architectural Laminates'];
+const categories = ['Plywood & Board Dealer', 'Timber Merchant', 'Hardware & Lock Store', 'Building Material Retailer', 'Interior Showroom', 'Furniture Manufacturer Supplier'];
+const initialForm = { partnerType: 'Dealer / Retailer', products: '', state: '', territory: '', legalName: '', tradeName: '', contactName: '', designation: '', mobile: '', whatsapp: '', email: '', address: '', city: '', district: '', pin: '', gstin: '', established: '', categories: '', brands: '', customers: '', markets: '', experience: '', potential: '', reason: '', showroom: 'Yes', warehouse: 'Yes', warehouseArea: '', logistics: '', teamSize: '', tradeRelationships: '', openingOrder: '', monthlyPurchase: '', territoryRequested: '', discussionDate: '', opportunities: '', additional: '' };
 
-const CATEGORY_CHIPS = [
-  'Plywood & Board Dealer',
-  'Timber Merchant',
-  'Hardware & Lock Store',
-  'Building Material Retailer',
-  'Interior Showroom',
-  'Furniture Manufacturer Supplier',
-];
+const inputClass = 'h-11 rounded-xl border-[#cad4cc] bg-white px-3 focus-visible:border-[#9c6846] focus-visible:ring-[#9c6846]/20';
+const selectClass = `${inputClass} w-full border text-sm outline-none`;
+const sectionClass = 'px-4 py-16 sm:px-6 sm:py-20 lg:px-8';
+const wrapClass = 'mx-auto max-w-7xl';
 
-const initialForm = {
-  partnerType: 'Dealer / Retailer',
-  products: '',
-  state: '',
-  territory: '',
-  legalName: '',
-  tradeName: '',
-  contactName: '',
-  designation: '',
-  mobile: '',
-  whatsapp: '',
-  email: '',
-  address: '',
-  city: '',
-  district: '',
-  pin: '',
-  gstin: '',
-  established: '',
-  categories: '',
-  brands: '',
-  customers: '',
-  markets: '',
-  experience: '',
-  potential: '',
-  reason: '',
-  showroom: 'Yes',
-  warehouse: 'Yes',
-  warehouseArea: '',
-  logistics: '',
-  teamSize: '',
-  tradeRelationships: '',
-  openingOrder: '',
-  monthlyPurchase: '',
-  territoryRequested: '',
-  discussionDate: '',
-  opportunities: '',
-  additional: '',
-};
-
-function Arrow({ className = '' }) {
-  return <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>;
+function Heading({ eyebrow, title, copy, light = false, center = false }) {
+  return <div className={`${center ? 'mx-auto text-center' : ''} max-w-3xl`}>
+    <p className={`mb-3 text-xs font-bold uppercase tracking-[0.22em] ${light ? 'text-[#e7b878]' : 'text-[#9c6846]'}`}>{eyebrow}</p>
+    <h2 className={`font-['DM_Serif_Display',Georgia,serif] text-3xl leading-tight sm:text-4xl lg:text-5xl ${light ? 'text-white' : 'text-[#14211a]'}`}>{title}</h2>
+    {copy && <p className={`mt-5 text-base leading-7 ${light ? 'text-white/70' : 'text-[#65736a]'}`}>{copy}</p>}
+  </div>;
 }
 
-function PhoneIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>;
-}
-
-function WhatsAppIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>;
-}
-
-function MapPinIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>;
-}
-
-function CheckIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>;
-}
-
-function SearchIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>;
-}
-
-function Heading({ eyebrow, title, copy, light = false }) {
-  return (
-    <div className={`dealer-page-heading${light ? ' is-light' : ''}`}>
-      <span>{eyebrow}</span>
-      <h2>{title}</h2>
-      {copy && <p>{copy}</p>}
-    </div>
-  );
-}
-
-function Field({ label, required, wide = false, children }) {
-  return (
-    <label className={`dealer-form-field${wide ? ' is-wide' : ''}`}>
-      <span>{label}{required && <b>*</b>}</span>
-      {children}
-    </label>
-  );
+function Field({ label, required, wide, children }) {
+  return <label className={`block ${wide ? 'md:col-span-2' : ''}`}>
+    <span className="mb-2 block text-sm font-semibold text-[#263b30]">{label}{required && <b className="ml-1 text-[#b7513c]">*</b>}</span>{children}
+  </label>;
 }
 
 function DealersPage() {
   const [route, setRoute] = useState('dealer');
-  const [formStep, setFormStep] = useState(1);
-  const [form, setForm] = useState(initialForm);
-  const [submitted, setSubmitted] = useState(false);
-  const [consent, setConsent] = useState(false);
-  const [stepError, setStepError] = useState('');
-
-  // Locator Filter States
+  const [quizSetup, setQuizSetup] = useState('');
+  const [quizReach, setQuizReach] = useState('');
   const [searchState, setSearchState] = useState('');
   const [searchCity, setSearchCity] = useState('');
   const [searchPin, setSearchPin] = useState('');
   const [searchProduct, setSearchProduct] = useState('');
   const [activeRegion, setActiveRegion] = useState('All');
-  const [hoveredHub, setHoveredHub] = useState(null);
-
-  // Partnership Finder Quiz States
-  const [quizSetup, setQuizSetup] = useState('');
-  const [quizReach, setQuizReach] = useState('');
-
-  // FAQ Search & Open state
+  const [formStep, setFormStep] = useState(1);
+  const [form, setForm] = useState(initialForm);
+  const [consent, setConsent] = useState(false);
+  const [stepError, setStepError] = useState('');
+  const [submitted, setSubmitted] = useState(false);
   const [faqFilter, setFaqFilter] = useState('');
-  const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
   useEffect(() => {
     document.title = 'Dealers & Distributors | Partner With Pentagon Plywood';
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'description';
-      document.head.appendChild(meta);
-    }
-    meta.content = 'Locate authorized Pentagon Plywood sellers across India or apply for channel dealership, retail partnership, and regional distributorship.';
   }, []);
 
-  const update = (key) => (event) => {
-    setStepError('');
-    setForm((current) => ({ ...current, [key]: event.target.value }));
-  };
+  const filteredDealers = useMemo(() => dealers.filter((dealer) => {
+    if (activeRegion !== 'All' && dealer.region !== activeRegion) return false;
+    if (searchState && dealer.state !== searchState) return false;
+    if (searchCity && !`${dealer.city} ${dealer.name}`.toLowerCase().includes(searchCity.trim().toLowerCase())) return false;
+    if (searchPin && !dealer.pin.includes(searchPin.trim())) return false;
+    if (searchProduct && !dealer.products.some((item) => item.toLowerCase().includes(searchProduct.toLowerCase()))) return false;
+    return true;
+  }), [activeRegion, searchState, searchCity, searchPin, searchProduct]);
 
-  const toggleChipInField = (field, chipText) => {
-    setStepError('');
-    setForm((current) => {
-      const existing = current[field] ? current[field].split(',').map((s) => s.trim()).filter(Boolean) : [];
-      let updated;
-      if (existing.includes(chipText)) {
-        updated = existing.filter((item) => item !== chipText);
-      } else {
-        updated = [...existing, chipText];
-      }
-      return { ...current, [field]: updated.join(', ') };
-    });
-  };
-
+  const displayedFaqs = faqItems.filter(([question, answer]) => `${question} ${answer}`.toLowerCase().includes(faqFilter.toLowerCase()));
+  const quizRecommendation = quizSetup && quizReach ? ((quizReach === 'Multi-District / State-Wide' || quizSetup === 'Warehousing / Bulk Yard') ? ['Distributor / Stockist Partnership', 'Ideal for businesses with warehousing capability, logistics and a multi-district trade network.', 'Distributor'] : ['Dealer / Retail Partner', 'Suited to retail stores, hardware shops and regional stockists serving local projects.', 'Dealer / Retailer']) : null;
+  const update = (key) => (event) => { setStepError(''); setForm((current) => ({ ...current, [key]: event.target.value })); };
+  const toggleChip = (field, value) => setForm((current) => {
+    const entries = current[field].split(',').map((item) => item.trim()).filter(Boolean);
+    return { ...current, [field]: (entries.includes(value) ? entries.filter((item) => item !== value) : [...entries, value]).join(', ') };
+  });
   const chooseRoute = (value) => {
     setRoute(value);
-    if (value === 'seller') {
-      document.getElementById('dealer-locator')?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      setForm((current) => ({
-        ...current,
-        partnerType: value === 'distributor' ? 'Distributor' : 'Dealer / Retailer',
-      }));
-      document.getElementById('partner-application')?.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (value !== 'seller') setForm((current) => ({ ...current, partnerType: value === 'distributor' ? 'Distributor' : 'Dealer / Retailer' }));
+    document.querySelector(value === 'seller' ? '#dealer-locator' : '#partner-application')?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  const selectMapHub = (dealer) => {
-    setSearchState(dealer.state);
-    setSearchCity(dealer.city);
-    document.getElementById('dealer-locator')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  // Filter Dealers logic
-  const filteredDealers = MOCK_DEALERS.filter((dealer) => {
-    if (activeRegion !== 'All' && dealer.region !== activeRegion) return false;
-    if (searchState && dealer.state.toLowerCase() !== searchState.toLowerCase()) return false;
-    if (searchCity && !dealer.city.toLowerCase().includes(searchCity.trim().toLowerCase()) && !dealer.name.toLowerCase().includes(searchCity.trim().toLowerCase())) return false;
-    if (searchPin && !dealer.pin.includes(searchPin.trim())) return false;
-    if (searchProduct && !dealer.products.some((p) => p.toLowerCase().includes(searchProduct.toLowerCase()))) return false;
-    return true;
-  });
-
-  const resetFilters = () => {
-    setSearchState('');
-    setSearchCity('');
-    setSearchPin('');
-    setSearchProduct('');
-    setActiveRegion('All');
-  };
-
-  const submitApplication = (event) => {
-    event.preventDefault();
-    if (!consent) {
-      setStepError('Please review and check the consent box to proceed.');
-      return;
-    }
-    setSubmitted(true);
-  };
-
   const nextStep = () => {
-    const requiredByStep = {
-      1: ['products', 'state', 'territory'],
-      2: ['legalName', 'contactName', 'mobile', 'email', 'address', 'city', 'pin'],
-      3: ['categories', 'reason'],
-      4: [],
-    };
-    const missing = (requiredByStep[formStep] || []).some((key) => !form[key]?.trim());
-    if (missing) {
-      setStepError('Please fill out the required fields marked with * before continuing.');
-      return;
-    }
-    setStepError('');
-    setFormStep((step) => Math.min(5, step + 1));
+    const required = { 1: ['products', 'state', 'territory'], 2: ['legalName', 'contactName', 'mobile', 'email', 'address', 'city', 'pin'], 3: ['categories', 'reason'], 4: [] };
+    if ((required[formStep] || []).some((key) => !form[key]?.trim())) return setStepError('Please complete the required fields marked with * before continuing.');
+    setStepError(''); setFormStep((step) => Math.min(5, step + 1));
   };
+  const resetFilters = () => { setSearchState(''); setSearchCity(''); setSearchPin(''); setSearchProduct(''); setActiveRegion('All'); };
 
-  const previousStep = () => {
-    setStepError('');
-    setFormStep((step) => Math.max(1, step - 1));
-  };
+  return <main className="min-h-screen bg-[#fbf8f2] font-['Manrope',sans-serif] text-[#14211a]">
+    <div className="border-b border-[#dbe2dc] bg-white px-4 py-3 text-sm text-[#65736a] sm:px-6 lg:px-8"><div className={wrapClass}><a className="hover:text-[#143d2b]" href={ROUTES.home}>Home</a><span className="mx-2">›</span><strong className="text-[#263b30]">Dealers &amp; Distributors</strong></div></div>
 
-  // Filter FAQs
-  const displayedFaqs = faqItems.filter(([q, a]) => {
-    if (!faqFilter) return true;
-    const term = faqFilter.toLowerCase();
-    return q.toLowerCase().includes(term) || a.toLowerCase().includes(term);
-  });
-
-  // Calculate Quiz recommendation
-  let quizRecommendation = null;
-  if (quizSetup && quizReach) {
-    if (quizReach === 'Multi-District / State-Wide' || quizSetup === 'Warehousing / Bulk Yard') {
-      quizRecommendation = {
-        title: 'Distributor / Stockist Partnership',
-        desc: 'Ideal for businesses with warehousing capability, dedicated logistics, and a strong trade network across multiple districts.',
-        type: 'Distributor',
-      };
-    } else {
-      quizRecommendation = {
-        title: 'Dealer / Retail Partner',
-        desc: 'Perfect for retail stores, hardware shops, and regional stockists serving trade professionals and local projects.',
-        type: 'Dealer / Retailer',
-      };
-    }
-  }
-
-  return (
-    <div className="dealer-page">
-      <div className="dealer-breadcrumb">
-        <div className="container">
-          <a href={ROUTES.home}>Home</a>
-          <span>›</span>
-          <strong>Dealers &amp; Distributors</strong>
-        </div>
+    <section className="relative overflow-hidden bg-[#123526] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+      <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full border border-white/10" /><div className="absolute bottom-0 right-1/4 h-56 w-56 rounded-full bg-[#C86D51]/10 blur-3xl" />
+      <div className={`${wrapClass} relative grid items-center gap-12 lg:grid-cols-[1.1fr_.9fr]`}>
+        <div><Badge variant="pill"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#E8927C]" />Pentagon channel network</Badge><h1 className="mt-7 max-w-4xl font-['DM_Serif_Display',Georgia,serif] text-4xl leading-[1.05] text-white sm:text-6xl lg:text-7xl">Bring Better Material Choices <em className="font-normal text-[#E8927C]">Closer to Your Market.</em></h1><p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">Find a Pentagon seller or explore a dealer and distributor partnership for our manufactured plywood, blockboard and flush doors, together with selected sourced or traded materials.</p><div className="mt-8 flex flex-wrap gap-3"><a href={DEALER_SECTIONS.locator} className="inline-flex h-12 items-center gap-2 rounded-full bg-[#C86D51] px-6 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#A85238]">Find a seller <MapPin size={18} /></a><a href={DEALER_SECTIONS.application} className="inline-flex h-12 items-center gap-2 rounded-full border border-white/30 px-6 font-semibold text-white hover:bg-white/10">Partner with us <ArrowRight size={18} /></a></div></div>
+        <Card className="border-white/15 bg-white/8 text-white shadow-2xl backdrop-blur"><CardHeader><Badge className="w-fit bg-[#E8927C] text-[#143d2b]">Quick access</Badge><CardTitle className="text-3xl text-white">What would you like to do?</CardTitle></CardHeader><CardContent className="space-y-3">{partnerRoutes.map(([value,, title,,, Icon]) => <button key={value} onClick={() => chooseRoute(value)} className={`flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition ${route === value ? 'border-[#E8927C] bg-white/15' : 'border-white/15 bg-white/5 hover:bg-white/10'}`}><span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#E8927C]/15 text-[#E8927C]"><Icon size={21} /></span><span className="font-semibold">{title}</span><ArrowRight className="ml-auto" size={18} /></button>)}</CardContent></Card>
       </div>
+    </section>
 
-      {/* HERO SECTION */}
-      <section className="dealer-hero">
-        <div className="container dealer-hero-grid">
-          <div>
-            <div className="dealer-kicker-badge">
-              <span className="pulse-dot" /> Pentagon Verified Channel Network
-            </div>
-            <h1>
-              Bring Better Material Choices <em>Closer to Your Market.</em>
-            </h1>
-            <p>
-              Pentagon Plywood partners with authorized dealers, stockists, and
-              regional distributors to make dependable wood-panel and door
-              solutions easily accessible across India.
-            </p>
-            <div className="dealer-actions">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => chooseRoute("dealer")}
-              >
-                Become a Channel Partner <Arrow />
-              </button>
-              <button
-                type="button"
-                className="btn btn-outline"
-                onClick={() => chooseRoute("seller")}
-              >
-                Find a Pentagon Seller <Arrow />
-              </button>
-            </div>
+    <section id="choose-route" className={sectionClass}><div className={wrapClass}><Heading eyebrow="Choose your route" title="One Network. Three Ways to Connect." copy="Start with the path that matches your requirement. You can find an existing seller or introduce your business for channel review." /><div className="mt-10 grid gap-5 lg:grid-cols-3">{partnerRoutes.map(([value, number, title, copy, action, Icon]) => <Card key={value} className={`group overflow-hidden ${route === value ? 'border-[#9c6846] ring-2 ring-[#9c6846]/10' : ''}`}><CardHeader><div className="flex items-center justify-between"><span className="text-xs font-bold tracking-[.2em] text-[#9c6846]">{number}</span><Icon className="text-[#143d2b]" /></div><CardTitle>{title}</CardTitle><CardDescription className="min-h-20 leading-6">{copy}</CardDescription></CardHeader><CardContent><Button onClick={() => chooseRoute(value)} variant={route === value ? 'primary' : 'outline'} className="w-full">{action}<ArrowRight size={16} /></Button></CardContent></Card>)}</div></div></section>
 
-            {/* <div className="dealer-hero-highlights">
-              <div className="highlight-pill">
-                <strong>28+ Years</strong>
-                <span>Yamunanagar Manufacturing Trust</span>
-              </div>
-              <div className="highlight-pill">
-                <strong>100%</strong>
-                <span>Genuine Grade Certification</span>
-              </div>
-              <div className="highlight-pill">
-                <strong>Direct</strong>
-                <span>Factory Depot Freight Route</span>
-              </div>
-            </div> */}
-          </div>
+    <section id="partnership" className={`${sectionClass} bg-white`}><div className={wrapClass}><Heading eyebrow="The partnership opportunity" title="Built for Serious Market Partners." copy="A practical channel relationship starts with suitable products, market understanding, operational capability and clear commercial communication." /><div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{opportunities.map(([title, copy, Icon]) => <Card key={title} className="group hover:-translate-y-1 hover:shadow-lg"><CardHeader><span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#143d2b] text-white"><Icon size={22} /></span><CardTitle className="pt-3 text-xl">{title}</CardTitle><CardDescription className="leading-6">{copy}</CardDescription></CardHeader></Card>)}</div></div></section>
 
-          <div
-            className="dealer-map-card"
-            aria-label="Pentagon partner network map of India"
-          >
-            <div className="dealer-map-label">
-              <span>Primary Supply Hubs</span>
-              <strong>India Network</strong>
-            </div>
+    <section className={`${sectionClass} bg-[#efe8dc]`}><div className={`${wrapClass} grid gap-10 lg:grid-cols-[.8fr_1.2fr]`}><Heading eyebrow="Partnership finder" title="Which Channel Route Fits Your Business?" copy="Answer two quick questions for a starting recommendation. Final appointment and commercial terms remain subject to Pentagon’s review." /><Card><CardContent className="space-y-7 p-6 sm:p-8"><div><p className="mb-3 font-semibold">1. What best describes your setup?</p><div className="flex flex-wrap gap-2">{['Retail Store / Showroom', 'Warehousing / Bulk Yard', 'New Business Setup'].map((item) => <Button key={item} type="button" size="sm" variant={quizSetup === item ? 'primary' : 'outline'} onClick={() => setQuizSetup(item)}>{item}</Button>)}</div></div><div><p className="mb-3 font-semibold">2. What market do you plan to serve?</p><div className="flex flex-wrap gap-2">{['City / Local Market', 'District / Regional', 'Multi-District / State-Wide'].map((item) => <Button key={item} type="button" size="sm" variant={quizReach === item ? 'primary' : 'outline'} onClick={() => setQuizReach(item)}>{item}</Button>)}</div></div>{quizRecommendation && <div className="rounded-2xl bg-[#143d2b] p-5 text-white"><p className="text-xs font-bold uppercase tracking-widest text-[#e7b878]">Suggested starting route</p><h3 className="mt-2 text-xl font-semibold">{quizRecommendation[0]}</h3><p className="mt-2 text-sm leading-6 text-white/70">{quizRecommendation[1]}</p><Button className="mt-4 bg-white text-[#143d2b] hover:bg-[#f7f3ec]" onClick={() => { setForm((current) => ({ ...current, partnerType: quizRecommendation[2] })); document.querySelector('#partner-application')?.scrollIntoView({ behavior: 'smooth' }); }}>Start application<ArrowRight size={16} /></Button></div>}</CardContent></Card></div></section>
 
-            <div className="dealer-map-stage">
-              <svg
-                className="dealer-india-map"
-                viewBox="0 0 430 500"
-                role="img"
-                aria-label="Outline map of India showing verified regional hubs"
-              >
-                <path d="M155 35l46 17 38-13 27 20 40 5 12 34 34 19-8 30 21 35-19 33 4 36-24 29-20 43-31 24-9 42-26 36-18 48-24-25-9-54-23-26-20-43-30-15-16-39-31-23 12-38-23-31 21-24-13-37 28-24 4-38 39-12 28-29z" />
+    <section id="dealer-locator" className={`${sectionClass} bg-[#123526] text-white`}><div className={wrapClass}><Heading eyebrow="Dealer locator" title="Find a Pentagon Seller Near You." copy="Search the currently displayed network by location and product. Please confirm availability directly before visiting." light /><div className="mt-10 grid gap-6 lg:grid-cols-[.75fr_1.25fr]"><Card className="bg-white"><CardHeader><CardTitle>Search the network</CardTitle><CardDescription>Use one or more filters to narrow the displayed locations.</CardDescription></CardHeader><CardContent className="space-y-4"><select value={searchState} onChange={(event) => setSearchState(event.target.value)} className={selectClass}><option value="">All states</option>{[...new Set(dealers.map((dealer) => dealer.state))].sort().map((state) => <option key={state}>{state}</option>)}</select><Input className={inputClass} value={searchCity} onChange={(event) => setSearchCity(event.target.value)} placeholder="City or dealer name" /><Input className={inputClass} value={searchPin} onChange={(event) => setSearchPin(event.target.value)} placeholder="PIN code" inputMode="numeric" /><select value={searchProduct} onChange={(event) => setSearchProduct(event.target.value)} className={selectClass}><option value="">All products</option><option>Plywood</option><option>Blockboard</option><option>Flush Doors</option></select><div className="flex flex-wrap gap-2">{['All', 'North', 'West', 'South', 'East'].map((region) => <Button key={region} size="sm" variant={activeRegion === region ? 'primary' : 'outline'} onClick={() => setActiveRegion(region)}>{region}</Button>)}</div><Button variant="ghost" className="px-0 text-[#65736a]" onClick={resetFilters}><X size={16} />Clear all filters</Button></CardContent></Card><div className="relative min-h-96 overflow-hidden rounded-3xl border border-white/10 bg-[#0d2a1e] p-6"><div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} /><Map className="absolute right-8 top-8 h-40 w-40 text-white/5" /><div className="relative"><Badge className="bg-white/10">India channel view</Badge><p className="mt-5 max-w-md text-sm leading-6 text-white/60">Select a region or use the detailed filters. The list below updates immediately.</p><div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3">{['Yamunanagar', 'New Delhi', 'Mohali', 'Jaipur', 'Lucknow', 'Ahmedabad', 'Mumbai', 'Bengaluru'].map((city) => <button key={city} onClick={() => setSearchCity(city)} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-left text-sm transition hover:border-[#e7b878] hover:bg-white/10"><MapPin className="mb-3 text-[#e7b878]" size={20} />{city}</button>)}</div></div></div></div>
+        <div className="mt-8 flex items-center justify-between"><p className="text-sm text-white/60"><strong className="text-white">{filteredDealers.length}</strong> locations match your search</p></div><div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{filteredDealers.map((dealer) => <Card key={dealer.id} className="bg-white"><CardHeader><div className="flex items-start justify-between gap-3"><Badge variant={dealer.isHQ ? 'accent' : 'secondary'}>{dealer.type}</Badge><BadgeCheck className="shrink-0 text-[#143d2b]" size={20} /></div><CardTitle className="text-xl">{dealer.name}</CardTitle><CardDescription>{dealer.contactPerson}</CardDescription></CardHeader><CardContent><p className="flex gap-2 text-sm leading-6 text-[#65736a]"><MapPin className="mt-1 shrink-0" size={16} />{dealer.address}, {dealer.city}, {dealer.state} – {dealer.pin}</p><div className="mt-4 flex flex-wrap gap-1.5">{dealer.products.map((product) => <Badge key={product} variant="secondary" className="text-[10px]">{product}</Badge>)}</div><div className="mt-5 flex gap-2"><a className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full bg-[#143d2b] text-sm font-semibold text-white" href={`tel:${dealer.phone}`}><Phone size={15} />Call</a><a className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-[#143d2b] text-sm font-semibold text-[#143d2b]" href={`https://wa.me/${dealer.whatsapp}`} target="_blank" rel="noreferrer"><MessageCircle size={15} />WhatsApp</a></div></CardContent></Card>)}</div>{filteredDealers.length === 0 && <div className="mt-4 rounded-2xl border border-white/15 p-8 text-center text-white/70">No displayed location matches these filters. Clear the filters or contact Pentagon for help.</div>}<p className="mt-5 text-xs leading-5 text-white/45">Dealer records shown here should be treated as directory information and confirmed with Pentagon before travel or purchase.</p></div></section>
 
-                {/* Hotspot Pins */}
-                {MOCK_DEALERS.map((dealer) => (
-                  <g
-                    key={dealer.id}
-                    className={`map-pin-group ${dealer.isHQ ? "is-hq" : ""}`}
-                    transform={`translate(${dealer.mapPos.x}, ${dealer.mapPos.y})`}
-                    onClick={() => selectMapHub(dealer)}
-                    onMouseEnter={() => setHoveredHub(dealer)}
-                    onMouseLeave={() => setHoveredHub(null)}
-                  >
-                    <circle
-                      className="pin-pulse"
-                      r={dealer.isHQ ? "14" : "10"}
-                    />
-                    <circle className="pin-core" r={dealer.isHQ ? "6" : "4"} />
-                    <text y="-10" className="pin-label">
-                      {dealer.city}
-                    </text>
-                  </g>
-                ))}
-              </svg>
+    <section id="partner-products" className={sectionClass}><div className={wrapClass}><Heading eyebrow="Products for channel discussion" title="A Portfolio for Trade, Projects and Interiors." copy="Discuss Pentagon-manufactured products and selected complementary sourced or traded materials based on current availability and territory requirements." /><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{[['Plywood', 'MR, BWP, Marine and Fire Retardant grades', PackageCheck], ['Blockboard', 'Panel solutions for furniture and interior requirements', Boxes], ['Flush Doors', 'Door solutions for residential and project requirements', Building2], ['Sourced / Traded', 'Selected complementary materials, subject to availability', Truck]].map(([title, copy, Icon]) => <Card key={title} className="hover:-translate-y-1 hover:shadow-lg"><CardHeader><Icon className="text-[#9c6846]" size={28} /><CardTitle className="pt-3 text-xl">{title}</CardTitle><CardDescription className="leading-6">{copy}</CardDescription></CardHeader></Card>)}</div><a href={ROUTES.products} className="mt-8 inline-flex items-center gap-2 font-semibold text-[#143d2b] hover:text-[#9c6846]">Explore product portfolio <ArrowRight size={17} /></a></div></section>
 
-              {hoveredHub && (
-                <div className="map-tooltip">
-                  <span className="tooltip-tag">{hoveredHub.type}</span>
-                  <strong>{hoveredHub.name}</strong>
-                  <small>
-                    {hoveredHub.city}, {hoveredHub.state}
-                  </small>
-                  <p>Click to search this location</p>
-                </div>
-              )}
-            </div>
+    <section id="partner-types" className={`${sectionClass} bg-white`}><div className={wrapClass}><Heading eyebrow="Partner types" title="Dealer or Distributor?" copy="The right structure depends on your market, infrastructure, coverage and stock plan. Pentagon confirms the relationship after review." /><div className="mt-10 overflow-hidden rounded-3xl border border-[#dbe2dc]"><div className="grid grid-cols-[1.1fr_1fr_1fr] bg-[#143d2b] p-4 text-sm font-semibold text-white sm:p-5"><span>Comparison</span><span>Dealer / Retailer</span><span>Distributor / Stockist</span></div>{[['Primary role', 'Serve local buyers and projects', 'Supply a wider dealer network'], ['Typical reach', 'City or local market', 'Multiple districts or wider territory'], ['Infrastructure', 'Retail/showroom with suitable stock', 'Warehouse, logistics and stock capability'], ['Sales network', 'Carpenters, contractors, designers and buyers', 'Dealers, projects and institutional trade'], ['Appointment', 'Subject to review and written terms', 'Subject to capability and territory review']].map(([label, dealer, distributor]) => <div key={label} className="grid grid-cols-[1.1fr_1fr_1fr] border-t border-[#dbe2dc] p-4 text-sm leading-6 sm:p-5"><strong>{label}</strong><span className="text-[#65736a]">{dealer}</span><span className="text-[#65736a]">{distributor}</span></div>)}</div></div></section>
 
-            <div className="dealer-map-empty">
-              <span>
-                Click pins above or search below to view verified seller details
-              </span>
-            </div>
-          </div>
-        </div>
+    <section className={sectionClass}><div className={`${wrapClass} grid gap-6 lg:grid-cols-3`}><Card><CardHeader><Users className="text-[#9c6846]" /><CardTitle>Who Can Apply</CardTitle></CardHeader><CardContent className="space-y-3">{applicantTypes.map((item) => <p key={item} className="flex gap-2 text-sm leading-6 text-[#65736a]"><Check className="mt-1 shrink-0 text-[#143d2b]" size={16} />{item}</p>)}</CardContent></Card><Card><CardHeader><ClipboardCheck className="text-[#9c6846]" /><CardTitle>What We Evaluate</CardTitle></CardHeader><CardContent className="space-y-3">{evaluationFactors.map((item) => <p key={item} className="flex gap-2 text-sm leading-6 text-[#65736a]"><Check className="mt-1 shrink-0 text-[#143d2b]" size={16} />{item}</p>)}</CardContent></Card><Card className="bg-[#143d2b] text-white"><CardHeader><ShieldCheck className="text-[#e7b878]" /><CardTitle className="text-white">Partner Commitments</CardTitle></CardHeader><CardContent className="space-y-3">{partnerExpectations.map((item) => <p key={item} className="flex gap-2 text-sm leading-6 text-white/70"><Check className="mt-1 shrink-0 text-[#e7b878]" size={16} />{item}</p>)}</CardContent></Card></div></section>
 
-        <div className="container dealer-trust-strip">
-          {[
-            [
-              "Direct Factory Base",
-              "Yamunanagar manufacturing facility with strict QC",
-            ],
-            [
-              "Comprehensive Range",
-              "Calibrated Plywood, Blockboard & Flush Doors",
-            ],
-            [
-              "Regional Freight",
-              "Logistics coordination for bulk or dealer dispatches",
-            ],
-            [
-              "Dedicated Partner Cell",
-              "Direct commercial support & digital locator listing",
-            ],
-          ].map(([title, desc], index) => (
-            <div key={title}>
-              <span>0{index + 1}</span>
-              <div>
-                <strong>{title}</strong>
-                <small>{desc}</small>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+    <section id="application-process" className={`${sectionClass} bg-[#efe8dc]`}><div className={wrapClass}><Heading eyebrow="Application process" title="A Clear Route From Introduction to Onboarding." copy="Submitting an application starts a review. It does not create a dealership, distributorship, exclusivity, credit facility or supply commitment." /><div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{processSteps.map(([number, title, copy]) => <Card key={number}><CardHeader><span className="text-3xl font-bold text-[#d7c3aa]">{number}</span><CardTitle className="text-xl">{title}</CardTitle><CardDescription className="leading-6">{copy}</CardDescription></CardHeader></Card>)}</div></div></section>
 
-      {/* PARTNER ROUTES */}
-      <section className="dealer-section dealer-routes" id="choose-route">
-        <div className="container">
-          <Heading
-            eyebrow="Network Options"
-            title="Looking to Buy or Looking to Grow With Pentagon?"
-          />
-          <div className="dealer-route-grid">
-            {partnerRoutes.map(([value, number, title, copy, action]) => (
-              <article
-                className={route === value ? "is-active" : ""}
-                key={value}
-              >
-                <div className="route-header">
-                  <span>{number}</span>
-                  <div className="route-badge">
-                    {value === "seller"
-                      ? "Locator"
-                      : value === "distributor"
-                        ? "Regional"
-                        : "Retail"}
-                  </div>
-                </div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-                <button type="button" onClick={() => chooseRoute(value)}>
-                  {action} <Arrow />
-                </button>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+    <section className={`${sectionClass} bg-[#143d2b] text-white`}><div className={`${wrapClass} grid items-center gap-10 lg:grid-cols-2`}><Heading eyebrow="Coverage & supply" title="Territory Decisions Begin With Real Requirements." copy="Coverage, direct supply feasibility, freight, order quantity, channel availability and commercial terms are reviewed together. The website does not promise automatic appointment or all-India direct supply." light /><div className="grid grid-cols-2 gap-4">{[['4', 'Confirmed plywood grades'], ['3', 'Manufactured product categories'], ['2', 'Partner routes'], ['1', 'Requirement-led review']].map(([value, label]) => <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-5"><strong className="font-['DM_Serif_Display',Georgia,serif] text-4xl text-[#e7b878]">{value}</strong><p className="mt-2 text-sm leading-5 text-white/60">{label}</p></div>)}</div></div></section>
 
-      {/* why pentagon */}
-      <section className="dealer-section dealer-opportunity">
-        <div className="container">
-          <Heading
-            eyebrow="The Pentagon Opportunity"
-            title="Manufacturing Experience Behind You. Local Market Knowledge In Front."
-          />
-          <div className="dealer-opportunity-grid">
-            {opportunities.map(([title, copy], index) => (
-              <article key={title}>
-                <span>0{index + 1}</span>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+    <section id="partner-application" className={`${sectionClass} bg-white`}><div className={wrapClass}><div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><Heading eyebrow="Partner application" title="Tell Us About Your Business." copy="Complete the five-step profile. Required details help the Pentagon team assess the business, territory and likely partnership route." /><div className="mt-8 space-y-3">{['Partnership & territory', 'Business details', 'Market experience', 'Infrastructure & commercial plan', 'Review & consent'].map((label, index) => <button key={label} type="button" onClick={() => index + 1 < formStep && setFormStep(index + 1)} className={`flex w-full items-center gap-3 rounded-xl p-3 text-left text-sm ${formStep === index + 1 ? 'bg-[#143d2b] text-white' : index + 1 < formStep ? 'bg-[#eef2ee] text-[#143d2b]' : 'text-[#65736a]'}`}><span className={`grid h-7 w-7 place-items-center rounded-full text-xs ${index + 1 < formStep ? 'bg-[#d99143] text-white' : 'border border-current'}`}>{index + 1 < formStep ? <Check size={14} /> : index + 1}</span>{label}</button>)}</div></div>
+          <Card className="shadow-lg"><CardHeader><div className="flex items-center justify-between"><Badge variant="secondary">Step {formStep} of 5</Badge><span className="text-xs text-[#65736a]">* Required fields</span></div><CardTitle>{['Partnership & territory', 'Business details', 'Market experience', 'Infrastructure & commercial plan', 'Review & consent'][formStep - 1]}</CardTitle></CardHeader><CardContent>
+            {submitted ? <div className="py-12 text-center"><CircleCheck className="mx-auto text-[#143d2b]" size={56} /><h3 className="mt-5 font-['DM_Serif_Display',Georgia,serif] text-3xl">Application prepared.</h3><p className="mx-auto mt-3 max-w-lg leading-7 text-[#65736a]">Thank you for sharing your business profile. The current website records this confirmation in the page only; connect the form to the approved submission service before production launch.</p><Button className="mt-6" onClick={() => { setSubmitted(false); setForm(initialForm); setConsent(false); setFormStep(1); }}>Start another application</Button></div> : <form onSubmit={(event) => { event.preventDefault(); if (!consent) return setStepError('Please review and check the consent box to proceed.'); setSubmitted(true); }}>
+              {formStep === 1 && <div className="grid gap-5 md:grid-cols-2"><Field label="Partnership type" required><select className={selectClass} value={form.partnerType} onChange={update('partnerType')}><option>Dealer / Retailer</option><option>Distributor</option><option>Stockist</option></select></Field><Field label="State" required><Input className={inputClass} value={form.state} onChange={update('state')} /></Field><Field label="Proposed territory" required><Input className={inputClass} value={form.territory} onChange={update('territory')} placeholder="City, district or region" /></Field><Field label="Products of interest" required wide><div className="flex flex-wrap gap-2">{products.map((item) => <Button key={item} type="button" size="sm" variant={form.products.split(',').map((x) => x.trim()).includes(item) ? 'primary' : 'outline'} onClick={() => toggleChip('products', item)}>{item}</Button>)}</div></Field></div>}
+              {formStep === 2 && <div className="grid gap-5 md:grid-cols-2"><Field label="Legal business name" required><Input className={inputClass} value={form.legalName} onChange={update('legalName')} /></Field><Field label="Trade name"><Input className={inputClass} value={form.tradeName} onChange={update('tradeName')} /></Field><Field label="Contact person" required><Input className={inputClass} value={form.contactName} onChange={update('contactName')} /></Field><Field label="Designation"><Input className={inputClass} value={form.designation} onChange={update('designation')} /></Field><Field label="Mobile" required><Input className={inputClass} value={form.mobile} onChange={update('mobile')} inputMode="tel" /></Field><Field label="WhatsApp"><Input className={inputClass} value={form.whatsapp} onChange={update('whatsapp')} inputMode="tel" /></Field><Field label="Email" required><Input className={inputClass} type="email" value={form.email} onChange={update('email')} /></Field><Field label="GSTIN"><Input className={inputClass} value={form.gstin} onChange={update('gstin')} /></Field><Field label="Business address" required wide><Textarea value={form.address} onChange={update('address')} className="min-h-24 bg-white" /></Field><Field label="City" required><Input className={inputClass} value={form.city} onChange={update('city')} /></Field><Field label="District"><Input className={inputClass} value={form.district} onChange={update('district')} /></Field><Field label="PIN code" required><Input className={inputClass} value={form.pin} onChange={update('pin')} inputMode="numeric" /></Field><Field label="Year established"><Input className={inputClass} value={form.established} onChange={update('established')} /></Field></div>}
+              {formStep === 3 && <div className="grid gap-5 md:grid-cols-2"><Field label="Business categories" required wide><div className="flex flex-wrap gap-2">{categories.map((item) => <Button key={item} type="button" size="sm" variant={form.categories.split(',').map((x) => x.trim()).includes(item) ? 'primary' : 'outline'} onClick={() => toggleChip('categories', item)}>{item}</Button>)}</div></Field><Field label="Existing brands"><Textarea value={form.brands} onChange={update('brands')} /></Field><Field label="Customer groups"><Textarea value={form.customers} onChange={update('customers')} placeholder="Dealers, contractors, carpenters, designers…" /></Field><Field label="Markets served"><Textarea value={form.markets} onChange={update('markets')} /></Field><Field label="Industry experience"><Textarea value={form.experience} onChange={update('experience')} /></Field><Field label="Why do you want to partner?" required wide><Textarea className="min-h-28" value={form.reason} onChange={update('reason')} /></Field></div>}
+              {formStep === 4 && <div className="grid gap-5 md:grid-cols-2"><Field label="Showroom / shop"><select className={selectClass} value={form.showroom} onChange={update('showroom')}><option>Yes</option><option>No</option><option>Planned</option></select></Field><Field label="Warehouse"><select className={selectClass} value={form.warehouse} onChange={update('warehouse')}><option>Yes</option><option>No</option><option>Planned</option></select></Field><Field label="Warehouse area"><Input className={inputClass} value={form.warehouseArea} onChange={update('warehouseArea')} placeholder="Approx. sq. ft." /></Field><Field label="Team size"><Input className={inputClass} value={form.teamSize} onChange={update('teamSize')} /></Field><Field label="Logistics capability"><Textarea value={form.logistics} onChange={update('logistics')} /></Field><Field label="Trade relationships"><Textarea value={form.tradeRelationships} onChange={update('tradeRelationships')} /></Field><Field label="Expected opening order"><Input className={inputClass} value={form.openingOrder} onChange={update('openingOrder')} /></Field><Field label="Expected monthly purchase"><Input className={inputClass} value={form.monthlyPurchase} onChange={update('monthlyPurchase')} /></Field><Field label="Requested territory"><Input className={inputClass} value={form.territoryRequested} onChange={update('territoryRequested')} /></Field><Field label="Preferred discussion date"><Input className={inputClass} type="date" value={form.discussionDate} onChange={update('discussionDate')} /></Field><Field label="Opportunities in your market" wide><Textarea className="min-h-24" value={form.opportunities} onChange={update('opportunities')} /></Field><Field label="Additional information" wide><Textarea className="min-h-24" value={form.additional} onChange={update('additional')} /></Field></div>}
+              {formStep === 5 && <div><div className="grid gap-3 sm:grid-cols-2">{[['Partnership', form.partnerType], ['Territory', `${form.territory}, ${form.state}`], ['Business', form.legalName], ['Contact', `${form.contactName} · ${form.mobile}`], ['Products', form.products], ['Categories', form.categories]].map(([label, value]) => <div key={label} className="rounded-xl bg-[#f7f3ec] p-4"><p className="text-xs font-bold uppercase tracking-wider text-[#9c6846]">{label}</p><p className="mt-1 text-sm leading-6">{value || 'Not provided'}</p></div>)}</div><label className="mt-6 flex cursor-pointer items-start gap-3 rounded-xl border border-[#cad4cc] p-4"><input className="mt-1 accent-[#143d2b]" type="checkbox" checked={consent} onChange={(event) => { setConsent(event.target.checked); setStepError(''); }} /><span className="text-sm leading-6 text-[#65736a]">I confirm that the information is accurate and consent to being contacted about this application. I understand that submission does not guarantee appointment, exclusivity, credit or supply.</span></label></div>}
+              {stepError && <p role="alert" className="mt-5 rounded-xl bg-red-50 p-3 text-sm text-red-700">{stepError}</p>}<div className="mt-7 flex items-center justify-between border-t border-[#dbe2dc] pt-5">{formStep > 1 ? <Button type="button" variant="ghost" onClick={() => { setStepError(''); setFormStep((step) => step - 1); }}><ChevronLeft size={16} />Previous</Button> : <span />}{formStep < 5 ? <Button type="button" onClick={nextStep}>Continue<ArrowRight size={16} /></Button> : <Button type="submit" variant="primary">Submit application<ArrowRight size={16} /></Button>}</div>
+            </form>}
+          </CardContent></Card>
+        </div></div></section>
 
-      {/* INTERACTIVE PARTNERSHIP QUIZ / FINDER */}
-      <section className="dealer-section dealer-quiz-section">
-        <div className="container">
-          <div className="quiz-card">
-            <div className="quiz-intro">
-              <span>Interactive Helper</span>
-              <h2>Which Partnership Model Fits Your Business?</h2>
-              <p>
-                Answer two quick questions to see our recommended commercial
-                engagement route.
-              </p>
-            </div>
+    <section className={`${sectionClass} bg-[#efe8dc]`}><div className={wrapClass}><Heading eyebrow="Shared commitments" title="Good Partnerships Need Clear Expectations." copy="The strongest channel relationships are built through accurate product communication, responsible stock handling, documented commercial terms and active market feedback." center /><div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-3">{[['Pentagon’s role', 'Review product availability, supply feasibility and commercial requirements clearly.', Factory], ['Partner’s role', 'Represent grades accurately, handle stock responsibly and serve the agreed market.', Handshake], ['Shared focus', 'Build trust through documented terms, practical communication and customer support.', ShieldCheck]].map(([title, copy, Icon]) => <Card key={title} className="text-center"><CardHeader><Icon className="mx-auto text-[#9c6846]" /><CardTitle className="text-xl">{title}</CardTitle><CardDescription className="leading-6">{copy}</CardDescription></CardHeader></Card>)}</div></div></section>
 
-            <div className="quiz-body">
-              <div className="quiz-step">
-                <label>1. Select Your Business Infrastructure:</label>
-                <div className="quiz-options">
-                  {[
-                    "Retail Showroom / Hardware Store",
-                    "Warehousing / Bulk Yard",
-                    "Project Supply / Contractor",
-                    "New Venture Startup",
-                  ].map((opt) => (
-                    <button
-                      type="button"
-                      key={opt}
-                      className={quizSetup === opt ? "is-selected" : ""}
-                      onClick={() => setQuizSetup(opt)}
-                    >
-                      {opt}
-                    </button>
-                  ))}
-                </div>
-              </div>
+    <section id="dealer-faq" className={`${sectionClass} bg-white`}><div className={`${wrapClass} grid gap-10 lg:grid-cols-[.7fr_1.3fr]`}><div><Heading eyebrow="Questions before applying" title="Dealer & Distributor FAQs." copy="Search the common questions or contact Pentagon when your product, territory or commercial requirement needs a direct discussion." /><div className="relative mt-6"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#65736a]" size={18} /><Input className={`${inputClass} pl-10`} value={faqFilter} onChange={(event) => setFaqFilter(event.target.value)} placeholder="Search FAQs" /></div></div><Accordion type="single" collapsible defaultValue="faq-0" className="rounded-2xl border border-[#dbe2dc] px-5">{displayedFaqs.map(([question, answer]) => { const originalIndex = faqItems.findIndex(([item]) => item === question); return <AccordionItem key={question} value={`faq-${originalIndex}`}><AccordionTrigger className="py-5 text-base hover:no-underline">{question}</AccordionTrigger><AccordionContent className="pb-5 leading-7 text-[#65736a]">{answer}</AccordionContent></AccordionItem>; })}{displayedFaqs.length === 0 && <p className="py-8 text-center text-sm text-[#65736a]">No FAQ matches that search.</p>}</Accordion></div></section>
 
-              <div className="quiz-step">
-                <label>2. Select Target Operating Reach:</label>
-                <div className="quiz-options">
-                  {[
-                    "Local City / Retail",
-                    "Multi-District / State-Wide",
-                    "Special B2B Projects",
-                  ].map((opt) => (
-                    <button
-                      type="button"
-                      key={opt}
-                      className={quizReach === opt ? "is-selected" : ""}
-                      onClick={() => setQuizReach(opt)}
-                    >
-                      {opt}
-                    </button>
-                  ))}
-                </div>
-              </div>
+    <section className="bg-[#C86D51] px-4 py-14 text-white sm:px-6 lg:px-8"><div className={`${wrapClass} flex flex-col items-start justify-between gap-7 lg:flex-row lg:items-center`}><div><p className="text-xs font-bold uppercase tracking-[.2em] text-white/70">Start a conversation</p><h2 className="mt-2 font-['DM_Serif_Display',Georgia,serif] text-3xl sm:text-4xl">Find a seller or introduce your business.</h2><p className="mt-3 max-w-2xl text-white/75">Talk to Pentagon about product availability, territory, freight or a suitable partnership route.</p></div><div className="flex flex-wrap gap-3"><a href={PHONE} className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 font-semibold text-[#143d2b]"><Phone size={18} />Call Pentagon</a><a href={`${WHATSAPP_BASE}${encodeURIComponent('Hello Pentagon, I would like to discuss a dealer or distributor enquiry.')}`} target="_blank" rel="noreferrer" className="inline-flex h-12 items-center gap-2 rounded-full border border-white/35 px-6 font-semibold"><MessageCircle size={18} />WhatsApp</a><a href={CONTACT_SECTIONS.form} className="inline-flex h-12 items-center gap-2 rounded-full border border-white/35 px-6 font-semibold">Contact form<ArrowRight size={18} /></a></div></div></section>
 
-              {quizRecommendation && (
-                <div className="quiz-result animate-fade-in">
-                  <div className="quiz-result-header">
-                    <span className="check-badge">
-                      <CheckIcon />
-                    </span>
-                    <div>
-                      <small>Recommended Route</small>
-                      <h3>{quizRecommendation.title}</h3>
-                    </div>
-                  </div>
-                  <p>{quizRecommendation.desc}</p>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => {
-                      setForm((c) => ({
-                        ...c,
-                        partnerType: quizRecommendation.type,
-                      }));
-                      document
-                        .getElementById("partner-application")
-                        ?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                  >
-                    Apply as {quizRecommendation.type} <Arrow />
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* INTERACTIVE LOCATOR & SEARCH */}
-      <section className="dealer-section dealer-locator" id="dealer-locator">
-        <div className="container">
-          <Heading
-            eyebrow="Verified Channel Locator"
-            title="Find an Approved Seller Serving Your Location"
-            copy="Filter by State, City, PIN code, or Product category to view authorized Pentagon stockists and regional partners."
-          />
-
-          <div className="dealer-region-pills">
-            {["All", "North", "West", "South"].map((reg) => (
-              <button
-                type="button"
-                key={reg}
-                className={activeRegion === reg ? "is-active" : ""}
-                onClick={() => setActiveRegion(reg)}
-              >
-                {reg} Region
-              </button>
-            ))}
-          </div>
-
-          <div className="dealer-search">
-            <label>
-              <span>State</span>
-              <select
-                value={searchState}
-                onChange={(e) => setSearchState(e.target.value)}
-              >
-                <option value="">All States</option>
-                <option value="Haryana">Haryana</option>
-                <option value="Delhi">Delhi NCR</option>
-                <option value="Punjab">Punjab</option>
-                <option value="Rajasthan">Rajasthan</option>
-                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                <option value="Gujarat">Gujarat</option>
-                <option value="Maharashtra">Maharashtra</option>
-                <option value="Karnataka">Karnataka</option>
-              </select>
-            </label>
-
-            <label>
-              <span>City / Store Name</span>
-              <input
-                type="text"
-                value={searchCity}
-                onChange={(e) => setSearchCity(e.target.value)}
-                placeholder="Enter city (e.g. Yamunanagar, Delhi)"
-              />
-            </label>
-
-            <label>
-              <span>PIN code</span>
-              <input
-                type="text"
-                inputMode="numeric"
-                value={searchPin}
-                onChange={(e) => setSearchPin(e.target.value)}
-                placeholder="6-digit PIN"
-              />
-            </label>
-
-            <label>
-              <span>Product Required</span>
-              <select
-                value={searchProduct}
-                onChange={(e) => setSearchProduct(e.target.value)}
-              >
-                <option value="">All Products</option>
-                <option value="Plywood">Plywood</option>
-                <option value="Blockboard">Blockboard</option>
-                <option value="Flush Doors">Flush Doors</option>
-              </select>
-            </label>
-
-            <div className="search-actions-wrap">
-              <button
-                className="btn btn-primary"
-                type="button"
-                onClick={() => {}}
-              >
-                <SearchIcon /> Search
-              </button>
-              {(searchState ||
-                searchCity ||
-                searchPin ||
-                searchProduct ||
-                activeRegion !== "All") && (
-                <button
-                  className="btn btn-ghost reset-btn"
-                  type="button"
-                  onClick={resetFilters}
-                >
-                  Clear Filters
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* DEALER LISTING GRID */}
-          {filteredDealers.length > 0 ? (
-            <div className="dealer-cards-grid">
-              {filteredDealers.map((dealer) => (
-                <article
-                  key={dealer.id}
-                  className={`dealer-card ${dealer.isHQ ? "is-hq-card" : ""}`}
-                >
-                  <div className="dealer-card-top">
-                    <span className="dealer-type-badge">{dealer.type}</span>
-                    {dealer.verified && (
-                      <span className="verified-badge">
-                        <CheckIcon /> Verified
-                      </span>
-                    )}
-                  </div>
-                  <h3>{dealer.name}</h3>
-                  <div className="dealer-card-address">
-                    <MapPinIcon />
-                    <span>
-                      {dealer.address}, <strong>{dealer.city}</strong>,{" "}
-                      {dealer.state} - {dealer.pin}
-                    </span>
-                  </div>
-
-                  <div className="dealer-card-products">
-                    {dealer.products.map((p) => (
-                      <span key={p} className="product-tag">
-                        {p}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="dealer-card-contact">
-                    <span>
-                      Contact: <strong>{dealer.contactPerson}</strong>
-                    </span>
-                    <div className="contact-btns">
-                      <a
-                        href={`tel:${dealer.phone}`}
-                        className="contact-btn phone-btn"
-                        title="Call Dealer"
-                      >
-                        <PhoneIcon /> {dealer.phone}
-                      </a>
-                      <a
-                        href={`${WHATSAPP_BASE}Hello%20${encodeURIComponent(dealer.name)},%20I%20am%20looking%20for%20Pentagon%20Plywood%20products.`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="contact-btn wa-btn"
-                        title="Chat on WhatsApp"
-                      >
-                        <WhatsAppIcon /> WhatsApp
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className="dealer-empty-state">
-              <div className="dealer-empty-map" aria-hidden="true">
-                <span>?</span>
-              </div>
-              <div>
-                <span>No published seller matching your search</span>
-                <h3>
-                  We do not have a published partner in this specific location
-                  yet.
-                </h3>
-                <p>
-                  Share your city, product and required volume. Pentagon’s
-                  channel team will check whether your requirement can be served
-                  directly from our manufacturing base or through our nearest
-                  regional stockist.
-                </p>
-                <a className="btn btn-outline" href={CONTACT_SECTIONS.form}>
-                  Help Me Source Pentagon Products <Arrow />
-                </a>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* PRODUCTS DISPLAY */}
-      <section className="dealer-section dealer-products" id="partner-products">
-        <div className="container">
-          <Heading
-            eyebrow="Channel Product Range"
-            title="Build the Range Around What Your Market Actually Buys"
-            copy="From high-grade Marine Plywood to commercial boards and flush doors, align your inventory with local trade demand."
-          />
-          <div className="dealer-product-grid">
-            <article>
-              <span>Manufactured Product · 01</span>
-              <h3>Plywood</h3>
-              <p>
-                Calibrated core plywood options for furniture, interior
-                carpentry, and exterior applications.
-              </p>
-              <ul>
-                <li>MR Moisture Resistant Grade</li>
-                <li>BWP/BWR Boiling Water Proof</li>
-                <li>Calibrated Architectural Plywood</li>
-              </ul>
-              <a href={ROUTES.plywood}>
-                Explore Plywood <Arrow />
-              </a>
-            </article>
-            <article>
-              <span>Manufactured Product · 02</span>
-              <h3>Blockboard</h3>
-              <p>
-                Solid wood-strip-core panels engineered for shutters, wardrobes,
-                shelving, and heavy doors.
-              </p>
-              <a href={comingSoonUrl("Blockboards")}>
-                Explore Blockboard <Arrow />
-              </a>
-            </article>
-            <article>
-              <span>Manufactured Product · 03</span>
-              <h3>Flush Doors</h3>
-              <p>
-                Precision-pressed door solutions for residential, commercial,
-                and large project applications.
-              </p>
-              <a href={comingSoonUrl("Flush Doors")}>
-                Explore Doors <Arrow />
-              </a>
-            </article>
-          </div>
-          <div className="dealer-allied">
-            <span>Additional Materials Available on Enquiry</span>
-            <h3>
-              MDF, HDHMR, WPC, laminates and veneers may be sourced or traded
-              according to the requirement.
-            </h3>
-            <p>
-              Tell us the complete material list. Availability, brand,
-              specification, quantity and dispatch feasibility will be confirmed
-              against the enquiry.
-            </p>
-            <a className="btn btn-outline" href={CONTACT_SECTIONS.form}>
-              Discuss the Complete Range <Arrow />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* COMPARISON MATRIX */}
-      <section className="dealer-section dealer-comparison" id="partner-types">
-        <div className="container">
-          <Heading
-            eyebrow="Choose the Right Model"
-            title="Retail Dealer vs Regional Distributor"
-          />
-          <div className="dealer-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Comparison Metric</th>
-                  <th>Dealer / Retail Partner</th>
-                  <th>Distributor / Stockist</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  [
-                    "Primary Role",
-                    "Direct supply to local trade professionals and retail customers",
-                    "Managing inventory for a network of sub-dealers and large accounts",
-                  ],
-                  [
-                    "Territory Reach",
-                    "City or district level market",
-                    "Multi-district, region or state-wide territory",
-                  ],
-                  [
-                    "Order Profile",
-                    "Flexible, repeat project and retail dispatches",
-                    "Bulk planned inventory movement and container dispatches",
-                  ],
-                  [
-                    "Infrastructure",
-                    "Showroom, retail outlet or local counter",
-                    "Warehousing, sales team & regional logistics setup",
-                  ],
-                  [
-                    "Branding Support",
-                    "Digital locator listing & store sample kits",
-                    "Exclusive territory support & marketing collateral",
-                  ],
-                ].map((row) => (
-                  <tr key={row[0]}>
-                    {row.map((cell, idx) => (
-                      <td key={idx}>{cell}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* new section */}
-      <section className="dealer-section dealer-applicants">
-        <div className="container dealer-two-column">
-          <div>
-            <Heading
-              eyebrow="Potential Channel Partners"
-              title="If You Understand the Market, We Want to Understand Your Business."
-            />
-            <ul>
-              {applicantTypes.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="dealer-kicker">What Helps Us Evaluate</div>
-            <h3>Useful signals not automatic acceptance criteria.</h3>
-            <ul>
-              {evaluationFactors.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* PROCESS STEPS */}
-      <section
-        className="dealer-section dealer-process"
-        id="application-process"
-      >
-        <div className="container">
-          <Heading
-            eyebrow="Clear Pathway"
-            title="A Clear Process Before Either Side Makes a Commitment. "
-          />
-          <div className="dealer-process-grid">
-            {processSteps.map(([number, title, copy]) => (
-              <article key={number}>
-                <span>{number}</span>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* new section understand the market */}
-      <section className="dealer-section dealer-coverage">
-        <div className="container dealer-coverage-grid">
-          <div>
-            <Heading
-              eyebrow="Growing Across Markets"
-              title="Local Relationships. A Wider Supply Network."
-            />
-            <p>
-              Pentagon’s network can become more useful through verified partner
-              locations, clearer regional opportunities and better routing
-              according to supply and freight feasibility.
-            </p>
-            <div className="dealer-stat-row">
-              <div>
-                <strong>Since 1997</strong>
-                <span>Pentagon Plywood</span>
-              </div>
-              <div>
-                <strong>Yamunanagar</strong>
-                <span>Manufacturing base</span>
-              </div>
-            </div>
-          </div>
-          <div className="dealer-freight">
-            <div className="dealer-kicker">Supply Must Make Business Sense</div>
-            <h3>The Right Product Also Needs the Right Route to Market.</h3>
-            <p>
-              Wood panels and doors are freight-sensitive. Serviceability
-              depends on product, quantity, destination, transport cost, stock
-              and channel availability.
-            </p>
-            <ul>
-              <li>Approved local seller</li>
-              <li>Regional distributor</li>
-              <li>Consolidated bulk dispatch</li>
-              <li>Direct supply where commercially feasible</li>
-            </ul>
-            <a href={CONTACT_SECTIONS.form}>
-              Check Supply Feasibility <Arrow />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* APPLICATION FORM SECTION */}
-      <section
-        className="dealer-section dealer-application"
-        id="partner-application"
-      >
-        <div className="container">
-          <Heading
-            eyebrow="Channel Partnership Application"
-            title="Introduce Your Business to Pentagon Plywood"
-            copy="Complete the steps below. Our channel evaluation team will review your business profile and connect with you."
-          />
-
-          {submitted ? (
-            <div className="dealer-success" role="status">
-              <span>✓</span>
-              <div>
-                <div className="dealer-kicker">
-                  Application Submitted Successfully
-                </div>
-                <h3>Welcome to Pentagon Channel Cell</h3>
-                <p>
-                  Application Reference:{" "}
-                  <strong>
-                    PP-PARTNER-{new Date().getFullYear()}-
-                    {Math.floor(1000 + Math.random() * 9000)}
-                  </strong>
-                </p>
-                <p>
-                  We have received your details for{" "}
-                  <strong>{form.legalName || "your business"}</strong> in{" "}
-                  {form.city}, {form.state}. A Pentagon Channel Manager will
-                  reach out within 1 to 2 business days.
-                </p>
-                <button
-                  className="btn btn-outline"
-                  type="button"
-                  onClick={() => setSubmitted(false)}
-                >
-                  Submit Another Application
-                </button>
-              </div>
-            </div>
-          ) : (
-            <form
-              className="dealer-application-form"
-              onSubmit={submitApplication}
-            >
-              <div
-                className="dealer-form-progress"
-                aria-label={`Step ${formStep} of 5`}
-              >
-                {[
-                  "Interest",
-                  "Business",
-                  "Experience",
-                  "Infrastructure",
-                  "Requirement & Review",
-                ].map((label, index) => (
-                  <button
-                    type="button"
-                    className={
-                      formStep === index + 1
-                        ? "is-current"
-                        : formStep > index + 1
-                          ? "is-complete"
-                          : ""
-                    }
-                    onClick={() => {
-                      setStepError("");
-                      setFormStep(index + 1);
-                    }}
-                    key={label}
-                  >
-                    <span>{formStep > index + 1 ? "✓" : index + 1}</span>
-                    <strong>{label}</strong>
-                  </button>
-                ))}
-              </div>
-
-              <div className="dealer-form-body">
-                <div className="dealer-form-step-title">
-                  <span>0{formStep}</span>
-                  <div>
-                    <small>Step {formStep} of 5</small>
-                    <h3>
-                      {
-                        [
-                          "Partnership Interest",
-                          "Business Details",
-                          "Market Experience",
-                          "Infrastructure",
-                          "Requirement & Final Review",
-                        ][formStep - 1]
-                      }
-                    </h3>
-                  </div>
-                </div>
-
-                {/* STEP 1 */}
-                {formStep === 1 && (
-                  <div className="dealer-form-grid">
-                    <Field label="Selecting Role" required wide>
-                      <div className="partner-type-cards">
-                        {[
-                          "Dealer / Retailer",
-                          "Wholesaler",
-                          "Distributor",
-                          "Stockist",
-                        ].map((type) => (
-                          <div
-                            key={type}
-                            className={`type-select-card ${form.partnerType === type ? "is-selected" : ""}`}
-                            onClick={() =>
-                              setForm((c) => ({ ...c, partnerType: type }))
-                            }
-                          >
-                            <span className="radio-dot" />
-                            <strong>{type}</strong>
-                          </div>
-                        ))}
-                      </div>
-                    </Field>
-
-                    <Field label="Products of Interest" required wide>
-                      <input
-                        value={form.products}
-                        onChange={update("products")}
-                        placeholder="Click chip tags below or type products..."
-                        required
-                      />
-                      <div className="chip-selector">
-                        <small>Click to toggle product tags:</small>
-                        <div className="chip-group">
-                          {PRODUCT_CHIPS.map((chip) => {
-                            const isSel = form.products.includes(chip);
-                            return (
-                              <button
-                                type="button"
-                                key={chip}
-                                className={`dealer-chip ${isSel ? "is-selected" : ""}`}
-                                onClick={() =>
-                                  toggleChipInField("products", chip)
-                                }
-                              >
-                                {isSel ? "✓ " : "+ "}
-                                {chip}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </Field>
-
-                    <Field label="Proposed State" required>
-                      <input
-                        value={form.state}
-                        onChange={update("state")}
-                        placeholder="e.g. Haryana, Delhi, Punjab"
-                        required
-                      />
-                    </Field>
-
-                    <Field label="Proposed City / District" required>
-                      <input
-                        value={form.territory}
-                        onChange={update("territory")}
-                        placeholder="e.g. Yamunanagar, Ambala"
-                        required
-                      />
-                    </Field>
-                  </div>
-                )}
-
-                {/* STEP 2 */}
-                {formStep === 2 && (
-                  <div className="dealer-form-grid">
-                    <Field label="Legal Business Name" required>
-                      <input
-                        value={form.legalName}
-                        onChange={update("legalName")}
-                        placeholder="e.g. Shree Ram Plywood Traders"
-                        required
-                      />
-                    </Field>
-                    <Field label="Trade Name / Brand Outlet">
-                      <input
-                        value={form.tradeName}
-                        onChange={update("tradeName")}
-                        placeholder="e.g. Ram Plywood & Hardware"
-                      />
-                    </Field>
-                    <Field label="Contact Person" required>
-                      <input
-                        value={form.contactName}
-                        onChange={update("contactName")}
-                        placeholder="Full Name"
-                        required
-                      />
-                    </Field>
-                    <Field label="Designation">
-                      <input
-                        value={form.designation}
-                        onChange={update("designation")}
-                        placeholder="Proprietor / Partner / Director"
-                      />
-                    </Field>
-                    <Field label="Mobile Number" required>
-                      <input
-                        type="tel"
-                        value={form.mobile}
-                        onChange={update("mobile")}
-                        placeholder="10-digit mobile"
-                        required
-                      />
-                    </Field>
-                    <Field label="WhatsApp Number">
-                      <input
-                        type="tel"
-                        value={form.whatsapp}
-                        onChange={update("whatsapp")}
-                        placeholder="WhatsApp number"
-                      />
-                    </Field>
-                    <Field label="Email Address" required>
-                      <input
-                        type="email"
-                        value={form.email}
-                        onChange={update("email")}
-                        placeholder="email@company.com"
-                        required
-                      />
-                    </Field>
-                    <Field label="GSTIN">
-                      <input
-                        value={form.gstin}
-                        onChange={update("gstin")}
-                        placeholder="Optional GSTIN"
-                      />
-                    </Field>
-                    <Field label="Business Address" required wide>
-                      <textarea
-                        value={form.address}
-                        onChange={update("address")}
-                        placeholder="Shop / Office address..."
-                        required
-                      />
-                    </Field>
-                    <Field label="City" required>
-                      <input
-                        value={form.city}
-                        onChange={update("city")}
-                        required
-                      />
-                    </Field>
-                    <Field label="PIN Code" required>
-                      <input
-                        value={form.pin}
-                        onChange={update("pin")}
-                        inputMode="numeric"
-                        placeholder="6-digit PIN"
-                        required
-                      />
-                    </Field>
-                  </div>
-                )}
-
-                {/* STEP 3 */}
-                {formStep === 3 && (
-                  <div className="dealer-form-grid">
-                    <Field label="Current Business Categories" required wide>
-                      <textarea
-                        value={form.categories}
-                        onChange={update("categories")}
-                        placeholder="Select category chips below or type..."
-                        required
-                      />
-                      <div className="chip-selector">
-                        <small>Quick select current categories:</small>
-                        <div className="chip-group">
-                          {CATEGORY_CHIPS.map((chip) => {
-                            const isSel = form.categories.includes(chip);
-                            return (
-                              <button
-                                type="button"
-                                key={chip}
-                                className={`dealer-chip ${isSel ? "is-selected" : ""}`}
-                                onClick={() =>
-                                  toggleChipInField("categories", chip)
-                                }
-                              >
-                                {isSel ? "✓ " : "+ "}
-                                {chip}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </Field>
-                    <Field label="Brands Currently Handled">
-                      <input
-                        value={form.brands}
-                        onChange={update("brands")}
-                        placeholder="e.g. Local or national brands"
-                      />
-                    </Field>
-                    <Field label="Why Partner With Pentagon?" required wide>
-                      <textarea
-                        value={form.reason}
-                        onChange={update("reason")}
-                        placeholder="Share your market goal or why Pentagon fits your business..."
-                        required
-                      />
-                    </Field>
-                  </div>
-                )}
-
-                {/* STEP 4 */}
-                {formStep === 4 && (
-                  <div className="dealer-form-grid">
-                    <Field label="Showroom Available">
-                      <select
-                        value={form.showroom}
-                        onChange={update("showroom")}
-                      >
-                        <option>Yes</option>
-                        <option>No</option>
-                      </select>
-                    </Field>
-                    <Field label="Warehouse Available">
-                      <select
-                        value={form.warehouse}
-                        onChange={update("warehouse")}
-                      >
-                        <option>Yes</option>
-                        <option>No</option>
-                      </select>
-                    </Field>
-                    <Field label="Warehouse Area (sq ft)">
-                      <input
-                        value={form.warehouseArea}
-                        onChange={update("warehouseArea")}
-                        placeholder="e.g. 1,500 sq ft"
-                      />
-                    </Field>
-                    <Field label="Sales Team Size">
-                      <input
-                        value={form.teamSize}
-                        onChange={update("teamSize")}
-                        placeholder="e.g. 3 sales persons"
-                      />
-                    </Field>
-                  </div>
-                )}
-
-                {/* STEP 5 & RECAP */}
-                {formStep === 5 && (
-                  <div className="dealer-form-grid">
-                    <div className="form-recap-box">
-                      <h4>Application Summary Review</h4>
-                      <div className="recap-grid">
-                        <div>
-                          <span>Role:</span> <strong>{form.partnerType}</strong>
-                        </div>
-                        <div>
-                          <span>Products:</span>{" "}
-                          <strong>{form.products || "Not specified"}</strong>
-                        </div>
-                        <div>
-                          <span>Location:</span>{" "}
-                          <strong>
-                            {form.city || "-"}, {form.state || "-"}
-                          </strong>
-                        </div>
-                        <div>
-                          <span>Applicant:</span>{" "}
-                          <strong>
-                            {form.contactName || "-"} ({form.legalName || "-"})
-                          </strong>
-                        </div>
-                        <div>
-                          <span>Phone:</span>{" "}
-                          <strong>{form.mobile || "-"}</strong>
-                        </div>
-                        <div>
-                          <span>Email:</span>{" "}
-                          <strong>{form.email || "-"}</strong>
-                        </div>
-                      </div>
-                    </div>
-
-                    <Field label="Territory Requested" required wide>
-                      <input
-                        value={form.territoryRequested}
-                        onChange={update("territoryRequested")}
-                        placeholder="Specify target area or district"
-                        required
-                      />
-                    </Field>
-
-                    <label className="dealer-consent">
-                      <input
-                        type="checkbox"
-                        checked={consent}
-                        onChange={(e) => setConsent(e.target.checked)}
-                        required
-                      />
-                      <span>
-                        I confirm that all submitted business details are
-                        accurate. I understand that submitting this application
-                        does not guarantee appointment or territory exclusivity.
-                        I agree that Pentagon Plywood may contact me for channel
-                        evaluation.
-                      </span>
-                    </label>
-                  </div>
-                )}
-
-                {stepError && (
-                  <p className="dealer-step-error" role="alert">
-                    {stepError}
-                  </p>
-                )}
-
-                <div className="dealer-form-actions">
-                  {formStep > 1 && (
-                    <button
-                      className="btn btn-outline"
-                      type="button"
-                      onClick={previousStep}
-                    >
-                      Previous Step
-                    </button>
-                  )}
-                  {formStep < 5 ? (
-                    <button
-                      className="btn btn-primary"
-                      type="button"
-                      onClick={nextStep}
-                    >
-                      Continue <Arrow />
-                    </button>
-                  ) : (
-                    <button className="btn btn-primary" type="submit">
-                      Submit Partnership Application <Arrow />
-                    </button>
-                  )}
-                </div>
-
-                <a className="dealer-discuss-link" href={PHONE}>
-                  Prefer to discuss directly? Call Pentagon Channel Cell: +91
-                  72061 04340
-                </a>
-              </div>
-            </form>
-          )}
-        </div>
-      </section>
-
-      {/* Working Together */}
-      <section className="dealer-section dealer-commitments">
-        <div className="container dealer-commitment-grid">
-          <div>
-            <Heading
-              eyebrow="Working Together"
-              title="Clear Products. Clear Requirements. Clear Commitments."
-            />
-            {[
-              [
-                "Product Information",
-                "Current specifications, grades, dimensions and usage guidance for approved products.",
-              ],
-              [
-                "Order Coordination",
-                "Availability, dispatch, freight and payment conditions confirmed through the agreed process.",
-              ],
-              [
-                "Enquiry Communication",
-                "Local demand and requirements shared so product discussions stay grounded in the market.",
-              ],
-              [
-                "Digital Dealer Visibility",
-                "Selected verified partners may appear in the locator after consent to publish.",
-              ],
-            ].map(([title, copy]) => (
-              <article key={title}>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-          <div className="dealer-dark-list">
-            <div className="dealer-kicker">A Two Way Commitment</div>
-            <h2>
-              The Brand Is Represented Wherever the Product Is Recommended.
-            </h2>
-            <ul>
-              {partnerExpectations.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ SECTION WITH SEARCH */}
-      <section className="dealer-section dealer-faq" id="dealer-faq">
-        <div className="container dealer-faq-grid">
-          <Heading
-            eyebrow="Frequently Asked Questions"
-            title="Before You Apply."
-          />
-          <div>
-            {faqItems.map(([question, answer], index) => (
-              <details key={question}>
-                <summary>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  {question}
-                  <i>+</i>
-                </summary>
-                <p>{answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="dealer-final">
-        <div className="container">
-          <div className="dealer-kicker">
-            Your Market. Our Next Conversation.
-          </div>
-          <h2>
-            See an Opportunity for Pentagon in Your City?{" "}
-            <em>Let’s Examine It Together.</em>
-          </h2>
-          <p>
-            Tell us where you operate, who you serve, which products the market
-            needs and how you plan to grow the category.
-          </p>
-          <div className="dealer-actions">
-            <a className="btn btn-primary" href={DEALER_SECTIONS.application}>
-              Apply to Join the Network <Arrow />
-            </a>
-            <a className="btn btn-outline" href={ROUTES.contact}>
-              Speak With Our Team <Arrow />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* MOBILE STICKY FLOATING ACTION BAR */}
-      <div className="mobile-sticky-bar">
-        <button
-          type="button"
-          className="mobile-action-btn"
-          onClick={() => chooseRoute("seller")}
-        >
-          <SearchIcon /> Find Seller
-        </button>
-        <button
-          type="button"
-          className="mobile-action-btn primary"
-          onClick={() => chooseRoute("dealer")}
-        >
-          Apply Partner <Arrow />
-        </button>
-      </div>
-    </div>
-  );
+    <div className="sticky bottom-3 z-30 mx-auto mb-3 flex w-[calc(100%-1.5rem)] max-w-md gap-2 rounded-2xl border border-[#dbe2dc] bg-white/95 p-2 shadow-xl backdrop-blur lg:hidden"><a href={DEALER_SECTIONS.locator} className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#143d2b] text-sm font-semibold text-white"><MapPin size={16} />Find seller</a><a href={DEALER_SECTIONS.application} className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#C86D51] text-sm font-semibold text-white"><Handshake size={16} />Apply</a></div>
+  </main>;
 }
 
 export default DealersPage;

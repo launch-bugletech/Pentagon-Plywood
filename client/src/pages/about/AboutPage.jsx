@@ -118,7 +118,7 @@ const PLYWOOD_LAYERS = [
     id: "top-face",
     name: "Top Face Veneer",
     thickness: "0.5mm - 1.0mm",
-    color: "#D99143",
+    color: "#C86D51",
     description: "Premium hardwood timber face veneer, peeled from selected logs for a smooth finish and natural wood grain aesthetic.",
     benefit: "Enhances surface bonding for laminates and polished wood finishes."
   },
@@ -150,7 +150,7 @@ const PLYWOOD_LAYERS = [
     id: "bottom-face",
     name: "Bottom Back Veneer",
     thickness: "0.5mm - 1.0mm",
-    color: "#D99143",
+    color: "#C86D51",
     description: "Matching timber back veneer calibrated to balance tension across the plywood sheet.",
     benefit: "Ensures flatness and prevents cupping or bowing under humidity changes."
   }

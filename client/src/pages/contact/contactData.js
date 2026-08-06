@@ -2,6 +2,7 @@ import kitchenImg from "../../assets/product/Applications/Modern kitchen with ca
 import livingImg from "../../assets/product/Applications/Contemporary living room with furniture.png";
 import officeImg from "../../assets/product/Applications/Modern office with desks and partitions.png";
 import wardrobeImg from "../../assets/product/Applications/Modern wardrobe with sliding doors.png";
+
 export const PHONE_DISPLAY = "+91 72061 04340";
 export const PHONE_LINK = "tel:+917206104340";
 export const EMAIL = "pentagonplywood@gmail.com";
@@ -9,6 +10,7 @@ export const WHATSAPP_MESSAGE = encodeURIComponent(
     "Hello Pentagon Plywood, I would like to enquire about a product. My required quantity is and the delivery location is."
 );
 export const WHATSAPP_LINK = `https://wa.me/917206104340?text=${WHATSAPP_MESSAGE}`;
+
 export const enquiryTypes = [
     {
         value: "product",
@@ -43,22 +45,23 @@ export const enquiryTypes = [
         iconName: "Globe",
     },
     {
-      value: "industrial-chemical",
-      number: "05",
-      title: "Industrial Chemical / Formaldehyde Enquiry",
-      copy: "Share your industrial application, required specification, estimated quantity and delivery location for Formaldehyde discussions.",
-      action: "Discuss Formaldehyde Supply",
-      iconName: "FlaskConical",
+        value: "industrial-chemical",
+        number: "05",
+        title: "Industrial Chemical / Formaldehyde Enquiry",
+        copy: "Share your industrial application, required specification, estimated quantity and delivery location for Formaldehyde discussions.",
+        action: "Discuss Formaldehyde Supply",
+        iconName: "FlaskConical",
     },
     {
-      value: "general",
-      number: "06",
+        value: "general",
+        number: "06",
         title: "General Enquiry",
         copy: "For company information, documentation or anything not covered by the other options.",
         action: "Contact Our Team",
         iconName: "HelpCircle",
     },
 ];
+
 export const customerTypes = [
     "Homeowner",
     "Carpenter or Furniture Maker",
@@ -72,6 +75,7 @@ export const customerTypes = [
     "Export Buyer",
     "Other",
 ];
+
 export const productCategories = [
     "Plywood",
     "Blockboard",
@@ -82,6 +86,7 @@ export const productCategories = [
     "Multiple Products",
     "Not Sure Yet",
 ];
+
 export const directContacts = [
     {
         type: "Call",
@@ -116,6 +121,7 @@ export const directContacts = [
         iconName: "MapPin",
     },
 ];
+
 export const nextSteps = [
     {
         number: "01",
@@ -136,6 +142,7 @@ export const nextSteps = [
         iconName: "Sparkles",
     },
 ];
+
 export const productDirections = [
     {
         title: "Furniture and Interior Work",
@@ -170,6 +177,7 @@ export const productDirections = [
         tag: "OFFICE & COMMERCIAL",
     },
 ];
+
 export const faqs = [
     {
         question: "How can I request a product quotation?",
@@ -203,4 +211,76 @@ export const faqs = [
         question: "When will I receive a response?",
         answer: "Our team will review your requirement and contact you using your preferred method.",
     },
+];
+
+export const plannerCategories = [
+    {
+        id: "furniture",
+        title: "Furniture & Living Spaces",
+        subtitle: "Wardrobes, Beds, TV Units, Wall Paneling",
+        grade: "MR Grade Plywood / Commercial Blockboard",
+        thickness: "18mm (Carrying), 12mm (Panels), 6mm (Backing)",
+        specs: ["Calibrated core thickness", "Smooth surface finish", "Termite & borer proof"],
+        category: "Plywood",
+        defaultGrade: "MR Grade Plywood 18mm",
+        suggestedSheets: "25 - 40 Sheets",
+    },
+    {
+        id: "kitchen",
+        title: "Modular Kitchens & Wet Zones",
+        subtitle: "Under-sink Cabinets, Countertops, Utility Spaces",
+        grade: "BWP 100% Boiling Water Proof (IS:710)",
+        thickness: "18mm / 19mm BWP Plywood",
+        specs: ["72+ hours boiling test certified", "PF resin bonded", "Lifetime anti-warp warranty"],
+        category: "Plywood",
+        defaultGrade: "BWP Grade Plywood 18mm",
+        suggestedSheets: "15 - 30 Sheets",
+    },
+    {
+        id: "doors",
+        title: "Doors & Shutters",
+        subtitle: "Internal Doors, Main Entrance, Bathroom Doors",
+        grade: "BWP / MR Flush Doors & Laminated Doors",
+        thickness: "30mm, 35mm, 40mm Solid Core",
+        specs: ["Solid wood frame & filler", "High screw-holding capacity", "Weather resistant"],
+        category: "Flush Door",
+        defaultGrade: "BWP Flush Door 30mm",
+        suggestedSheets: "8 - 25 Doors",
+    },
+    {
+        id: "boq",
+        title: "Commercial Projects & BOQs",
+        subtitle: "Hotels, Offices, Hospitals, Residential Towers",
+        grade: "Fire Retardant (IS:5509) / Structural Ply",
+        thickness: "12mm, 18mm, 25mm Heavy Structural",
+        specs: ["Ignition resistant & low smoke", "Standard BOQ specification compliance", "Bulk factory pricing"],
+        category: "Plywood",
+        defaultGrade: "Fire Retardant Plywood 18mm",
+        suggestedSheets: "100+ Sheets",
+    },
+    {
+        id: "chemical",
+        title: "Industrial Formaldehyde Supply",
+        subtitle: "Resin Manufacturing, Chemical Processing",
+        grade: "Formaldehyde 37% / 43% Commercial Grade",
+        thickness: "Bulk Tanker / Industrial Drums",
+        specs: ["Consistent concentration", "Direct chemical synthesis quality", "Safety compliant logistics"],
+        category: "Formaldehyde / Industrial Chemical",
+        defaultGrade: "Formaldehyde 37% Commercial Grade",
+        suggestedSheets: "Bulk Tanker",
+    },
+];
+
+export const projectEstimates = [
+    { label: "1-2 BHK Apartment", sheets: "30 - 45 Sheets", plyGrade: "MR / BWP Mix" },
+    { label: "3-4 BHK Apartment / Villa", sheets: "65 - 95 Sheets", plyGrade: "MR + BWP Kitchen" },
+    { label: "Commercial Office / Hotel", sheets: "120 - 250+ Sheets", plyGrade: "Fire Retardant & BWP" },
+    { label: "Dealer Stocking Container", sheets: "500+ Sheets / Truckload", plyGrade: "Assorted Product Range" },
+];
+
+export const plannerTabs = [
+    { id: "specifier", label: "Material & Grade Planner", iconName: "Sparkles", tag: "SPECIFICATION GUIDE" },
+    { id: "project", label: "Project & BOQ Form", iconName: "Building2", tag: "ARCHITECTS & CONTRACTORS" },
+    { id: "dealer", label: "Dealer Application", iconName: "Store", tag: "BUSINESS PARTNERSHIP" },
+    { id: "export", label: "Export & Industrial Chemical", iconName: "Globe", tag: "GLOBAL & CHEMICAL" },
 ];
