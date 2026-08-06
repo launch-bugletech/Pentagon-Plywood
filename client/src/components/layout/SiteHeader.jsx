@@ -1,39 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { APPLICATION_SECTIONS, comingSoonUrl, CONTACT_SECTIONS, HOME_SECTIONS, PLYWOOD_SECTIONS, ROUTES } from '../../app/routes.js';
 import { manufacturedNavigation, sourcedNavigation } from '../../data/productCatalog.js';
-import pentagonHeaderLogo from "../../assets/Brand/logos/Pentagon-header.svg"
+import pentagonHeaderLogo from "../../assets/Brand/logos/Pentagon-header.svg";
+
+// Arrow Icon Component
 const ArrowIcon = () => (
-  <svg className="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+  <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M5 12h14M13 5l7 7-7 7" />
   </svg>
 );
 
-const applicationLinks = [
-  ['Applications Overview', ROUTES.applications, 'guide'],
-  ['Home Furniture', APPLICATION_SECTIONS.furniture, 'furniture'],
-  ['Modular Kitchens', APPLICATION_SECTIONS.kitchens, 'kitchen'],
-  ['Wardrobes & Storage', APPLICATION_SECTIONS.wardrobes, 'wardrobe'],
-  ['Doors & Shutters', APPLICATION_SECTIONS.doors, 'door'],
-  ['Wall Panelling', APPLICATION_SECTIONS.walls, 'panelling'],
-  ['Commercial Interiors', APPLICATION_SECTIONS.commercial, 'commercial'],
-  ['Retail & Hospitality', `${ROUTES.applications}#retail-hospitality`, 'retail'],
-  ['Dealer & Bulk Supply', APPLICATION_SECTIONS.trade, 'dealer'],
-];
-
-const resourceLinks = [
-  ['Product Catalogue', comingSoonUrl('Product Catalogue'), 'catalogue'],
-  ['Buying Guides', HOME_SECTIONS.resources, 'guide'],
-  ['FAQs', PLYWOOD_SECTIONS.faq, 'faq'],
-  ['Blogs', HOME_SECTIONS.resources, 'blog'],
-  ['Download Brochure', comingSoonUrl('Download Brochure'), 'download'],
-];
-
-const ChevronIcon = () => (
-  <svg className="nav-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+// Chevron Icon Component
+const ChevronIcon = ({ isOpen }) => (
+  <svg className={`w-3.5 h-3.5 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180 text-[#C86D51]' : 'text-[#65736A]'}`} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="m2.5 4 3.5 3.5L9.5 4" />
   </svg>
 );
 
+// Category Product Icon Component
 const ProductCategoryIcon = ({ type }) => {
   const paths = {
     plywood: (
@@ -75,32 +59,15 @@ const ProductCategoryIcon = ({ type }) => {
   };
 
   return (
-    <span className="nav-product-icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round">
+    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C] shadow-xs group-hover:bg-[#C86D51] group-hover:text-white transition-all duration-200">
+      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         {paths[type]}
       </svg>
     </span>
   );
 };
 
-const MobileProductBranch = ({ branch, owner, expanded, onToggle, onNavigate }) => {
-  const key = `${owner}-${branch.id}`;
-  const isOpen = Boolean(expanded[key]);
-
-  return (
-    <div className="nav-mobile-branch">
-      <button type="button" aria-expanded={isOpen} onClick={() => onToggle(key)}>
-        <span>{branch.label}</span><span aria-hidden="true">{isOpen ? '−' : '+'}</span>
-      </button>
-      {isOpen && (
-        <div className="nav-mobile-leaves">
-          {branch.children.map(([label, href]) => <a href={href} key={label} onClick={onNavigate}>{label}</a>)}
-        </div>
-      )}
-    </div>
-  );
-};
-
+// Nav Item Icon Component
 const NavItemIcon = ({ type }) => {
   const paths = {
     furniture: <><path d="M4 13V9a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" /><path d="M3 13h18v5H3zM6 18v3M18 18v3" /></>,
@@ -119,11 +86,63 @@ const NavItemIcon = ({ type }) => {
   };
 
   return (
-    <span className="nav-item-icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C] shadow-xs group-hover:bg-[#C86D51] group-hover:text-white transition-all duration-200">
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         {paths[type]}
       </svg>
     </span>
+  );
+};
+
+const applicationLinks = [
+  ['Applications Overview', ROUTES.applications, 'guide', 'Complete guide for interior space panel selection'],
+  ['Home Furniture', APPLICATION_SECTIONS.furniture, 'furniture', 'Beds, tables, cabinets & bespoke woodwork'],
+  ['Modular Kitchens', APPLICATION_SECTIONS.kitchens, 'kitchen', 'BWP IS:710 100% boiling waterproof panels'],
+  ['Wardrobes & Storage', APPLICATION_SECTIONS.wardrobes, 'wardrobe', 'Calibrated core panels for warp-free doors'],
+  ['Doors & Shutters', APPLICATION_SECTIONS.doors, 'door', 'High-density seasoned flush doors & frames'],
+  ['Wall Panelling', APPLICATION_SECTIONS.walls, 'panelling', 'Decorative acoustic & feature wall linings'],
+  ['Commercial Interiors', APPLICATION_SECTIONS.commercial, 'commercial', 'High-traffic office & institutional paneling'],
+  ['Retail & Hospitality', `${ROUTES.applications}#retail-hospitality`, 'retail', 'Store fixtures, displays & hotel interiors'],
+  ['Dealer & Bulk Supply', APPLICATION_SECTIONS.trade, 'dealer', 'Factory direct dispatches for project buyers'],
+];
+
+const resourceLinks = [
+  ['Product Catalogue', comingSoonUrl('Product Catalogue'), 'catalogue', 'Full range technical specs & grade charts'],
+  ['Buying Guides', HOME_SECTIONS.resources, 'guide', 'How to choose plywood grade for your space'],
+  ['FAQs', PLYWOOD_SECTIONS.faq, 'faq', 'Answers on IS standards, boiling test & warranty'],
+  ['Blogs & Insights', HOME_SECTIONS.resources, 'blog', 'Latest interior trends & woodcraft knowledge'],
+  ['Download Brochure', comingSoonUrl('Download Brochure'), 'download', 'PDF company overview & brand summary'],
+];
+
+const MobileProductBranch = ({ branch, owner, expanded, onToggle, onNavigate }) => {
+  const key = `${owner}-${branch.id}`;
+  const isOpen = Boolean(expanded[key]);
+
+  return (
+    <div className="border border-[#CAD4CC]/40 rounded-xl overflow-hidden bg-white/60">
+      <button
+        type="button"
+        className="w-full flex items-center justify-between p-3.5 text-left font-semibold text-xs text-[#14211A]"
+        aria-expanded={isOpen}
+        onClick={() => onToggle(key)}
+      >
+        <span className="flex items-center gap-2.5">
+          <ProductCategoryIcon type={branch.id} />
+          <span>{branch.label}</span>
+        </span>
+        <span className="text-[#C86D51] font-bold text-sm">{isOpen ? '−' : '+'}</span>
+      </button>
+      {isOpen && (
+        <div className="p-3 bg-[#F7F3EC]/50 space-y-1.5 border-t border-[#CAD4CC]/30">
+          {branch.children.map(([label, href]) => (
+            <a href={href} key={label} className="group flex min-h-10 items-center justify-between gap-3 rounded-lg border border-[#CAD4CC]/50 bg-white px-3 text-xs font-semibold text-[#526158] shadow-xs transition-all hover:border-[#143D2B] hover:bg-[#143D2B] hover:text-white" onClick={onNavigate}>
+              <span>{label}</span>
+              <span className="text-[#C86D51] transition-transform group-hover:translate-x-0.5 group-hover:text-white" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -139,7 +158,7 @@ function SiteHeader({ activePage = 'home' }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
@@ -192,9 +211,9 @@ function SiteHeader({ activePage = 'home' }) {
     if (pinnedMenu === menu) return;
 
     closeTimerRef.current = window.setTimeout(() => {
-      setOpenMenu((current) => current === menu ? null : current);
+      setOpenMenu((current) => (current === menu ? null : current));
       closeTimerRef.current = null;
-    }, 420);
+    }, 380);
   };
 
   useEffect(() => {
@@ -226,184 +245,578 @@ function SiteHeader({ activePage = 'home' }) {
 
   return (
     <>
-      <div className="topbar">
-        <div className="container topbar-inner">
-          <div className="topbar-badge">
-            <span className="topbar-badge-icon">🏆</span>
-            <span>25+ YEARS OF TRUST & MANUFACTURING EXCELLENCE</span>
+      {/* 1. FULL-WIDTH TOP ANNOUNCEMENT & UTILITY BAR */}
+      <div className="bg-[#0B2A1D] text-white py-2.5 border-b border-white/10 text-xs font-semibold tracking-wide relative z-50 w-full">
+        <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex h-5 px-2.5 items-center justify-center rounded-full bg-[#C86D51] text-[10px] font-extrabold uppercase tracking-wider text-white shadow-xs">
+              25+ Years
+            </span>
+            <span className="text-white/90 text-[11px] sm:text-xs">
+              OF TRUST &amp; MANUFACTURING EXCELLENCE
+            </span>
           </div>
-          <div className="topbar-contact">
-            <a href="mailto:pentagonplywood@gmail.com" className="topbar-link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+
+          <div className="flex items-center gap-5 text-white/80 text-[11px]">
+            <a
+              href="mailto:pentagonplywood@gmail.com"
+              className="flex items-center gap-1.5 hover:text-[#E8927C] transition-colors"
+            >
+              <svg className="w-3.5 h-3.5 text-[#C86D51]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
-              pentagonplywood@gmail.com
+              <span>pentagonplywood@gmail.com</span>
             </a>
-            <span className="topbar-divider">|</span>
-            <a href="tel:+917206104340" className="topbar-link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+            <span className="text-white/20">|</span>
+            <a
+              href="tel:+917206104340"
+              className="flex items-center gap-1.5 hover:text-[#E8927C] transition-colors"
+            >
+              <svg className="w-3.5 h-3.5 text-[#C86D51]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
               </svg>
-              +91 7206 104 340
+              <span>+91 7206 104 340</span>
             </a>
           </div>
         </div>
       </div>
-      <header ref={headerRef} className={`header ${isScrolled ? 'is-scrolled' : 'is-top'}${menuOpen ? ' mobile-menu-open' : ''}`}>
-        <div className="container header-inner">
-        <a
-          href={ROUTES.home}
-          className="brand"
-          aria-label="Pentagon Plywood home"
-          onClick={closeMenu}
-        >
-          <img
-            src={pentagonHeaderLogo}
-            alt="Pentagon Plywood"
-            className="header-logo-img"
-          />
-        </a>
-        <nav className="nav" aria-label="Main navigation">
-          <a href={ROUTES.home} className={activePage === 'home' ? 'nav-active' : undefined} aria-current={activePage === 'home' ? 'page' : undefined} onClick={closeMenu}>Home</a>
-          <div className={`nav-dropdown${openMenu === 'about' ? ' is-open' : ''}`} onMouseEnter={() => openDropdown('about')} onMouseLeave={() => scheduleDropdownClose('about')}>
-            <button type="button" className={activePage === 'about' ? 'nav-trigger nav-active' : 'nav-trigger'} aria-expanded={openMenu === 'about'} onClick={() => toggleDropdown('about')}>About Us <ChevronIcon /></button>
-            <div className="nav-mega nav-mega-compact" data-watermark="PENTAGON"><div className="nav-mega-intro"><span>About Pentagon</span><strong>A manufacturing group built through steady expansion.</strong><a href={ROUTES.about} onClick={closeMenu}>About Pentagon <ArrowIcon /></a></div><div className="nav-link-list"><a href={ROUTES.ourStory} onClick={closeMenu}>Our Story <ArrowIcon /></a><a href={ROUTES.manufacturing} onClick={closeMenu}>Manufacturing &amp; Infrastructure <ArrowIcon /></a><a href={ROUTES.brands} onClick={closeMenu}>Brands &amp; Trademarks <ArrowIcon /></a></div></div>
-          </div>
 
-          <div
-            className={`nav-dropdown nav-products${openMenu === 'products' ? ' is-open' : ''}`}
-            onMouseEnter={() => openDropdown('products')}
-            onMouseLeave={() => scheduleDropdownClose('products')}
+      {/* 2. FULL-WIDTH MAIN BRAND SITEHEADER BAR */}
+      <header
+        ref={headerRef}
+        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+          isScrolled
+            ? 'bg-[#FDFBF8]/95 backdrop-blur-xl border-b border-[#CAD4CC]/80 shadow-lg py-3'
+            : 'bg-[#FDFBF8] border-b border-[#CAD4CC]/50 py-4'
+        }`}
+      >
+        <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 flex items-center justify-between gap-8 relative">
+          {/* Brand Logo (Primary Home Anchor) */}
+          <a
+            href={ROUTES.home}
+            className="flex shrink-0 items-center gap-2 group z-10"
+            aria-label="Pentagon Plywood Home"
+            onClick={closeMenu}
           >
-            <button type="button" className={['products', 'plywood'].includes(activePage) ? 'nav-trigger nav-active' : 'nav-trigger'} aria-expanded={openMenu === 'products'} onClick={() => toggleDropdown('products')}>
-              Products <ChevronIcon />
-            </button>
-            <div className="nav-mega nav-mega-products" data-watermark="MATERIALS">
-              <div className="nav-mega-intro">
-                <span>Product Portfolio</span>
-                <strong>Made in-house. Sourced for the complete requirement.</strong>
-                <a href={ROUTES.products} onClick={closeMenu}>View all products <ArrowIcon /></a>
-              </div>
-              <div className="nav-products-desktop">
-                <section className="nav-product-owner is-made">
-                  <div className="nav-owner-heading"><span>Made by Pentagon</span><a href={ROUTES.manufacturedProducts} onClick={closeMenu}>Manufactured range <ArrowIcon /></a></div>
-                  <div className="nav-owner-groups">
-                    {manufacturedNavigation.map((group) => (
-                      <div className="nav-menu-group" key={group.id}>
-                        <ProductCategoryIcon type={group.id} />
-                        <a className="nav-group-title" href={group.href} onClick={closeMenu}>{group.label}</a>
-                        {group.children.map(([label, href]) => <a href={href} key={label} onClick={closeMenu}>{label}</a>)}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-                <section className="nav-product-owner is-sourced">
-                  <div className="nav-owner-heading"><span>Sourced by Pentagon</span><a href={ROUTES.tradedProducts} onClick={closeMenu}>Traded range <ArrowIcon /></a></div>
-                  <div className="nav-owner-groups">
-                    {sourcedNavigation.map((group) => (
-                      <div className="nav-menu-group" key={group.id}>
-                        <ProductCategoryIcon type={group.id} />
-                        <span className="nav-group-title">{group.label}</span>
-                        {group.children.map(([label, href]) => <a href={href} key={label} onClick={closeMenu}>{label}</a>)}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              </div>
-              <div className="nav-products-mobile">
-                <a className="nav-mobile-all-products" href={ROUTES.products} onClick={closeMenu}>All Products <ArrowIcon /></a>
-                <div className="nav-mobile-owner">
-                  <button type="button" aria-expanded={Boolean(mobileProductOpen.manufactured)} onClick={() => toggleMobileProductBranch('manufactured')}><span><small>Made by Pentagon</small>Manufactured</span><b aria-hidden="true">{mobileProductOpen.manufactured ? '−' : '+'}</b></button>
-                  {mobileProductOpen.manufactured && <div className="nav-mobile-owner-content">
-                    <a className="nav-mobile-overview" href={ROUTES.manufacturedProducts} onClick={closeMenu}>Manufactured overview</a>
-                    {manufacturedNavigation.map((branch) => <MobileProductBranch key={branch.id} branch={branch} owner="made" expanded={mobileProductOpen} onToggle={toggleMobileProductBranch} onNavigate={closeMenu} />)}
-                  </div>}
-                </div>
-                <div className="nav-mobile-owner is-sourced">
-                  <button type="button" aria-expanded={Boolean(mobileProductOpen.sourced)} onClick={() => toggleMobileProductBranch('sourced')}><span><small>Sourced by Pentagon</small>Traded &amp; Sourced</span><b aria-hidden="true">{mobileProductOpen.sourced ? '−' : '+'}</b></button>
-                  {mobileProductOpen.sourced && <div className="nav-mobile-owner-content">
-                    <a className="nav-mobile-overview" href={ROUTES.tradedProducts} onClick={closeMenu}>Traded products overview</a>
-                    {sourcedNavigation.map((branch) => <MobileProductBranch key={branch.id} branch={branch} owner="sourced" expanded={mobileProductOpen} onToggle={toggleMobileProductBranch} onNavigate={closeMenu} />)}
-                  </div>}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className={`nav-dropdown${openMenu === 'applications' ? ' is-open' : ''}`}
-            onMouseEnter={() => openDropdown('applications')}
-            onMouseLeave={() => scheduleDropdownClose('applications')}
-          >
-            <button type="button" className={activePage === 'applications' ? 'nav-trigger nav-active' : 'nav-trigger'} aria-expanded={openMenu === 'applications'} onClick={() => toggleDropdown('applications')}>
-              Applications <ChevronIcon />
-            </button>
-            <div className="nav-mega nav-mega-compact" data-watermark="SPACES">
-              <div className="nav-mega-intro">
-                <span>Application Guide</span>
-                <strong>Start with the space you are making.</strong>
-                <a href={ROUTES.applications} onClick={closeMenu}>Explore all applications <ArrowIcon /></a>
-              </div>
-              <div className="nav-link-list">
-                {applicationLinks.map(([label, href, icon]) => (
-                  <a href={href} key={label} onClick={closeMenu}><NavItemIcon type={icon} />{label}<ArrowIcon /></a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div
-            className={`nav-dropdown${openMenu === 'resources' ? ' is-open' : ''}`}
-            onMouseEnter={() => openDropdown('resources')}
-            onMouseLeave={() => scheduleDropdownClose('resources')}
-          >
-            <button type="button" className="nav-trigger" aria-expanded={openMenu === 'resources'} onClick={() => toggleDropdown('resources')}>
-              Resources <ChevronIcon />
-            </button>
-            <div className="nav-mega nav-mega-compact nav-mega-resources" data-watermark="KNOWLEDGE">
-              <div className="nav-mega-intro">
-                <span>Knowledge Centre</span>
-                <strong>Useful information before you specify.</strong>
-              </div>
-              <div className="nav-link-list">
-                {resourceLinks.map(([label, href, icon]) => (
-                  <a href={href} key={label} onClick={closeMenu}><NavItemIcon type={icon} />{label}<ArrowIcon /></a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <a href={ROUTES.dealers} className={activePage === 'dealers' ? 'nav-active' : undefined} aria-current={activePage === 'dealers' ? 'page' : undefined} onClick={closeMenu}>Dealers</a>
-          <a href={ROUTES.contact} className={activePage === 'contact' ? 'nav-active' : undefined} aria-current={activePage === 'contact' ? 'page' : undefined} onClick={closeMenu}>Contact Us</a>
-          <div className="mobile-nav-actions">
-            <a className="mobile-nav-quote" href={enquiryHref} onClick={closeMenu}>Request a Quote <ArrowIcon /></a>
-            <a className="mobile-nav-call" href="https://wa.me/917206104340" onClick={closeMenu}>Call / WhatsApp <ArrowIcon /></a>
-          </div>
-        </nav>
-        <button
-          className="mobile-menu-toggle"
-          type="button"
-          aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-        <div className="header-cta">
-          <div className="header-phone">
-            <small>Sales enquiries</small>
-            <strong>+91 7206 104 340</strong>
-          </div>
-          <a href={enquiryHref} className="btn btn-primary">
-            Request a Quote <ArrowIcon />
+            <img
+              src={pentagonHeaderLogo}
+              alt="Pentagon Plywood"
+              className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-103"
+            />
           </a>
+
+          {/* Desktop Navigation Links (No Home Tab) */}
+          <nav className="hidden lg:flex items-center gap-3 xl:gap-6 text-sm font-semibold text-[#14211A] z-10" aria-label="Main Navigation">
+            {/* About Us Link */}
+            <div
+              className="static"
+              onMouseEnter={() => openDropdown('about')}
+              onMouseLeave={() => scheduleDropdownClose('about')}
+            >
+              <button
+                type="button"
+                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all cursor-pointer ${
+                  activePage === 'about' || openMenu === 'about'
+                    ? 'text-[#143D2B] font-bold bg-[#F7F3EC]'
+                    : 'text-[#14211A] hover:text-[#C86D51] hover:bg-[#F7F3EC]/60'
+                }`}
+                aria-expanded={openMenu === 'about'}
+                onClick={() => toggleDropdown('about')}
+              >
+                <span>About Us</span>
+                <ChevronIcon isOpen={openMenu === 'about'} />
+              </button>
+
+              {/* About Us Dropdown Bar */}
+              {openMenu === 'about' && (
+                <div className="absolute top-full left-3 right-3 w-auto overflow-hidden rounded-b-[28px] border-x border-b-2 border-[#143D2B] border-t border-[#CAD4CC]/60 bg-[#FDFBF8] shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="w-full max-w-[1440px] mx-auto px-8 py-8 relative overflow-hidden">
+                    <div className="absolute right-8 -bottom-6 text-9xl font-black font-['Oswald',sans-serif] uppercase tracking-tighter text-[#14211A]/[0.03] pointer-events-none select-none">
+                      PENTAGON
+                    </div>
+
+                    <div className="relative z-10 grid grid-cols-12 gap-8 items-center">
+                      <div className="col-span-4 p-6 rounded-3xl bg-[#143D2B] text-white space-y-4">
+                        <div>
+                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8927C] block mb-1">
+                            ABOUT PENTAGON GROUP
+                          </span>
+                          <h3 className="font-['DM_Serif_Display',Georgia,serif] text-2xl font-normal leading-snug">
+                            A manufacturing group built through steady expansion.
+                          </h3>
+                        </div>
+                        <p className="text-xs text-white/80 leading-relaxed">
+                          Operating 4 manufacturing hubs across Yamunanagar &amp; Morbi with 25+ years of trusted craft.
+                        </p>
+                        <a
+                          href={ROUTES.about}
+                          className="group inline-flex items-center gap-2 text-xs font-bold text-[#E8927C] hover:text-white transition-colors"
+                          onClick={closeMenu}
+                        >
+                          <span>Discover Our Group</span>
+                          <ArrowIcon />
+                        </a>
+                      </div>
+
+                      <div className="col-span-8 grid grid-cols-3 gap-4">
+                        <a
+                          href={ROUTES.ourStory}
+                          className="group p-5 rounded-2xl bg-white hover:bg-[#F7F3EC] border border-[#CAD4CC]/60 hover:border-[#143D2B] transition-all space-y-2"
+                          onClick={closeMenu}
+                        >
+                          <div className="flex items-center justify-between text-[#143D2B] group-hover:text-[#C86D51]">
+                            <strong className="text-sm font-bold">Our Story &amp; Heritage</strong>
+                            <ArrowIcon />
+                          </div>
+                          <p className="text-xs text-[#65736A] leading-relaxed">
+                            From 1986 timber roots to ₹100 Cr+ manufacturing powerhouse.
+                          </p>
+                        </a>
+
+                        <a
+                          href={ROUTES.manufacturing}
+                          className="group p-5 rounded-2xl bg-white hover:bg-[#F7F3EC] border border-[#CAD4CC]/60 hover:border-[#143D2B] transition-all space-y-2"
+                          onClick={closeMenu}
+                        >
+                          <div className="flex items-center justify-between text-[#143D2B] group-hover:text-[#C86D51]">
+                            <strong className="text-sm font-bold">Manufacturing Power</strong>
+                            <ArrowIcon />
+                          </div>
+                          <p className="text-xs text-[#65736A] leading-relaxed">
+                            3.3+ Lakh sq.ft. facilities in Yamunanagar &amp; Morbi.
+                          </p>
+                        </a>
+
+                        <a
+                          href={ROUTES.brands}
+                          className="group p-5 rounded-2xl bg-white hover:bg-[#F7F3EC] border border-[#CAD4CC]/60 hover:border-[#143D2B] transition-all space-y-2"
+                          onClick={closeMenu}
+                        >
+                          <div className="flex items-center justify-between text-[#143D2B] group-hover:text-[#C86D51]">
+                            <strong className="text-sm font-bold">Brands &amp; Trademarks</strong>
+                            <ArrowIcon />
+                          </div>
+                          <p className="text-xs text-[#65736A] leading-relaxed">
+                            Pentagon Gold, Escotel, Kalinga Gold &amp; allied ranges.
+                          </p>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Products Mega Dropdown (Full Width Showcase Panel) */}
+            <div
+              className="static"
+              onMouseEnter={() => openDropdown('products')}
+              onMouseLeave={() => scheduleDropdownClose('products')}
+            >
+              <button
+                type="button"
+                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all cursor-pointer ${
+                  ['products', 'plywood'].includes(activePage) || openMenu === 'products'
+                    ? 'text-[#143D2B] font-bold bg-[#F7F3EC]'
+                    : 'text-[#14211A] hover:text-[#C86D51] hover:bg-[#F7F3EC]/60'
+                }`}
+                aria-expanded={openMenu === 'products'}
+                onClick={() => toggleDropdown('products')}
+              >
+                <span>Products</span>
+                <ChevronIcon isOpen={openMenu === 'products'} />
+              </button>
+
+              {/* Full Width Product Showcase Mega Panel */}
+              {openMenu === 'products' && (
+                <div className="absolute top-full left-3 right-3 w-auto overflow-hidden rounded-b-[28px] border-x border-b-4 border-[#C86D51] border-t border-[#CAD4CC]/60 bg-[#FDFBF8] shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="w-full max-w-[1440px] mx-auto px-8 py-8 relative overflow-hidden">
+                    {/* Background Watermark */}
+                    <div className="absolute right-8 -bottom-8 text-9xl font-black font-['Oswald',sans-serif] uppercase tracking-tighter text-[#14211A]/[0.03] pointer-events-none select-none">
+                      MATERIALS
+                    </div>
+
+                    <div className="relative z-10 grid grid-cols-12 gap-8">
+                      <div className="col-span-3 p-6 rounded-3xl bg-[#F7F3EC] border border-[#CAD4CC]/50 flex flex-col justify-between space-y-4">
+                        <div>
+                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#C86D51] block mb-1">Product Portfolio</span>
+                          <h3 className="font-['DM_Serif_Display',Georgia,serif] text-2xl font-normal text-[#14211A] leading-tight">Made in-house. Sourced for complete solutions.</h3>
+                          <p className="text-xs text-[#65736A] leading-relaxed mt-3">Pentagon manufactures core products and sources complementary materials for complete interior projects.</p>
+                        </div>
+                        <a href={ROUTES.products} className="group inline-flex items-center gap-2 text-xs font-bold text-[#143D2B] hover:text-[#C86D51] transition-colors" onClick={closeMenu}>
+                          <span>View All Products</span><ArrowIcon />
+                        </a>
+                      </div>
+
+                      <div className="col-span-9 grid grid-cols-2 gap-8">
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between pb-2 border-b-2 border-[#143D2B]">
+                            <span className="text-xs font-extrabold text-[#143D2B] uppercase tracking-wider">Made by Pentagon</span>
+                            <a href={ROUTES.manufacturedProducts} className="group inline-flex items-center gap-1 text-xs font-bold text-[#C86D51] hover:underline" onClick={closeMenu}><span>View range</span><ArrowIcon /></a>
+                          </div>
+                          <div className="space-y-3">
+                            {manufacturedNavigation.map((group) => (
+                              <div key={group.id} className="group p-3.5 rounded-2xl bg-white hover:bg-[#F7F3EC] border border-[#CAD4CC]/50 hover:border-[#143D2B] transition-all duration-200">
+                                <div className="flex items-center gap-2.5 mb-2"><ProductCategoryIcon type={group.id} /><a href={group.href} className="text-xs font-bold text-[#14211A] group-hover:text-[#C86D51] transition-colors" onClick={closeMenu}>{group.label}</a></div>
+                                <div className="flex flex-wrap gap-1.5 pl-11">
+                                  {group.children.map(([label, href]) => <a key={label} href={href} className="inline-flex items-center gap-1 rounded-lg border border-[#CAD4CC]/70 bg-[#FDFBF8] px-2.5 py-1.5 text-xs font-semibold text-[#526158] shadow-xs transition-all hover:border-[#143D2B] hover:bg-[#143D2B] hover:text-white hover:shadow-sm" onClick={closeMenu}><span>{label}</span><span aria-hidden="true">→</span></a>)}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between pb-2 border-b-2 border-[#C86D51]">
+                            <span className="text-xs font-extrabold text-[#C86D51] uppercase tracking-wider">Sourced by Pentagon</span>
+                            <a href={ROUTES.tradedProducts} className="group inline-flex items-center gap-1 text-xs font-bold text-[#143D2B] hover:underline" onClick={closeMenu}><span>View range</span><ArrowIcon /></a>
+                          </div>
+                          <div className="space-y-3">
+                            {sourcedNavigation.map((group) => (
+                              <div key={group.id} className="group p-3.5 rounded-2xl bg-white hover:bg-[#F7F3EC] border border-[#CAD4CC]/50 hover:border-[#C86D51] transition-all duration-200">
+                                <div className="flex items-center gap-2.5 mb-2"><ProductCategoryIcon type={group.id} /><span className="text-xs font-bold text-[#14211A]">{group.label}</span></div>
+                                <div className="flex flex-wrap gap-1.5 pl-11">
+                                  {group.children.map(([label, href]) => <a key={label} href={href} className="inline-flex items-center gap-1 rounded-lg border border-[#CAD4CC]/70 bg-[#FDFBF8] px-2.5 py-1.5 text-xs font-semibold text-[#526158] shadow-xs transition-all hover:border-[#C86D51] hover:bg-[#C86D51] hover:text-white hover:shadow-sm" onClick={closeMenu}><span>{label}</span><span aria-hidden="true">→</span></a>)}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Applications Mega Dropdown */}
+            <div
+              className="static"
+              onMouseEnter={() => openDropdown('applications')}
+              onMouseLeave={() => scheduleDropdownClose('applications')}
+            >
+              <button
+                type="button"
+                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all cursor-pointer ${
+                  activePage === 'applications' || openMenu === 'applications'
+                    ? 'text-[#143D2B] font-bold bg-[#F7F3EC]'
+                    : 'text-[#14211A] hover:text-[#C86D51] hover:bg-[#F7F3EC]/60'
+                }`}
+                aria-expanded={openMenu === 'applications'}
+                onClick={() => toggleDropdown('applications')}
+              >
+                <span>Applications</span>
+                <ChevronIcon isOpen={openMenu === 'applications'} />
+              </button>
+
+              {/* Applications Full-Width Mega Menu Bar */}
+              {openMenu === 'applications' && (
+                <div className="absolute top-full left-3 right-3 w-auto overflow-hidden rounded-b-[28px] border-x border-b-2 border-[#143D2B] border-t border-[#CAD4CC]/60 bg-[#FDFBF8] shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="w-full max-w-[1440px] mx-auto px-8 py-8 relative overflow-hidden">
+                    {/* Background Watermark */}
+                    <div className="absolute right-8 -bottom-6 text-9xl font-black font-['Oswald',sans-serif] uppercase tracking-tighter text-[#14211A]/[0.03] pointer-events-none select-none">
+                      SPACES
+                    </div>
+
+                    <div className="relative z-10 grid grid-cols-12 gap-8">
+                      {/* Left Hero Sidebar */}
+                      <div className="col-span-4 p-6 rounded-3xl bg-[#143D2B] text-white flex flex-col justify-between space-y-4">
+                        <div>
+                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8927C] block mb-1">
+                            APPLICATION GUIDE
+                          </span>
+                          <h3 className="font-['DM_Serif_Display',Georgia,serif] text-2xl font-normal leading-snug">
+                            Start with the space you are creating.
+                          </h3>
+                          <p className="text-xs text-white/80 leading-relaxed mt-2">
+                            Select your architectural space to inspect recommended plywood grades and specification advice.
+                          </p>
+                        </div>
+                        <a
+                          href={ROUTES.applications}
+                          className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#C86D51] px-5 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-[#A85238] transition-all cursor-pointer"
+                          onClick={closeMenu}
+                        >
+                          <span>Explore All Spaces</span>
+                          <ArrowIcon />
+                        </a>
+                      </div>
+
+                      {/* Right 9-Tile Grid */}
+                      <div className="col-span-8 grid grid-cols-3 gap-3">
+                        {applicationLinks.map(([label, href, iconType, desc]) => (
+                          <a
+                            key={label}
+                            href={href}
+                            className="group flex items-start gap-3 p-3.5 rounded-2xl bg-white hover:bg-[#F7F3EC] border border-[#CAD4CC]/60 hover:border-[#143D2B] transition-all shadow-xs hover:shadow-md cursor-pointer"
+                            onClick={closeMenu}
+                          >
+                            <NavItemIcon type={iconType} />
+                            <div className="min-w-0">
+                              <strong className="text-xs font-bold text-[#14211A] group-hover:text-[#C86D51] transition-colors block truncate">
+                                {label}
+                              </strong>
+                              <span className="text-xs text-[#65736A] leading-tight block mt-0.5 line-clamp-2">
+                                {desc}
+                              </span>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Resources Dropdown */}
+            <div
+              className="static"
+              onMouseEnter={() => openDropdown('resources')}
+              onMouseLeave={() => scheduleDropdownClose('resources')}
+            >
+              <button
+                type="button"
+                className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl transition-all cursor-pointer ${
+                  openMenu === 'resources'
+                    ? 'text-[#143D2B] font-bold bg-[#F7F3EC]'
+                    : 'text-[#14211A] hover:text-[#C86D51] hover:bg-[#F7F3EC]/60'
+                }`}
+                aria-expanded={openMenu === 'resources'}
+                onClick={() => toggleDropdown('resources')}
+              >
+                <span>Resources</span>
+                <ChevronIcon isOpen={openMenu === 'resources'} />
+              </button>
+
+              {/* Resources Full-Width Mega Menu Bar */}
+              {openMenu === 'resources' && (
+                <div className="absolute top-full left-3 right-3 w-auto overflow-hidden rounded-b-[28px] border-x border-b-2 border-[#C86D51] border-t border-[#CAD4CC]/60 bg-[#FDFBF8] shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="w-full max-w-[1440px] mx-auto px-8 py-8 relative overflow-hidden">
+                    {/* Background Watermark */}
+                    <div className="absolute right-8 -bottom-6 text-9xl font-black font-['Oswald',sans-serif] uppercase tracking-tighter text-[#14211A]/[0.03] pointer-events-none select-none">
+                      KNOWLEDGE
+                    </div>
+
+                    <div className="relative z-10 grid grid-cols-12 gap-8 items-center">
+                      <div className="col-span-4 p-6 rounded-3xl bg-[#143D2B] text-white space-y-3">
+                        <div>
+                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#E8927C] block mb-1">
+                            KNOWLEDGE CENTRE
+                          </span>
+                          <h3 className="font-['DM_Serif_Display',Georgia,serif] text-2xl font-normal leading-snug">
+                            Useful information before you specify.
+                          </h3>
+                        </div>
+                        <p className="text-xs text-white/80 leading-relaxed">
+                          Access technical specification guides, IS certification documentation, and FAQ resources.
+                        </p>
+                      </div>
+
+                      <div className="col-span-8 grid grid-cols-2 gap-3">
+                        {resourceLinks.map(([label, href, iconType, desc]) => (
+                          <a
+                            key={label}
+                            href={href}
+                            className="group flex items-center gap-3.5 p-4 rounded-2xl bg-white hover:bg-[#F7F3EC] border border-[#CAD4CC]/60 hover:border-[#C86D51] transition-all shadow-xs hover:shadow-md cursor-pointer"
+                            onClick={closeMenu}
+                          >
+                            <NavItemIcon type={iconType} />
+                            <div>
+                              <strong className="text-xs font-bold text-[#14211A] group-hover:text-[#C86D51] transition-colors block">
+                                {label}
+                              </strong>
+                              <span className="text-xs text-[#65736A] block mt-0.5">
+                                {desc}
+                              </span>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Dealers */}
+            <a
+              href={ROUTES.dealers}
+              className={`px-4 py-2.5 rounded-xl transition-all ${
+                activePage === 'dealers'
+                  ? 'text-[#143D2B] font-bold bg-[#F7F3EC]'
+                  : 'text-[#14211A] hover:text-[#C86D51] hover:bg-[#F7F3EC]/60'
+              }`}
+              onClick={closeMenu}
+            >
+              Dealers
+            </a>
+
+            {/* Contact Us */}
+            <a
+              href={ROUTES.contact}
+              className={`px-4 py-2.5 rounded-xl transition-all ${
+                activePage === 'contact'
+                  ? 'text-[#143D2B] font-bold bg-[#F7F3EC]'
+                  : 'text-[#14211A] hover:text-[#C86D51] hover:bg-[#F7F3EC]/60'
+              }`}
+              onClick={closeMenu}
+            >
+              Contact Us
+            </a>
+          </nav>
+
+          {/* Right Header Action Area */}
+          <div className="hidden lg:flex items-center gap-5 z-10">
+            {/* <div className="text-right leading-tight hidden xl:block">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#65736A] block">
+                Sales Enquiries
+              </span>
+              <strong className="text-xs font-bold text-[#14211A]">
+                +91 7206 104 340
+              </strong>
+            </div> */}
+
+            <a
+              href={enquiryHref}
+              className="group inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#143D2B] px-6 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-[#0B2A1D] hover:shadow-lg transition-all cursor-pointer"
+            >
+              <span>Request a Quote</span>
+              <ArrowIcon />
+            </a>
+          </div>
+
+          {/* Mobile Menu Hamburger Toggle */}
+          <button
+            type="button"
+            className="lg:hidden grid h-10 w-10 place-items-center rounded-xl bg-[#F7F3EC] text-[#143D2B] hover:bg-[#CAD4CC]/50 transition-colors z-10"
+            aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span className="sr-only">Toggle navigation</span>
+            <div className="w-5 h-4 flex flex-col justify-between">
+              <span className={`h-0.5 bg-[#143D2B] rounded-full transition-all ${menuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+              <span className={`h-0.5 bg-[#143D2B] rounded-full transition-all ${menuOpen ? 'opacity-0' : ''}`} />
+              <span className={`h-0.5 bg-[#143D2B] rounded-full transition-all ${menuOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
+            </div>
+          </button>
         </div>
-      </div>
-    </header>
-  </>
-);
+
+        {/* 3. MOBILE RESPONSIVE DRAWER */}
+        {menuOpen && (
+          <div className="lg:hidden border-t border-[#CAD4CC]/60 bg-[#FDFBF8] px-5 py-6 space-y-4 max-h-[85vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200 relative z-50">
+            <div className="flex flex-col gap-2 font-semibold text-sm">
+              {/* Mobile About Accordion */}
+              <div className="border border-[#CAD4CC]/60 rounded-2xl overflow-hidden bg-white">
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-between p-3.5 text-left font-bold text-[#14211A]"
+                  onClick={() => toggleMobileProductBranch('about')}
+                >
+                  <span className="flex items-center gap-2.5"><NavItemIcon type="guide" /><span>About Us</span></span>
+                  <span className="text-[#C86D51] font-bold">{mobileProductOpen.about ? '−' : '+'}</span>
+                </button>
+                {mobileProductOpen.about && (
+                  <div className="p-3 bg-[#F7F3EC]/50 space-y-2 border-t border-[#CAD4CC]/40 text-xs">
+                    <a href={ROUTES.about} className="block p-2 rounded-lg hover:bg-white text-[#14211A] font-bold" onClick={closeMenu}>About Pentagon Overview</a>
+                    <a href={ROUTES.ourStory} className="block p-2 rounded-lg hover:bg-white text-[#14211A]" onClick={closeMenu}>Our Story &amp; Heritage</a>
+                    <a href={ROUTES.manufacturing} className="block p-2 rounded-lg hover:bg-white text-[#14211A]" onClick={closeMenu}>Manufacturing Infrastructure</a>
+                    <a href={ROUTES.brands} className="block p-2 rounded-lg hover:bg-white text-[#14211A]" onClick={closeMenu}>Brands &amp; Trademarks</a>
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Products Accordion */}
+              <div className="border border-[#CAD4CC]/60 rounded-2xl overflow-hidden bg-white">
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-between p-3.5 text-left font-bold text-[#14211A]"
+                  onClick={() => toggleMobileProductBranch('products')}
+                >
+                  <span className="flex items-center gap-2.5"><ProductCategoryIcon type="plywood" /><span>Product Portfolio</span></span>
+                  <span className="text-[#C86D51] font-bold">{mobileProductOpen.products ? '−' : '+'}</span>
+                </button>
+                {mobileProductOpen.products && (
+                  <div className="p-3 bg-[#F7F3EC]/50 space-y-3 border-t border-[#CAD4CC]/40 text-xs">
+                    <a href={ROUTES.products} className="block p-2.5 font-bold text-[#143D2B] bg-white rounded-xl border border-[#CAD4CC]/50 text-center" onClick={closeMenu}>
+                      View All Products &rarr;
+                    </a>
+                    <div className="space-y-2">
+                      <strong className="block text-[10px] uppercase font-extrabold text-[#C86D51] tracking-wider">Manufactured Range</strong>
+                      {manufacturedNavigation.map((branch) => (
+                        <MobileProductBranch key={branch.id} branch={branch} owner="made" expanded={mobileProductOpen} onToggle={toggleMobileProductBranch} onNavigate={closeMenu} />
+                      ))}
+                    </div>
+                    <div className="space-y-2 pt-2 border-t border-[#CAD4CC]/40">
+                      <strong className="block text-[10px] uppercase font-extrabold text-[#C86D51] tracking-wider">Traded Range</strong>
+                      {sourcedNavigation.map((branch) => (
+                        <MobileProductBranch key={branch.id} branch={branch} owner="sourced" expanded={mobileProductOpen} onToggle={toggleMobileProductBranch} onNavigate={closeMenu} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Applications Accordion */}
+              <div className="border border-[#CAD4CC]/60 rounded-2xl overflow-hidden bg-white">
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-between p-3.5 text-left font-bold text-[#14211A]"
+                  onClick={() => toggleMobileProductBranch('applications')}
+                >
+                  <span className="flex items-center gap-2.5"><NavItemIcon type="furniture" /><span>Applications</span></span>
+                  <span className="text-[#C86D51] font-bold">{mobileProductOpen.applications ? '−' : '+'}</span>
+                </button>
+                {mobileProductOpen.applications && (
+                  <div className="p-3 bg-[#F7F3EC]/50 grid grid-cols-2 gap-2 border-t border-[#CAD4CC]/40 text-xs">
+                    {applicationLinks.map(([label, href, iconType]) => (
+                      <a key={label} href={href} className="flex items-center gap-2 p-2.5 rounded-xl bg-white text-[#14211A] font-semibold border border-[#CAD4CC]/30" onClick={closeMenu}>
+                        <NavItemIcon type={iconType} />
+                        <span className="min-w-0 truncate">{label}</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <a href={ROUTES.dealers} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-[#CAD4CC]/60 text-[#14211A] font-bold" onClick={closeMenu}>
+                <NavItemIcon type="dealer" />
+                <span>Dealers</span>
+              </a>
+
+              <a href={ROUTES.contact} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-[#CAD4CC]/60 text-[#14211A] font-bold" onClick={closeMenu}>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C]">
+                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.64a2 2 0 0 1-.45 2.11L8 9.75a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.86.29 1.74.5 2.64.62A2 2 0 0 1 22 16.92Z" /></svg>
+                </span>
+                <span>Contact Us</span>
+              </a>
+            </div>
+
+            <div className="pt-4 border-t border-[#CAD4CC]/60 space-y-2.5">
+              <a
+                href={enquiryHref}
+                className="w-full flex items-center justify-center gap-2 h-12 rounded-full bg-[#143D2B] text-white text-xs font-bold uppercase tracking-wider shadow-md"
+                onClick={closeMenu}
+              >
+                <span>Request a Quote</span>
+                <ArrowIcon />
+              </a>
+              <a
+                href="https://wa.me/917206104340"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full flex items-center justify-center gap-2 h-12 rounded-full border-2 border-[#143D2B] text-[#143D2B] text-xs font-bold uppercase tracking-wider"
+                onClick={closeMenu}
+              >
+                <span>Call / WhatsApp (+91 7206 104 340)</span>
+              </a>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
+  );
 }
 
 export default SiteHeader;

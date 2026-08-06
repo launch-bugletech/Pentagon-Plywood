@@ -1,15 +1,49 @@
 @import "tailwindcss";
 
-/* Pentagon Plywood — Warm & Crafted Editorial
-   Design system:
-   - Type: DM Serif Display (display) + Manrope (body) + JetBrains Mono (eyebrows/labels)
-   - 4 eco-luxe forest palette themes toggleable via data-palette on <html>
-*/
+@theme {
+  --color-brand-forest: #143D2B;
+  --color-brand-forest-dark: #0B2A1D;
+  --color-brand-forest-light: #29483A;
 
-/* ============ TOKENS ============ */
+  --color-brand-accent: #C86D51;
+  --color-brand-accent-light: #E8927C;
+  --color-brand-accent-dark: #A85238;
+
+  --color-brand-cream: #FDFBF8;
+  --color-brand-cream-alt: #F7F3EC;
+  --color-brand-cream-deep: #EDE5D9;
+
+  --color-brand-charcoal: #14211A;
+  --color-brand-slate: #4A5750;
+  --color-brand-muted: #65736A;
+  --color-brand-border: #CAD4CC;
+
+  --font-display: 'Oswald', sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'Manrope', Arial, sans-serif;
+}
+
+/* ============ GLOBAL BRAND DESIGN TOKENS ============ */
 :root {
-  /* Production typography: edit these values, not SiteCustomizer.jsx. */
-  --site-heading-font: 'Oswald', sans;
+  --brand-forest: #143D2B;
+  --brand-forest-dark: #0B2A1D;
+  --brand-forest-light: #29483A;
+
+  --brand-accent: #C86D51;
+  --brand-accent-light: #E8927C;
+  --brand-accent-dark: #A85238;
+
+  --brand-cream: #FDFBF8;
+  --brand-cream-alt: #F7F3EC;
+  --brand-cream-deep: #EDE5D9;
+
+  --brand-charcoal: #14211A;
+  --brand-slate: #4A5750;
+  --brand-muted: #65736A;
+  --brand-border: #CAD4CC;
+
+  /* Production typography tokens */
+  --site-heading-font: 'Oswald', sans-serif;
   --site-heading-size: 50px;
   --site-heading-weight: 700;
   --site-heading-spacing: -1px;
@@ -30,30 +64,28 @@
   --site-small-label-spacing: 1.2px;
 
   --site-nav-font-size: 15px;
-}
 
-:root, [data-palette="forest-timber-honey"] {
-  --cream:         #FDFBF8;
-  --cream-deep:    #EDE5D9;
-  --charcoal:      #14211A;
-  --forest:        #143D2B;
-  --forest-light:  #29483A;
-  --walnut:        #143D2B;
-  --gold:          #D99143;
+  --cream:         var(--brand-cream);
+  --cream-deep:    var(--brand-cream-deep);
+  --charcoal:      var(--brand-charcoal);
+  --forest:        var(--brand-forest);
+  --forest-light:  var(--brand-forest-light);
+  --walnut:        var(--brand-forest);
+  --gold:          var(--brand-accent);
   --white:         #FFFFFF;
 
   --bg:            var(--cream);
-  --bg-alt:        #F7F3EC;
+  --bg-alt:        var(--brand-cream-alt);
   --bg-deep:       var(--cream-deep);
   --ink:           var(--charcoal);
   --ink-soft:      var(--forest-light);
-  --ink-muted:     #65736A;
-  --line:          #CAD4CC;
+  --ink-muted:     var(--brand-muted);
+  --line:          var(--brand-border);
   --line-soft:     #E2E8E3;
   --accent:        var(--walnut);
-  --accent-deep:   #0B2A1D;
-  --accent-soft:   #F1C89B;
-  --secondary:     var(--gold);
+  --accent-deep:   var(--brand-forest-dark);
+  --accent-soft:   var(--brand-accent-light);
+  --secondary:     var(--brand-accent);
   --dark-panel:    var(--forest);
   --dark-panel-ink:var(--white);
 }

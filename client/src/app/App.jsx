@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import HomePage from '../pages/home/HomePage.jsx';
+import HomePageOld from '../pages/home/HomePage.old.jsx';
 import AboutPage from '../pages/about/AboutPage.jsx';
 import OurStoryPage from '../pages/about/OurStoryPage.jsx';
 import ManufacturingPage from '../pages/about/ManufacturingPage.jsx';
 import BrandsPage from '../pages/about/BrandsPage.jsx';
 import AboutV1Page from '../pages/about/AboutV1Page.jsx';
 import ContactPage from '../pages/contact/ContactPage.jsx';
+import ContactOldPage from '../pages/contact/ContactPage.old.jsx';
 import ContactV2Page from '../pages/contact-v2/ContactV2Page.jsx';
 import DealersPage from '../pages/dealers/DealersPage.jsx';
 import ApplicationsPage from '../pages/applications/ApplicationsPage.jsx';
@@ -17,30 +19,50 @@ import NotFoundPage from '../pages/system/NotFoundPage.jsx';
 import SiteHeader from '../components/layout/SiteHeader.jsx';
 import SiteFooter from '../components/layout/SiteFooter.jsx';
 import SiteCustomizer from '../components/dev/SiteCustomizer.jsx';
+import AppErrorBoundary from '../components/system/AppErrorBoundary.jsx';
 import { normalizePath, PRODUCT_ROUTES, ROUTES } from './routes.js';
+import { Toaster } from "@/components/ui/toaster.jsx";
+import { useToast } from '@/hooks/use-toast';
+const TWEAKS_ENABLED = import.meta.env.DEV   && import.meta.env.VITE_ENABLE_TWEAKS === 'true';
+// const TWEAKS_ENABLED = 'false';
 
-// const TWEAKS_ENABLED = import.meta.env.DEV
-//   && import.meta.env.VITE_ENABLE_TWEAKS === 'true';
-const TWEAKS_ENABLED =   'true';
+const unavailableRoutePaths = new Set();
+const unavailableRouteMessages = new Map();
+
+const makeRoute = (path, getPage, activePage) => {
+  try {
+    const Page = getPage();
+    if (!Page) throw new Error('The page component is unavailable.');
+    return { Page, activePage };
+  } catch (error) {
+    unavailableRoutePaths.add(path);
+    const message = `Route "${path}" is unavailable. Falling back to the 404 page. ${error.name}: ${error.message}`;
+    unavailableRouteMessages.set(path, message);
+    console.error(message, error);
+    return { Page: NotFoundPage, activePage: null };
+  }
+};
 
 const routes = {
-  [ROUTES.home]: { Page: HomePage, activePage: 'home' },
-  [ROUTES.about]: { Page: AboutPage, activePage: 'about' },
-  [ROUTES.ourStory]: { Page: OurStoryPage, activePage: 'about' },
-  [ROUTES.manufacturing]: { Page: ManufacturingPage, activePage: 'about' },
-  [ROUTES.brands]: { Page: BrandsPage, activePage: 'about' },
-  [ROUTES.aboutV1]: { Page: AboutV1Page, activePage: 'about' },
-  [ROUTES.contact]: { Page: ContactPage, activePage: 'contact' },
-  [ROUTES.contactV2]: { Page: ContactV2Page, activePage: 'contact' },
-  [ROUTES.dealers]: { Page: DealersPage, activePage: 'dealers' },
-  [ROUTES.applications]: { Page: ApplicationsPage, activePage: 'applications' },
-  [ROUTES.products]: { Page: ProductsPage, activePage: 'products' },
-  [ROUTES.manufacturedProducts]: { Page: ProductsPage, activePage: 'products' },
-  [ROUTES.tradedProducts]: { Page: ProductsPage, activePage: 'products' },
-  [ROUTES.plywoodOverview]: { Page: PlywoodPage, activePage: 'products' },
-  [ROUTES.plywood]: { Page: PlywoodPage, activePage: 'plywood' },
-  [ROUTES.mrGradePlywood]: { Page: MRGradePage, activePage: 'plywood' },
-  [ROUTES.comingSoon]: { Page: ComingSoonPage, activePage: null },
+  [ROUTES.home]: makeRoute(ROUTES.home, () => HomePage, 'home'),
+  [ROUTES.homeV1]: makeRoute(ROUTES.homeV1, () => HomePageOld, 'home'),
+  [ROUTES.about]: makeRoute(ROUTES.about, () => AboutPage, 'about'),
+  [ROUTES.ourStory]: makeRoute(ROUTES.ourStory, () => OurStoryPage, 'about'),
+  [ROUTES.manufacturing]: makeRoute(ROUTES.manufacturing, () => ManufacturingPage, 'about'),
+  [ROUTES.brands]: makeRoute(ROUTES.brands, () => BrandsPage, 'about'),
+  [ROUTES.aboutV1]: makeRoute(ROUTES.aboutV1, () => AboutV1Page, 'about'),
+  [ROUTES.contact]: makeRoute(ROUTES.contact, () => ContactPage, 'contact'),
+  [ROUTES.contactV1]: makeRoute(ROUTES.contactV1, () => ContactOldPage, 'contact'),
+  [ROUTES.contactV2]: makeRoute(ROUTES.contactV2, () => ContactV2Page, 'contact'),
+  [ROUTES.dealers]: makeRoute(ROUTES.dealers, () => DealersPage, 'dealers'),
+  [ROUTES.applications]: makeRoute(ROUTES.applications, () => ApplicationsPage, 'applications'),
+  [ROUTES.products]: makeRoute(ROUTES.products, () => ProductsPage, 'products'),
+  [ROUTES.manufacturedProducts]: makeRoute(ROUTES.manufacturedProducts, () => ProductsPage, 'products'),
+  [ROUTES.tradedProducts]: makeRoute(ROUTES.tradedProducts, () => ProductsPage, 'products'),
+  [ROUTES.plywoodOverview]: makeRoute(ROUTES.plywoodOverview, () => PlywoodPage, 'products'),
+  [ROUTES.plywood]: makeRoute(ROUTES.plywood, () => PlywoodPage, 'plywood'),
+  [ROUTES.mrGradePlywood]: makeRoute(ROUTES.mrGradePlywood, () => MRGradePage, 'plywood'),
+  [ROUTES.comingSoon]: makeRoute(ROUTES.comingSoon, () => ComingSoonPage, null),
 };
 
 const productPlaceholderPaths = new Set(
@@ -48,11 +70,32 @@ const productPlaceholderPaths = new Set(
 );
 
 function App() {
+  const { toast: showToast } = useToast();
   const path = normalizePath(window.location.pathname);
   const route = routes[path] || (productPlaceholderPaths.has(path)
     ? { Page: ComingSoonPage, activePage: 'products' }
     : undefined);
   const Page = route?.Page || NotFoundPage;
+  const hasUnavailableRoute = unavailableRoutePaths.has(path);
+  const unavailableRouteMessage = [...unavailableRouteMessages.values()].join(' ');
+  const hasRouteConfigurationIssue = import.meta.env.DEV && unavailableRoutePaths.size > 0;
+
+  useEffect(() => {
+    if (route && !hasUnavailableRoute && !hasRouteConfigurationIssue) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      showToast({
+        variant: 'destructive',
+        title: hasRouteConfigurationIssue ? 'Route configuration issue' : 'Page not found',
+        description: hasRouteConfigurationIssue
+          ? unavailableRouteMessage
+          : 'This page does not exist or has not been added yet.',
+        duration: 20000,
+      });
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [hasRouteConfigurationIssue, hasUnavailableRoute, path, route, showToast, unavailableRouteMessage]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -109,10 +152,15 @@ function App() {
 
   return (
     <>
-      <SiteHeader activePage={route?.activePage} />
-      <main id="main-content"><Page /></main>
-      <SiteFooter />
-      {TWEAKS_ENABLED && <SiteCustomizer />}
+      <Toaster />
+      <AppErrorBoundary key={path}>
+        <SiteHeader activePage={route?.activePage} />
+        <main id="main-content">
+          <Page />
+        </main>
+        <SiteFooter />
+        {TWEAKS_ENABLED && <SiteCustomizer />}
+      </AppErrorBoundary>
     </>
   );
 }
