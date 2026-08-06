@@ -60,7 +60,7 @@ const Hero = () => (
           </div>
           <div className="hero-eyebrow">
             {/* <span className="rule"/> */}
-            <span className="eyebrow">Pentagon Plywood · Yamunanagar · Since 1997</span>
+            <span className="eyebrow">Pentagon Group · Yamunanagar & Morbi · Since 1986</span>
           </div>
           <h1 className="h-display hero-title">
             <span className="line">Crafting</span>
@@ -69,7 +69,7 @@ const Hero = () => (
           </h1>
           <div className="hero-caption-row">
             <p className="hero-caption">
-              Premium manufacturing of unmatched plywood, blockboards and doors engineered for India's finest interiors, three decades in the making.
+              Pentagon Group manufactures wood-based panels, flush doors and industrial chemicals—built through timber trading, veneer processing and integrated manufacturing since 1986.
             </p>
             <div className="hero-actions">
               <a href="/products" className="btn btn-primary">Explore our products <Icon.Arr/></a>
@@ -84,7 +84,7 @@ const Hero = () => (
               <img src={heroImage} alt="Warm interior with plywood cabinetry" />
             </picture>
             <div className="hero-image-tag">
-              <span className="badge">Escotel Marine · Kitchen</span>
+              <span className="badge">Wood-based panels · Yamunanagar</span>
             </div>
           </div>
         </div>
@@ -101,18 +101,18 @@ const Trust = () => (
       <div className="trust-row">
         <div className="trust-item">
           <div className="trust-icon"><Icon.Calendar/></div>
-          <div className="trust-num">1997</div>
-          <div className="trust-lbl"><strong>Est. Yamunanagar</strong>Nearly three decades of plywood manufacturing legacy</div>
+          <div className="trust-num">1986</div>
+          <div className="trust-lbl"><strong>Group journey began</strong>From timber trading to integrated manufacturing</div>
         </div>
         <div className="trust-item">
           <div className="trust-icon"><Icon.Users/></div>
-          <div className="trust-num">200<span className="mobile-plus">+</span></div>
-          <div className="trust-lbl"><strong>Skilled Team</strong>Experienced people supporting manufacturing and supply</div>
+          <div className="trust-num">4</div>
+          <div className="trust-lbl"><strong>Manufacturing units</strong>Across Yamunanagar and Morbi</div>
         </div>
         <div className="trust-item">
           <div className="trust-icon"><Icon.Shield/></div>
-          <div className="trust-num">ISO</div>
-          <div className="trust-lbl"><strong>Quality Driven</strong>Certified processes with checks at every production stage</div>
+          <div className="trust-num">₹100<span className="mobile-plus"> Cr</span></div>
+          <div className="trust-lbl"><strong>Combined turnover</strong>Approx. FY 2025–26</div>
         </div>
       </div>
     </div>
@@ -121,10 +121,10 @@ const Trust = () => (
 
 /* ============ PRODUCTS ============ */
 const products = [
-  { tag: "01 · Plywood", name: "Marine Plywood", desc: "Ultimate water resistance for the toughest environments  kitchens, bathrooms and outdoor joinery.", standard: "IS 710 · BWP Grade", image: marinePlywoodImage, alt: "Stack of marine-grade plywood sheets", imageLabel: "Cross-section" },
-  { tag: "02 · Plywood", name: "MR Grade Plywood", desc: "Commercial plywood built for long-lasting premium interior woodwork and everyday joinery.", standard: "IS 303 · MR Grade", image: mrPlywoodImage, alt: "MR-grade plywood veneers stacked in a workshop", imageLabel: "Veneer detail" },
-  { tag: "03 · Boards", name: "IS 303 Blockboards", desc: "Engineered for exceptional structural integrity and high load-bearing capacity across large spans.", standard: "IS 1659 · Blockboard", image: blockboardImage, alt: "Finished wooden blockboard profiles", imageLabel: "Edge detail" },
-  { tag: "04 · Doors", name: "Premium Doors", desc: "Waterproof flush, membrane and laminated door solutions for complete aesthetic control.", standard: "IS 2202 · Flush Door", image: flushDoorImage, alt: "Selection of premium waterproof wooden doors", imageLabel: "Waterproof Collection" },
+  { tag: "01 · Plywood", name: "MR Grade Plywood", desc: "For furniture and interior applications in relatively dry conditions.", standard: "Interior-grade plywood", image: mrPlywoodImage, alt: "MR-grade plywood veneers", imageLabel: "Interior use" },
+  { tag: "02 · Plywood", name: "BWP & Marine Plywood", desc: "Confirmed grades for moisture-conscious and demanding project requirements; discuss the correct specification with the team.", standard: "Requirement-led selection", image: marinePlywoodImage, alt: "Plywood sheet stack", imageLabel: "Moisture-conscious use" },
+  { tag: "03 · Plywood", name: "Fire Retardant Plywood", desc: "A confirmed specialised grade for fire-conscious project discussions.", standard: "Specialised grade", image: blockboardImage, alt: "Wood-panel edge detail", imageLabel: "Project requirements" },
+  { tag: "04 · Manufactured Range", name: "Blockboard & Flush Doors", desc: "Wood-based panel and door solutions manufactured in Yamunanagar.", standard: "Manufactured by Pentagon", image: flushDoorImage, alt: "Flush door collection", imageLabel: "Wood-based panels" },
 ];
 const Products = () => (
   <section id="products" className="section">
@@ -135,7 +135,7 @@ const Products = () => (
           <h2 className="h-section">Discover our<br/><em className="italic-em">core collection.</em></h2>
         </div>
         <p className="lede">
-          A curated range of plywood, boards and doors each engineered for a specific application and finished to a standard that outlasts trends. Every board is manufactured, pressed and inspected in-house.
+          Pentagon manufactures MR, BWP, Marine and Fire Retardant Plywood, blockboard and flush doors. Selected allied boards and decorative materials may also be sourced or traded, subject to availability.
         </p>
       </div>
       <div className="product-tabs" aria-label="Product categories">

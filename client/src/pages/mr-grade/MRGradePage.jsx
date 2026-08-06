@@ -1,42 +1,41 @@
 import { useEffect, useState } from "react";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  ArrowRight,
+  Check,
+  Factory,
+  Layers,
+  Ruler,
+  Shield,
+  Droplet,
+} from "lucide-react";
+import {
   CONTACT_SECTIONS,
   HOME_SECTIONS,
   MR_GRADE_SECTIONS,
   ROUTES,
 } from "../../app/routes.js";
-import "./mr-grade-page.css";
-
-import {
-  Shield,
-  Droplet,
-  Ruler,
-  Factory,
-  Layers,
-  ArrowRight,
-  Check,
-  Plus,
-  Minus,
-} from "lucide-react";
-
 import plywoodImage from "../../assets/product/mr plywood/mr-grade-plywood-1671449588-6629452.webp";
-import bedroomImage from "../../assets/product/mr plywood/Cozy minimalist bedroom with natural light.png";
 import heroRoomBg from "../../assets/product/mr plywood/mr-hero-bg-room.png";
 import edgeImage from "../../assets/product/mr plywood/Wood veneer layers on plywood edge.png";
 import surfaceImage from "../../assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
-
 import {
-  quickFactsData,
-  benefitsData,
   applicationsData,
+  benefitsData,
+  comparisonsData,
+  fabricationChecksData,
+  faqsData,
+  finishesData,
   limitationsData,
+  quickFactsData,
   specificationsData,
   thicknessesData,
-  comparisonsData,
-  finishesData,
-  fabricationChecksData,
   whyPentagonData,
-  faqsData,
 } from "../../data/mrGradeData.js";
 
 const PHONE_LINK = "tel:+917206104340";
@@ -44,653 +43,88 @@ const WHATSAPP_LINK = `https://wa.me/917206104340?text=${encodeURIComponent(
   "Hello Pentagon Plywood, I would like to discuss MR Grade Plywood for an interior furniture requirement.",
 )}`;
 
-const iconMap = {
-  Shield: Shield,
-  Drop: Droplet,
-  Ruler: Ruler,
-  Factory: Factory,
-  Layers: Layers,
-};
+const iconMap = { Shield, Drop: Droplet, Ruler, Factory, Layers };
+const container = "mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10";
+const section = "py-16 sm:py-20 lg:py-28";
+const darkButton = "inline-flex items-center justify-center gap-2 rounded-full bg-[#143D2B] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#0B2A1D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D99143]";
+const outlineButton = "inline-flex items-center justify-center gap-2 rounded-full border border-current px-5 py-3 text-sm font-semibold transition hover:bg-[#143D2B] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D99143]";
 
-function Heading({ eyebrow, title, copy, light = false }) {
+function Heading({ eyebrow, title, copy, light = false, className = "" }) {
   return (
-    <div className={`mr-heading${light ? " is-light" : ""}`}>
-      <div className="mr-eyebrow">{eyebrow}</div>
-      <h2>{title}</h2>
-      {copy && <p>{copy}</p>}
+    <div className={`max-w-3xl ${className}`}>
+      <p className={`mb-4 text-xs font-bold uppercase tracking-[0.18em] ${light ? "text-[#E7B572]" : "text-[#9C6846]"}`}>{eyebrow}</p>
+      <h2 className={`font-['DM_Serif_Display',Georgia,serif] text-3xl leading-[1.05] sm:text-4xl lg:text-5xl ${light ? "text-white" : "text-[#14211A]"}`}>{title}</h2>
+      {copy && <p className={`mt-5 max-w-2xl text-base leading-7 ${light ? "text-white/75" : "text-[#65736A]"}`}>{copy}</p>}
     </div>
   );
 }
 
 function MRGradePage() {
-  const [openFaq, setOpenFaq] = useState(0);
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-palette", "crafted-heritage");
-    document.title =
-      "MR Grade Plywood Manufacturer in Yamunanagar | Pentagon Plywood";
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.name = "description";
-      document.head.appendChild(meta);
-    }
-    meta.content =
-      "Explore Pentagon MR Grade Plywood for wardrobes, beds, cabinets, office furniture and interior applications. Available in multiple sizes and thicknesses.";
   }, []);
 
   return (
-    <div className="mr-page">
-      <section className="mr-hero">
-        {/* Background Interior Room */}
-        <div className="mr-hero-bg-container">
-          <img
-            src={heroRoomBg}
-            alt="Interior bedroom background with wooden wardrobe and natural lighting"
-            className="mr-hero-bg-img"
-          />
-          {/* Dark curved arch overlay */}
-          <div className="mr-hero-arch-overlay" />
-          {/* Decorative Dot Matrix Pattern */}
-          <div className="mr-hero-dot-pattern" />
-        </div>
-
-        <div className="container mr-hero-content-wrapper">
-          <nav className="mr-hero-breadcrumb" aria-label="Breadcrumb">
-            <a href={ROUTES.home}>Home</a>
-            <span className="sep">›</span>
-            <span>Products</span>
-            <span className="sep">›</span>
-            <a href={ROUTES.plywood}>Plywood</a>
-            <span className="sep">›</span>
-            <strong>MR Grade Plywood</strong>
+    <div className="overflow-hidden bg-[#FDFBF8] text-[#14211A]">
+      <section className="relative isolate overflow-hidden bg-[#1A1512] pb-12 text-white">
+        <img src={heroRoomBg} alt="Interior bedroom with a wooden wardrobe" className="absolute inset-y-0 right-0 -z-20 h-full w-full object-cover object-right opacity-45 lg:w-[62%] lg:opacity-100" />
+        <div className="absolute inset-y-0 left-0 -z-10 w-full bg-[#1A1512]/80 lg:w-[72%] lg:rounded-r-[48%] lg:bg-[#1A1512]" />
+        <div className="absolute bottom-20 left-[5%] -z-10 h-36 w-52 opacity-30 [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:14px_14px]" />
+        <div className={container}>
+          <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 py-6 text-xs text-white/65" aria-label="Breadcrumb">
+            <a className="transition hover:text-white" href={ROUTES.home}>Home</a><span>›</span><span>Products</span><span>›</span><a className="transition hover:text-white" href={ROUTES.plywood}>Plywood</a><span>›</span><strong className="text-white">MR Grade Plywood</strong>
           </nav>
-
-          <div className="mr-hero-grid">
-            <div className="mr-hero-copy">
-              <div className="mr-kicker">
-                <span>INTERIOR GRADE PLYWOOD</span>
-                <span className="mr-pill-tag">MR GRADE</span>
-              </div>
-              <h1>
-                A reliable foundation <span className="mr-hero-accent">for everyday interior</span> furniture.
-              </h1>
-              <p className="mr-hero-lead">
-                Pentagon MR Grade Plywood is crafted for furniture, cabinetry
-                and interior installations in relatively dry indoor spaces.
-              </p>
-              <p className="mr-hero-sub">
-                It resists the normal moisture and humidity encountered inside
-                homes, offices and commercial interiors—making it a practical
-                choice for everyday furniture requirements.
-              </p>
-              <div className="mr-actions">
-                <a className="btn btn-primary" href={MR_GRADE_SECTIONS.enquiry}>
-                  Request a Quote <ArrowRight className="w-4 h-4 ml-1" />
-                </a>
-                <a className="btn btn-outline" href={CONTACT_SECTIONS.form}>
-                  Discuss Your Application <ArrowRight className="w-4 h-4 ml-1" />
-                </a>
-              </div>
+          <div className="grid items-center gap-10 pb-12 lg:grid-cols-[1.1fr_.9fr] lg:pb-20">
+            <div className="max-w-2xl py-8 lg:py-14">
+              <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-bold tracking-[0.16em]"><span>INTERIOR GRADE PLYWOOD</span><span className="rounded-full border border-[#D99143]/60 bg-[#D99143]/15 px-3 py-1 text-[#F3C88D]">MR GRADE</span></div>
+              <h1 className="font-['DM_Serif_Display',Georgia,serif] text-5xl leading-[.96] sm:text-6xl lg:text-7xl">A reliable foundation <span className="text-[#E7B572]">for everyday interior</span> furniture.</h1>
+              <p className="mt-7 max-w-xl text-lg leading-8 text-white/85">Pentagon MR Grade Plywood is crafted for furniture, cabinetry and interior installations in relatively dry indoor spaces.</p>
+              <p className="mt-4 max-w-xl leading-7 text-white/65">It resists the normal moisture and humidity encountered inside homes, offices and commercial interiors—making it a practical choice for everyday furniture requirements.</p>
+              <div className="mt-8 flex flex-wrap gap-3"><a className="inline-flex items-center gap-2 rounded-full bg-[#D99143] px-5 py-3 text-sm font-semibold text-[#14211A] transition hover:bg-[#E7B572]" href={MR_GRADE_SECTIONS.enquiry}>Request a Quote <ArrowRight size={16} /></a><a className="inline-flex items-center gap-2 rounded-full border border-white/50 px-5 py-3 text-sm font-semibold transition hover:bg-white hover:text-[#14211A]" href={CONTACT_SECTIONS.form}>Discuss Your Application <ArrowRight size={16} /></a></div>
             </div>
-
-            {/* Central Floating Product Card over Arch */}
-            <div className="mr-hero-product-card-wrapper">
-              <div className="mr-hero-product-card">
-                <img
-                  src={plywoodImage}
-                  alt="Pentagon MR Grade plywood sheet showing stacked wood layers"
-                />
-                <div className="mr-hero-product-badge">
-                  <span>MR GRADE · INTERIOR USE</span>
-                </div>
-              </div>
+            <div className="mx-auto w-full max-w-sm rounded-[2rem] bg-[#FDFBF8] p-3 shadow-2xl lg:translate-y-8">
+              <div className="relative overflow-hidden rounded-[1.5rem]"><img src={plywoodImage} alt="Pentagon MR Grade plywood sheet showing stacked wood layers" className="aspect-[4/5] w-full object-cover" /><span className="absolute bottom-4 left-4 rounded-full bg-[#143D2B] px-3 py-2 text-[10px] font-bold tracking-[.13em] text-white">MR GRADE · INTERIOR USE</span></div>
             </div>
           </div>
-
-          {/* Bottom Floating Quick Facts Bar */}
-          <div className="mr-quickfacts-bar">
-            {quickFactsData.map(({ label, value, icon }) => {
-              const FactIcon = iconMap[icon] || Shield;
-              return (
-                <div className="mr-quickfact-item" key={label}>
-                  <div className="mr-quickfact-icon-wrapper">
-                    <FactIcon className="w-6 h-6" />
-                  </div>
-                  <div className="mr-quickfact-text">
-                    <span className="mr-quickfact-label">{label}</span>
-                    <strong className="mr-quickfact-val">{value}</strong>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="grid overflow-hidden rounded-2xl border border-white/15 bg-white/10 backdrop-blur sm:grid-cols-2 lg:grid-cols-4">
+            {quickFactsData.map(({ label, value, icon }) => { const Icon = iconMap[icon] || Shield; return <div className="flex items-center gap-4 border-b border-white/10 px-5 py-5 last:border-b-0 sm:[&:nth-child(odd)]:border-r lg:border-b-0 lg:border-r lg:last:border-r-0" key={label}><span className="grid size-10 place-items-center rounded-full bg-[#D99143]/20 text-[#F3C88D]"><Icon size={20} /></span><div><p className="text-[10px] font-bold uppercase tracking-[.12em] text-white/55">{label}</p><strong className="mt-1 block text-sm">{value}</strong></div></div>; })}
           </div>
         </div>
       </section>
 
-      <section id="overview" className="mr-section">
-        <div className="container mr-definition">
-          <div className="mr-definition-media">
-            <img src={edgeImage} alt="Layered edge construction of plywood" />
-            <span>Balanced veneer construction</span>
-          </div>
-          <div>
-            <Heading
-              eyebrow="Understand the Grade"
-              title="Made for the moisture conditions found in everyday interiors."
-            />
-            <p>
-              <strong>MR stands for Moisture Resistant.</strong> MR Grade
-              Plywood is a general-purpose plywood intended primarily for
-              furniture and interior applications.
-            </p>
-            <p>
-              Multiple wood-veneer layers are bonded to create a balanced panel
-              suitable for fabrication into furniture, cabinets, partitions and
-              interior components.
-            </p>
-            <p>
-              It tolerates normal indoor humidity and occasional atmospheric
-              moisture better than untreated wood, but is not intended for
-              prolonged water exposure, continuous dampness or exterior use.
-            </p>
-            <div className="mr-market-note">
-              <span>Market terminology</span>
-              <p>
-                MR Grade is frequently called “Commercial Plywood” in India.
-                Always compare the actual grade, construction and specification
-                not only the market name.
-              </p>
-            </div>
-            <a className="mr-text-link" href={MR_GRADE_SECTIONS.enquiry}>
-              Ask whether MR Grade fits my project <Icon.Arrow />
-            </a>
-          </div>
-        </div>
-      </section>
+      <section id="overview" className={section}><div className={`${container} grid items-center gap-10 lg:grid-cols-2 lg:gap-20`}><figure className="overflow-hidden rounded-3xl bg-[#EDE5D9]"><img src={edgeImage} alt="Layered edge construction of plywood" className="aspect-[5/4] w-full object-cover" /><figcaption className="px-5 py-4 text-xs font-semibold uppercase tracking-[.12em] text-[#65736A]">Balanced veneer construction</figcaption></figure><div><Heading eyebrow="Understand the Grade" title="Made for the moisture conditions found in everyday interiors." /><div className="mt-7 space-y-4 leading-7 text-[#526057]"><p><strong className="text-[#14211A]">MR stands for Moisture Resistant.</strong> MR Grade Plywood is a general-purpose plywood intended primarily for furniture and interior applications.</p><p>Multiple wood-veneer layers are bonded to create a balanced panel suitable for fabrication into furniture, cabinets, partitions and interior components.</p><p>It tolerates normal indoor humidity and occasional atmospheric moisture better than untreated wood, but is not intended for prolonged water exposure, continuous dampness or exterior use.</p></div><div className="mt-6 rounded-2xl border-l-4 border-[#D99143] bg-[#F4EADD] p-5"><strong className="text-sm">Market terminology</strong><p className="mt-2 text-sm leading-6 text-[#526057]">MR Grade is frequently called “Commercial Plywood” in India. Always compare the actual grade, construction and specification—not only the market name.</p></div><a className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#143D2B] hover:underline" href={MR_GRADE_SECTIONS.enquiry}>Ask whether MR Grade fits my project <ArrowRight size={16} /></a></div></div></section>
 
-      <section className="mr-section mr-benefits-section">
-        <div className="container">
-          <Heading
-            eyebrow="Designed for Everyday Interiors"
-            title="The performance you need without specifying more than the application requires."
-          />
-          <div className="mr-benefits">
-            {benefitsData.map(({ number, title, copy }) => (
-              <article key={number}>
-                <span>{number}</span>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className="bg-[#F4EADD] py-16 sm:py-20"><div className={container}><Heading eyebrow="Designed for Everyday Interiors" title="The performance you need without specifying more than the application requires." /><div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-[#D7C5AE] bg-[#D7C5AE] md:grid-cols-3">{benefitsData.map(({ number, title, copy }) => <article className="bg-[#FDFBF8] p-7" key={number}><span className="text-sm font-bold text-[#9C6846]">{number}</span><h3 className="mt-8 font-['DM_Serif_Display',Georgia,serif] text-2xl">{title}</h3><p className="mt-3 leading-7 text-[#65736A]">{copy}</p></article>)}</div></div></section>
 
-      <section id="applications" className="mr-section">
-        <div className="container">
-          <Heading
-            eyebrow="From Board to Furniture"
-            title="Designed for the things you use every day."
-            copy="Choose MR Grade around a relatively dry interior environment, then select the construction and thickness around what the furniture must do."
-          />
-          <div className="mr-applications">
-            {applicationsData.map(({ title, copy, image, alt }, index) => (
-              <article className={image ? "has-image" : "is-text"} key={title}>
-                {image && <img src={image} alt={alt} loading="lazy" />}
-                <div>
-                  <span>0{index + 1}</span>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-          <a
-            className="btn btn-outline mr-center-action"
-            href={MR_GRADE_SECTIONS.thickness}
-          >
-            Find the Right Thickness <ArrowRight className="w-4 h-4 ml-1" />
-          </a>
-        </div>
-      </section>
+      <section id="applications" className={section}><div className={container}><Heading eyebrow="From Board to Furniture" title="Designed for the things you use every day." copy="Choose MR Grade around a relatively dry interior environment, then select the construction and thickness around what the furniture must do." /><div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">{applicationsData.map(({ title, copy, image, alt }, index) => <article className="group relative min-h-72 overflow-hidden rounded-2xl border border-[#D9D3C8] bg-white" key={title}>{image && <img src={image} alt={alt} loading="lazy" className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105" />}<div className={`absolute inset-0 ${image ? "bg-gradient-to-t from-[#14211A]/90 via-[#14211A]/20" : "bg-[#F4EADD]"}`} /><div className={`relative flex h-full min-h-72 flex-col justify-end p-6 ${image ? "text-white" : "text-[#14211A]"}`}><span className="mb-auto text-xs font-bold tracking-[.15em] opacity-80">{String(index + 1).padStart(2, "0")}</span><h3 className="font-['DM_Serif_Display',Georgia,serif] text-3xl">{title}</h3><p className={`mt-3 leading-6 ${image ? "text-white/80" : "text-[#65736A]"}`}>{copy}</p></div></article>)}</div><div className="mt-9 text-center"><a className={outlineButton} href={MR_GRADE_SECTIONS.thickness}>Find the Right Thickness <ArrowRight size={16} /></a></div></div></section>
 
-      <section id="limitations" className="mr-section mr-limitations">
-        <div className="container mr-limitations-grid">
-          <Heading
-            light
-            eyebrow="Choose With Clarity"
-            title="Moisture resistant is not the same as waterproof."
-            copy="MR Grade Plywood should not be the default choice where water, rain or persistent dampness form part of the installation conditions."
-          />
-          <div>
-            <ul>
-              {limitationsData.map((item) => (
-                <li key={item}>
-                  <span>×</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p>
-              For kitchens, utility spaces and more demanding moisture
-              conditions, consider Pentagon’s BWR/BWP or Marine Plywood
-              according to verified product specifications.
-            </p>
-            <a className="btn btn-light" href={MR_GRADE_SECTIONS.comparison}>
-              Compare Moisture-Resistant Options <ArrowRight className="w-4 h-4 ml-1" />
-            </a>
-          </div>
-        </div>
-      </section>
+      <section id="limitations" className="bg-[#143D2B] py-16 text-white sm:py-20"><div className={`${container} grid gap-10 lg:grid-cols-2 lg:gap-20`}><Heading light eyebrow="Choose With Clarity" title="Moisture resistant is not the same as waterproof." copy="MR Grade Plywood should not be the default choice where water, rain or persistent dampness form part of the installation conditions." /><div><ul className="space-y-4">{limitationsData.map((item) => <li className="flex gap-3 text-white/85" key={item}><span className="text-[#E7B572]">×</span>{item}</li>)}</ul><p className="mt-7 leading-7 text-white/70">For kitchens, utility spaces and more demanding moisture conditions, consider Pentagon’s BWR/BWP or Marine Plywood according to verified product specifications.</p><a className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#143D2B] transition hover:bg-[#F4EADD]" href={MR_GRADE_SECTIONS.comparison}>Compare Moisture-Resistant Options <ArrowRight size={16} /></a></div></div></section>
 
-      <section id="specifications" className="mr-section">
-        <div className="container">
-          <Heading
-            eyebrow="Product Information"
-            title="Available for different interior furniture requirements."
-          />
-          <div className="mr-spec-layout">
-            <div className="mr-spec-table">
-              {specificationsData.map(([label, value]) => (
-                <div key={label}>
-                  <span>{label}</span>
-                  <strong>{value}</strong>
-                </div>
-              ))}
-            </div>
-            <aside className="mr-verification-card">
-              <Shield className="w-10 h-10 text-[#D99143]" />
-              <span>Responsible specification</span>
-              <h3>Verify certification before making the claim.</h3>
-              <p>
-                Use “MR Grade Plywood for general-purpose furniture and interior
-                applications” until Pentagon’s current BIS licence and approved
-                product scope are reviewed.
-              </p>
-              <p>
-                Do not display an ISI mark, licence number or “IS 303 certified”
-                statement before verification.
-              </p>
-              <a href={HOME_SECTIONS.quality}>
-                View quality information <ArrowRight className="w-4 h-4 ml-1" />
-              </a>
-            </aside>
-          </div>
-        </div>
-      </section>
+      <section id="specifications" className={section}><div className={container}><Heading eyebrow="Product Information" title="Available for different interior furniture requirements." /><div className="mt-10 grid gap-8 lg:grid-cols-[1.2fr_.8fr]"><div className="overflow-hidden rounded-2xl border border-[#D9D3C8] bg-white">{specificationsData.map(([label, value]) => <div className="grid gap-2 border-b border-[#E7E1D8] p-5 last:border-b-0 sm:grid-cols-2" key={label}><span className="text-sm text-[#65736A]">{label}</span><strong>{value}</strong></div>)}</div><aside className="rounded-2xl bg-[#F4EADD] p-7"><Shield className="text-[#D99143]" size={38} /><p className="mt-6 text-xs font-bold uppercase tracking-[.15em] text-[#9C6846]">Responsible specification</p><h3 className="mt-3 font-['DM_Serif_Display',Georgia,serif] text-3xl">Verify certification before making the claim.</h3><p className="mt-4 text-sm leading-6 text-[#526057]">Use “MR Grade Plywood for general-purpose furniture and interior applications” until Pentagon’s current BIS licence and approved product scope are reviewed.</p><p className="mt-4 text-sm leading-6 text-[#526057]">Do not display an ISI mark, licence number or “IS 303 certified” statement before verification.</p><a className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#143D2B] hover:underline" href={HOME_SECTIONS.quality}>View quality information <ArrowRight size={16} /></a></aside></div></div></section>
 
-      <section id="thickness-guide" className="mr-section mr-thickness-section">
-        <div className="container">
-          <Heading
-            eyebrow="Select by Construction"
-            title="The right thickness depends on what the sheet must do."
-          />
-          <div className="mr-thickness-head">
-            <span>Thickness</span>
-            <span>Relative application range</span>
-            <span>Common starting applications</span>
-            <span>Duty level</span>
-          </div>
-          <div className="mr-thickness-list">
-            {thicknessesData.map(({ size, strength, use, duty }) => (
-              <div className="mr-thickness-row" key={size}>
-                <strong>{size}</strong>
-                <span
-                  className="mr-strength"
-                  style={{ "--strength": `${strength}%` }}
-                >
-                  <i />
-                </span>
-                <p>{use}</p>
-                <small>{duty}</small>
-              </div>
-            ))}
-          </div>
-          <div className="mr-info-strip">
-            <span>i</span>
-            <p>
-              These are general application examples, not structural
-              recommendations. Final thickness depends on span, load, support
-              spacing, joinery, hardware and furniture design.
-            </p>
-            <a className="btn btn-outline" href={MR_GRADE_SECTIONS.enquiry}>
-              Get Thickness Guidance <ArrowRight className="w-4 h-4 ml-1" />
-            </a>
-          </div>
-        </div>
-      </section>
+      <section id="thickness-guide" className="bg-[#F4EADD] py-16 sm:py-20"><div className={container}><Heading eyebrow="Select by Construction" title="The right thickness depends on what the sheet must do." /><div className="mt-10 overflow-x-auto rounded-2xl border border-[#D7C5AE] bg-white"><div className="min-w-[720px]"><div className="grid grid-cols-[.7fr_1fr_1.8fr_.7fr] bg-[#143D2B] px-5 py-4 text-xs font-bold uppercase tracking-[.1em] text-white/70"><span>Thickness</span><span>Application range</span><span>Common starting applications</span><span>Duty level</span></div>{thicknessesData.map(({ size, strength, use, duty }) => <div className="grid grid-cols-[.7fr_1fr_1.8fr_.7fr] items-center gap-4 border-b border-[#E7E1D8] px-5 py-5 last:border-b-0" key={size}><strong>{size}</strong><span className="h-2 overflow-hidden rounded-full bg-[#E7E1D8]"><i className="block h-full rounded-full bg-[#D99143]" style={{ width: `${strength}%` }} /></span><p className="text-sm leading-6 text-[#526057]">{use}</p><span className="text-sm font-semibold text-[#143D2B]">{duty}</span></div>)}</div></div><div className="mt-6 flex flex-col gap-5 rounded-2xl border border-[#D7C5AE] bg-white p-5 lg:flex-row lg:items-center"><span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#143D2B] text-sm font-bold text-white">i</span><p className="text-sm leading-6 text-[#526057]">These are general application examples, not structural recommendations. Final thickness depends on span, load, support spacing, joinery, hardware and furniture design.</p><a className={`${outlineButton} shrink-0`} href={MR_GRADE_SECTIONS.enquiry}>Get Thickness Guidance <ArrowRight size={16} /></a></div></div></section>
 
-      <section id="grade-comparison" className="mr-section">
-        <div className="container">
-          <Heading
-            eyebrow="Compare Before You Choose"
-            title="Choose the grade around the installation environment."
-            copy="MR Grade is not an inferior choice when it is used correctly. In a dry interior, specifying marine-grade plywood may add performance and cost the application does not require."
-          />
-          <div className="mr-compare">
-            <div className="mr-compare-row mr-compare-head">
-              <span>Comparison</span>
-              <strong>MR Grade</strong>
-              <strong>BWR / BWP</strong>
-              <strong>Marine Plywood</strong>
-            </div>
-            {comparisonsData.map((row) => (
-              <div className="mr-compare-row" key={row[0]}>
-                {row.map((cell, index) =>
-                  index === 0 ? (
-                    <span key={`${index}-${cell}`}>{cell}</span>
-                  ) : (
-                    <p key={`${index}-${cell}`}>{cell}</p>
-                  ),
-                )}
-              </div>
-            ))}
-          </div>
-          <a
-            className="btn btn-primary mr-center-action"
-            href={CONTACT_SECTIONS.form}
-          >
-            Help Me Compare Plywood <ArrowRight className="w-4 h-4 ml-1" />
-          </a>
-        </div>
-      </section>
+      <section id="grade-comparison" className={section}><div className={container}><Heading eyebrow="Compare Before You Choose" title="Choose the grade around the installation environment." copy="MR Grade is not an inferior choice when it is used correctly. In a dry interior, specifying marine-grade plywood may add performance and cost the application does not require." /><div className="mt-10 overflow-x-auto rounded-2xl border border-[#D9D3C8] bg-white"><div className="min-w-[760px]"><div className="grid grid-cols-4 bg-[#143D2B] px-5 py-4 text-sm text-white"><span>Comparison</span><strong>MR Grade</strong><strong>BWR / BWP</strong><strong>Marine Plywood</strong></div>{comparisonsData.map((row) => <div className="grid grid-cols-4 gap-4 border-b border-[#E7E1D8] px-5 py-5 text-sm last:border-b-0" key={row[0]}>{row.map((cell, index) => index === 0 ? <strong key={cell}>{cell}</strong> : <p className="leading-6 text-[#526057]" key={cell}>{cell}</p>)}</div>)}</div></div><div className="mt-9 text-center"><a className={darkButton} href={CONTACT_SECTIONS.form}>Help Me Compare Plywood <ArrowRight size={16} /></a></div></div></section>
 
-      <section className="mr-section mr-finishing">
-        <div className="container mr-finishing-grid">
-          <div className="mr-finishing-media">
-            <img
-              src={surfaceImage}
-              alt="Plain plywood surface ready for an interior finish"
-            />
-            <span>Plain surface · finish as required</span>
-          </div>
-          <div>
-            <Heading
-              eyebrow="Fabrication and Finishing"
-              title="Select the core first. Then create the surface you want."
-            />
-            <p>
-              Depending on face quality and the finishing system, MR Grade
-              Plywood can be prepared for:
-            </p>
-            <div className="mr-chip-list">
-              {finishesData.map((finish) => (
-                <span key={finish}>{finish}</span>
-              ))}
-            </div>
-            <h3>Before fabrication, confirm:</h3>
-            <ul className="mr-check-list">
-              {fabricationChecksData.map((item) => (
-                <li key={item}>
-                  <Check className="w-4 h-4 text-[#143D2B]" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <a className="mr-text-link" href={MR_GRADE_SECTIONS.enquiry}>
-              Discuss fabrication requirements <ArrowRight className="w-4 h-4 ml-1" />
-            </a>
-          </div>
-        </div>
-      </section>
+      <section className="bg-[#F4EADD] py-16 sm:py-20"><div className={`${container} grid items-center gap-10 lg:grid-cols-2 lg:gap-20`}><figure className="overflow-hidden rounded-3xl"><img src={surfaceImage} alt="Plain plywood surface ready for an interior finish" className="aspect-square w-full object-cover" /><figcaption className="bg-[#143D2B] px-5 py-4 text-xs font-bold uppercase tracking-[.12em] text-white/70">Plain surface · finish as required</figcaption></figure><div><Heading eyebrow="Fabrication and Finishing" title="Select the core first. Then create the surface you want." /><p className="mt-6 leading-7 text-[#526057]">Depending on face quality and the finishing system, MR Grade Plywood can be prepared for:</p><div className="mt-5 flex flex-wrap gap-2">{finishesData.map((finish) => <span className="rounded-full border border-[#D7C5AE] bg-white px-4 py-2 text-sm" key={finish}>{finish}</span>)}</div><h3 className="mt-8 font-['DM_Serif_Display',Georgia,serif] text-2xl">Before fabrication, confirm:</h3><ul className="mt-5 space-y-3">{fabricationChecksData.map((item) => <li className="flex gap-3 text-sm leading-6 text-[#526057]" key={item}><Check className="mt-0.5 shrink-0 text-[#143D2B]" size={17} />{item}</li>)}</ul><a className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#143D2B] hover:underline" href={MR_GRADE_SECTIONS.enquiry}>Discuss fabrication requirements <ArrowRight size={16} /></a></div></div></section>
 
-      <section id="quality" className="mr-section mr-standard">
-        <div className="container mr-standard-grid">
-          <div>
-            <Heading
-              light
-              eyebrow="Know the Standard"
-              title="MR is a recognised grade of general-purpose plywood."
-            />
-            <p>
-              The Bureau of Indian Standards classifies general-purpose plywood
-              under <strong>IS 303:2024</strong>. The classification covers MR,
-              BWR and BWP grades along with requirements for dimensions,
-              workmanship, water-resistance testing, moisture content, strength
-              and formaldehyde content.
-            </p>
-            <p>
-              These are requirements of the standard. They should not
-              automatically be presented as verified Pentagon product features
-              until the relevant licence and test documents are reviewed.
-            </p>
-            <a className="btn btn-light" href={HOME_SECTIONS.quality}>
-              View Quality & Certifications <ArrowRight className="w-4 h-4 ml-1" />
-            </a>
-          </div>
-          <div className="mr-standard-mark">
-            <span>IS</span>
-            <strong>303</strong>
-            <small>2024</small>
-            <p>General-purpose plywood standard</p>
-            <em>Scope verification required</em>
-          </div>
-        </div>
-      </section>
+      <section id="quality" className="bg-[#143D2B] py-16 text-white sm:py-20"><div className={`${container} grid items-center gap-10 lg:grid-cols-[1.3fr_.7fr]`}><div><Heading light eyebrow="Know the Standard" title="MR is a recognised grade of general-purpose plywood." /><div className="mt-6 max-w-2xl space-y-4 leading-7 text-white/75"><p>The Bureau of Indian Standards classifies general-purpose plywood under <strong className="text-white">IS 303:2024</strong>. The classification covers MR, BWR and BWP grades along with requirements for dimensions, workmanship, water-resistance testing, moisture content, strength and formaldehyde content.</p><p>These are requirements of the standard. They should not automatically be presented as verified Pentagon product features until the relevant licence and test documents are reviewed.</p></div><a className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#143D2B]" href={HOME_SECTIONS.quality}>View Quality & Certifications <ArrowRight size={16} /></a></div><div className="mx-auto grid aspect-square w-full max-w-xs place-items-center rounded-full border-[14px] border-[#D99143] text-center"><div><span className="block text-3xl font-bold">IS</span><strong className="block font-['DM_Serif_Display',Georgia,serif] text-7xl">303</strong><small className="block text-sm tracking-[.2em]">2024</small><p className="mt-4 text-sm text-white/70">General-purpose plywood standard</p><em className="mt-3 block text-xs not-italic text-[#E7B572]">Scope verification required</em></div></div></div></section>
 
-      <section className="mr-section">
-        <div className="container">
-          <Heading
-            eyebrow="Made Around Real Requirements"
-            title="Because everyday furniture still deserves the right foundation."
-          />
-          <div className="mr-why">
-            {whyPentagonData.map(({ number, title, copy }) => (
-              <article key={number}>
-                <span>{number}</span>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-                <ArrowRight className="w-4 h-4 text-[#D99143]" />
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className={section}><div className={container}><Heading eyebrow="Made Around Real Requirements" title="Because everyday furniture still deserves the right foundation." /><div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{whyPentagonData.map(({ number, title, copy }) => <article className="rounded-2xl border border-[#D9D3C8] bg-white p-6" key={number}><span className="text-sm font-bold text-[#9C6846]">{number}</span><h3 className="mt-7 font-['DM_Serif_Display',Georgia,serif] text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-[#65736A]">{copy}</p><ArrowRight className="mt-6 text-[#D99143]" size={18} /></article>)}</div></div></section>
 
-      <section className="mr-trade">
-        <div className="container mr-trade-grid">
-          <div>
-            <div className="mr-eyebrow">For Trade and Project Requirements</div>
-            <h2>
-              Planning more than one piece of furniture?{" "}
-              <em>Let’s discuss the complete requirement.</em>
-            </h2>
-            <p>
-              For resale, furniture production or an interior project, share the
-              thickness, sheet size, quantity, application and delivery
-              location.
-            </p>
-            <div className="mr-actions">
-              <a className="btn btn-primary" href={MR_GRADE_SECTIONS.enquiry}>
-                Request a Bulk Quote <ArrowRight className="w-4 h-4 ml-1" />
-              </a>
-              <a className="btn btn-outline" href={ROUTES.dealers}>
-                Become a Dealer <ArrowRight className="w-4 h-4 ml-1" />
-              </a>
-            </div>
-          </div>
-          <div className="mr-trade-types">
-            {[
-              "Dealer & distributor supply",
-              "Furniture manufacturing",
-              "Wardrobe production",
-              "Office furniture projects",
-              "Residential interiors",
-              "Retail & commercial interiors",
-              "Bulk procurement",
-              "Export requirements",
-            ].map((item, index) => (
-              <span key={item}>
-                <b>{String(index + 1).padStart(2, "0")}</b>
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className="bg-[#9C6846] py-16 text-white sm:py-20"><div className={`${container} grid gap-10 lg:grid-cols-2`}><div><p className="text-xs font-bold uppercase tracking-[.18em] text-[#F4D8B4]">For Trade and Project Requirements</p><h2 className="mt-5 font-['DM_Serif_Display',Georgia,serif] text-4xl leading-tight sm:text-5xl">Planning more than one piece of furniture? <em className="text-[#F4D8B4]">Let’s discuss the complete requirement.</em></h2><p className="mt-6 max-w-xl leading-7 text-white/80">For resale, furniture production or an interior project, share the thickness, sheet size, quantity, application and delivery location.</p><div className="mt-8 flex flex-wrap gap-3"><a className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#143D2B]" href={MR_GRADE_SECTIONS.enquiry}>Request a Bulk Quote <ArrowRight size={16} /></a><a className="inline-flex items-center gap-2 rounded-full border border-white/60 px-5 py-3 text-sm font-bold" href={ROUTES.dealers}>Become a Dealer <ArrowRight size={16} /></a></div></div><div className="grid grid-cols-2 overflow-hidden rounded-2xl border border-white/20">{["Dealer & distributor supply","Furniture manufacturing","Wardrobe production","Office furniture projects","Residential interiors","Retail & commercial interiors","Bulk procurement","Export requirements"].map((item, index) => <div className="border-b border-r border-white/15 p-5 text-sm" key={item}><b className="mr-3 text-[#F4D8B4]">{String(index + 1).padStart(2, "0")}</b>{item}</div>)}</div></div></section>
 
-      <section id="mr-faq" className="mr-section">
-        <div className="container mr-faq-layout">
-          <Heading
-            eyebrow="Frequently Asked Questions"
-            title="Clear answers before you select the sheet."
-          />
-          <div className="mr-faq-list">
-            {faqsData.map(({ question, answer }, index) => (
-              <article
-                className={openFaq === index ? "is-open" : ""}
-                key={question}
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
-                  aria-expanded={openFaq === index}
-                >
-                  <span>0{index + 1}</span>
-                  <strong>{question}</strong>
-                  {openFaq === index ? (
-                    <Minus className="w-5 h-5 text-[#D99143]" />
-                  ) : (
-                    <Plus className="w-5 h-5 text-[#65736A]" />
-                  )}
-                </button>
-                {openFaq === index && <p>{answer}</p>}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section id="mr-faq" className={section}><div className={`${container} grid gap-10 lg:grid-cols-[.8fr_1.2fr]`}><Heading eyebrow="Frequently Asked Questions" title="Clear answers before you select the sheet." /><Accordion type="single" collapsible defaultValue="faq-0" className="rounded-2xl border border-[#D9D3C8] bg-white px-5 sm:px-7">{faqsData.map(({ question, answer }, index) => <AccordionItem value={`faq-${index}`} key={question} className="border-[#E7E1D8]"><AccordionTrigger className="py-5 text-left text-base font-bold no-underline hover:no-underline"><span className="mr-4 text-xs text-[#9C6846]">{String(index + 1).padStart(2, "0")}</span>{question}</AccordionTrigger><AccordionContent className="pb-5 pl-8 text-base leading-7 text-[#65736A]">{answer}</AccordionContent></AccordionItem>)}</Accordion></div></section>
 
-      <section id="mr-enquiry" className="mr-enquiry">
-        <div className="container mr-enquiry-grid">
-          <div>
-            <Heading
-              light
-              eyebrow="Start With the Right Interior Plywood"
-              title="Tell us what you’re making. We’ll help you select the right MR plywood."
-            />
-            <p>
-              Share the furniture application, required thickness, sheet size,
-              quantity and delivery location. Our team will contact you to
-              discuss suitability and current availability.
-            </p>
-            <div className="mr-direct">
-              <span>Prefer speaking directly?</span>
-              <a href={PHONE_LINK}>Call +91 72061 04340</a>
-              <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer">
-                WhatsApp our team
-              </a>
-            </div>
-          </div>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              setSent(true);
-            }}
-          >
-            <div className="mr-form-row">
-              <label>
-                Name
-                <input required placeholder="Your full name" />
-              </label>
-              <label>
-                Company name
-                <input placeholder="Company / firm" />
-              </label>
-            </div>
-            <div className="mr-form-row">
-              <label>
-                Phone number
-                <input required type="tel" placeholder="+91 · · · · ·" />
-              </label>
-              <label>
-                Email address
-                <input type="email" placeholder="you@company.com" />
-              </label>
-            </div>
-            <div className="mr-form-row">
-              <label>
-                Customer type
-                <select defaultValue="">
-                  <option value="" disabled>
-                    Select customer type
-                  </option>
-                  <option>Homeowner</option>
-                  <option>Furniture maker</option>
-                  <option>Architect / Interior designer</option>
-                  <option>Dealer / Distributor</option>
-                  <option>Project / Bulk buyer</option>
-                  <option>Export buyer</option>
-                </select>
-              </label>
-              <label>
-                Furniture / application
-                <input required placeholder="e.g. wardrobe production" />
-              </label>
-            </div>
-            <div className="mr-form-row mr-form-three">
-              <label>
-                Thickness
-                <select defaultValue="">
-                  <option value="">Not sure</option>
-                  {["4 mm", "6 mm", "9 mm", "12 mm", "15 mm", "18 mm"].map(
-                    (item) => (
-                      <option key={item}>{item}</option>
-                    ),
-                  )}
-                </select>
-              </label>
-              <label>
-                Sheet size
-                <select defaultValue="">
-                  <option value="">Not sure</option>
-                  {[
-                    "8×4 ft",
-                    "8×3 ft",
-                    "7×4 ft",
-                    "7×3 ft",
-                    "6×4 ft",
-                    "6×3 ft",
-                  ].map((item) => (
-                    <option key={item}>{item}</option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Quantity
-                <input type="number" min="1" placeholder="Pieces" />
-              </label>
-            </div>
-            <div className="mr-form-row">
-              <label>
-                City and state
-                <input required placeholder="e.g. Chandigarh, Punjab" />
-              </label>
-              <label>
-                Preferred finish
-                <input placeholder="Laminate, veneer, paint…" />
-              </label>
-            </div>
-            <label>
-              Additional requirement
-              <textarea placeholder="Dimensions, expected load, delivery location, timeline or any other useful detail…" />
-            </label>
-            <button className="btn btn-primary flex items-center justify-center gap-2" type="submit">
-              Send My Requirement <ArrowRight className="w-4 h-4 ml-1" />
-            </button>
-            {sent && (
-              <p className="mr-form-success" role="status">
-                Thank you. Your requirement has been captured in this demo.
-                Connect the form endpoint before production submissions.
-              </p>
-            )}
-          </form>
-        </div>
-      </section>
+      <section id="mr-enquiry" className="bg-[#143D2B] py-16 text-white sm:py-20"><div className={`${container} grid gap-10 lg:grid-cols-[.85fr_1.15fr]`}><div><Heading light eyebrow="Start With the Right Interior Plywood" title="Tell us what you’re making. We’ll help you select the right MR plywood." /><p className="mt-6 max-w-xl leading-7 text-white/75">Share the furniture application, required thickness, sheet size, quantity and delivery location. Our team will contact you to discuss suitability and current availability.</p><div className="mt-8 space-y-3 text-sm"><span className="block text-white/55">Prefer speaking directly?</span><a className="block font-bold hover:text-[#E7B572]" href={PHONE_LINK}>Call +91 72061 04340</a><a className="block font-bold hover:text-[#E7B572]" href={WHATSAPP_LINK} target="_blank" rel="noreferrer">WhatsApp our team</a></div></div><form className="rounded-2xl bg-white p-6 text-[#14211A] shadow-2xl sm:p-8" onSubmit={(event) => { event.preventDefault(); setSent(true); }}><div className="grid gap-4 sm:grid-cols-2"><Field label="Name"><input required placeholder="Your full name" /></Field><Field label="Company name"><input placeholder="Company / firm" /></Field><Field label="Phone number"><input required type="tel" placeholder="+91 · · · · ·" /></Field><Field label="Email address"><input type="email" placeholder="you@company.com" /></Field><Field label="Customer type"><select defaultValue=""><option value="" disabled>Select customer type</option><option>Homeowner</option><option>Furniture maker</option><option>Architect / Interior designer</option><option>Dealer / Distributor</option><option>Project / Bulk buyer</option></select></Field><Field label="Furniture / application"><input required placeholder="e.g. wardrobe production" /></Field></div><div className="mt-4 grid gap-4 sm:grid-cols-3"><Field label="Thickness"><select defaultValue=""><option value="">Not sure</option>{["4 mm","6 mm","9 mm","12 mm","15 mm","18 mm"].map((item) => <option key={item}>{item}</option>)}</select></Field><Field label="Sheet size"><select defaultValue=""><option value="">Not sure</option>{["8×4 ft","8×3 ft","7×4 ft","7×3 ft","6×4 ft","6×3 ft"].map((item) => <option key={item}>{item}</option>)}</select></Field><Field label="Quantity"><input type="number" min="1" placeholder="Pieces" /></Field></div><div className="mt-4 grid gap-4 sm:grid-cols-2"><Field label="City and state"><input required placeholder="e.g. Chandigarh, Punjab" /></Field><Field label="Preferred finish"><input placeholder="Laminate, veneer, paint…" /></Field></div><Field className="mt-4" label="Additional requirement"><textarea rows="4" placeholder="Dimensions, expected load, delivery location, timeline or any other useful detail…" /></Field><button className={`${darkButton} mt-5 w-full`} type="submit">Send My Requirement <ArrowRight size={16} /></button>{sent && <p className="mt-4 rounded-xl bg-[#E5F2E9] p-4 text-sm leading-6 text-[#143D2B]" role="status">Thank you. Your requirement has been captured in this demo. Connect the form endpoint before production submissions.</p>}</form></div></section>
     </div>
   );
+}
+
+function Field({ label, children, className = "" }) {
+  return <label className={`block text-sm font-semibold ${className}`}><span>{label}</span><div className="mt-2 [&_input]:w-full [&_input]:rounded-xl [&_input]:border [&_input]:border-[#D9D3C8] [&_input]:px-3 [&_input]:py-3 [&_input]:font-normal [&_input]:outline-none [&_input:focus]:border-[#9C6846] [&_select]:w-full [&_select]:rounded-xl [&_select]:border [&_select]:border-[#D9D3C8] [&_select]:bg-white [&_select]:px-3 [&_select]:py-3 [&_select]:font-normal [&_select]:outline-none [&_select:focus]:border-[#9C6846] [&_textarea]:w-full [&_textarea]:resize-y [&_textarea]:rounded-xl [&_textarea]:border [&_textarea]:border-[#D9D3C8] [&_textarea]:px-3 [&_textarea]:py-3 [&_textarea]:font-normal [&_textarea]:outline-none [&_textarea:focus]:border-[#9C6846]">{children}</div></label>;
 }
 
 export default MRGradePage;

@@ -18,7 +18,7 @@ const MOCK_DEALERS = [
     state: 'Haryana',
     pin: '135001',
     region: 'North',
-    products: ['Plywood', 'Blockboard', 'Flush Doors', 'Commercial Plywood'],
+    products: ['MR, BWP, Marine & Fire Retardant Plywood', 'Blockboard', 'Flush Doors', 'Sourced / traded materials'],
     verified: true,
     isHQ: true,
     mapPos: { x: 190, y: 110 },
@@ -145,11 +145,11 @@ const partnerRoutes = [
 
 const opportunities = [
   ['Manufacturing Base Yamunanagar', 'Pentagon manufactures plywood, blockboard and flush doors directly from India’s premier wood-panel industrial cluster.'],
-  ['A Portfolio for Diverse Demands', 'Offer calibrated marine plywood, MR commercial grades, blockboard, and customized flush door solutions under one brand.'],
+  ['Manufactured and Sourced Portfolio', 'Discuss Pentagon-manufactured MR, BWP, Marine and Fire Retardant Plywood, blockboard and flush doors alongside sourced or traded materials, subject to availability.'],
   ['Direct B2B Freight Feasibility', 'Optimized dispatch planning from factory to warehouse, reducing transit delays and damage risks.'],
   ['Enquiry-Based Supply Planning', 'Dedicated territory assessments ensuring brand partners enjoy steady supply without local market overcrowding.'],
   ['Verified Digital Dealer Locator', 'Approved partners get listed on Pentagon’s digital locator, driving local B2B and consumer leads directly to your store.'],
-  ['Transparent Commercial Terms', 'Clear commercial policies, predictable lead times, and genuine grade certification backed by decades of trust.'],
+  ['Requirement-Led Commercial Discussion', 'Product availability, grade, quantity, freight, delivery and commercial terms are discussed for the specific territory and requirement.'],
 ];
 
 const processSteps = [
@@ -185,7 +185,7 @@ const evaluationFactors = [
 const partnerExpectations = [
   'Communicate product grades and technical specs transparently to buyers',
   'Maintain appropriate stock handling and moisture-controlled storage',
-  'Promote genuine Pentagon certified products in your operational area',
+  'Communicate Pentagon product grades and available specifications accurately in your operational area',
   'Provide prompt feedback on market demand and customer requirements',
   'Follow documented commercial terms and territory guidelines',
   'Protect commercial brand representation in all store marketing',
@@ -209,11 +209,13 @@ const faqItems = [
 
 const PRODUCT_CHIPS = [
   'MR Grade Plywood',
-  'BWP Marine Plywood',
+  'BWP Grade Plywood',
   'Calibrated Plywood',
   'Blockboard',
   'Flush Doors',
-  'Commercial Plywood',
+  'Marine Grade Plywood',
+  'Fire Retardant Plywood',
+  'Sourced / traded materials',
   'HDHMR / WPC',
   'Architectural Laminates',
 ];

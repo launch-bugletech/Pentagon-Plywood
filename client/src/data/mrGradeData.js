@@ -7,8 +7,8 @@ export const quickFactsData = [
   { label: "INTERIOR USE", value: "Furniture & cabinetry", icon: "Shield" },
   { label: "GRADE", value: "Moisture resistant", icon: "Drop" },
   { label: "THICKNESS", value: "4 mm to 18 mm", icon: "Ruler" },
-  { label: "MADE IN", value: "India", icon: "Factory" },
-  { label: "SUPPLY", value: "MOQ 50 pieces", icon: "Layers" },
+  { label: "MANUFACTURING", value: "Yamunanagar, Haryana", icon: "Factory" },
+  { label: "SUPPLY", value: "Confirm quantity by size", icon: "Layers" },
 ];
 
 export const benefitsData = [
@@ -110,9 +110,9 @@ export const specificationsData = [
   ["Pattern / listed finish", "Plain / polished"],
   ["Thicknesses", "4, 6, 9, 12, 15 and 18 mm"],
   ["Sheet sizes", "8×4, 8×3, 7×4, 7×3, 6×4 and 6×3 ft"],
-  ["Minimum order quantity", "50 pieces: confirm by size and thickness"],
-  ["Business supply", "Manufacturer, exporter, supplier and retailer"],
-  ["Applicable standard", "IS 303:2024, subject to licence-scope verification"],
+  ["Order quantity", "Confirm by required size, thickness and delivery location"],
+  ["Manufacturing location", "Yamunanagar, Haryana"],
+  ["Applicable standard", "Confirm current licence scope and product specification with Pentagon"],
 ];
 
 export const thicknessesData = [
@@ -156,8 +156,8 @@ export const fabricationChecksData = [
 export const whyPentagonData = [
   {
     number: "01",
-    title: "Manufactured in Yamunanagar",
-    copy: "Made in one of India’s established wood-product manufacturing regions.",
+    title: "Manufacturing base in Yamunanagar",
+    copy: "Pentagon’s wood-based panel manufacturing operations are located in Yamunanagar, Haryana.",
   },
   {
     number: "02",
@@ -171,8 +171,8 @@ export const whyPentagonData = [
   },
   {
     number: "04",
-    title: "Small and bulk requirements",
-    copy: "Requirements around 50, 100 or 200 sheets can be discussed alongside dealer and larger orders.",
+    title: "Requirement-led supply discussion",
+    copy: "Discuss required sheet size, thickness, quantity and delivery location with the team.",
   },
   {
     number: "05",
@@ -219,8 +219,8 @@ export const faqsData = [
     answer: "The current listed range includes 4, 6, 9, 12, 15 and 18 mm in 8×4, 8×3, 7×4, 7×3, 6×4 and 6×3 ft. Confirm stock before ordering.",
   },
   {
-    question: "What is the minimum order quantity?",
-    answer: "The existing listing states 50 pieces. Confirm whether that quantity applies to the required thickness and sheet size.",
+    question: "What order quantity can I discuss?",
+    answer: "Share the required sheet size, thickness, quantity and delivery location. Pentagon will confirm the current supply option for the requirement.",
   },
   {
     question: "Does this product conform to IS 303?",

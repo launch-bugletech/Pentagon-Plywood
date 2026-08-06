@@ -1,6 +1,10 @@
 export const ROUTES = Object.freeze({
   home: '/',
   about: '/about',
+  ourStory: '/about/our-story',
+  manufacturing: '/about/manufacturing-infrastructure',
+  brands: '/about/brands-trademarks',
+  aboutV1: '/about/v1',
   contact: '/contact-us',
   contactV2: '/contact-v2',
   dealers: '/dealers-distributors',

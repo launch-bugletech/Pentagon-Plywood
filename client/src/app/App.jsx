@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import HomePage from '../pages/home/HomePage.jsx';
 import AboutPage from '../pages/about/AboutPage.jsx';
+import OurStoryPage from '../pages/about/OurStoryPage.jsx';
+import ManufacturingPage from '../pages/about/ManufacturingPage.jsx';
+import BrandsPage from '../pages/about/BrandsPage.jsx';
+import AboutV1Page from '../pages/about/AboutV1Page.jsx';
 import ContactPage from '../pages/contact/ContactPage.jsx';
 import ContactV2Page from '../pages/contact-v2/ContactV2Page.jsx';
 import DealersPage from '../pages/dealers/DealersPage.jsx';
@@ -22,6 +26,10 @@ const TWEAKS_ENABLED =   'true';
 const routes = {
   [ROUTES.home]: { Page: HomePage, activePage: 'home' },
   [ROUTES.about]: { Page: AboutPage, activePage: 'about' },
+  [ROUTES.ourStory]: { Page: OurStoryPage, activePage: 'about' },
+  [ROUTES.manufacturing]: { Page: ManufacturingPage, activePage: 'about' },
+  [ROUTES.brands]: { Page: BrandsPage, activePage: 'about' },
+  [ROUTES.aboutV1]: { Page: AboutV1Page, activePage: 'about' },
   [ROUTES.contact]: { Page: ContactPage, activePage: 'contact' },
   [ROUTES.contactV2]: { Page: ContactV2Page, activePage: 'contact' },
   [ROUTES.dealers]: { Page: DealersPage, activePage: 'dealers' },

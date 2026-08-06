@@ -14,7 +14,7 @@
 }
 
 .dealer-kicker,
-.dealer-allied > span,{
+.dealer-allied > span {
   color: var(--accent);
   font: 700 10px/1.2 var(--site-small-label-font);
   letter-spacing: 0.17em;
@@ -1269,7 +1269,7 @@
   font: 700 11px/1 var(--site-small-label-font);
 }
 
-.dealer-opportunity-grid h3,{
+.dealer-opportunity-grid h3 {
   margin-top: 34px;
   font: 400 28px/1.08 var(--site-card-title-font);
 }

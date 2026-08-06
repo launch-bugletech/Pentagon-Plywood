@@ -45,8 +45,16 @@ export const enquiryTypes = [
     iconName: "Globe",
   },
   {
-    value: "general",
+    value: "industrial-chemical",
     number: "05",
+    title: "Industrial Chemical / Formaldehyde Enquiry",
+    copy: "Share your industrial application, required specification, estimated quantity and delivery location for Formaldehyde discussions.",
+    action: "Discuss Formaldehyde Supply",
+    iconName: "FlaskConical",
+  },
+  {
+    value: "general",
+    number: "06",
     title: "General Enquiry",
     copy: "For company information, documentation or anything not covered by the other options.",
     action: "Contact Our Team",
@@ -62,6 +70,7 @@ export const customerTypes = [
   "Builder or Contractor",
   "Dealer or Distributor",
   "Commercial Buyer",
+  "Industrial Chemical Buyer",
   "Institutional Buyer",
   "Export Buyer",
   "Other",
@@ -73,6 +82,7 @@ export const productCategories = [
   "Membrane Door",
   "Laminated Door",
   "Flush Door",
+  "Formaldehyde / Industrial Chemical",
   "Multiple Products",
   "Not Sure Yet",
 ];

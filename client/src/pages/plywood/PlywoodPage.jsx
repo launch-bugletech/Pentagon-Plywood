@@ -74,7 +74,7 @@ const PlyHero = () => {
             <em className="italic-em">how you use it.</em>
           </h1>
           <p className="ply-hero-copy">
-            Compare MR Grade and Marine Plywood by application, moisture exposure and performance not only by thickness.
+            Explore the four confirmed Pentagon plywood grades—MR, BWP, Marine and Fire Retardant—according to the application and project requirement.
           </p>
           <div className="ply-hero-mobile-switch" aria-label="Plywood grade">
             <button
@@ -106,7 +106,7 @@ const PlyHero = () => {
             <div className="ply-hero-quick-item">
               <span className="quick-icon"><P.Drop/></span>
               <span className="lbl">Grades</span>
-              <span className="val">MR &amp; Marine</span>
+              <span className="val">Four confirmed grades</span>
             </div>
             <div className="ply-hero-quick-item">
               <span className="quick-icon"><P.Layers/></span>
@@ -152,7 +152,7 @@ const PlyRange = () => (
           <h2 className="h-section">Not every project needs the <em className="italic-em">same grade</em> of plywood.</h2>
         </div>
         <p className="lede">
-          An indoor wardrobe has different requirements from a kitchen cabinet or a project exposed to changing humidity. We offer two plywood categories so you can select according to where the material will be used not simply by its thickness.
+          An indoor wardrobe has different requirements from a kitchen cabinet, a moisture-conscious installation or a fire-conscious project. Pentagon’s four confirmed grades should be selected around the actual application—not only sheet thickness.
         </p>
       </div>
 
@@ -204,6 +204,16 @@ const PlyRange = () => (
             </div>
             <a href="#marine" className="btn btn-primary">Explore Marine Plywood <P.Arr/></a>
           </div>
+        </div>
+
+        <div className="range-card">
+          <div className="range-img"><img src={MarinePlywood} alt="Plywood for moisture-conscious applications" loading="lazy" /><span className="product-image-label">BWP grade</span></div>
+          <div className="range-body"><div className="range-tag">03 · BWP Grade</div><h3 className="range-name">BWP Grade Plywood</h3><p className="range-desc">A confirmed Pentagon plywood grade for applications where water-resistance requirements need to be discussed against the product specification.</p><div className="range-suited"><div className="range-suited-lbl">Discuss for</div><ul><li><P.Check/> Moisture-conscious interiors</li><li><P.Check/> Kitchen and utility requirements</li><li><P.Check/> Project specifications</li></ul></div><a href={ROUTES.bwpGradePlywood} className="btn btn-outline">Discuss BWP Grade <P.Arr/></a></div>
+        </div>
+
+        <div className="range-card">
+          <div className="range-img"><img src={MREdge} alt="Plywood layers" loading="lazy" /><span className="product-image-label">Specialised grade</span></div>
+          <div className="range-body"><div className="range-tag">04 · Fire Retardant</div><h3 className="range-name">Fire Retardant Plywood</h3><p className="range-desc">A confirmed specialised plywood grade for fire-conscious applications and project discussions.</p><div className="range-suited"><div className="range-suited-lbl">Discuss for</div><ul><li><P.Check/> Fire-conscious interiors</li><li><P.Check/> Commercial projects</li><li><P.Check/> Requirement-led specifications</li></ul></div><a href={ROUTES.fireRetardantPlywood} className="btn btn-outline">Discuss Fire Retardant Plywood <P.Arr/></a></div>
         </div>
       </div>
     </div>
@@ -456,7 +466,7 @@ const MRDetail = () => (
     ]}
     specs={[
       ["Product", "MR Grade Plywood"],
-      ["Also known as", "Commercial Plywood"],
+      ["Product grade", "MR Grade Plywood"],
       ["Country of origin", "India"],
       ["Standard", "IS 303"],
       ["Application", "Furniture and interior use"],

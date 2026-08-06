@@ -265,7 +265,10 @@ function SiteHeader({ activePage = 'home' }) {
         </a>
         <nav className="nav" aria-label="Main navigation">
           <a href={ROUTES.home} className={activePage === 'home' ? 'nav-active' : undefined} aria-current={activePage === 'home' ? 'page' : undefined} onClick={closeMenu}>Home</a>
-          <a href={ROUTES.about} className={activePage === 'about' ? 'nav-active' : undefined} aria-current={activePage === 'about' ? 'page' : undefined} onClick={closeMenu}>About Us</a>
+          <div className={`nav-dropdown${openMenu === 'about' ? ' is-open' : ''}`} onMouseEnter={() => openDropdown('about')} onMouseLeave={() => scheduleDropdownClose('about')}>
+            <button type="button" className={activePage === 'about' ? 'nav-trigger nav-active' : 'nav-trigger'} aria-expanded={openMenu === 'about'} onClick={() => toggleDropdown('about')}>About Us <ChevronIcon /></button>
+            <div className="nav-mega nav-mega-compact" data-watermark="PENTAGON"><div className="nav-mega-intro"><span>About Pentagon</span><strong>A manufacturing group built through steady expansion.</strong><a href={ROUTES.about} onClick={closeMenu}>About Pentagon <ArrowIcon /></a></div><div className="nav-link-list"><a href={ROUTES.ourStory} onClick={closeMenu}>Our Story <ArrowIcon /></a><a href={ROUTES.manufacturing} onClick={closeMenu}>Manufacturing &amp; Infrastructure <ArrowIcon /></a><a href={ROUTES.brands} onClick={closeMenu}>Brands &amp; Trademarks <ArrowIcon /></a></div></div>
+          </div>
 
           <div
             className={`nav-dropdown nav-products${openMenu === 'products' ? ' is-open' : ''}`}
