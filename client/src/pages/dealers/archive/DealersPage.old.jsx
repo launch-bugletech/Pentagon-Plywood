@@ -4,7 +4,7 @@ import {
   DEALER_SECTIONS,
   ROUTES,
   comingSoonUrl,
-} from "../../app/routes.js";
+} from "@/app/routes.js";
 import "./dealers-page.css";
 
 const PHONE = "tel:+917015085556";

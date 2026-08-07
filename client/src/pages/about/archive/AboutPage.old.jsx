@@ -1,14 +1,14 @@
 import React from "react";
-import { ABOUT_SECTIONS, HOME_SECTIONS, ROUTES } from "../../app/routes.js";
-import "./about-page.css";
+import { ABOUT_SECTIONS, HOME_SECTIONS, ROUTES } from "@/app/routes.js";
+import "../about-page.css";
 
-import manufacturingImage from "../../assets/homepage/Plywood-Manufacturing-1024x683.jpg";
-import interiorImage from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";
-import edgeImage from "../../assets/product/mr plywood/Wood veneer layers on plywood edge.png";
-import plywoodImage from "../../assets/homepage/products/Marine-plywood-1000x1000.webp";
-import blockboardImage from "../../assets/homepage/products/is303-blockboard-1671450145-6629496.webp";
-import doorImage from "../../assets/homepage/products/waterproof-flush-door-1671449760-6629491.webp";
-import teamImage from "../../assets/product/Applications/Modern office with desks and partitions.png";
+import manufacturingImage from "@/assets/homepage/Plywood-Manufacturing-1024x683.jpg";
+import interiorImage from "@/assets/product/Applications/Modern kitchen with cabinets and island.png";
+import edgeImage from "@/assets/product/mr plywood/Wood veneer layers on plywood edge.png";
+import plywoodImage from "@/assets/homepage/products/Marine-plywood-1000x1000.webp";
+import blockboardImage from "@/assets/homepage/products/is303-blockboard-1671450145-6629496.webp";
+import doorImage from "@/assets/homepage/products/waterproof-flush-door-1671449760-6629491.webp";
+import teamImage from "@/assets/product/Applications/Modern office with desks and partitions.png";
 
 const Icon = {
   Arrow: () => (

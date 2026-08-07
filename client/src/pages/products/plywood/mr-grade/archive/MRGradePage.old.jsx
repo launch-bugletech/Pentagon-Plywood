@@ -19,11 +19,11 @@ import {
   HOME_SECTIONS,
   MR_GRADE_SECTIONS,
   ROUTES,
-} from "../../app/routes.js";
-import plywoodImage from "../../assets/product/mr plywood/mr-grade-plywood-1671449588-6629452.webp";
-import heroRoomBg from "../../assets/product/mr plywood/mr-hero-bg-room.png";
-import edgeImage from "../../assets/product/mr plywood/Wood veneer layers on plywood edge.png";
-import surfaceImage from "../../assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
+} from "@/app/routes.js";
+import plywoodImage from "@/assets/product/mr plywood/mr-grade-plywood-1671449588-6629452.webp";
+import heroRoomBg from "@/assets/product/mr plywood/mr-hero-bg-room.png";
+import edgeImage from "@/assets/product/mr plywood/Wood veneer layers on plywood edge.png";
+import surfaceImage from "@/assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
 import {
   applicationsData,
   benefitsData,
@@ -36,7 +36,7 @@ import {
   specificationsData,
   thicknessesData,
   whyPentagonData,
-} from "../../data/mrGradeData.jsx";
+} from "../../../../../data/mrGradeData.jsx";
 
 const PHONE_LINK = "tel:+917015085556";
 const WHATSAPP_LINK = `https://wa.me/917015085556?text=${encodeURIComponent(

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Compass, FileText, Layers, Mail, PhoneCall, Sparkles } from 'lucide-react';
-import { CONTACT_SECTIONS, HOME_SECTIONS, ROUTES } from '../../app/routes.js';
+import { CONTACT_SECTIONS, HOME_SECTIONS, ROUTES } from '@/app/routes.js';
 
 function ComingSoonPage() {
   const [email, setEmail] = useState('');

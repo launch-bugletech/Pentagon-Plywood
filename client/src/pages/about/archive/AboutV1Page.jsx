@@ -19,11 +19,11 @@ import {
   CONTACT_SECTIONS,
   HOME_SECTIONS,
   ROUTES,
-} from "../../app/routes.js";
-import manufacturingImage from "../../assets/homepage/Plywood-Manufacturing-1024x683.jpg";
-import interiorImage from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";
-import edgeImage from "../../assets/product/mr plywood/Wood veneer layers on plywood edge.png";
-import plywoodImage from "../../assets/homepage/products/Marine-plywood-1000x1000.webp";
+} from "@/app/routes.js";
+import manufacturingImage from "@/assets/homepage/Plywood-Manufacturing-1024x683.jpg";
+import interiorImage from "@/assets/product/Applications/Modern kitchen with cabinets and island.png";
+import edgeImage from "@/assets/product/mr plywood/Wood veneer layers on plywood edge.png";
+import plywoodImage from "@/assets/homepage/products/Marine-plywood-1000x1000.webp";
 
 const c = "mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10";
 const section = "py-16 sm:py-20 lg:py-28";

@@ -23,7 +23,7 @@ import {
   Warehouse,
   X,
 } from "lucide-react";
-import { CONTACT_SECTIONS, DEALER_SECTIONS, ROUTES } from "../../app/routes.js";
+import { CONTACT_SECTIONS, DEALER_SECTIONS, ROUTES } from "@/app/routes.js";
 import {
   Accordion,
   AccordionContent,

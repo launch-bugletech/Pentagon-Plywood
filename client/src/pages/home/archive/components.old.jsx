@@ -1,19 +1,19 @@
 /* Pentagon Plywood : Homepage Components (old version) */
 
 import React from 'react';
-import heroImage from '../../assets/hero-home-desktop.png';
-import mobileHeroImage from '../../assets/hero-home-mobile.png';
-import anniversaryImage from '../../assets/hero-anniversary-laurels.png';
+import heroImage from '@/assets/hero-home-desktop.png';
+import mobileHeroImage from '@/assets/hero-home-mobile.png';
+import anniversaryImage from '@/assets/hero-anniversary-laurels.png';
 
 //  Application images
-import modularImage from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";
-import officeImage from "../../assets/product/Applications/Modern office with desks and partitions.png";
-import retailImage from "../../assets/product/Applications/Retail store interior with shelves and displays.png";
-import residentialImage from '../../assets/homepage/Duroply-Feature-Images-and-Blog-Images-8-1024x576.jpg';
+import modularImage from "@/assets/product/Applications/Modern kitchen with cabinets and island.png";
+import officeImage from "@/assets/product/Applications/Modern office with desks and partitions.png";
+import retailImage from "@/assets/product/Applications/Retail store interior with shelves and displays.png";
+import residentialImage from '@/assets/homepage/Duroply-Feature-Images-and-Blog-Images-8-1024x576.jpg';
 
-import WardrobeApplication from '../../assets/product/Applications/Modern wardrobe with sliding doors.png';
-import BathroomApplication from "../../assets/product/Applications/Modern bathroom with vanity and mirror.png";
-import LivingRoomApplication from "../../assets/product/Applications/Contemporary living room with furniture.png";
+import WardrobeApplication from '@/assets/product/Applications/Modern wardrobe with sliding doors.png';
+import BathroomApplication from "@/assets/product/Applications/Modern bathroom with vanity and mirror.png";
+import LivingRoomApplication from "@/assets/product/Applications/Contemporary living room with furniture.png";
 
 
 import manufacturingImage from '../../assets/homepage/Plywood-Manufacturing-1024x683.jpg';

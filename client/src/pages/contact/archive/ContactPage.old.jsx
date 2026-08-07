@@ -6,7 +6,7 @@ import {
   CONTACT_SECTIONS,
   HOME_SECTIONS,
   ROUTES,
-} from "../../app/routes.js";
+} from "@/app/routes.js";
 import {
   PHONE_DISPLAY,
   PHONE_LINK,
@@ -22,8 +22,8 @@ import {
   plannerCategories,
   projectEstimates,
   plannerTabs,
-} from "./contactData.js";
-import "./contact-page.css";
+} from "../contactData.js";
+import "../contact-page.css";
 
 const FACTORY_360_URL =
   "https://www.google.com/maps/embed?pb=!4v1786021997875!6m8!1m7!1sR9TCbEr38ulcKQYtMl5aJA!2m2!1d30.09940653232269!2d77.28578053381996!3f85.68189271022864!4f-16.154239758161893!5f0.7820865974627469";

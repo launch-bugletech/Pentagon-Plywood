@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { comingSoonUrl, CONTACT_SECTIONS, HOME_SECTIONS, ROUTES } from "../../app/routes.js";
+import { comingSoonUrl, CONTACT_SECTIONS, HOME_SECTIONS, ROUTES } from "@/app/routes.js";
 
 import {
   PhoneCall,
@@ -17,10 +17,10 @@ import {
   Globe,
 } from "lucide-react";
 
-import kitchenImg from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";
-import livingImg from "../../assets/product/Applications/Contemporary living room with furniture.png";
-import officeImg from "../../assets/product/Applications/Modern office with desks and partitions.png";
-import wardrobeImg from "../../assets/product/Applications/Modern wardrobe with sliding doors.png";
+import kitchenImg from "@/assets/product/Applications/Modern kitchen with cabinets and island.png";
+import livingImg from "@/assets/product/Applications/Contemporary living room with furniture.png";
+import officeImg from "@/assets/product/Applications/Modern office with desks and partitions.png";
+import wardrobeImg from "@/assets/product/Applications/Modern wardrobe with sliding doors.png";
 
 import {
   PHONE_DISPLAY,
@@ -34,7 +34,7 @@ import {
   nextSteps,
   productDirections,
   faqs,
-} from "../contact/contactData.js";
+} from "../contactData.js";
 
 const iconMap = {
   Package: Package,

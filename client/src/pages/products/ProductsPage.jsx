@@ -15,7 +15,7 @@ import {
   ShieldCheck,
   SwatchBook,
 } from 'lucide-react';
-import { CONTACT_SECTIONS, PRODUCT_ROUTES, ROUTES } from '../../app/routes.js';
+import { CONTACT_SECTIONS, PRODUCT_ROUTES, ROUTES } from '@/app/routes.js';
 import {
   applicationProducts,
   manufacturedCategories,

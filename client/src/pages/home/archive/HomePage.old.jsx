@@ -5,7 +5,7 @@ import {
   Hero, Trust, Products, FindProduct, Brands, Why,
   Manufacturing, Quality, Applications, Projects, Dealer,
   Testimonials, Resources, Enquiry, WhatsappFloat,
-} from './components.old.jsx';
+} from '../components.jsx';
 
 function HomePageOld() {
   useEffect(() => {

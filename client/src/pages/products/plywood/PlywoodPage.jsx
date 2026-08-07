@@ -1,29 +1,29 @@
 /* Pentagon Plywood - Plywood product page. */
 
 import React from "react";
-import { ROUTES } from "../../app/routes.js";
+import { ROUTES } from "@/app/routes.js";
 import "./plywood-page.css";
 
 // Marine - plywood - 1000x1000.webp';
 // mr plywood/
-import MRPlywood from "../../assets/product/mr plywood/mr-grade-plywood-1671449588-6629452.webp";
-import BedroomApplication from "../../assets/product/mr plywood/Cozy minimalist bedroom with natural light.png";
-import MREdge from "../../assets/product/mr plywood/Wood veneer layers on plywood edge.png";
-import MRSurface from "../../assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
+import MRPlywood from "@/assets/product/mr plywood/mr-grade-plywood-1671449588-6629452.webp";
+import BedroomApplication from "@/assets/product/mr plywood/Cozy minimalist bedroom with natural light.png";
+import MREdge from "@/assets/product/mr plywood/Wood veneer layers on plywood edge.png";
+import MRSurface from "@/assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
 
 // Marine - plywood
-import MarinePlywood from "../../assets/homepage/products/Marine-plywood-1000x1000.webp";
-import MarineApplication from "../../assets/product/marine plywood/marine-plywood-kitchen.png";
-import MarineEdge from "../../assets/product/marine plywood/marine-plywood-layered-board.png";
-import MarineSurface from "../../assets/product/marine plywood/marine-plywood-wood-grain.png";
+import MarinePlywood from "@/assets/homepage/products/Marine-plywood-1000x1000.webp";
+import MarineApplication from "@/assets/product/marine plywood/marine-plywood-kitchen.png";
+import MarineEdge from "@/assets/product/marine plywood/marine-plywood-layered-board.png";
+import MarineSurface from "@/assets/product/marine plywood/marine-plywood-wood-grain.png";
 
 //  Application images
-import WardrobeApplication from "../../assets/product/Applications/Modern wardrobe with sliding doors.png";
-import KitchenApplication from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";
-import LivingRoomApplication from "../../assets/product/Applications/Contemporary living room with furniture.png";
-import OfficeApplication from "../../assets/product/Applications/Modern office with desks and partitions.png";
-import RetailApplication from "../../assets/product/Applications/Retail store interior with shelves and displays.png";
-import BathroomApplication from "../../assets/product/Applications/Modern bathroom with vanity and mirror.png";
+import WardrobeApplication from "@/assets/product/Applications/Modern wardrobe with sliding doors.png";
+import KitchenApplication from "@/assets/product/Applications/Modern kitchen with cabinets and island.png";
+import LivingRoomApplication from "@/assets/product/Applications/Contemporary living room with furniture.png";
+import OfficeApplication from "@/assets/product/Applications/Modern office with desks and partitions.png";
+import RetailApplication from "@/assets/product/Applications/Retail store interior with shelves and displays.png";
+import BathroomApplication from "@/assets/product/Applications/Modern bathroom with vanity and mirror.png";
 
 const P = {
   // shorthand icons reuse
