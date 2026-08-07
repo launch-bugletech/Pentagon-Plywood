@@ -68,7 +68,7 @@ const iconMap = {
 function HomePage() {
   // Products filter state
   const [activeProductTab, setActiveProductTab] = useState("all");
-  
+
   // Enquiry form submission state
   const [enquirySubmitted, setEnquirySubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -82,9 +82,10 @@ function HomePage() {
     details: "",
   });
 
-  const filteredProducts = activeProductTab === "all"
-    ? PRODUCTS_DATA
-    : PRODUCTS_DATA.filter((p) => p.category === activeProductTab);
+  const filteredProducts =
+    activeProductTab === "all"
+      ? PRODUCTS_DATA
+      : PRODUCTS_DATA.filter((p) => p.category === activeProductTab);
 
   const handleEnquirySubmit = (e) => {
     e.preventDefault();
@@ -108,7 +109,8 @@ function HomePage() {
           {/* Left Column: Heading & Content */}
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 bg-[#C86D51]/20 border border-[#C86D51]/40 text-[#E8927C] font-bold text-[11px] leading-tight tracking-[0.18em] uppercase px-4 py-1.5 rounded-full">
-              <Award className="h-3.5 w-3.5 text-[#C86D51]" /> {HERO_DATA.eyebrow}
+              <Award className="h-3.5 w-3.5 text-[#C86D51]" />{" "}
+              {HERO_DATA.eyebrow}
             </div>
 
             <h1 className="font-['Oswald',sans-serif] text-[44px] sm:text-[60px] lg:text-[72px] font-bold leading-[1.02] tracking-[-1.5px] text-white">
@@ -139,9 +141,18 @@ function HomePage() {
             </div>
 
             <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-6 text-xs text-white/75">
-              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-[#C86D51]" /> 100% Calibrated Core</span>
-              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-[#C86D51]" /> IS:710 & IS:303 Certified</span>
-              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-[#C86D51]" /> Direct Factory Supply</span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-[#C86D51]" /> 100%
+                Calibrated Core
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-[#C86D51]" /> IS:710 &
+                IS:303 Certified
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-[#C86D51]" /> Direct
+                Factory Supply
+              </span>
             </div>
           </div>
 
@@ -149,7 +160,10 @@ function HomePage() {
           <div className="lg:col-span-5">
             <div className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl bg-[#0B2A1D] group">
               <picture>
-                <source media="(max-width: 900px)" srcSet={HERO_DATA.mobileHeroImage} />
+                <source
+                  media="(max-width: 900px)"
+                  srcSet={HERO_DATA.mobileHeroImage}
+                />
                 <img
                   src={HERO_DATA.heroImage}
                   alt="Pentagon Warm Plywood Interior Architecture"
@@ -160,9 +174,15 @@ function HomePage() {
 
               {/* Anniversary Laurels Floating Tag */}
               <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-white/20 rounded-2xl p-2.5 flex items-center gap-3">
-                <img src={HERO_DATA.anniversaryImage} alt="25 Years" className="h-10 w-auto" />
+                <img
+                  src={HERO_DATA.anniversaryImage}
+                  alt="40 Years"
+                  className="h-10 w-auto"
+                />
                 <div className="text-white text-[10px] leading-tight font-bold">
-                  <span className="text-[#C86D51] uppercase block">CELEBRATING</span>
+                  <span className="text-[#C86D51] uppercase block">
+                    CELEBRATING
+                  </span>
                   <span>40 YEARS GROUP LEGACY</span>
                 </div>
               </div>
@@ -170,12 +190,13 @@ function HomePage() {
               {/* Bottom Card Meta */}
               <div className="absolute bottom-5 left-5 right-5 text-white flex items-center justify-between">
                 <div>
-                  <small className="text-[10px] font-extrabold tracking-widest text-[#C86D51] uppercase block">INTEGRATED MANUFACTURING</small>
-                  <strong className="text-lg font-bold">Yamunanagar & Morbi Facilities</strong>
+                  <small className="text-[10px] font-extrabold tracking-widest text-[#C86D51] uppercase block">
+                    INTEGRATED MANUFACTURING
+                  </small>
+                  <strong className="text-lg font-bold">
+                    Yamunanagar & Morbi Facilities
+                  </strong>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#143D2B]/90 border border-white/20 text-[#E8927C] text-xs font-bold shadow-md">
-                  Vol. 01 · 2026
-                </span>
               </div>
             </div>
           </div>
@@ -189,7 +210,10 @@ function HomePage() {
             {TRUST_STATS.map((stat, idx) => {
               const IconComponent = iconMap[stat.iconName] || Calendar;
               return (
-                <div key={idx} className="flex items-center gap-5 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-[#C86D51]/50 transition-colors">
+                <div
+                  key={idx}
+                  className="flex items-center gap-5 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-[#C86D51]/50 transition-colors"
+                >
                   <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C] shadow-md border border-white/10">
                     <IconComponent className="h-6 w-6" />
                   </div>
@@ -220,11 +244,15 @@ function HomePage() {
                 PRODUCT RANGE
               </div>
               <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-[#14211A]">
-                Discover Our <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">Core Collection.</em>
+                Discover Our{" "}
+                <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+                  Core Collection.
+                </em>
               </h2>
             </div>
             <p className="max-w-md text-[#4A5750] text-sm leading-relaxed">
-              Pentagon manufactures MR, BWP, Marine and Fire Retardant Plywood, blockboard and flush doors held to strict factory standards.
+              Pentagon manufactures MR, BWP, Marine and Fire Retardant Plywood,
+              blockboard and flush doors held to strict factory standards.
             </p>
           </div>
 
@@ -280,7 +308,10 @@ function HomePage() {
 
                     <div className="space-y-1.5 pt-3 border-t border-[#CAD4CC]/50">
                       {p.features.map((feat, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-[11px] text-[#4A5750] font-semibold">
+                        <div
+                          key={idx}
+                          className="flex items-center gap-2 text-[11px] text-[#4A5750] font-semibold"
+                        >
                           <CheckCircle2 className="h-3.5 w-3.5 text-[#C86D51] shrink-0" />
                           <span>{feat}</span>
                         </div>
@@ -315,10 +346,14 @@ function HomePage() {
               GUIDED SELECTION
             </div>
             <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-[#14211A]">
-              What Are You <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">Building?</em>
+              What Are You{" "}
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+                Building?
+              </em>
             </h2>
             <p className="mt-3 text-[#4A5750] text-sm leading-relaxed">
-              Tell us the space, and we'll point you to the right board grade. A simpler way to specify plywood, directly from the manufacturer.
+              Tell us the space, and we'll point you to the right board grade. A
+              simpler way to specify plywood, directly from the manufacturer.
             </p>
           </div>
 
@@ -362,10 +397,15 @@ function HomePage() {
               SIGNATURE RANGES
             </div>
             <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-[#14211A]">
-              Eight Brands. <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">One Standard.</em>
+              Eight Brands.{" "}
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+                One Standard.
+              </em>
             </h2>
             <p className="mt-3 text-[#4A5750] text-sm leading-relaxed">
-              From economy to elite marine grade, every Pentagon brand is manufactured in our Yamunanagar facility under identical quality control standards.
+              From economy to elite marine grade, every Pentagon brand is
+              manufactured in our Yamunanagar facility under identical quality
+              control standards.
             </p>
           </div>
 
@@ -381,7 +421,10 @@ function HomePage() {
                   </span>
                 </div>
                 <strong className="font-['DM_Serif_Display',Georgia,serif] text-2xl text-[#14211A] block">
-                  {brand.name} <small className="text-sm font-normal text-[#C86D51]">{brand.sub}</small>
+                  {brand.name}{" "}
+                  <small className="text-sm font-normal text-[#C86D51]">
+                    {brand.sub}
+                  </small>
                 </strong>
                 <span className="text-[11px] text-[#65736A] font-medium block mt-1">
                   {brand.meta}
@@ -397,7 +440,8 @@ function HomePage() {
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-7 space-y-4">
                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#C86D51]/20 text-[#E8927C] text-[10px] font-extrabold uppercase tracking-widest border border-[#C86D51]/40">
-                  <Sparkles className="h-3.5 w-3.5 text-[#C86D51]" /> {ESCOTEL_SPOTLIGHT.kicker}
+                  <Sparkles className="h-3.5 w-3.5 text-[#C86D51]" />{" "}
+                  {ESCOTEL_SPOTLIGHT.kicker}
                 </span>
 
                 <h3 className="font-['Oswald',sans-serif] text-3xl sm:text-4xl font-bold text-white">
@@ -410,9 +454,16 @@ function HomePage() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
                   {ESCOTEL_SPOTLIGHT.features.map((feat, idx) => (
-                    <div key={idx} className="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-                      <strong className="text-base font-bold text-[#C86D51] block">{feat.label}</strong>
-                      <span className="text-[11px] text-white/80 block mt-0.5">{feat.desc}</span>
+                    <div
+                      key={idx}
+                      className="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15"
+                    >
+                      <strong className="text-base font-bold text-[#C86D51] block">
+                        {feat.label}
+                      </strong>
+                      <span className="text-[11px] text-white/80 block mt-0.5">
+                        {feat.desc}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -432,17 +483,24 @@ function HomePage() {
       </section>
 
       {/* 6. THE PENTAGON PROMISE */}
-      <section className="py-[82px] lg:py-[120px] bg-[#F7F3EC] border-b border-[#CAD4CC]" id="promise">
+      <section
+        className="py-[82px] lg:py-[120px] bg-[#F7F3EC] border-b border-[#CAD4CC]"
+        id="promise"
+      >
         <div className="max-w-[1280px] mx-auto px-7">
           <div className="max-w-2xl mb-12">
             <div className="text-[#C86D51] font-bold text-[11px] leading-tight tracking-[0.18em] uppercase mb-2">
               THE PENTAGON PROMISE
             </div>
             <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-[#14211A]">
-              Why Interior Professionals <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">Choose Us.</em>
+              Why Interior Professionals{" "}
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+                Choose Us.
+              </em>
             </h2>
             <p className="mt-3 text-[#4A5750] text-sm leading-relaxed">
-              Four non-negotiable decisions made on every panel we press in Yamunanagar.
+              Four non-negotiable decisions made on every panel we press in
+              Yamunanagar.
             </p>
           </div>
 
@@ -474,7 +532,8 @@ function HomePage() {
                   </div>
 
                   <div className="mt-6 pt-4 border-t border-[#CAD4CC]/50 flex items-center gap-2 text-[10px] font-extrabold text-[#143D2B] uppercase tracking-wider">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#C86D51]" /> Pentagon Standard
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#C86D51]" />{" "}
+                    Pentagon Standard
                   </div>
                 </div>
               );
@@ -484,7 +543,10 @@ function HomePage() {
       </section>
 
       {/* 7. MANUFACTURING EXCELLENCE */}
-      <section className="py-[82px] lg:py-[120px] bg-[#14211A] text-white" id="manufacturing">
+      <section
+        className="py-[82px] lg:py-[120px] bg-[#14211A] text-white"
+        id="manufacturing"
+      >
         <div className="max-w-[1280px] mx-auto px-7 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6">
             <div className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl">
@@ -515,12 +577,19 @@ function HomePage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/15">
               {MANUFACTURING_DATA.steps.map((step) => (
-                <div key={step.num} className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div
+                  key={step.num}
+                  className="p-4 rounded-2xl bg-white/5 border border-white/10"
+                >
                   <span className="text-xs font-extrabold text-[#C86D51] uppercase tracking-widest block mb-1">
                     STEP {step.num}
                   </span>
-                  <strong className="text-sm font-bold text-white block">{step.title}</strong>
-                  <span className="text-[11px] text-white/70 block mt-0.5">{step.desc}</span>
+                  <strong className="text-sm font-bold text-white block">
+                    {step.title}
+                  </strong>
+                  <span className="text-[11px] text-white/70 block mt-0.5">
+                    {step.desc}
+                  </span>
                 </div>
               ))}
             </div>
@@ -546,13 +615,20 @@ function HomePage() {
 
             <div className="space-y-3.5 pt-2">
               {QUALITY_DATA.processList.map((item) => (
-                <div key={item.num} className="flex items-start gap-4 p-4 rounded-2xl bg-[#F7F3EC] border border-[#CAD4CC]/60">
+                <div
+                  key={item.num}
+                  className="flex items-start gap-4 p-4 rounded-2xl bg-[#F7F3EC] border border-[#CAD4CC]/60"
+                >
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#C86D51] font-bold text-xs">
                     {item.num}
                   </span>
                   <div>
-                    <strong className="text-sm font-bold text-[#14211A] block">{item.title}</strong>
-                    <span className="text-xs text-[#65736A] block mt-0.5">{item.desc}</span>
+                    <strong className="text-sm font-bold text-[#14211A] block">
+                      {item.title}
+                    </strong>
+                    <span className="text-xs text-[#65736A] block mt-0.5">
+                      {item.desc}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -563,18 +639,33 @@ function HomePage() {
             <div className="p-8 rounded-3xl bg-[#143D2B] text-white border border-white/20 shadow-2xl space-y-6">
               <div className="flex items-center justify-between border-b border-white/15 pb-4">
                 <div>
-                  <span className="text-[10px] font-extrabold tracking-widest text-[#C86D51] uppercase block">VERIFIED PERFORMANCE</span>
-                  <h3 className="text-2xl font-bold">Certified at Every Level</h3>
+                  <span className="text-[10px] font-extrabold tracking-widest text-[#C86D51] uppercase block">
+                    VERIFIED PERFORMANCE
+                  </span>
+                  <h3 className="text-2xl font-bold">
+                    Certified at Every Level
+                  </h3>
                 </div>
                 <CheckCircle2 className="h-8 w-8 text-[#C86D51]" />
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 {QUALITY_DATA.certificates.map((cert, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center">
-                    <img src={cert.logo} alt={cert.name} className="h-12 w-auto mx-auto mb-2 object-contain" />
-                    <strong className="text-xs font-bold text-white block">{cert.name}</strong>
-                    <span className="text-[10px] text-white/70 block mt-0.5">{cert.desc}</span>
+                  <div
+                    key={idx}
+                    className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center"
+                  >
+                    <img
+                      src={cert.logo}
+                      alt={cert.name}
+                      className="h-12 w-auto mx-auto mb-2 object-contain"
+                    />
+                    <strong className="text-xs font-bold text-white block">
+                      {cert.name}
+                    </strong>
+                    <span className="text-[10px] text-white/70 block mt-0.5">
+                      {cert.desc}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -591,14 +682,20 @@ function HomePage() {
       </section>
 
       {/* 9. APPLICATIONS GALLERY */}
-      <section className="py-[82px] lg:py-[120px] bg-[#F7F3EC] border-y border-[#CAD4CC]" id="applications">
+      <section
+        className="py-[82px] lg:py-[120px] bg-[#F7F3EC] border-y border-[#CAD4CC]"
+        id="applications"
+      >
         <div className="max-w-[1280px] mx-auto px-7">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="text-[#C86D51] font-bold text-[11px] leading-tight tracking-[0.18em] uppercase mb-2">
               APPLICATIONS & INDUSTRIES
             </div>
             <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-[#14211A]">
-              Crafted for <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">Every Space.</em>
+              Crafted for{" "}
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+                Every Space.
+              </em>
             </h2>
           </div>
 
@@ -637,7 +734,10 @@ function HomePage() {
               BUILT FOR EVERY KIND OF SPACE
             </div>
             <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-[#14211A]">
-              Our Plywood <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">In Action.</em>
+              Our Plywood{" "}
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+                In Action.
+              </em>
             </h2>
           </div>
 
@@ -649,7 +749,11 @@ function HomePage() {
               >
                 <div>
                   <div className="relative h-48 w-full bg-[#14211A]">
-                    <img src={proj.image} alt={proj.title} className="h-full w-full object-cover opacity-85" />
+                    <img
+                      src={proj.image}
+                      alt={proj.title}
+                      className="h-full w-full object-cover opacity-85"
+                    />
                     <div className="absolute top-3 left-3 flex gap-2">
                       <span className="px-3 py-1 rounded-full bg-[#143D2B] text-white text-[10px] font-bold">
                         {proj.type}
@@ -676,7 +780,10 @@ function HomePage() {
       </section>
 
       {/* 11. DEALER & DISTRIBUTOR PARTNERSHIP */}
-      <section className="py-[82px] lg:py-[120px] bg-[#143D2B] text-white" id="dealers">
+      <section
+        className="py-[82px] lg:py-[120px] bg-[#143D2B] text-white"
+        id="dealers"
+      >
         <div className="max-w-[1280px] mx-auto px-7 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 space-y-6">
             <div className="text-[#E8927C] font-bold text-[11px] leading-tight tracking-[0.18em] uppercase">
@@ -684,11 +791,15 @@ function HomePage() {
             </div>
 
             <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-white">
-              Partner With a <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">Legacy Brand.</em>
+              Partner With a{" "}
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+                Legacy Brand.
+              </em>
             </h2>
 
             <p className="text-white/80 text-base leading-relaxed">
-              Explore a channel partnership built around your territory, godown infrastructure, and product demand.
+              Explore a channel partnership built around your territory, godown
+              infrastructure, and product demand.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
@@ -709,7 +820,10 @@ function HomePage() {
 
           <div className="lg:col-span-6 space-y-3">
             {DEALER_BENEFITS.map((benefit, idx) => (
-              <div key={idx} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+              <div
+                key={idx}
+                className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              >
                 <span className="flex items-center gap-3 text-xs font-semibold text-white/90">
                   <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#C86D51] text-white text-[11px] font-bold">
                     0{idx + 1}
@@ -731,13 +845,19 @@ function HomePage() {
               FROM OUR PARTNERS
             </div>
             <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-[#14211A]">
-              Trusted By <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">Experts Across India.</em>
+              Trusted By{" "}
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+                Experts Across India.
+              </em>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TESTIMONIALS_DATA.map((item, idx) => (
-              <div key={idx} className="p-8 rounded-3xl border border-[#CAD4CC] bg-[#FDFBF8] flex flex-col justify-between shadow-xs">
+              <div
+                key={idx}
+                className="p-8 rounded-3xl border border-[#CAD4CC] bg-[#FDFBF8] flex flex-col justify-between shadow-xs"
+              >
                 <p className="font-['DM_Serif_Display',Georgia,serif] text-lg text-[#14211A] leading-relaxed italic mb-6">
                   "{item.quote}"
                 </p>
@@ -747,8 +867,12 @@ function HomePage() {
                     {item.initial}
                   </div>
                   <div>
-                    <strong className="text-sm font-bold text-[#14211A] block">{item.author}</strong>
-                    <span className="text-xs text-[#65736A] block">{item.role}</span>
+                    <strong className="text-sm font-bold text-[#14211A] block">
+                      {item.author}
+                    </strong>
+                    <span className="text-xs text-[#65736A] block">
+                      {item.role}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -765,13 +889,19 @@ function HomePage() {
               KNOWLEDGE & RESOURCES
             </div>
             <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-[#14211A]">
-              Industry Insights & <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">Buying Guides.</em>
+              Industry Insights &{" "}
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+                Buying Guides.
+              </em>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {RESOURCES_DATA.map((res, idx) => (
-              <div key={idx} className="p-7 rounded-3xl border border-[#CAD4CC] bg-[#F7F3EC] hover:bg-white hover:border-[#143D2B] shadow-xs transition-all duration-300 flex flex-col justify-between">
+              <div
+                key={idx}
+                className="p-7 rounded-3xl border border-[#CAD4CC] bg-[#F7F3EC] hover:bg-white hover:border-[#143D2B] shadow-xs transition-all duration-300 flex flex-col justify-between"
+              >
                 <div>
                   <span className="px-3 py-1 rounded-full bg-[#143D2B] text-[#E8927C] text-[10px] font-bold uppercase tracking-wider inline-block mb-3">
                     {res.tag}
@@ -795,7 +925,10 @@ function HomePage() {
       </section>
 
       {/* 14. TAILORED ENQUIRY FORM SECTION */}
-      <section className="py-[82px] lg:py-[120px] bg-[#143D2B] text-white" id="enquiry">
+      <section
+        className="py-[82px] lg:py-[120px] bg-[#143D2B] text-white"
+        id="enquiry"
+      >
         <div className="max-w-[1280px] mx-auto px-7 grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5 space-y-6">
             <div className="text-[#E8927C] font-bold text-[11px] leading-tight tracking-[0.18em] uppercase">
@@ -803,36 +936,55 @@ function HomePage() {
             </div>
 
             <h2 className="font-['Oswald',sans-serif] text-[40px] lg:text-[56px] font-bold leading-none tracking-[-1px] text-white">
-              Tell Us What You're <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic block mt-1">Building.</em>
+              Tell Us What You're{" "}
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic block mt-1">
+                Building.
+              </em>
             </h2>
 
             <p className="text-white/80 text-base leading-relaxed">
-              Reach out for bulk enquiries, custom quotes, dealership discussions or technical assistance. Our sales desk responds within 1 business day.
+              Reach out for bulk enquiries, custom quotes, dealership
+              discussions or technical assistance. Our sales desk responds
+              within 1 business day.
             </p>
 
             <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4">
               <div className="flex items-center gap-3">
                 <MapPin className="h-5 w-5 text-[#C86D51]" />
-                <span className="text-xs text-white/90">Village Raipur, Khajuri Road, Yamunanagar, Haryana 135001</span>
+                <span className="text-xs text-white/90">
+                  Village Raipur, Khajuri Road, Yamunanagar, Haryana 135001
+                </span>
               </div>
               <div className="flex items-center gap-3">
                 <PhoneCall className="h-5 w-5 text-[#C86D51]" />
-                <span className="text-xs text-white/90">+91 7206 104 340 · Sales Desk</span>
+                <span className="text-xs text-white/90">
+                  +91 70150 85556 · Sales Desk
+                </span>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-[#C86D51]" />
-                <span className="text-xs text-white/90">pentagonplywood@gmail.com</span>
+                <span className="text-xs text-white/90">
+                  sales@pentagonply.com
+                </span>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-7">
-            <form onSubmit={handleEnquirySubmit} className="p-8 sm:p-10 rounded-3xl bg-[#FDFBF8] text-[#14211A] shadow-2xl border border-white/20">
+            <form
+              onSubmit={handleEnquirySubmit}
+              className="p-8 sm:p-10 rounded-3xl bg-[#FDFBF8] text-[#14211A] shadow-2xl border border-white/20"
+            >
               {enquirySubmitted ? (
                 <div className="text-center py-10">
                   <CheckCircle2 className="h-12 w-12 text-[#C86D51] mx-auto mb-4" />
-                  <h3 className="font-['Oswald',sans-serif] text-3xl font-bold text-[#14211A]">Enquiry Received</h3>
-                  <p className="text-[#65736A] mt-2">Thank you! Our sales team will get back to you within 24 business hours.</p>
+                  <h3 className="font-['Oswald',sans-serif] text-3xl font-bold text-[#14211A]">
+                    Enquiry Received
+                  </h3>
+                  <p className="text-[#65736A] mt-2">
+                    Thank you! Our sales team will get back to you within 24
+                    business hours.
+                  </p>
                   <button
                     type="button"
                     className="mt-6 text-xs font-bold uppercase tracking-wider text-[#14211A] underline cursor-pointer"
@@ -845,8 +997,12 @@ function HomePage() {
                 <>
                   <div className="flex items-center justify-between pb-4 border-b border-[#CAD4CC]">
                     <div>
-                      <span className="text-[10px] font-extrabold tracking-widest text-[#C86D51] uppercase">DIRECT SALES DESK</span>
-                      <h3 className="font-['Oswald',sans-serif] text-2xl sm:text-3xl font-bold text-[#14211A]">Request a Tailored Quote</h3>
+                      <span className="text-[10px] font-extrabold tracking-widest text-[#C86D51] uppercase">
+                        DIRECT SALES DESK
+                      </span>
+                      <h3 className="font-['Oswald',sans-serif] text-2xl sm:text-3xl font-bold text-[#14211A]">
+                        Request a Tailored Quote
+                      </h3>
                     </div>
                     <span className="px-3 py-1 rounded-full bg-[#143D2B] text-white text-[10px] font-bold uppercase">
                       FAST RESPONSE
@@ -861,7 +1017,9 @@ function HomePage() {
                         required
                         placeholder="Your full name"
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, name: e.target.value })
+                        }
                         className="p-3 rounded-xl border border-[#CAD4CC] bg-[#FDFBF8] text-sm font-normal text-[#14211A] focus:border-[#C86D51] focus:outline-hidden"
                       />
                     </label>
@@ -873,7 +1031,9 @@ function HomePage() {
                         required
                         placeholder="+91 98765 43210"
                         value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, phone: e.target.value })
+                        }
                         className="p-3 rounded-xl border border-[#CAD4CC] bg-[#FDFBF8] text-sm font-normal text-[#14211A] focus:border-[#C86D51] focus:outline-hidden"
                       />
                     </label>
@@ -884,7 +1044,9 @@ function HomePage() {
                         type="email"
                         placeholder="you@company.com"
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, email: e.target.value })
+                        }
                         className="p-3 rounded-xl border border-[#CAD4CC] bg-[#FDFBF8] text-sm font-normal text-[#14211A] focus:border-[#C86D51] focus:outline-hidden"
                       />
                     </label>
@@ -895,7 +1057,9 @@ function HomePage() {
                         type="text"
                         placeholder="e.g. Chandigarh, Punjab"
                         value={formData.city}
-                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, city: e.target.value })
+                        }
                         className="p-3 rounded-xl border border-[#CAD4CC] bg-[#FDFBF8] text-sm font-normal text-[#14211A] focus:border-[#C86D51] focus:outline-hidden"
                       />
                     </label>
@@ -904,11 +1068,15 @@ function HomePage() {
                       I Am A
                       <select
                         value={formData.profile}
-                        onChange={(e) => setFormData({ ...formData, profile: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, profile: e.target.value })
+                        }
                         className="p-3 rounded-xl border border-[#CAD4CC] bg-[#FDFBF8] text-sm font-normal text-[#14211A] focus:border-[#C86D51] focus:outline-hidden"
                       >
                         {ENQUIRY_PROFILES.map((p) => (
-                          <option key={p} value={p}>{p}</option>
+                          <option key={p} value={p}>
+                            {p}
+                          </option>
                         ))}
                       </select>
                     </label>
@@ -917,11 +1085,18 @@ function HomePage() {
                       Enquiry Type
                       <select
                         value={formData.enquiryType}
-                        onChange={(e) => setFormData({ ...formData, enquiryType: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            enquiryType: e.target.value,
+                          })
+                        }
                         className="p-3 rounded-xl border border-[#CAD4CC] bg-[#FDFBF8] text-sm font-normal text-[#14211A] focus:border-[#C86D51] focus:outline-hidden"
                       >
                         {ENQUIRY_TYPES.map((t) => (
-                          <option key={t} value={t}>{t}</option>
+                          <option key={t} value={t}>
+                            {t}
+                          </option>
                         ))}
                       </select>
                     </label>
@@ -930,11 +1105,15 @@ function HomePage() {
                       Product of Interest
                       <select
                         value={formData.product}
-                        onChange={(e) => setFormData({ ...formData, product: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, product: e.target.value })
+                        }
                         className="p-3 rounded-xl border border-[#CAD4CC] bg-[#FDFBF8] text-sm font-normal text-[#14211A] focus:border-[#C86D51] focus:outline-hidden"
                       >
                         {ENQUIRY_PRODUCTS.map((prod) => (
-                          <option key={prod} value={prod}>{prod}</option>
+                          <option key={prod} value={prod}>
+                            {prod}
+                          </option>
                         ))}
                       </select>
                     </label>
@@ -945,7 +1124,9 @@ function HomePage() {
                         rows="3"
                         placeholder="Tell us thickness, sheet count, timeline, and application..."
                         value={formData.details}
-                        onChange={(e) => setFormData({ ...formData, details: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, details: e.target.value })
+                        }
                         className="p-3 rounded-xl border border-[#CAD4CC] bg-[#FDFBF8] text-sm font-normal text-[#14211A] focus:border-[#C86D51] focus:outline-hidden resize-y"
                       />
                     </label>
@@ -966,7 +1147,7 @@ function HomePage() {
 
       {/* 15. FLOATING WHATSAPP BUTTON */}
       <a
-        href="https://wa.me/917206104340"
+        href="https://wa.me/917015085556"
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl hover:scale-110 transition-transform"

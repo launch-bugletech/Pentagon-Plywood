@@ -1,199 +1,1882 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from "react";
 import {
-  ArrowRight, BadgeCheck, Boxes, Building2, Check, ChevronLeft, CircleCheck,
-  ClipboardCheck, Factory, Handshake, Map, MapPin, MessageCircle, PackageCheck,
-  Phone, Search, ShieldCheck, Store, Truck, Users, Warehouse, X,
-} from 'lucide-react';
-import { CONTACT_SECTIONS, DEALER_SECTIONS, ROUTES } from '../../app/routes.js';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../components/ui/accordion.jsx';
-import { Badge } from '../../components/ui/badge.jsx';
-import { Button } from '../../components/ui/button.jsx';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card.jsx';
-import { Input } from '../../components/ui/input.jsx';
-import { Textarea } from '../../components/ui/textarea.jsx';
+  ArrowRight,
+  BadgeCheck,
+  Boxes,
+  Building2,
+  Check,
+  ChevronLeft,
+  CircleCheck,
+  ClipboardCheck,
+  Factory,
+  Handshake,
+  Map,
+  MapPin,
+  MessageCircle,
+  PackageCheck,
+  Phone,
+  Search,
+  ShieldCheck,
+  Store,
+  Truck,
+  Users,
+  Warehouse,
+  X,
+} from "lucide-react";
+import { CONTACT_SECTIONS, DEALER_SECTIONS, ROUTES } from "../../app/routes.js";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../components/ui/accordion.jsx";
+import { Badge } from "../../components/ui/badge.jsx";
+import { Button } from "../../components/ui/button.jsx";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card.jsx";
+import { Input } from "../../components/ui/input.jsx";
+import { Textarea } from "../../components/ui/textarea.jsx";
 
-const PHONE = 'tel:+917206104340';
-const WHATSAPP_BASE = 'https://wa.me/917206104340?text=';
+const PHONE = "tel:+917015085556";
+const WHATSAPP_BASE = "https://wa.me/917015085556?text=";
 
 const dealers = [
-  ['d-101', 'Pentagon Yamunanagar Flagship Depot & Works', 'Manufacturing HQ & Primary Depot', 'Pentagon Channel Cell', '+917206104340', '917206104340', 'Industrial Area, Radaur Road', 'Yamunanagar', 'Haryana', '135001', 'North', ['MR, BWP, Marine & Fire Retardant Plywood', 'Blockboard', 'Flush Doors', 'Sourced / traded materials'], true],
-  ['d-102', 'Capital Timber & Plywood Traders', 'Authorized Stockist', 'Rajesh Sharma', '+919811022334', '919811022334', 'Shop 14, Timber Market, Kirti Nagar', 'New Delhi', 'Delhi', '110015', 'North', ['Plywood', 'Flush Doors']],
-  ['d-103', 'Grand City Wood Panels', 'Regional Distributor', 'Vikramjit Singh', '+919876543210', '919876543210', 'Plot 45, Sector 82 Industrial Area', 'Mohali', 'Punjab', '160055', 'North', ['Plywood', 'Blockboard', 'Flush Doors']],
-  ['d-104', 'Royal Heritage Building Solutions', 'Authorized Dealer', 'Sanjay Toshniwal', '+919414012345', '919414012345', 'Near New Aatish Market, Mansarovar', 'Jaipur', 'Rajasthan', '302020', 'North', ['Plywood', 'Blockboard']],
-  ['d-105', 'Apex Interior & Plywood Hub', 'Regional Distributor', 'Pradeep Agarwal', '+919839054321', '919839054321', 'Transport Nagar, Kanpur Road', 'Lucknow', 'Uttar Pradesh', '226012', 'North', ['Plywood', 'Flush Doors']],
-  ['d-106', 'Western Panel & Board House', 'Authorized Stockist', 'Jitendra Patel', '+919825011223', '919825011223', 'GIDC Commercial Zone, Naroda', 'Ahmedabad', 'Gujarat', '382330', 'West', ['Plywood', 'Blockboard', 'Flush Doors']],
-  ['d-107', 'Metropolitan Wood Crafts', 'Regional Distributor', 'Mahesh Shah', '+919820098765', '919820098765', 'LBS Marg, Ghatkopar West', 'Mumbai', 'Maharashtra', '400086', 'West', ['Plywood', 'Flush Doors']],
-  ['d-108', 'Deccan Plywood & Timber Agencies', 'Authorized Dealer', 'Ramesh Gowda', '+919845033445', '919845033445', 'NT Pet, Mysuru Road', 'Bengaluru', 'Karnataka', '560002', 'South', ['Plywood', 'Blockboard']],
-].map(([id, name, type, contactPerson, phone, whatsapp, address, city, state, pin, region, products, isHQ = false]) => ({
-  id, name, type, contactPerson, phone, whatsapp, address, city, state, pin, region, products, isHQ,
-}));
+  [
+    "d-101",
+    "Pentagon Yamunanagar Flagship Depot & Works",
+    "Manufacturing HQ & Primary Depot",
+    "Pentagon Channel Cell",
+    "+917015085556",
+    "917015085556",
+    "Industrial Area, Radaur Road",
+    "Yamunanagar",
+    "Haryana",
+    "135001",
+    "North",
+    [
+      "MR, BWP, Marine & Fire Retardant Plywood",
+      "Blockboard",
+      "Flush Doors",
+      "Sourced / traded materials",
+    ],
+    true,
+  ],
+  [
+    "d-102",
+    "Capital Timber & Plywood Traders",
+    "Authorized Stockist",
+    "Rajesh Sharma",
+    "+919811022334",
+    "919811022334",
+    "Shop 14, Timber Market, Kirti Nagar",
+    "New Delhi",
+    "Delhi",
+    "110015",
+    "North",
+    ["Plywood", "Flush Doors"],
+  ],
+  [
+    "d-103",
+    "Grand City Wood Panels",
+    "Regional Distributor",
+    "Vikramjit Singh",
+    "+919876543210",
+    "919876543210",
+    "Plot 45, Sector 82 Industrial Area",
+    "Mohali",
+    "Punjab",
+    "160055",
+    "North",
+    ["Plywood", "Blockboard", "Flush Doors"],
+  ],
+  [
+    "d-104",
+    "Royal Heritage Building Solutions",
+    "Authorized Dealer",
+    "Sanjay Toshniwal",
+    "+919414012345",
+    "919414012345",
+    "Near New Aatish Market, Mansarovar",
+    "Jaipur",
+    "Rajasthan",
+    "302020",
+    "North",
+    ["Plywood", "Blockboard"],
+  ],
+  [
+    "d-105",
+    "Apex Interior & Plywood Hub",
+    "Regional Distributor",
+    "Pradeep Agarwal",
+    "+919839054321",
+    "919839054321",
+    "Transport Nagar, Kanpur Road",
+    "Lucknow",
+    "Uttar Pradesh",
+    "226012",
+    "North",
+    ["Plywood", "Flush Doors"],
+  ],
+  [
+    "d-106",
+    "Western Panel & Board House",
+    "Authorized Stockist",
+    "Jitendra Patel",
+    "+919825011223",
+    "919825011223",
+    "GIDC Commercial Zone, Naroda",
+    "Ahmedabad",
+    "Gujarat",
+    "382330",
+    "West",
+    ["Plywood", "Blockboard", "Flush Doors"],
+  ],
+  [
+    "d-107",
+    "Metropolitan Wood Crafts",
+    "Regional Distributor",
+    "Mahesh Shah",
+    "+919820098765",
+    "919820098765",
+    "LBS Marg, Ghatkopar West",
+    "Mumbai",
+    "Maharashtra",
+    "400086",
+    "West",
+    ["Plywood", "Flush Doors"],
+  ],
+  [
+    "d-108",
+    "Deccan Plywood & Timber Agencies",
+    "Authorized Dealer",
+    "Ramesh Gowda",
+    "+919845033445",
+    "919845033445",
+    "NT Pet, Mysuru Road",
+    "Bengaluru",
+    "Karnataka",
+    "560002",
+    "South",
+    ["Plywood", "Blockboard"],
+  ],
+].map(
+  ([
+    id,
+    name,
+    type,
+    contactPerson,
+    phone,
+    whatsapp,
+    address,
+    city,
+    state,
+    pin,
+    region,
+    products,
+    isHQ = false,
+  ]) => ({
+    id,
+    name,
+    type,
+    contactPerson,
+    phone,
+    whatsapp,
+    address,
+    city,
+    state,
+    pin,
+    region,
+    products,
+    isHQ,
+  }),
+);
 
 const partnerRoutes = [
-  ['seller', '01', 'Find a Seller', 'Looking for Pentagon products for furniture, interiors, construction or resale? Search the approved partner network serving your location.', 'Find a Seller Near Me', Store],
-  ['dealer', '02', 'Become a Dealer', 'Already selling plywood, boards, doors, laminates, hardware or building materials? Tell us about your business and market.', 'Apply as a Dealer', Handshake],
-  ['distributor', '03', 'Become a Distributor', 'Have the infrastructure, sales reach and relationships to serve multiple dealers or a wider territory?', 'Apply as a Distributor', Warehouse],
+  [
+    "seller",
+    "01",
+    "Find a Seller",
+    "Looking for Pentagon products for furniture, interiors, construction or resale? Search the approved partner network serving your location.",
+    "Find a Seller Near Me",
+    Store,
+  ],
+  [
+    "dealer",
+    "02",
+    "Become a Dealer",
+    "Already selling plywood, boards, doors, laminates, hardware or building materials? Tell us about your business and market.",
+    "Apply as a Dealer",
+    Handshake,
+  ],
+  [
+    "distributor",
+    "03",
+    "Become a Distributor",
+    "Have the infrastructure, sales reach and relationships to serve multiple dealers or a wider territory?",
+    "Apply as a Distributor",
+    Warehouse,
+  ],
 ];
 
 const opportunities = [
-  ['Manufacturing Base: Yamunanagar', 'Pentagon manufactures plywood, blockboard and flush doors directly from India’s premier wood-panel industrial cluster.', Factory],
-  ['Manufactured and Sourced Portfolio', 'Discuss Pentagon-manufactured MR, BWP, Marine and Fire Retardant Plywood, blockboard and flush doors alongside sourced or traded materials, subject to availability.', Boxes],
-  ['Direct B2B Freight Feasibility', 'Dispatch planning from factory to warehouse is reviewed for each location and order requirement.', Truck],
-  ['Enquiry-Based Supply Planning', 'Territory assessments help align channel coverage, product demand and practical supply planning.', ClipboardCheck],
-  ['Verified Digital Dealer Locator', 'Approved partners may be listed on Pentagon’s digital locator after verification and consent.', MapPin],
-  ['Requirement-Led Commercial Discussion', 'Product availability, grade, quantity, freight, delivery and commercial terms are discussed for the specific requirement.', MessageCircle],
+  [
+    "Manufacturing Base: Yamunanagar",
+    "Pentagon manufactures plywood, blockboard and flush doors directly from India’s premier wood-panel industrial cluster.",
+    Factory,
+  ],
+  [
+    "Manufactured and Sourced Portfolio",
+    "Discuss Pentagon-manufactured MR, BWP, Marine and Fire Retardant Plywood, blockboard and flush doors alongside sourced or traded materials, subject to availability.",
+    Boxes,
+  ],
+  [
+    "Direct B2B Freight Feasibility",
+    "Dispatch planning from factory to warehouse is reviewed for each location and order requirement.",
+    Truck,
+  ],
+  [
+    "Enquiry-Based Supply Planning",
+    "Territory assessments help align channel coverage, product demand and practical supply planning.",
+    ClipboardCheck,
+  ],
+  [
+    "Verified Digital Dealer Locator",
+    "Approved partners may be listed on Pentagon’s digital locator after verification and consent.",
+    MapPin,
+  ],
+  [
+    "Requirement-Led Commercial Discussion",
+    "Product availability, grade, quantity, freight, delivery and commercial terms are discussed for the specific requirement.",
+    MessageCircle,
+  ],
 ];
 
 const processSteps = [
-  ['01', 'Submit Business Profile', 'Share your store location, existing portfolio, infrastructure and preferred partnership route.'],
-  ['02', 'Territory & Demand Review', 'Pentagon reviews market coverage, logistics feasibility and the opportunity in your territory.'],
-  ['03', 'Commercial Discussion', 'Discuss product ranges, opening-order plans, pricing structure and delivery terms.'],
-  ['04', 'Capability Verification', 'Business documents, facility details and trade references may be reviewed.'],
-  ['05', 'Commercial Agreement', 'Approved terms, territory, commitments and brand guidelines are documented.'],
-  ['06', 'Onboarding & Supply', 'Approved partners move into product, material and initial dispatch coordination.'],
+  [
+    "01",
+    "Submit Business Profile",
+    "Share your store location, existing portfolio, infrastructure and preferred partnership route.",
+  ],
+  [
+    "02",
+    "Territory & Demand Review",
+    "Pentagon reviews market coverage, logistics feasibility and the opportunity in your territory.",
+  ],
+  [
+    "03",
+    "Commercial Discussion",
+    "Discuss product ranges, opening-order plans, pricing structure and delivery terms.",
+  ],
+  [
+    "04",
+    "Capability Verification",
+    "Business documents, facility details and trade references may be reviewed.",
+  ],
+  [
+    "05",
+    "Commercial Agreement",
+    "Approved terms, territory, commitments and brand guidelines are documented.",
+  ],
+  [
+    "06",
+    "Onboarding & Supply",
+    "Approved partners move into product, material and initial dispatch coordination.",
+  ],
 ];
 
-const applicantTypes = ['Existing plywood and wood-panel dealers', 'Building-material retailers & hardware stores', 'Timber and board wholesalers', 'Door, laminate and interior surface sellers', 'Interior-material showrooms & design hubs', 'Furniture manufacturing material suppliers', 'Regional stockists & bulk suppliers', 'Infrastructure & project material suppliers', 'New entrepreneurs with suitable infrastructure'];
-const evaluationFactors = ['Established business identity and GST registration', 'Suitable showroom, shop, or warehousing facility', 'Understanding of local plywood & wood-panel trade', 'Active relationships with carpenters, contractors and interior designers', 'Financial capability to maintain appropriate stock levels', 'Dedicated sales or logistics setup for local distribution'];
-const partnerExpectations = ['Communicate product grades and technical specifications transparently', 'Maintain appropriate stock handling and moisture-controlled storage', 'Represent available Pentagon grades accurately in your operating area', 'Provide prompt feedback on demand and customer requirements', 'Follow documented commercial terms and territory guidelines', 'Protect brand representation in store and market communication'];
+const applicantTypes = [
+  "Existing plywood and wood-panel dealers",
+  "Building-material retailers & hardware stores",
+  "Timber and board wholesalers",
+  "Door, laminate and interior surface sellers",
+  "Interior-material showrooms & design hubs",
+  "Furniture manufacturing material suppliers",
+  "Regional stockists & bulk suppliers",
+  "Infrastructure & project material suppliers",
+  "New entrepreneurs with suitable infrastructure",
+];
+const evaluationFactors = [
+  "Established business identity and GST registration",
+  "Suitable showroom, shop, or warehousing facility",
+  "Understanding of local plywood & wood-panel trade",
+  "Active relationships with carpenters, contractors and interior designers",
+  "Financial capability to maintain appropriate stock levels",
+  "Dedicated sales or logistics setup for local distribution",
+];
+const partnerExpectations = [
+  "Communicate product grades and technical specifications transparently",
+  "Maintain appropriate stock handling and moisture-controlled storage",
+  "Represent available Pentagon grades accurately in your operating area",
+  "Provide prompt feedback on demand and customer requirements",
+  "Follow documented commercial terms and territory guidelines",
+  "Protect brand representation in store and market communication",
+];
 
 const faqItems = [
-  ['How can I become a Pentagon Plywood dealer?', 'Submit the partnership application with your business, location, experience, infrastructure and product interests. Pentagon will review the opportunity and contact relevant applicants.'],
-  ['Who can apply for a dealership?', 'Plywood dealers, building-material retailers, wholesalers, timber and board sellers, interior-material showrooms, stockists and other businesses with relevant capability may apply.'],
-  ['Can a new business apply?', 'Yes. Pentagon will assess its location, business plan, infrastructure, product knowledge and market opportunity. An application does not guarantee appointment.'],
-  ['What is the difference between a dealer and a distributor?', 'A dealer usually serves a local market. A distributor generally holds more stock and supplies a broader territory or network. Pentagon determines the appropriate relationship after review.'],
-  ['Is there a minimum investment?', 'Pentagon has not published a fixed investment requirement. It may depend on product range, stock plan, location, infrastructure and the commercial arrangement.'],
-  ['Is a minimum opening order required?', 'Opening-order requirements are confirmed during commercial discussion and may vary by product, quantity, freight and territory.'],
-  ['Will I receive an exclusive territory?', 'No exclusivity is created by submitting an application. Any protected territory must be specifically reviewed, approved and documented.'],
-  ['Does Pentagon offer credit?', 'Payment and credit terms are subject to commercial review and written approval.'],
-  ['Does Pentagon provide samples or marketing material?', 'Available samples, catalogues, product images and other partner material are discussed during onboarding.'],
-  ['Which products can dealers stock?', 'Applicants can discuss plywood, blockboard and flush doors. Selected allied products may be available through sourcing or trading, subject to current availability.'],
-  ['Can I apply for more than one city or district?', 'Yes. State the complete proposed coverage. Pentagon will assess it against network coverage, logistics and business capability.'],
-  ['How can customers find my business on this website?', 'Selected approved partners may be added to the locator after verification and consent to publish. Listing is not automatic.'],
-  ['Does Pentagon supply throughout India?', 'Each enquiry is reviewed according to product, quantity, location, freight and channel availability. The website does not promise that every order can be served directly.'],
+  [
+    "How can I become a Pentagon Plywood dealer?",
+    "Submit the partnership application with your business, location, experience, infrastructure and product interests. Pentagon will review the opportunity and contact relevant applicants.",
+  ],
+  [
+    "Who can apply for a dealership?",
+    "Plywood dealers, building-material retailers, wholesalers, timber and board sellers, interior-material showrooms, stockists and other businesses with relevant capability may apply.",
+  ],
+  [
+    "Can a new business apply?",
+    "Yes. Pentagon will assess its location, business plan, infrastructure, product knowledge and market opportunity. An application does not guarantee appointment.",
+  ],
+  [
+    "What is the difference between a dealer and a distributor?",
+    "A dealer usually serves a local market. A distributor generally holds more stock and supplies a broader territory or network. Pentagon determines the appropriate relationship after review.",
+  ],
+  [
+    "Is there a minimum investment?",
+    "Pentagon has not published a fixed investment requirement. It may depend on product range, stock plan, location, infrastructure and the commercial arrangement.",
+  ],
+  [
+    "Is a minimum opening order required?",
+    "Opening-order requirements are confirmed during commercial discussion and may vary by product, quantity, freight and territory.",
+  ],
+  [
+    "Will I receive an exclusive territory?",
+    "No exclusivity is created by submitting an application. Any protected territory must be specifically reviewed, approved and documented.",
+  ],
+  [
+    "Does Pentagon offer credit?",
+    "Payment and credit terms are subject to commercial review and written approval.",
+  ],
+  [
+    "Does Pentagon provide samples or marketing material?",
+    "Available samples, catalogues, product images and other partner material are discussed during onboarding.",
+  ],
+  [
+    "Which products can dealers stock?",
+    "Applicants can discuss plywood, blockboard and flush doors. Selected allied products may be available through sourcing or trading, subject to current availability.",
+  ],
+  [
+    "Can I apply for more than one city or district?",
+    "Yes. State the complete proposed coverage. Pentagon will assess it against network coverage, logistics and business capability.",
+  ],
+  [
+    "How can customers find my business on this website?",
+    "Selected approved partners may be added to the locator after verification and consent to publish. Listing is not automatic.",
+  ],
+  [
+    "Does Pentagon supply throughout India?",
+    "Each enquiry is reviewed according to product, quantity, location, freight and channel availability. The website does not promise that every order can be served directly.",
+  ],
 ];
 
-const products = ['MR Grade Plywood', 'BWP Grade Plywood', 'Marine Grade Plywood', 'Fire Retardant Plywood', 'Blockboard', 'Flush Doors', 'Sourced / traded materials', 'HDHMR / WPC', 'Architectural Laminates'];
-const categories = ['Plywood & Board Dealer', 'Timber Merchant', 'Hardware & Lock Store', 'Building Material Retailer', 'Interior Showroom', 'Furniture Manufacturer Supplier'];
-const initialForm = { partnerType: 'Dealer / Retailer', products: '', state: '', territory: '', legalName: '', tradeName: '', contactName: '', designation: '', mobile: '', whatsapp: '', email: '', address: '', city: '', district: '', pin: '', gstin: '', established: '', categories: '', brands: '', customers: '', markets: '', experience: '', potential: '', reason: '', showroom: 'Yes', warehouse: 'Yes', warehouseArea: '', logistics: '', teamSize: '', tradeRelationships: '', openingOrder: '', monthlyPurchase: '', territoryRequested: '', discussionDate: '', opportunities: '', additional: '' };
+const products = [
+  "MR Grade Plywood",
+  "BWP Grade Plywood",
+  "Marine Grade Plywood",
+  "Fire Retardant Plywood",
+  "Blockboard",
+  "Flush Doors",
+  "Sourced / traded materials",
+  "HDHMR / WPC",
+  "Architectural Laminates",
+];
+const categories = [
+  "Plywood & Board Dealer",
+  "Timber Merchant",
+  "Hardware & Lock Store",
+  "Building Material Retailer",
+  "Interior Showroom",
+  "Furniture Manufacturer Supplier",
+];
+const initialForm = {
+  partnerType: "Dealer / Retailer",
+  products: "",
+  state: "",
+  territory: "",
+  legalName: "",
+  tradeName: "",
+  contactName: "",
+  designation: "",
+  mobile: "",
+  whatsapp: "",
+  email: "",
+  address: "",
+  city: "",
+  district: "",
+  pin: "",
+  gstin: "",
+  established: "",
+  categories: "",
+  brands: "",
+  customers: "",
+  markets: "",
+  experience: "",
+  potential: "",
+  reason: "",
+  showroom: "Yes",
+  warehouse: "Yes",
+  warehouseArea: "",
+  logistics: "",
+  teamSize: "",
+  tradeRelationships: "",
+  openingOrder: "",
+  monthlyPurchase: "",
+  territoryRequested: "",
+  discussionDate: "",
+  opportunities: "",
+  additional: "",
+};
 
-const inputClass = 'h-11 rounded-xl border-[#cad4cc] bg-white px-3 focus-visible:border-[#9c6846] focus-visible:ring-[#9c6846]/20';
+const inputClass =
+  "h-11 rounded-xl border-[#cad4cc] bg-white px-3 focus-visible:border-[#9c6846] focus-visible:ring-[#9c6846]/20";
 const selectClass = `${inputClass} w-full border text-sm outline-none`;
-const sectionClass = 'px-4 py-16 sm:px-6 sm:py-20 lg:px-8';
-const wrapClass = 'mx-auto max-w-7xl';
+const sectionClass = "px-4 py-16 sm:px-6 sm:py-20 lg:px-8";
+const wrapClass = "mx-auto max-w-7xl";
 
 function Heading({ eyebrow, title, copy, light = false, center = false }) {
-  return <div className={`${center ? 'mx-auto text-center' : ''} max-w-3xl`}>
-    <p className={`mb-3 text-xs font-bold uppercase tracking-[0.22em] ${light ? 'text-[#e7b878]' : 'text-[#9c6846]'}`}>{eyebrow}</p>
-    <h2 className={`font-['DM_Serif_Display',Georgia,serif] text-3xl leading-tight sm:text-4xl lg:text-5xl ${light ? 'text-white' : 'text-[#14211a]'}`}>{title}</h2>
-    {copy && <p className={`mt-5 text-base leading-7 ${light ? 'text-white/70' : 'text-[#65736a]'}`}>{copy}</p>}
-  </div>;
+  return (
+    <div className={`${center ? "mx-auto text-center" : ""} max-w-3xl`}>
+      <p
+        className={`mb-3 text-xs font-bold uppercase tracking-[0.22em] ${light ? "text-[#e7b878]" : "text-[#9c6846]"}`}
+      >
+        {eyebrow}
+      </p>
+      <h2
+        className={`font-['DM_Serif_Display',Georgia,serif] text-3xl leading-tight sm:text-4xl lg:text-5xl ${light ? "text-white" : "text-[#14211a]"}`}
+      >
+        {title}
+      </h2>
+      {copy && (
+        <p
+          className={`mt-5 text-base leading-7 ${light ? "text-white/70" : "text-[#65736a]"}`}
+        >
+          {copy}
+        </p>
+      )}
+    </div>
+  );
 }
 
 function Field({ label, required, wide, children }) {
-  return <label className={`block ${wide ? 'md:col-span-2' : ''}`}>
-    <span className="mb-2 block text-sm font-semibold text-[#263b30]">{label}{required && <b className="ml-1 text-[#b7513c]">*</b>}</span>{children}
-  </label>;
+  return (
+    <label className={`block ${wide ? "md:col-span-2" : ""}`}>
+      <span className="mb-2 block text-sm font-semibold text-[#263b30]">
+        {label}
+        {required && <b className="ml-1 text-[#b7513c]">*</b>}
+      </span>
+      {children}
+    </label>
+  );
 }
 
 function DealersPage() {
-  const [route, setRoute] = useState('dealer');
-  const [quizSetup, setQuizSetup] = useState('');
-  const [quizReach, setQuizReach] = useState('');
-  const [searchState, setSearchState] = useState('');
-  const [searchCity, setSearchCity] = useState('');
-  const [searchPin, setSearchPin] = useState('');
-  const [searchProduct, setSearchProduct] = useState('');
-  const [activeRegion, setActiveRegion] = useState('All');
+  const [route, setRoute] = useState("dealer");
+  const [quizSetup, setQuizSetup] = useState("");
+  const [quizReach, setQuizReach] = useState("");
+  const [searchState, setSearchState] = useState("");
+  const [searchCity, setSearchCity] = useState("");
+  const [searchPin, setSearchPin] = useState("");
+  const [searchProduct, setSearchProduct] = useState("");
+  const [activeRegion, setActiveRegion] = useState("All");
   const [formStep, setFormStep] = useState(1);
   const [form, setForm] = useState(initialForm);
   const [consent, setConsent] = useState(false);
-  const [stepError, setStepError] = useState('');
+  const [stepError, setStepError] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [faqFilter, setFaqFilter] = useState('');
+  const [faqFilter, setFaqFilter] = useState("");
 
   useEffect(() => {
-    document.title = 'Dealers & Distributors | Partner With Pentagon Plywood';
+    document.title = "Dealers & Distributors | Partner With Pentagon Plywood";
   }, []);
 
-  const filteredDealers = useMemo(() => dealers.filter((dealer) => {
-    if (activeRegion !== 'All' && dealer.region !== activeRegion) return false;
-    if (searchState && dealer.state !== searchState) return false;
-    if (searchCity && !`${dealer.city} ${dealer.name}`.toLowerCase().includes(searchCity.trim().toLowerCase())) return false;
-    if (searchPin && !dealer.pin.includes(searchPin.trim())) return false;
-    if (searchProduct && !dealer.products.some((item) => item.toLowerCase().includes(searchProduct.toLowerCase()))) return false;
-    return true;
-  }), [activeRegion, searchState, searchCity, searchPin, searchProduct]);
+  const filteredDealers = useMemo(
+    () =>
+      dealers.filter((dealer) => {
+        if (activeRegion !== "All" && dealer.region !== activeRegion)
+          return false;
+        if (searchState && dealer.state !== searchState) return false;
+        if (
+          searchCity &&
+          !`${dealer.city} ${dealer.name}`
+            .toLowerCase()
+            .includes(searchCity.trim().toLowerCase())
+        )
+          return false;
+        if (searchPin && !dealer.pin.includes(searchPin.trim())) return false;
+        if (
+          searchProduct &&
+          !dealer.products.some((item) =>
+            item.toLowerCase().includes(searchProduct.toLowerCase()),
+          )
+        )
+          return false;
+        return true;
+      }),
+    [activeRegion, searchState, searchCity, searchPin, searchProduct],
+  );
 
-  const displayedFaqs = faqItems.filter(([question, answer]) => `${question} ${answer}`.toLowerCase().includes(faqFilter.toLowerCase()));
-  const quizRecommendation = quizSetup && quizReach ? ((quizReach === 'Multi-District / State-Wide' || quizSetup === 'Warehousing / Bulk Yard') ? ['Distributor / Stockist Partnership', 'Ideal for businesses with warehousing capability, logistics and a multi-district trade network.', 'Distributor'] : ['Dealer / Retail Partner', 'Suited to retail stores, hardware shops and regional stockists serving local projects.', 'Dealer / Retailer']) : null;
-  const update = (key) => (event) => { setStepError(''); setForm((current) => ({ ...current, [key]: event.target.value })); };
-  const toggleChip = (field, value) => setForm((current) => {
-    const entries = current[field].split(',').map((item) => item.trim()).filter(Boolean);
-    return { ...current, [field]: (entries.includes(value) ? entries.filter((item) => item !== value) : [...entries, value]).join(', ') };
-  });
+  const displayedFaqs = faqItems.filter(([question, answer]) =>
+    `${question} ${answer}`.toLowerCase().includes(faqFilter.toLowerCase()),
+  );
+  const quizRecommendation =
+    quizSetup && quizReach
+      ? quizReach === "Multi-District / State-Wide" ||
+        quizSetup === "Warehousing / Bulk Yard"
+        ? [
+            "Distributor / Stockist Partnership",
+            "Ideal for businesses with warehousing capability, logistics and a multi-district trade network.",
+            "Distributor",
+          ]
+        : [
+            "Dealer / Retail Partner",
+            "Suited to retail stores, hardware shops and regional stockists serving local projects.",
+            "Dealer / Retailer",
+          ]
+      : null;
+  const update = (key) => (event) => {
+    setStepError("");
+    setForm((current) => ({ ...current, [key]: event.target.value }));
+  };
+  const toggleChip = (field, value) =>
+    setForm((current) => {
+      const entries = current[field]
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+      return {
+        ...current,
+        [field]: (entries.includes(value)
+          ? entries.filter((item) => item !== value)
+          : [...entries, value]
+        ).join(", "),
+      };
+    });
   const chooseRoute = (value) => {
     setRoute(value);
-    if (value !== 'seller') setForm((current) => ({ ...current, partnerType: value === 'distributor' ? 'Distributor' : 'Dealer / Retailer' }));
-    document.querySelector(value === 'seller' ? '#dealer-locator' : '#partner-application')?.scrollIntoView({ behavior: 'smooth' });
+    if (value !== "seller")
+      setForm((current) => ({
+        ...current,
+        partnerType:
+          value === "distributor" ? "Distributor" : "Dealer / Retailer",
+      }));
+    document
+      .querySelector(
+        value === "seller" ? "#dealer-locator" : "#partner-application",
+      )
+      ?.scrollIntoView({ behavior: "smooth" });
   };
   const nextStep = () => {
-    const required = { 1: ['products', 'state', 'territory'], 2: ['legalName', 'contactName', 'mobile', 'email', 'address', 'city', 'pin'], 3: ['categories', 'reason'], 4: [] };
-    if ((required[formStep] || []).some((key) => !form[key]?.trim())) return setStepError('Please complete the required fields marked with * before continuing.');
-    setStepError(''); setFormStep((step) => Math.min(5, step + 1));
+    const required = {
+      1: ["products", "state", "territory"],
+      2: [
+        "legalName",
+        "contactName",
+        "mobile",
+        "email",
+        "address",
+        "city",
+        "pin",
+      ],
+      3: ["categories", "reason"],
+      4: [],
+    };
+    if ((required[formStep] || []).some((key) => !form[key]?.trim()))
+      return setStepError(
+        "Please complete the required fields marked with * before continuing.",
+      );
+    setStepError("");
+    setFormStep((step) => Math.min(5, step + 1));
   };
-  const resetFilters = () => { setSearchState(''); setSearchCity(''); setSearchPin(''); setSearchProduct(''); setActiveRegion('All'); };
+  const resetFilters = () => {
+    setSearchState("");
+    setSearchCity("");
+    setSearchPin("");
+    setSearchProduct("");
+    setActiveRegion("All");
+  };
 
-  return <main className="min-h-screen bg-[#fbf8f2] font-['Manrope',sans-serif] text-[#14211a]">
-    <div className="border-b border-[#dbe2dc] bg-white px-4 py-3 text-sm text-[#65736a] sm:px-6 lg:px-8"><div className={wrapClass}><a className="hover:text-[#143d2b]" href={ROUTES.home}>Home</a><span className="mx-2">›</span><strong className="text-[#263b30]">Dealers &amp; Distributors</strong></div></div>
-
-    <section className="relative overflow-hidden bg-[#123526] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-      <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full border border-white/10" /><div className="absolute bottom-0 right-1/4 h-56 w-56 rounded-full bg-[#C86D51]/10 blur-3xl" />
-      <div className={`${wrapClass} relative grid items-center gap-12 lg:grid-cols-[1.1fr_.9fr]`}>
-        <div><Badge variant="pill"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#E8927C]" />Pentagon channel network</Badge><h1 className="mt-7 max-w-4xl font-['DM_Serif_Display',Georgia,serif] text-4xl leading-[1.05] text-white sm:text-6xl lg:text-7xl">Bring Better Material Choices <em className="font-normal text-[#E8927C]">Closer to Your Market.</em></h1><p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">Find a Pentagon seller or explore a dealer and distributor partnership for our manufactured plywood, blockboard and flush doors, together with selected sourced or traded materials.</p><div className="mt-8 flex flex-wrap gap-3"><a href={DEALER_SECTIONS.locator} className="inline-flex h-12 items-center gap-2 rounded-full bg-[#C86D51] px-6 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#A85238]">Find a seller <MapPin size={18} /></a><a href={DEALER_SECTIONS.application} className="inline-flex h-12 items-center gap-2 rounded-full border border-white/30 px-6 font-semibold text-white hover:bg-white/10">Partner with us <ArrowRight size={18} /></a></div></div>
-        <Card className="border-white/15 bg-white/8 text-white shadow-2xl backdrop-blur"><CardHeader><Badge className="w-fit bg-[#E8927C] text-[#143d2b]">Quick access</Badge><CardTitle className="text-3xl text-white">What would you like to do?</CardTitle></CardHeader><CardContent className="space-y-3">{partnerRoutes.map(([value,, title,,, Icon]) => <button key={value} onClick={() => chooseRoute(value)} className={`flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition ${route === value ? 'border-[#E8927C] bg-white/15' : 'border-white/15 bg-white/5 hover:bg-white/10'}`}><span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#E8927C]/15 text-[#E8927C]"><Icon size={21} /></span><span className="font-semibold">{title}</span><ArrowRight className="ml-auto" size={18} /></button>)}</CardContent></Card>
+  return (
+    <main className="min-h-screen bg-[#fbf8f2] font-['Manrope',sans-serif] text-[#14211a]">
+      <div className="border-b border-[#dbe2dc] bg-white px-4 py-3 text-sm text-[#65736a] sm:px-6 lg:px-8">
+        <div className={wrapClass}>
+          <a className="hover:text-[#143d2b]" href={ROUTES.home}>
+            Home
+          </a>
+          <span className="mx-2">›</span>
+          <strong className="text-[#263b30]">Dealers &amp; Distributors</strong>
+        </div>
       </div>
-    </section>
 
-    <section id="choose-route" className={sectionClass}><div className={wrapClass}><Heading eyebrow="Choose your route" title="One Network. Three Ways to Connect." copy="Start with the path that matches your requirement. You can find an existing seller or introduce your business for channel review." /><div className="mt-10 grid gap-5 lg:grid-cols-3">{partnerRoutes.map(([value, number, title, copy, action, Icon]) => <Card key={value} className={`group overflow-hidden ${route === value ? 'border-[#9c6846] ring-2 ring-[#9c6846]/10' : ''}`}><CardHeader><div className="flex items-center justify-between"><span className="text-xs font-bold tracking-[.2em] text-[#9c6846]">{number}</span><Icon className="text-[#143d2b]" /></div><CardTitle>{title}</CardTitle><CardDescription className="min-h-20 leading-6">{copy}</CardDescription></CardHeader><CardContent><Button onClick={() => chooseRoute(value)} variant={route === value ? 'primary' : 'outline'} className="w-full">{action}<ArrowRight size={16} /></Button></CardContent></Card>)}</div></div></section>
+      <section className="relative overflow-hidden bg-[#123526] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full border border-white/10" />
+        <div className="absolute bottom-0 right-1/4 h-56 w-56 rounded-full bg-[#C86D51]/10 blur-3xl" />
+        <div
+          className={`${wrapClass} relative grid items-center gap-12 lg:grid-cols-[1.1fr_.9fr]`}
+        >
+          <div>
+            <Badge variant="pill">
+              <span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#E8927C]" />
+              Pentagon channel network
+            </Badge>
+            <h1 className="mt-7 max-w-4xl font-['DM_Serif_Display',Georgia,serif] text-4xl leading-[1.05] text-white sm:text-6xl lg:text-7xl">
+              Bring Better Material Choices{" "}
+              <em className="font-normal text-[#E8927C]">
+                Closer to Your Market.
+              </em>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">
+              Find a Pentagon seller or explore a dealer and distributor
+              partnership for our manufactured plywood, blockboard and flush
+              doors, together with selected sourced or traded materials.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={DEALER_SECTIONS.locator}
+                className="inline-flex h-12 items-center gap-2 rounded-full bg-[#C86D51] px-6 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#A85238]"
+              >
+                Find a seller <MapPin size={18} />
+              </a>
+              <a
+                href={DEALER_SECTIONS.application}
+                className="inline-flex h-12 items-center gap-2 rounded-full border border-white/30 px-6 font-semibold text-white hover:bg-white/10"
+              >
+                Partner with us <ArrowRight size={18} />
+              </a>
+            </div>
+          </div>
+          <Card className="border-white/15 bg-white/8 text-white shadow-2xl backdrop-blur">
+            <CardHeader>
+              <Badge className="w-fit bg-[#E8927C] text-[#143d2b]">
+                Quick access
+              </Badge>
+              <CardTitle className="text-3xl text-white">
+                What would you like to do?
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {partnerRoutes.map(([value, , title, , , Icon]) => (
+                <button
+                  key={value}
+                  onClick={() => chooseRoute(value)}
+                  className={`flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition ${route === value ? "border-[#E8927C] bg-white/15" : "border-white/15 bg-white/5 hover:bg-white/10"}`}
+                >
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#E8927C]/15 text-[#E8927C]">
+                    <Icon size={21} />
+                  </span>
+                  <span className="font-semibold">{title}</span>
+                  <ArrowRight className="ml-auto" size={18} />
+                </button>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+      </section>
 
-    <section id="partnership" className={`${sectionClass} bg-white`}><div className={wrapClass}><Heading eyebrow="The partnership opportunity" title="Built for Serious Market Partners." copy="A practical channel relationship starts with suitable products, market understanding, operational capability and clear commercial communication." /><div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{opportunities.map(([title, copy, Icon]) => <Card key={title} className="group hover:-translate-y-1 hover:shadow-lg"><CardHeader><span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#143d2b] text-white"><Icon size={22} /></span><CardTitle className="pt-3 text-xl">{title}</CardTitle><CardDescription className="leading-6">{copy}</CardDescription></CardHeader></Card>)}</div></div></section>
+      <section id="choose-route" className={sectionClass}>
+        <div className={wrapClass}>
+          <Heading
+            eyebrow="Choose your route"
+            title="One Network. Three Ways to Connect."
+            copy="Start with the path that matches your requirement. You can find an existing seller or introduce your business for channel review."
+          />
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            {partnerRoutes.map(([value, number, title, copy, action, Icon]) => (
+              <Card
+                key={value}
+                className={`group overflow-hidden ${route === value ? "border-[#9c6846] ring-2 ring-[#9c6846]/10" : ""}`}
+              >
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold tracking-[.2em] text-[#9c6846]">
+                      {number}
+                    </span>
+                    <Icon className="text-[#143d2b]" />
+                  </div>
+                  <CardTitle>{title}</CardTitle>
+                  <CardDescription className="min-h-20 leading-6">
+                    {copy}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button
+                    onClick={() => chooseRoute(value)}
+                    variant={route === value ? "primary" : "outline"}
+                    className="w-full"
+                  >
+                    {action}
+                    <ArrowRight size={16} />
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <section className={`${sectionClass} bg-[#efe8dc]`}><div className={`${wrapClass} grid gap-10 lg:grid-cols-[.8fr_1.2fr]`}><Heading eyebrow="Partnership finder" title="Which Channel Route Fits Your Business?" copy="Answer two quick questions for a starting recommendation. Final appointment and commercial terms remain subject to Pentagon’s review." /><Card><CardContent className="space-y-7 p-6 sm:p-8"><div><p className="mb-3 font-semibold">1. What best describes your setup?</p><div className="flex flex-wrap gap-2">{['Retail Store / Showroom', 'Warehousing / Bulk Yard', 'New Business Setup'].map((item) => <Button key={item} type="button" size="sm" variant={quizSetup === item ? 'primary' : 'outline'} onClick={() => setQuizSetup(item)}>{item}</Button>)}</div></div><div><p className="mb-3 font-semibold">2. What market do you plan to serve?</p><div className="flex flex-wrap gap-2">{['City / Local Market', 'District / Regional', 'Multi-District / State-Wide'].map((item) => <Button key={item} type="button" size="sm" variant={quizReach === item ? 'primary' : 'outline'} onClick={() => setQuizReach(item)}>{item}</Button>)}</div></div>{quizRecommendation && <div className="rounded-2xl bg-[#143d2b] p-5 text-white"><p className="text-xs font-bold uppercase tracking-widest text-[#e7b878]">Suggested starting route</p><h3 className="mt-2 text-xl font-semibold">{quizRecommendation[0]}</h3><p className="mt-2 text-sm leading-6 text-white/70">{quizRecommendation[1]}</p><Button className="mt-4 bg-white text-[#143d2b] hover:bg-[#f7f3ec]" onClick={() => { setForm((current) => ({ ...current, partnerType: quizRecommendation[2] })); document.querySelector('#partner-application')?.scrollIntoView({ behavior: 'smooth' }); }}>Start application<ArrowRight size={16} /></Button></div>}</CardContent></Card></div></section>
+      <section id="partnership" className={`${sectionClass} bg-white`}>
+        <div className={wrapClass}>
+          <Heading
+            eyebrow="The partnership opportunity"
+            title="Built for Serious Market Partners."
+            copy="A practical channel relationship starts with suitable products, market understanding, operational capability and clear commercial communication."
+          />
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {opportunities.map(([title, copy, Icon]) => (
+              <Card
+                key={title}
+                className="group hover:-translate-y-1 hover:shadow-lg"
+              >
+                <CardHeader>
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#143d2b] text-white">
+                    <Icon size={22} />
+                  </span>
+                  <CardTitle className="pt-3 text-xl">{title}</CardTitle>
+                  <CardDescription className="leading-6">
+                    {copy}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <section id="dealer-locator" className={`${sectionClass} bg-[#123526] text-white`}><div className={wrapClass}><Heading eyebrow="Dealer locator" title="Find a Pentagon Seller Near You." copy="Search the currently displayed network by location and product. Please confirm availability directly before visiting." light /><div className="mt-10 grid gap-6 lg:grid-cols-[.75fr_1.25fr]"><Card className="bg-white"><CardHeader><CardTitle>Search the network</CardTitle><CardDescription>Use one or more filters to narrow the displayed locations.</CardDescription></CardHeader><CardContent className="space-y-4"><select value={searchState} onChange={(event) => setSearchState(event.target.value)} className={selectClass}><option value="">All states</option>{[...new Set(dealers.map((dealer) => dealer.state))].sort().map((state) => <option key={state}>{state}</option>)}</select><Input className={inputClass} value={searchCity} onChange={(event) => setSearchCity(event.target.value)} placeholder="City or dealer name" /><Input className={inputClass} value={searchPin} onChange={(event) => setSearchPin(event.target.value)} placeholder="PIN code" inputMode="numeric" /><select value={searchProduct} onChange={(event) => setSearchProduct(event.target.value)} className={selectClass}><option value="">All products</option><option>Plywood</option><option>Blockboard</option><option>Flush Doors</option></select><div className="flex flex-wrap gap-2">{['All', 'North', 'West', 'South', 'East'].map((region) => <Button key={region} size="sm" variant={activeRegion === region ? 'primary' : 'outline'} onClick={() => setActiveRegion(region)}>{region}</Button>)}</div><Button variant="ghost" className="px-0 text-[#65736a]" onClick={resetFilters}><X size={16} />Clear all filters</Button></CardContent></Card><div className="relative min-h-96 overflow-hidden rounded-3xl border border-white/10 bg-[#0d2a1e] p-6"><div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} /><Map className="absolute right-8 top-8 h-40 w-40 text-white/5" /><div className="relative"><Badge className="bg-white/10">India channel view</Badge><p className="mt-5 max-w-md text-sm leading-6 text-white/60">Select a region or use the detailed filters. The list below updates immediately.</p><div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3">{['Yamunanagar', 'New Delhi', 'Mohali', 'Jaipur', 'Lucknow', 'Ahmedabad', 'Mumbai', 'Bengaluru'].map((city) => <button key={city} onClick={() => setSearchCity(city)} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-left text-sm transition hover:border-[#e7b878] hover:bg-white/10"><MapPin className="mb-3 text-[#e7b878]" size={20} />{city}</button>)}</div></div></div></div>
-        <div className="mt-8 flex items-center justify-between"><p className="text-sm text-white/60"><strong className="text-white">{filteredDealers.length}</strong> locations match your search</p></div><div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{filteredDealers.map((dealer) => <Card key={dealer.id} className="bg-white"><CardHeader><div className="flex items-start justify-between gap-3"><Badge variant={dealer.isHQ ? 'accent' : 'secondary'}>{dealer.type}</Badge><BadgeCheck className="shrink-0 text-[#143d2b]" size={20} /></div><CardTitle className="text-xl">{dealer.name}</CardTitle><CardDescription>{dealer.contactPerson}</CardDescription></CardHeader><CardContent><p className="flex gap-2 text-sm leading-6 text-[#65736a]"><MapPin className="mt-1 shrink-0" size={16} />{dealer.address}, {dealer.city}, {dealer.state} – {dealer.pin}</p><div className="mt-4 flex flex-wrap gap-1.5">{dealer.products.map((product) => <Badge key={product} variant="secondary" className="text-[10px]">{product}</Badge>)}</div><div className="mt-5 flex gap-2"><a className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full bg-[#143d2b] text-sm font-semibold text-white" href={`tel:${dealer.phone}`}><Phone size={15} />Call</a><a className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-[#143d2b] text-sm font-semibold text-[#143d2b]" href={`https://wa.me/${dealer.whatsapp}`} target="_blank" rel="noreferrer"><MessageCircle size={15} />WhatsApp</a></div></CardContent></Card>)}</div>{filteredDealers.length === 0 && <div className="mt-4 rounded-2xl border border-white/15 p-8 text-center text-white/70">No displayed location matches these filters. Clear the filters or contact Pentagon for help.</div>}<p className="mt-5 text-xs leading-5 text-white/45">Dealer records shown here should be treated as directory information and confirmed with Pentagon before travel or purchase.</p></div></section>
+      <section className={`${sectionClass} bg-[#efe8dc]`}>
+        <div className={`${wrapClass} grid gap-10 lg:grid-cols-[.8fr_1.2fr]`}>
+          <Heading
+            eyebrow="Partnership finder"
+            title="Which Channel Route Fits Your Business?"
+            copy="Answer two quick questions for a starting recommendation. Final appointment and commercial terms remain subject to Pentagon’s review."
+          />
+          <Card>
+            <CardContent className="space-y-7 p-6 sm:p-8">
+              <div>
+                <p className="mb-3 font-semibold">
+                  1. What best describes your setup?
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "Retail Store / Showroom",
+                    "Warehousing / Bulk Yard",
+                    "New Business Setup",
+                  ].map((item) => (
+                    <Button
+                      key={item}
+                      type="button"
+                      size="sm"
+                      variant={quizSetup === item ? "primary" : "outline"}
+                      onClick={() => setQuizSetup(item)}
+                    >
+                      {item}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="mb-3 font-semibold">
+                  2. What market do you plan to serve?
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "City / Local Market",
+                    "District / Regional",
+                    "Multi-District / State-Wide",
+                  ].map((item) => (
+                    <Button
+                      key={item}
+                      type="button"
+                      size="sm"
+                      variant={quizReach === item ? "primary" : "outline"}
+                      onClick={() => setQuizReach(item)}
+                    >
+                      {item}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              {quizRecommendation && (
+                <div className="rounded-2xl bg-[#143d2b] p-5 text-white">
+                  <p className="text-xs font-bold uppercase tracking-widest text-[#e7b878]">
+                    Suggested starting route
+                  </p>
+                  <h3 className="mt-2 text-xl font-semibold">
+                    {quizRecommendation[0]}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-white/70">
+                    {quizRecommendation[1]}
+                  </p>
+                  <Button
+                    className="mt-4 bg-white text-[#143d2b] hover:bg-[#f7f3ec]"
+                    onClick={() => {
+                      setForm((current) => ({
+                        ...current,
+                        partnerType: quizRecommendation[2],
+                      }));
+                      document
+                        .querySelector("#partner-application")
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                  >
+                    Start application
+                    <ArrowRight size={16} />
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </section>
 
-    <section id="partner-products" className={sectionClass}><div className={wrapClass}><Heading eyebrow="Products for channel discussion" title="A Portfolio for Trade, Projects and Interiors." copy="Discuss Pentagon-manufactured products and selected complementary sourced or traded materials based on current availability and territory requirements." /><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{[['Plywood', 'MR, BWP, Marine and Fire Retardant grades', PackageCheck], ['Blockboard', 'Panel solutions for furniture and interior requirements', Boxes], ['Flush Doors', 'Door solutions for residential and project requirements', Building2], ['Sourced / Traded', 'Selected complementary materials, subject to availability', Truck]].map(([title, copy, Icon]) => <Card key={title} className="hover:-translate-y-1 hover:shadow-lg"><CardHeader><Icon className="text-[#9c6846]" size={28} /><CardTitle className="pt-3 text-xl">{title}</CardTitle><CardDescription className="leading-6">{copy}</CardDescription></CardHeader></Card>)}</div><a href={ROUTES.products} className="mt-8 inline-flex items-center gap-2 font-semibold text-[#143d2b] hover:text-[#9c6846]">Explore product portfolio <ArrowRight size={17} /></a></div></section>
+      <section
+        id="dealer-locator"
+        className={`${sectionClass} bg-[#123526] text-white`}
+      >
+        <div className={wrapClass}>
+          <Heading
+            eyebrow="Dealer locator"
+            title="Find a Pentagon Seller Near You."
+            copy="Search the currently displayed network by location and product. Please confirm availability directly before visiting."
+            light
+          />
+          <div className="mt-10 grid gap-6 lg:grid-cols-[.75fr_1.25fr]">
+            <Card className="bg-white">
+              <CardHeader>
+                <CardTitle>Search the network</CardTitle>
+                <CardDescription>
+                  Use one or more filters to narrow the displayed locations.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <select
+                  value={searchState}
+                  onChange={(event) => setSearchState(event.target.value)}
+                  className={selectClass}
+                >
+                  <option value="">All states</option>
+                  {[...new Set(dealers.map((dealer) => dealer.state))]
+                    .sort()
+                    .map((state) => (
+                      <option key={state}>{state}</option>
+                    ))}
+                </select>
+                <Input
+                  className={inputClass}
+                  value={searchCity}
+                  onChange={(event) => setSearchCity(event.target.value)}
+                  placeholder="City or dealer name"
+                />
+                <Input
+                  className={inputClass}
+                  value={searchPin}
+                  onChange={(event) => setSearchPin(event.target.value)}
+                  placeholder="PIN code"
+                  inputMode="numeric"
+                />
+                <select
+                  value={searchProduct}
+                  onChange={(event) => setSearchProduct(event.target.value)}
+                  className={selectClass}
+                >
+                  <option value="">All products</option>
+                  <option>Plywood</option>
+                  <option>Blockboard</option>
+                  <option>Flush Doors</option>
+                </select>
+                <div className="flex flex-wrap gap-2">
+                  {["All", "North", "West", "South", "East"].map((region) => (
+                    <Button
+                      key={region}
+                      size="sm"
+                      variant={activeRegion === region ? "primary" : "outline"}
+                      onClick={() => setActiveRegion(region)}
+                    >
+                      {region}
+                    </Button>
+                  ))}
+                </div>
+                <Button
+                  variant="ghost"
+                  className="px-0 text-[#65736a]"
+                  onClick={resetFilters}
+                >
+                  <X size={16} />
+                  Clear all filters
+                </Button>
+              </CardContent>
+            </Card>
+            <div className="relative min-h-96 overflow-hidden rounded-3xl border border-white/10 bg-[#0d2a1e] p-6">
+              <div
+                className="absolute inset-0 opacity-15"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, #fff 1px, transparent 1px)",
+                  backgroundSize: "24px 24px",
+                }}
+              />
+              <Map className="absolute right-8 top-8 h-40 w-40 text-white/5" />
+              <div className="relative">
+                <Badge className="bg-white/10">India channel view</Badge>
+                <p className="mt-5 max-w-md text-sm leading-6 text-white/60">
+                  Select a region or use the detailed filters. The list below
+                  updates immediately.
+                </p>
+                <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {[
+                    "Yamunanagar",
+                    "New Delhi",
+                    "Mohali",
+                    "Jaipur",
+                    "Lucknow",
+                    "Ahmedabad",
+                    "Mumbai",
+                    "Bengaluru",
+                  ].map((city) => (
+                    <button
+                      key={city}
+                      onClick={() => setSearchCity(city)}
+                      className="rounded-2xl border border-white/10 bg-white/5 p-4 text-left text-sm transition hover:border-[#e7b878] hover:bg-white/10"
+                    >
+                      <MapPin className="mb-3 text-[#e7b878]" size={20} />
+                      {city}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 flex items-center justify-between">
+            <p className="text-sm text-white/60">
+              <strong className="text-white">{filteredDealers.length}</strong>{" "}
+              locations match your search
+            </p>
+          </div>
+          <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {filteredDealers.map((dealer) => (
+              <Card key={dealer.id} className="bg-white">
+                <CardHeader>
+                  <div className="flex items-start justify-between gap-3">
+                    <Badge variant={dealer.isHQ ? "accent" : "secondary"}>
+                      {dealer.type}
+                    </Badge>
+                    <BadgeCheck className="shrink-0 text-[#143d2b]" size={20} />
+                  </div>
+                  <CardTitle className="text-xl">{dealer.name}</CardTitle>
+                  <CardDescription>{dealer.contactPerson}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="flex gap-2 text-sm leading-6 text-[#65736a]">
+                    <MapPin className="mt-1 shrink-0" size={16} />
+                    {dealer.address}, {dealer.city}, {dealer.state} –{" "}
+                    {dealer.pin}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {dealer.products.map((product) => (
+                      <Badge
+                        key={product}
+                        variant="secondary"
+                        className="text-[10px]"
+                      >
+                        {product}
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="mt-5 flex gap-2">
+                    <a
+                      className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full bg-[#143d2b] text-sm font-semibold text-white"
+                      href={`tel:${dealer.phone}`}
+                    >
+                      <Phone size={15} />
+                      Call
+                    </a>
+                    <a
+                      className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-[#143d2b] text-sm font-semibold text-[#143d2b]"
+                      href={`https://wa.me/${dealer.whatsapp}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <MessageCircle size={15} />
+                      WhatsApp
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          {filteredDealers.length === 0 && (
+            <div className="mt-4 rounded-2xl border border-white/15 p-8 text-center text-white/70">
+              No displayed location matches these filters. Clear the filters or
+              contact Pentagon for help.
+            </div>
+          )}
+          <p className="mt-5 text-xs leading-5 text-white/45">
+            Dealer records shown here should be treated as directory information
+            and confirmed with Pentagon before travel or purchase.
+          </p>
+        </div>
+      </section>
 
-    <section id="partner-types" className={`${sectionClass} bg-white`}><div className={wrapClass}><Heading eyebrow="Partner types" title="Dealer or Distributor?" copy="The right structure depends on your market, infrastructure, coverage and stock plan. Pentagon confirms the relationship after review." /><div className="mt-10 overflow-hidden rounded-3xl border border-[#dbe2dc]"><div className="grid grid-cols-[1.1fr_1fr_1fr] bg-[#143d2b] p-4 text-sm font-semibold text-white sm:p-5"><span>Comparison</span><span>Dealer / Retailer</span><span>Distributor / Stockist</span></div>{[['Primary role', 'Serve local buyers and projects', 'Supply a wider dealer network'], ['Typical reach', 'City or local market', 'Multiple districts or wider territory'], ['Infrastructure', 'Retail/showroom with suitable stock', 'Warehouse, logistics and stock capability'], ['Sales network', 'Carpenters, contractors, designers and buyers', 'Dealers, projects and institutional trade'], ['Appointment', 'Subject to review and written terms', 'Subject to capability and territory review']].map(([label, dealer, distributor]) => <div key={label} className="grid grid-cols-[1.1fr_1fr_1fr] border-t border-[#dbe2dc] p-4 text-sm leading-6 sm:p-5"><strong>{label}</strong><span className="text-[#65736a]">{dealer}</span><span className="text-[#65736a]">{distributor}</span></div>)}</div></div></section>
+      <section id="partner-products" className={sectionClass}>
+        <div className={wrapClass}>
+          <Heading
+            eyebrow="Products for channel discussion"
+            title="A Portfolio for Trade, Projects and Interiors."
+            copy="Discuss Pentagon-manufactured products and selected complementary sourced or traded materials based on current availability and territory requirements."
+          />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              [
+                "Plywood",
+                "MR, BWP, Marine and Fire Retardant grades",
+                PackageCheck,
+              ],
+              [
+                "Blockboard",
+                "Panel solutions for furniture and interior requirements",
+                Boxes,
+              ],
+              [
+                "Flush Doors",
+                "Door solutions for residential and project requirements",
+                Building2,
+              ],
+              [
+                "Sourced / Traded",
+                "Selected complementary materials, subject to availability",
+                Truck,
+              ],
+            ].map(([title, copy, Icon]) => (
+              <Card
+                key={title}
+                className="hover:-translate-y-1 hover:shadow-lg"
+              >
+                <CardHeader>
+                  <Icon className="text-[#9c6846]" size={28} />
+                  <CardTitle className="pt-3 text-xl">{title}</CardTitle>
+                  <CardDescription className="leading-6">
+                    {copy}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+          <a
+            href={ROUTES.products}
+            className="mt-8 inline-flex items-center gap-2 font-semibold text-[#143d2b] hover:text-[#9c6846]"
+          >
+            Explore product portfolio <ArrowRight size={17} />
+          </a>
+        </div>
+      </section>
 
-    <section className={sectionClass}><div className={`${wrapClass} grid gap-6 lg:grid-cols-3`}><Card><CardHeader><Users className="text-[#9c6846]" /><CardTitle>Who Can Apply</CardTitle></CardHeader><CardContent className="space-y-3">{applicantTypes.map((item) => <p key={item} className="flex gap-2 text-sm leading-6 text-[#65736a]"><Check className="mt-1 shrink-0 text-[#143d2b]" size={16} />{item}</p>)}</CardContent></Card><Card><CardHeader><ClipboardCheck className="text-[#9c6846]" /><CardTitle>What We Evaluate</CardTitle></CardHeader><CardContent className="space-y-3">{evaluationFactors.map((item) => <p key={item} className="flex gap-2 text-sm leading-6 text-[#65736a]"><Check className="mt-1 shrink-0 text-[#143d2b]" size={16} />{item}</p>)}</CardContent></Card><Card className="bg-[#143d2b] text-white"><CardHeader><ShieldCheck className="text-[#e7b878]" /><CardTitle className="text-white">Partner Commitments</CardTitle></CardHeader><CardContent className="space-y-3">{partnerExpectations.map((item) => <p key={item} className="flex gap-2 text-sm leading-6 text-white/70"><Check className="mt-1 shrink-0 text-[#e7b878]" size={16} />{item}</p>)}</CardContent></Card></div></section>
+      <section id="partner-types" className={`${sectionClass} bg-white`}>
+        <div className={wrapClass}>
+          <Heading
+            eyebrow="Partner types"
+            title="Dealer or Distributor?"
+            copy="The right structure depends on your market, infrastructure, coverage and stock plan. Pentagon confirms the relationship after review."
+          />
+          <div className="mt-10 overflow-hidden rounded-3xl border border-[#dbe2dc]">
+            <div className="grid grid-cols-[1.1fr_1fr_1fr] bg-[#143d2b] p-4 text-sm font-semibold text-white sm:p-5">
+              <span>Comparison</span>
+              <span>Dealer / Retailer</span>
+              <span>Distributor / Stockist</span>
+            </div>
+            {[
+              [
+                "Primary role",
+                "Serve local buyers and projects",
+                "Supply a wider dealer network",
+              ],
+              [
+                "Typical reach",
+                "City or local market",
+                "Multiple districts or wider territory",
+              ],
+              [
+                "Infrastructure",
+                "Retail/showroom with suitable stock",
+                "Warehouse, logistics and stock capability",
+              ],
+              [
+                "Sales network",
+                "Carpenters, contractors, designers and buyers",
+                "Dealers, projects and institutional trade",
+              ],
+              [
+                "Appointment",
+                "Subject to review and written terms",
+                "Subject to capability and territory review",
+              ],
+            ].map(([label, dealer, distributor]) => (
+              <div
+                key={label}
+                className="grid grid-cols-[1.1fr_1fr_1fr] border-t border-[#dbe2dc] p-4 text-sm leading-6 sm:p-5"
+              >
+                <strong>{label}</strong>
+                <span className="text-[#65736a]">{dealer}</span>
+                <span className="text-[#65736a]">{distributor}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <section id="application-process" className={`${sectionClass} bg-[#efe8dc]`}><div className={wrapClass}><Heading eyebrow="Application process" title="A Clear Route From Introduction to Onboarding." copy="Submitting an application starts a review. It does not create a dealership, distributorship, exclusivity, credit facility or supply commitment." /><div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{processSteps.map(([number, title, copy]) => <Card key={number}><CardHeader><span className="text-3xl font-bold text-[#d7c3aa]">{number}</span><CardTitle className="text-xl">{title}</CardTitle><CardDescription className="leading-6">{copy}</CardDescription></CardHeader></Card>)}</div></div></section>
+      <section className={sectionClass}>
+        <div className={`${wrapClass} grid gap-6 lg:grid-cols-3`}>
+          <Card>
+            <CardHeader>
+              <Users className="text-[#9c6846]" />
+              <CardTitle>Who Can Apply</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {applicantTypes.map((item) => (
+                <p
+                  key={item}
+                  className="flex gap-2 text-sm leading-6 text-[#65736a]"
+                >
+                  <Check className="mt-1 shrink-0 text-[#143d2b]" size={16} />
+                  {item}
+                </p>
+              ))}
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <ClipboardCheck className="text-[#9c6846]" />
+              <CardTitle>What We Evaluate</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {evaluationFactors.map((item) => (
+                <p
+                  key={item}
+                  className="flex gap-2 text-sm leading-6 text-[#65736a]"
+                >
+                  <Check className="mt-1 shrink-0 text-[#143d2b]" size={16} />
+                  {item}
+                </p>
+              ))}
+            </CardContent>
+          </Card>
+          <Card className="bg-[#143d2b] text-white">
+            <CardHeader>
+              <ShieldCheck className="text-[#e7b878]" />
+              <CardTitle className="text-white">Partner Commitments</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {partnerExpectations.map((item) => (
+                <p
+                  key={item}
+                  className="flex gap-2 text-sm leading-6 text-white/70"
+                >
+                  <Check className="mt-1 shrink-0 text-[#e7b878]" size={16} />
+                  {item}
+                </p>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+      </section>
 
-    <section className={`${sectionClass} bg-[#143d2b] text-white`}><div className={`${wrapClass} grid items-center gap-10 lg:grid-cols-2`}><Heading eyebrow="Coverage & supply" title="Territory Decisions Begin With Real Requirements." copy="Coverage, direct supply feasibility, freight, order quantity, channel availability and commercial terms are reviewed together. The website does not promise automatic appointment or all-India direct supply." light /><div className="grid grid-cols-2 gap-4">{[['4', 'Confirmed plywood grades'], ['3', 'Manufactured product categories'], ['2', 'Partner routes'], ['1', 'Requirement-led review']].map(([value, label]) => <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-5"><strong className="font-['DM_Serif_Display',Georgia,serif] text-4xl text-[#e7b878]">{value}</strong><p className="mt-2 text-sm leading-5 text-white/60">{label}</p></div>)}</div></div></section>
+      <section
+        id="application-process"
+        className={`${sectionClass} bg-[#efe8dc]`}
+      >
+        <div className={wrapClass}>
+          <Heading
+            eyebrow="Application process"
+            title="A Clear Route From Introduction to Onboarding."
+            copy="Submitting an application starts a review. It does not create a dealership, distributorship, exclusivity, credit facility or supply commitment."
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {processSteps.map(([number, title, copy]) => (
+              <Card key={number}>
+                <CardHeader>
+                  <span className="text-3xl font-bold text-[#d7c3aa]">
+                    {number}
+                  </span>
+                  <CardTitle className="text-xl">{title}</CardTitle>
+                  <CardDescription className="leading-6">
+                    {copy}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <section id="partner-application" className={`${sectionClass} bg-white`}><div className={wrapClass}><div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><Heading eyebrow="Partner application" title="Tell Us About Your Business." copy="Complete the five-step profile. Required details help the Pentagon team assess the business, territory and likely partnership route." /><div className="mt-8 space-y-3">{['Partnership & territory', 'Business details', 'Market experience', 'Infrastructure & commercial plan', 'Review & consent'].map((label, index) => <button key={label} type="button" onClick={() => index + 1 < formStep && setFormStep(index + 1)} className={`flex w-full items-center gap-3 rounded-xl p-3 text-left text-sm ${formStep === index + 1 ? 'bg-[#143d2b] text-white' : index + 1 < formStep ? 'bg-[#eef2ee] text-[#143d2b]' : 'text-[#65736a]'}`}><span className={`grid h-7 w-7 place-items-center rounded-full text-xs ${index + 1 < formStep ? 'bg-[#d99143] text-white' : 'border border-current'}`}>{index + 1 < formStep ? <Check size={14} /> : index + 1}</span>{label}</button>)}</div></div>
-          <Card className="shadow-lg"><CardHeader><div className="flex items-center justify-between"><Badge variant="secondary">Step {formStep} of 5</Badge><span className="text-xs text-[#65736a]">* Required fields</span></div><CardTitle>{['Partnership & territory', 'Business details', 'Market experience', 'Infrastructure & commercial plan', 'Review & consent'][formStep - 1]}</CardTitle></CardHeader><CardContent>
-            {submitted ? <div className="py-12 text-center"><CircleCheck className="mx-auto text-[#143d2b]" size={56} /><h3 className="mt-5 font-['DM_Serif_Display',Georgia,serif] text-3xl">Application prepared.</h3><p className="mx-auto mt-3 max-w-lg leading-7 text-[#65736a]">Thank you for sharing your business profile. The current website records this confirmation in the page only; connect the form to the approved submission service before production launch.</p><Button className="mt-6" onClick={() => { setSubmitted(false); setForm(initialForm); setConsent(false); setFormStep(1); }}>Start another application</Button></div> : <form onSubmit={(event) => { event.preventDefault(); if (!consent) return setStepError('Please review and check the consent box to proceed.'); setSubmitted(true); }}>
-              {formStep === 1 && <div className="grid gap-5 md:grid-cols-2"><Field label="Partnership type" required><select className={selectClass} value={form.partnerType} onChange={update('partnerType')}><option>Dealer / Retailer</option><option>Distributor</option><option>Stockist</option></select></Field><Field label="State" required><Input className={inputClass} value={form.state} onChange={update('state')} /></Field><Field label="Proposed territory" required><Input className={inputClass} value={form.territory} onChange={update('territory')} placeholder="City, district or region" /></Field><Field label="Products of interest" required wide><div className="flex flex-wrap gap-2">{products.map((item) => <Button key={item} type="button" size="sm" variant={form.products.split(',').map((x) => x.trim()).includes(item) ? 'primary' : 'outline'} onClick={() => toggleChip('products', item)}>{item}</Button>)}</div></Field></div>}
-              {formStep === 2 && <div className="grid gap-5 md:grid-cols-2"><Field label="Legal business name" required><Input className={inputClass} value={form.legalName} onChange={update('legalName')} /></Field><Field label="Trade name"><Input className={inputClass} value={form.tradeName} onChange={update('tradeName')} /></Field><Field label="Contact person" required><Input className={inputClass} value={form.contactName} onChange={update('contactName')} /></Field><Field label="Designation"><Input className={inputClass} value={form.designation} onChange={update('designation')} /></Field><Field label="Mobile" required><Input className={inputClass} value={form.mobile} onChange={update('mobile')} inputMode="tel" /></Field><Field label="WhatsApp"><Input className={inputClass} value={form.whatsapp} onChange={update('whatsapp')} inputMode="tel" /></Field><Field label="Email" required><Input className={inputClass} type="email" value={form.email} onChange={update('email')} /></Field><Field label="GSTIN"><Input className={inputClass} value={form.gstin} onChange={update('gstin')} /></Field><Field label="Business address" required wide><Textarea value={form.address} onChange={update('address')} className="min-h-24 bg-white" /></Field><Field label="City" required><Input className={inputClass} value={form.city} onChange={update('city')} /></Field><Field label="District"><Input className={inputClass} value={form.district} onChange={update('district')} /></Field><Field label="PIN code" required><Input className={inputClass} value={form.pin} onChange={update('pin')} inputMode="numeric" /></Field><Field label="Year established"><Input className={inputClass} value={form.established} onChange={update('established')} /></Field></div>}
-              {formStep === 3 && <div className="grid gap-5 md:grid-cols-2"><Field label="Business categories" required wide><div className="flex flex-wrap gap-2">{categories.map((item) => <Button key={item} type="button" size="sm" variant={form.categories.split(',').map((x) => x.trim()).includes(item) ? 'primary' : 'outline'} onClick={() => toggleChip('categories', item)}>{item}</Button>)}</div></Field><Field label="Existing brands"><Textarea value={form.brands} onChange={update('brands')} /></Field><Field label="Customer groups"><Textarea value={form.customers} onChange={update('customers')} placeholder="Dealers, contractors, carpenters, designers…" /></Field><Field label="Markets served"><Textarea value={form.markets} onChange={update('markets')} /></Field><Field label="Industry experience"><Textarea value={form.experience} onChange={update('experience')} /></Field><Field label="Why do you want to partner?" required wide><Textarea className="min-h-28" value={form.reason} onChange={update('reason')} /></Field></div>}
-              {formStep === 4 && <div className="grid gap-5 md:grid-cols-2"><Field label="Showroom / shop"><select className={selectClass} value={form.showroom} onChange={update('showroom')}><option>Yes</option><option>No</option><option>Planned</option></select></Field><Field label="Warehouse"><select className={selectClass} value={form.warehouse} onChange={update('warehouse')}><option>Yes</option><option>No</option><option>Planned</option></select></Field><Field label="Warehouse area"><Input className={inputClass} value={form.warehouseArea} onChange={update('warehouseArea')} placeholder="Approx. sq. ft." /></Field><Field label="Team size"><Input className={inputClass} value={form.teamSize} onChange={update('teamSize')} /></Field><Field label="Logistics capability"><Textarea value={form.logistics} onChange={update('logistics')} /></Field><Field label="Trade relationships"><Textarea value={form.tradeRelationships} onChange={update('tradeRelationships')} /></Field><Field label="Expected opening order"><Input className={inputClass} value={form.openingOrder} onChange={update('openingOrder')} /></Field><Field label="Expected monthly purchase"><Input className={inputClass} value={form.monthlyPurchase} onChange={update('monthlyPurchase')} /></Field><Field label="Requested territory"><Input className={inputClass} value={form.territoryRequested} onChange={update('territoryRequested')} /></Field><Field label="Preferred discussion date"><Input className={inputClass} type="date" value={form.discussionDate} onChange={update('discussionDate')} /></Field><Field label="Opportunities in your market" wide><Textarea className="min-h-24" value={form.opportunities} onChange={update('opportunities')} /></Field><Field label="Additional information" wide><Textarea className="min-h-24" value={form.additional} onChange={update('additional')} /></Field></div>}
-              {formStep === 5 && <div><div className="grid gap-3 sm:grid-cols-2">{[['Partnership', form.partnerType], ['Territory', `${form.territory}, ${form.state}`], ['Business', form.legalName], ['Contact', `${form.contactName} · ${form.mobile}`], ['Products', form.products], ['Categories', form.categories]].map(([label, value]) => <div key={label} className="rounded-xl bg-[#f7f3ec] p-4"><p className="text-xs font-bold uppercase tracking-wider text-[#9c6846]">{label}</p><p className="mt-1 text-sm leading-6">{value || 'Not provided'}</p></div>)}</div><label className="mt-6 flex cursor-pointer items-start gap-3 rounded-xl border border-[#cad4cc] p-4"><input className="mt-1 accent-[#143d2b]" type="checkbox" checked={consent} onChange={(event) => { setConsent(event.target.checked); setStepError(''); }} /><span className="text-sm leading-6 text-[#65736a]">I confirm that the information is accurate and consent to being contacted about this application. I understand that submission does not guarantee appointment, exclusivity, credit or supply.</span></label></div>}
-              {stepError && <p role="alert" className="mt-5 rounded-xl bg-red-50 p-3 text-sm text-red-700">{stepError}</p>}<div className="mt-7 flex items-center justify-between border-t border-[#dbe2dc] pt-5">{formStep > 1 ? <Button type="button" variant="ghost" onClick={() => { setStepError(''); setFormStep((step) => step - 1); }}><ChevronLeft size={16} />Previous</Button> : <span />}{formStep < 5 ? <Button type="button" onClick={nextStep}>Continue<ArrowRight size={16} /></Button> : <Button type="submit" variant="primary">Submit application<ArrowRight size={16} /></Button>}</div>
-            </form>}
-          </CardContent></Card>
-        </div></div></section>
+      <section className={`${sectionClass} bg-[#143d2b] text-white`}>
+        <div className={`${wrapClass} grid items-center gap-10 lg:grid-cols-2`}>
+          <Heading
+            eyebrow="Coverage & supply"
+            title="Territory Decisions Begin With Real Requirements."
+            copy="Coverage, direct supply feasibility, freight, order quantity, channel availability and commercial terms are reviewed together. The website does not promise automatic appointment or all-India direct supply."
+            light
+          />
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              ["4", "Confirmed plywood grades"],
+              ["3", "Manufactured product categories"],
+              ["2", "Partner routes"],
+              ["1", "Requirement-led review"],
+            ].map(([value, label]) => (
+              <div
+                key={label}
+                className="rounded-2xl border border-white/10 bg-white/5 p-5"
+              >
+                <strong className="font-['DM_Serif_Display',Georgia,serif] text-4xl text-[#e7b878]">
+                  {value}
+                </strong>
+                <p className="mt-2 text-sm leading-5 text-white/60">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <section className={`${sectionClass} bg-[#efe8dc]`}><div className={wrapClass}><Heading eyebrow="Shared commitments" title="Good Partnerships Need Clear Expectations." copy="The strongest channel relationships are built through accurate product communication, responsible stock handling, documented commercial terms and active market feedback." center /><div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-3">{[['Pentagon’s role', 'Review product availability, supply feasibility and commercial requirements clearly.', Factory], ['Partner’s role', 'Represent grades accurately, handle stock responsibly and serve the agreed market.', Handshake], ['Shared focus', 'Build trust through documented terms, practical communication and customer support.', ShieldCheck]].map(([title, copy, Icon]) => <Card key={title} className="text-center"><CardHeader><Icon className="mx-auto text-[#9c6846]" /><CardTitle className="text-xl">{title}</CardTitle><CardDescription className="leading-6">{copy}</CardDescription></CardHeader></Card>)}</div></div></section>
+      <section id="partner-application" className={`${sectionClass} bg-white`}>
+        <div className={wrapClass}>
+          <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
+            <div>
+              <Heading
+                eyebrow="Partner application"
+                title="Tell Us About Your Business."
+                copy="Complete the five-step profile. Required details help the Pentagon team assess the business, territory and likely partnership route."
+              />
+              <div className="mt-8 space-y-3">
+                {[
+                  "Partnership & territory",
+                  "Business details",
+                  "Market experience",
+                  "Infrastructure & commercial plan",
+                  "Review & consent",
+                ].map((label, index) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() =>
+                      index + 1 < formStep && setFormStep(index + 1)
+                    }
+                    className={`flex w-full items-center gap-3 rounded-xl p-3 text-left text-sm ${formStep === index + 1 ? "bg-[#143d2b] text-white" : index + 1 < formStep ? "bg-[#eef2ee] text-[#143d2b]" : "text-[#65736a]"}`}
+                  >
+                    <span
+                      className={`grid h-7 w-7 place-items-center rounded-full text-xs ${index + 1 < formStep ? "bg-[#d99143] text-white" : "border border-current"}`}
+                    >
+                      {index + 1 < formStep ? <Check size={14} /> : index + 1}
+                    </span>
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <Card className="shadow-lg">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <Badge variant="secondary">Step {formStep} of 5</Badge>
+                  <span className="text-xs text-[#65736a]">
+                    * Required fields
+                  </span>
+                </div>
+                <CardTitle>
+                  {
+                    [
+                      "Partnership & territory",
+                      "Business details",
+                      "Market experience",
+                      "Infrastructure & commercial plan",
+                      "Review & consent",
+                    ][formStep - 1]
+                  }
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {submitted ? (
+                  <div className="py-12 text-center">
+                    <CircleCheck className="mx-auto text-[#143d2b]" size={56} />
+                    <h3 className="mt-5 font-['DM_Serif_Display',Georgia,serif] text-3xl">
+                      Application prepared.
+                    </h3>
+                    <p className="mx-auto mt-3 max-w-lg leading-7 text-[#65736a]">
+                      Thank you for sharing your business profile. The current
+                      website records this confirmation in the page only;
+                      connect the form to the approved submission service before
+                      production launch.
+                    </p>
+                    <Button
+                      className="mt-6"
+                      onClick={() => {
+                        setSubmitted(false);
+                        setForm(initialForm);
+                        setConsent(false);
+                        setFormStep(1);
+                      }}
+                    >
+                      Start another application
+                    </Button>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      if (!consent)
+                        return setStepError(
+                          "Please review and check the consent box to proceed.",
+                        );
+                      setSubmitted(true);
+                    }}
+                  >
+                    {formStep === 1 && (
+                      <div className="grid gap-5 md:grid-cols-2">
+                        <Field label="Partnership type" required>
+                          <select
+                            className={selectClass}
+                            value={form.partnerType}
+                            onChange={update("partnerType")}
+                          >
+                            <option>Dealer / Retailer</option>
+                            <option>Distributor</option>
+                            <option>Stockist</option>
+                          </select>
+                        </Field>
+                        <Field label="State" required>
+                          <Input
+                            className={inputClass}
+                            value={form.state}
+                            onChange={update("state")}
+                          />
+                        </Field>
+                        <Field label="Proposed territory" required>
+                          <Input
+                            className={inputClass}
+                            value={form.territory}
+                            onChange={update("territory")}
+                            placeholder="City, district or region"
+                          />
+                        </Field>
+                        <Field label="Products of interest" required wide>
+                          <div className="flex flex-wrap gap-2">
+                            {products.map((item) => (
+                              <Button
+                                key={item}
+                                type="button"
+                                size="sm"
+                                variant={
+                                  form.products
+                                    .split(",")
+                                    .map((x) => x.trim())
+                                    .includes(item)
+                                    ? "primary"
+                                    : "outline"
+                                }
+                                onClick={() => toggleChip("products", item)}
+                              >
+                                {item}
+                              </Button>
+                            ))}
+                          </div>
+                        </Field>
+                      </div>
+                    )}
+                    {formStep === 2 && (
+                      <div className="grid gap-5 md:grid-cols-2">
+                        <Field label="Legal business name" required>
+                          <Input
+                            className={inputClass}
+                            value={form.legalName}
+                            onChange={update("legalName")}
+                          />
+                        </Field>
+                        <Field label="Trade name">
+                          <Input
+                            className={inputClass}
+                            value={form.tradeName}
+                            onChange={update("tradeName")}
+                          />
+                        </Field>
+                        <Field label="Contact person" required>
+                          <Input
+                            className={inputClass}
+                            value={form.contactName}
+                            onChange={update("contactName")}
+                          />
+                        </Field>
+                        <Field label="Designation">
+                          <Input
+                            className={inputClass}
+                            value={form.designation}
+                            onChange={update("designation")}
+                          />
+                        </Field>
+                        <Field label="Mobile" required>
+                          <Input
+                            className={inputClass}
+                            value={form.mobile}
+                            onChange={update("mobile")}
+                            inputMode="tel"
+                          />
+                        </Field>
+                        <Field label="WhatsApp">
+                          <Input
+                            className={inputClass}
+                            value={form.whatsapp}
+                            onChange={update("whatsapp")}
+                            inputMode="tel"
+                          />
+                        </Field>
+                        <Field label="Email" required>
+                          <Input
+                            className={inputClass}
+                            type="email"
+                            value={form.email}
+                            onChange={update("email")}
+                          />
+                        </Field>
+                        <Field label="GSTIN">
+                          <Input
+                            className={inputClass}
+                            value={form.gstin}
+                            onChange={update("gstin")}
+                          />
+                        </Field>
+                        <Field label="Business address" required wide>
+                          <Textarea
+                            value={form.address}
+                            onChange={update("address")}
+                            className="min-h-24 bg-white"
+                          />
+                        </Field>
+                        <Field label="City" required>
+                          <Input
+                            className={inputClass}
+                            value={form.city}
+                            onChange={update("city")}
+                          />
+                        </Field>
+                        <Field label="District">
+                          <Input
+                            className={inputClass}
+                            value={form.district}
+                            onChange={update("district")}
+                          />
+                        </Field>
+                        <Field label="PIN code" required>
+                          <Input
+                            className={inputClass}
+                            value={form.pin}
+                            onChange={update("pin")}
+                            inputMode="numeric"
+                          />
+                        </Field>
+                        <Field label="Year established">
+                          <Input
+                            className={inputClass}
+                            value={form.established}
+                            onChange={update("established")}
+                          />
+                        </Field>
+                      </div>
+                    )}
+                    {formStep === 3 && (
+                      <div className="grid gap-5 md:grid-cols-2">
+                        <Field label="Business categories" required wide>
+                          <div className="flex flex-wrap gap-2">
+                            {categories.map((item) => (
+                              <Button
+                                key={item}
+                                type="button"
+                                size="sm"
+                                variant={
+                                  form.categories
+                                    .split(",")
+                                    .map((x) => x.trim())
+                                    .includes(item)
+                                    ? "primary"
+                                    : "outline"
+                                }
+                                onClick={() => toggleChip("categories", item)}
+                              >
+                                {item}
+                              </Button>
+                            ))}
+                          </div>
+                        </Field>
+                        <Field label="Existing brands">
+                          <Textarea
+                            value={form.brands}
+                            onChange={update("brands")}
+                          />
+                        </Field>
+                        <Field label="Customer groups">
+                          <Textarea
+                            value={form.customers}
+                            onChange={update("customers")}
+                            placeholder="Dealers, contractors, carpenters, designers…"
+                          />
+                        </Field>
+                        <Field label="Markets served">
+                          <Textarea
+                            value={form.markets}
+                            onChange={update("markets")}
+                          />
+                        </Field>
+                        <Field label="Industry experience">
+                          <Textarea
+                            value={form.experience}
+                            onChange={update("experience")}
+                          />
+                        </Field>
+                        <Field
+                          label="Why do you want to partner?"
+                          required
+                          wide
+                        >
+                          <Textarea
+                            className="min-h-28"
+                            value={form.reason}
+                            onChange={update("reason")}
+                          />
+                        </Field>
+                      </div>
+                    )}
+                    {formStep === 4 && (
+                      <div className="grid gap-5 md:grid-cols-2">
+                        <Field label="Showroom / shop">
+                          <select
+                            className={selectClass}
+                            value={form.showroom}
+                            onChange={update("showroom")}
+                          >
+                            <option>Yes</option>
+                            <option>No</option>
+                            <option>Planned</option>
+                          </select>
+                        </Field>
+                        <Field label="Warehouse">
+                          <select
+                            className={selectClass}
+                            value={form.warehouse}
+                            onChange={update("warehouse")}
+                          >
+                            <option>Yes</option>
+                            <option>No</option>
+                            <option>Planned</option>
+                          </select>
+                        </Field>
+                        <Field label="Warehouse area">
+                          <Input
+                            className={inputClass}
+                            value={form.warehouseArea}
+                            onChange={update("warehouseArea")}
+                            placeholder="Approx. sq. ft."
+                          />
+                        </Field>
+                        <Field label="Team size">
+                          <Input
+                            className={inputClass}
+                            value={form.teamSize}
+                            onChange={update("teamSize")}
+                          />
+                        </Field>
+                        <Field label="Logistics capability">
+                          <Textarea
+                            value={form.logistics}
+                            onChange={update("logistics")}
+                          />
+                        </Field>
+                        <Field label="Trade relationships">
+                          <Textarea
+                            value={form.tradeRelationships}
+                            onChange={update("tradeRelationships")}
+                          />
+                        </Field>
+                        <Field label="Expected opening order">
+                          <Input
+                            className={inputClass}
+                            value={form.openingOrder}
+                            onChange={update("openingOrder")}
+                          />
+                        </Field>
+                        <Field label="Expected monthly purchase">
+                          <Input
+                            className={inputClass}
+                            value={form.monthlyPurchase}
+                            onChange={update("monthlyPurchase")}
+                          />
+                        </Field>
+                        <Field label="Requested territory">
+                          <Input
+                            className={inputClass}
+                            value={form.territoryRequested}
+                            onChange={update("territoryRequested")}
+                          />
+                        </Field>
+                        <Field label="Preferred discussion date">
+                          <Input
+                            className={inputClass}
+                            type="date"
+                            value={form.discussionDate}
+                            onChange={update("discussionDate")}
+                          />
+                        </Field>
+                        <Field label="Opportunities in your market" wide>
+                          <Textarea
+                            className="min-h-24"
+                            value={form.opportunities}
+                            onChange={update("opportunities")}
+                          />
+                        </Field>
+                        <Field label="Additional information" wide>
+                          <Textarea
+                            className="min-h-24"
+                            value={form.additional}
+                            onChange={update("additional")}
+                          />
+                        </Field>
+                      </div>
+                    )}
+                    {formStep === 5 && (
+                      <div>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          {[
+                            ["Partnership", form.partnerType],
+                            ["Territory", `${form.territory}, ${form.state}`],
+                            ["Business", form.legalName],
+                            ["Contact", `${form.contactName} · ${form.mobile}`],
+                            ["Products", form.products],
+                            ["Categories", form.categories],
+                          ].map(([label, value]) => (
+                            <div
+                              key={label}
+                              className="rounded-xl bg-[#f7f3ec] p-4"
+                            >
+                              <p className="text-xs font-bold uppercase tracking-wider text-[#9c6846]">
+                                {label}
+                              </p>
+                              <p className="mt-1 text-sm leading-6">
+                                {value || "Not provided"}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                        <label className="mt-6 flex cursor-pointer items-start gap-3 rounded-xl border border-[#cad4cc] p-4">
+                          <input
+                            className="mt-1 accent-[#143d2b]"
+                            type="checkbox"
+                            checked={consent}
+                            onChange={(event) => {
+                              setConsent(event.target.checked);
+                              setStepError("");
+                            }}
+                          />
+                          <span className="text-sm leading-6 text-[#65736a]">
+                            I confirm that the information is accurate and
+                            consent to being contacted about this application. I
+                            understand that submission does not guarantee
+                            appointment, exclusivity, credit or supply.
+                          </span>
+                        </label>
+                      </div>
+                    )}
+                    {stepError && (
+                      <p
+                        role="alert"
+                        className="mt-5 rounded-xl bg-red-50 p-3 text-sm text-red-700"
+                      >
+                        {stepError}
+                      </p>
+                    )}
+                    <div className="mt-7 flex items-center justify-between border-t border-[#dbe2dc] pt-5">
+                      {formStep > 1 ? (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          onClick={() => {
+                            setStepError("");
+                            setFormStep((step) => step - 1);
+                          }}
+                        >
+                          <ChevronLeft size={16} />
+                          Previous
+                        </Button>
+                      ) : (
+                        <span />
+                      )}
+                      {formStep < 5 ? (
+                        <Button type="button" onClick={nextStep}>
+                          Continue
+                          <ArrowRight size={16} />
+                        </Button>
+                      ) : (
+                        <Button type="submit" variant="primary">
+                          Submit application
+                          <ArrowRight size={16} />
+                        </Button>
+                      )}
+                    </div>
+                  </form>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
-    <section id="dealer-faq" className={`${sectionClass} bg-white`}><div className={`${wrapClass} grid gap-10 lg:grid-cols-[.7fr_1.3fr]`}><div><Heading eyebrow="Questions before applying" title="Dealer & Distributor FAQs." copy="Search the common questions or contact Pentagon when your product, territory or commercial requirement needs a direct discussion." /><div className="relative mt-6"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#65736a]" size={18} /><Input className={`${inputClass} pl-10`} value={faqFilter} onChange={(event) => setFaqFilter(event.target.value)} placeholder="Search FAQs" /></div></div><Accordion type="single" collapsible defaultValue="faq-0" className="rounded-2xl border border-[#dbe2dc] px-5">{displayedFaqs.map(([question, answer]) => { const originalIndex = faqItems.findIndex(([item]) => item === question); return <AccordionItem key={question} value={`faq-${originalIndex}`}><AccordionTrigger className="py-5 text-base hover:no-underline">{question}</AccordionTrigger><AccordionContent className="pb-5 leading-7 text-[#65736a]">{answer}</AccordionContent></AccordionItem>; })}{displayedFaqs.length === 0 && <p className="py-8 text-center text-sm text-[#65736a]">No FAQ matches that search.</p>}</Accordion></div></section>
+      <section className={`${sectionClass} bg-[#efe8dc]`}>
+        <div className={wrapClass}>
+          <Heading
+            eyebrow="Shared commitments"
+            title="Good Partnerships Need Clear Expectations."
+            copy="The strongest channel relationships are built through accurate product communication, responsible stock handling, documented commercial terms and active market feedback."
+            center
+          />
+          <div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-3">
+            {[
+              [
+                "Pentagon’s role",
+                "Review product availability, supply feasibility and commercial requirements clearly.",
+                Factory,
+              ],
+              [
+                "Partner’s role",
+                "Represent grades accurately, handle stock responsibly and serve the agreed market.",
+                Handshake,
+              ],
+              [
+                "Shared focus",
+                "Build trust through documented terms, practical communication and customer support.",
+                ShieldCheck,
+              ],
+            ].map(([title, copy, Icon]) => (
+              <Card key={title} className="text-center">
+                <CardHeader>
+                  <Icon className="mx-auto text-[#9c6846]" />
+                  <CardTitle className="text-xl">{title}</CardTitle>
+                  <CardDescription className="leading-6">
+                    {copy}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <section className="bg-[#C86D51] px-4 py-14 text-white sm:px-6 lg:px-8"><div className={`${wrapClass} flex flex-col items-start justify-between gap-7 lg:flex-row lg:items-center`}><div><p className="text-xs font-bold uppercase tracking-[.2em] text-white/70">Start a conversation</p><h2 className="mt-2 font-['DM_Serif_Display',Georgia,serif] text-3xl sm:text-4xl">Find a seller or introduce your business.</h2><p className="mt-3 max-w-2xl text-white/75">Talk to Pentagon about product availability, territory, freight or a suitable partnership route.</p></div><div className="flex flex-wrap gap-3"><a href={PHONE} className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 font-semibold text-[#143d2b]"><Phone size={18} />Call Pentagon</a><a href={`${WHATSAPP_BASE}${encodeURIComponent('Hello Pentagon, I would like to discuss a dealer or distributor enquiry.')}`} target="_blank" rel="noreferrer" className="inline-flex h-12 items-center gap-2 rounded-full border border-white/35 px-6 font-semibold"><MessageCircle size={18} />WhatsApp</a><a href={CONTACT_SECTIONS.form} className="inline-flex h-12 items-center gap-2 rounded-full border border-white/35 px-6 font-semibold">Contact form<ArrowRight size={18} /></a></div></div></section>
+      <section id="dealer-faq" className={`${sectionClass} bg-white`}>
+        <div className={`${wrapClass} grid gap-10 lg:grid-cols-[.7fr_1.3fr]`}>
+          <div>
+            <Heading
+              eyebrow="Questions before applying"
+              title="Dealer & Distributor FAQs."
+              copy="Search the common questions or contact Pentagon when your product, territory or commercial requirement needs a direct discussion."
+            />
+            <div className="relative mt-6">
+              <Search
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#65736a]"
+                size={18}
+              />
+              <Input
+                className={`${inputClass} pl-10`}
+                value={faqFilter}
+                onChange={(event) => setFaqFilter(event.target.value)}
+                placeholder="Search FAQs"
+              />
+            </div>
+          </div>
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="faq-0"
+            className="rounded-2xl border border-[#dbe2dc] px-5"
+          >
+            {displayedFaqs.map(([question, answer]) => {
+              const originalIndex = faqItems.findIndex(
+                ([item]) => item === question,
+              );
+              return (
+                <AccordionItem key={question} value={`faq-${originalIndex}`}>
+                  <AccordionTrigger className="py-5 text-base hover:no-underline">
+                    {question}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-5 leading-7 text-[#65736a]">
+                    {answer}
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+            {displayedFaqs.length === 0 && (
+              <p className="py-8 text-center text-sm text-[#65736a]">
+                No FAQ matches that search.
+              </p>
+            )}
+          </Accordion>
+        </div>
+      </section>
 
-    <div className="sticky bottom-3 z-30 mx-auto mb-3 flex w-[calc(100%-1.5rem)] max-w-md gap-2 rounded-2xl border border-[#dbe2dc] bg-white/95 p-2 shadow-xl backdrop-blur lg:hidden"><a href={DEALER_SECTIONS.locator} className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#143d2b] text-sm font-semibold text-white"><MapPin size={16} />Find seller</a><a href={DEALER_SECTIONS.application} className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#C86D51] text-sm font-semibold text-white"><Handshake size={16} />Apply</a></div>
-  </main>;
+      <section className="bg-[#C86D51] px-4 py-14 text-white sm:px-6 lg:px-8">
+        <div
+          className={`${wrapClass} flex flex-col items-start justify-between gap-7 lg:flex-row lg:items-center`}
+        >
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/70">
+              Start a conversation
+            </p>
+            <h2 className="mt-2 font-['DM_Serif_Display',Georgia,serif] text-3xl sm:text-4xl">
+              Find a seller or introduce your business.
+            </h2>
+            <p className="mt-3 max-w-2xl text-white/75">
+              Talk to Pentagon about product availability, territory, freight or
+              a suitable partnership route.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={PHONE}
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 font-semibold text-[#143d2b]"
+            >
+              <Phone size={18} />
+              Call Pentagon
+            </a>
+            <a
+              href={`${WHATSAPP_BASE}${encodeURIComponent("Hello Pentagon, I would like to discuss a dealer or distributor enquiry.")}`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center gap-2 rounded-full border border-white/35 px-6 font-semibold"
+            >
+              <MessageCircle size={18} />
+              WhatsApp
+            </a>
+            <a
+              href={CONTACT_SECTIONS.form}
+              className="inline-flex h-12 items-center gap-2 rounded-full border border-white/35 px-6 font-semibold"
+            >
+              Contact form
+              <ArrowRight size={18} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div className="sticky bottom-3 z-30 mx-auto mb-3 flex w-[calc(100%-1.5rem)] max-w-md gap-2 rounded-2xl border border-[#dbe2dc] bg-white/95 p-2 shadow-xl backdrop-blur lg:hidden">
+        <a
+          href={DEALER_SECTIONS.locator}
+          className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#143d2b] text-sm font-semibold text-white"
+        >
+          <MapPin size={16} />
+          Find seller
+        </a>
+        <a
+          href={DEALER_SECTIONS.application}
+          className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#C86D51] text-sm font-semibold text-white"
+        >
+          <Handshake size={16} />
+          Apply
+        </a>
+      </div>
+    </main>
+  );
 }
 
 export default DealersPage;

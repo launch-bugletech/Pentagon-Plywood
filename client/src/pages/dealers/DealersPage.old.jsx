@@ -1,300 +1,472 @@
-import { useEffect, useState } from 'react';
-import { CONTACT_SECTIONS, DEALER_SECTIONS, ROUTES, comingSoonUrl } from '../../app/routes.js';
-import './dealers-page.css';
+import { useEffect, useState } from "react";
+import {
+  CONTACT_SECTIONS,
+  DEALER_SECTIONS,
+  ROUTES,
+  comingSoonUrl,
+} from "../../app/routes.js";
+import "./dealers-page.css";
 
-const PHONE = 'tel:+917206104340';
-const WHATSAPP_BASE = 'https://wa.me/917206104340?text=';
+const PHONE = "tel:+917015085556";
+const WHATSAPP_BASE = "https://wa.me/917015085556?text=";
 
 const MOCK_DEALERS = [
   {
-    id: 'd-101',
-    name: 'Pentagon Yamunanagar Flagship Depot & Works',
-    type: 'Manufacturing HQ & Primary Depot',
-    contactPerson: 'Pentagon Channel Cell',
-    phone: '+917206104340',
-    whatsapp: '917206104340',
-    address: 'Industrial Area, Radaur Road',
-    city: 'Yamunanagar',
-    state: 'Haryana',
-    pin: '135001',
-    region: 'North',
-    products: ['MR, BWP, Marine & Fire Retardant Plywood', 'Blockboard', 'Flush Doors', 'Sourced / traded materials'],
+    id: "d-101",
+    name: "Pentagon Yamunanagar Flagship Depot & Works",
+    type: "Manufacturing HQ & Primary Depot",
+    contactPerson: "Pentagon Channel Cell",
+    phone: "+917015085556",
+    whatsapp: "917015085556",
+    address: "Industrial Area, Radaur Road",
+    city: "Yamunanagar",
+    state: "Haryana",
+    pin: "135001",
+    region: "North",
+    products: [
+      "MR, BWP, Marine & Fire Retardant Plywood",
+      "Blockboard",
+      "Flush Doors",
+      "Sourced / traded materials",
+    ],
     verified: true,
     isHQ: true,
     mapPos: { x: 190, y: 110 },
   },
   {
-    id: 'd-102',
-    name: 'Capital Timber & Plywood Traders',
-    type: 'Authorized Stockist',
-    contactPerson: 'Rajesh Sharma',
-    phone: '+919811022334',
-    whatsapp: '919811022334',
-    address: 'Shop 14, Timber Market, Kirti Nagar',
-    city: 'New Delhi',
-    state: 'Delhi',
-    pin: '110015',
-    region: 'North',
-    products: ['Plywood', 'Flush Doors'],
+    id: "d-102",
+    name: "Capital Timber & Plywood Traders",
+    type: "Authorized Stockist",
+    contactPerson: "Rajesh Sharma",
+    phone: "+919811022334",
+    whatsapp: "919811022334",
+    address: "Shop 14, Timber Market, Kirti Nagar",
+    city: "New Delhi",
+    state: "Delhi",
+    pin: "110015",
+    region: "North",
+    products: ["Plywood", "Flush Doors"],
     verified: true,
     mapPos: { x: 180, y: 135 },
   },
   {
-    id: 'd-103',
-    name: 'Grand City Wood Panels',
-    type: 'Regional Distributor',
-    contactPerson: 'Vikramjit Singh',
-    phone: '+919876543210',
-    whatsapp: '919876543210',
-    address: 'Plot 45, Sector 82 Industrial Area',
-    city: 'Mohali',
-    state: 'Punjab',
-    pin: '160055',
-    region: 'North',
-    products: ['Plywood', 'Blockboard', 'Flush Doors'],
+    id: "d-103",
+    name: "Grand City Wood Panels",
+    type: "Regional Distributor",
+    contactPerson: "Vikramjit Singh",
+    phone: "+919876543210",
+    whatsapp: "919876543210",
+    address: "Plot 45, Sector 82 Industrial Area",
+    city: "Mohali",
+    state: "Punjab",
+    pin: "160055",
+    region: "North",
+    products: ["Plywood", "Blockboard", "Flush Doors"],
     verified: true,
     mapPos: { x: 170, y: 100 },
   },
   {
-    id: 'd-104',
-    name: 'Royal Heritage Building Solutions',
-    type: 'Authorized Dealer',
-    contactPerson: 'Sanjay Toshniwal',
-    phone: '+919414012345',
-    whatsapp: '919414012345',
-    address: 'Near New Aatish Market, Mansarovar',
-    city: 'Jaipur',
-    state: 'Rajasthan',
-    pin: '302020',
-    region: 'North',
-    products: ['Plywood', 'Blockboard'],
+    id: "d-104",
+    name: "Royal Heritage Building Solutions",
+    type: "Authorized Dealer",
+    contactPerson: "Sanjay Toshniwal",
+    phone: "+919414012345",
+    whatsapp: "919414012345",
+    address: "Near New Aatish Market, Mansarovar",
+    city: "Jaipur",
+    state: "Rajasthan",
+    pin: "302020",
+    region: "North",
+    products: ["Plywood", "Blockboard"],
     verified: true,
     mapPos: { x: 145, y: 185 },
   },
   {
-    id: 'd-105',
-    name: 'Apex Interior & Plywood Hub',
-    type: 'Regional Distributor',
-    contactPerson: 'Pradeep Agarwal',
-    phone: '+919839054321',
-    whatsapp: '919839054321',
-    address: 'Transport Nagar, Kanpur Road',
-    city: 'Lucknow',
-    state: 'Uttar Pradesh',
-    pin: '226012',
-    region: 'North',
-    products: ['Plywood', 'Flush Doors'],
+    id: "d-105",
+    name: "Apex Interior & Plywood Hub",
+    type: "Regional Distributor",
+    contactPerson: "Pradeep Agarwal",
+    phone: "+919839054321",
+    whatsapp: "919839054321",
+    address: "Transport Nagar, Kanpur Road",
+    city: "Lucknow",
+    state: "Uttar Pradesh",
+    pin: "226012",
+    region: "North",
+    products: ["Plywood", "Flush Doors"],
     verified: true,
     mapPos: { x: 235, y: 175 },
   },
   {
-    id: 'd-106',
-    name: 'Western Panel & Board House',
-    type: 'Authorized Stockist',
-    contactPerson: 'Jitendra Patel',
-    phone: '+919825011223',
-    whatsapp: '919825011223',
-    address: 'GIDC Commercial Zone, Naroda',
-    city: 'Ahmedabad',
-    state: 'Gujarat',
-    pin: '382330',
-    region: 'West',
-    products: ['Plywood', 'Blockboard', 'Flush Doors'],
+    id: "d-106",
+    name: "Western Panel & Board House",
+    type: "Authorized Stockist",
+    contactPerson: "Jitendra Patel",
+    phone: "+919825011223",
+    whatsapp: "919825011223",
+    address: "GIDC Commercial Zone, Naroda",
+    city: "Ahmedabad",
+    state: "Gujarat",
+    pin: "382330",
+    region: "West",
+    products: ["Plywood", "Blockboard", "Flush Doors"],
     verified: true,
     mapPos: { x: 110, y: 240 },
   },
   {
-    id: 'd-107',
-    name: 'Metropolitan Wood Crafts',
-    type: 'Regional Distributor',
-    contactPerson: 'Mahesh Shah',
-    phone: '+919820098765',
-    whatsapp: '919820098765',
-    address: 'LBS Marg, Ghatkopar West',
-    city: 'Mumbai',
-    state: 'Maharashtra',
-    pin: '400086',
-    region: 'West',
-    products: ['Plywood', 'Flush Doors'],
+    id: "d-107",
+    name: "Metropolitan Wood Crafts",
+    type: "Regional Distributor",
+    contactPerson: "Mahesh Shah",
+    phone: "+919820098765",
+    whatsapp: "919820098765",
+    address: "LBS Marg, Ghatkopar West",
+    city: "Mumbai",
+    state: "Maharashtra",
+    pin: "400086",
+    region: "West",
+    products: ["Plywood", "Flush Doors"],
     verified: true,
     mapPos: { x: 130, y: 310 },
   },
   {
-    id: 'd-108',
-    name: 'Deccan Plywood & Timber Agencies',
-    type: 'Authorized Dealer',
-    contactPerson: 'Ramesh Gowda',
-    phone: '+919845033445',
-    whatsapp: '919845033445',
-    address: 'NT Pet, Mysuru Road',
-    city: 'Bengaluru',
-    state: 'Karnataka',
-    pin: '560002',
-    region: 'South',
-    products: ['Plywood', 'Blockboard'],
+    id: "d-108",
+    name: "Deccan Plywood & Timber Agencies",
+    type: "Authorized Dealer",
+    contactPerson: "Ramesh Gowda",
+    phone: "+919845033445",
+    whatsapp: "919845033445",
+    address: "NT Pet, Mysuru Road",
+    city: "Bengaluru",
+    state: "Karnataka",
+    pin: "560002",
+    region: "South",
+    products: ["Plywood", "Blockboard"],
     verified: true,
     mapPos: { x: 175, y: 410 },
   },
 ];
 
 const partnerRoutes = [
-  ['seller', '01', 'Find a Seller', 'Looking for Pentagon products for furniture, interiors, construction or resale? Search the approved partner network serving your location.', 'Find a Seller Near Me'],
-  ['dealer', '02', 'Become a Dealer', 'Already selling plywood, boards, doors, laminates, hardware or building materials? Tell us about your business and market.', 'Apply as a Dealer'],
-  ['distributor', '03', 'Become a Distributor', 'Have the infrastructure, sales reach and relationships to serve multiple dealers or a wider territory?', 'Apply as a Distributor'],
+  [
+    "seller",
+    "01",
+    "Find a Seller",
+    "Looking for Pentagon products for furniture, interiors, construction or resale? Search the approved partner network serving your location.",
+    "Find a Seller Near Me",
+  ],
+  [
+    "dealer",
+    "02",
+    "Become a Dealer",
+    "Already selling plywood, boards, doors, laminates, hardware or building materials? Tell us about your business and market.",
+    "Apply as a Dealer",
+  ],
+  [
+    "distributor",
+    "03",
+    "Become a Distributor",
+    "Have the infrastructure, sales reach and relationships to serve multiple dealers or a wider territory?",
+    "Apply as a Distributor",
+  ],
 ];
 
 const opportunities = [
-  ['Manufacturing Base Yamunanagar', 'Pentagon manufactures plywood, blockboard and flush doors directly from India’s premier wood-panel industrial cluster.'],
-  ['Manufactured and Sourced Portfolio', 'Discuss Pentagon-manufactured MR, BWP, Marine and Fire Retardant Plywood, blockboard and flush doors alongside sourced or traded materials, subject to availability.'],
-  ['Direct B2B Freight Feasibility', 'Optimized dispatch planning from factory to warehouse, reducing transit delays and damage risks.'],
-  ['Enquiry-Based Supply Planning', 'Dedicated territory assessments ensuring brand partners enjoy steady supply without local market overcrowding.'],
-  ['Verified Digital Dealer Locator', 'Approved partners get listed on Pentagon’s digital locator, driving local B2B and consumer leads directly to your store.'],
-  ['Requirement-Led Commercial Discussion', 'Product availability, grade, quantity, freight, delivery and commercial terms are discussed for the specific territory and requirement.'],
+  [
+    "Manufacturing Base Yamunanagar",
+    "Pentagon manufactures plywood, blockboard and flush doors directly from India’s premier wood-panel industrial cluster.",
+  ],
+  [
+    "Manufactured and Sourced Portfolio",
+    "Discuss Pentagon-manufactured MR, BWP, Marine and Fire Retardant Plywood, blockboard and flush doors alongside sourced or traded materials, subject to availability.",
+  ],
+  [
+    "Direct B2B Freight Feasibility",
+    "Optimized dispatch planning from factory to warehouse, reducing transit delays and damage risks.",
+  ],
+  [
+    "Enquiry-Based Supply Planning",
+    "Dedicated territory assessments ensuring brand partners enjoy steady supply without local market overcrowding.",
+  ],
+  [
+    "Verified Digital Dealer Locator",
+    "Approved partners get listed on Pentagon’s digital locator, driving local B2B and consumer leads directly to your store.",
+  ],
+  [
+    "Requirement-Led Commercial Discussion",
+    "Product availability, grade, quantity, freight, delivery and commercial terms are discussed for the specific territory and requirement.",
+  ],
 ];
 
 const processSteps = [
-  ['01', 'Submit Business Profile', 'Share your store location, existing product portfolio, warehousing infrastructure, and preferred partnership route.'],
-  ['02', 'Territory & Demand Review', 'Pentagon reviews market coverage, logistics feasibility, and channel growth opportunity in your target territory.'],
-  ['03', 'Commercial Discussion', 'Our channel team connects with you to discuss product ranges, opening order plans, pricing structure, and delivery terms.'],
-  ['04', 'Capability Verification', 'Quick validation of business documents, shop/warehouse photos, or trade references to complete compliance.'],
-  ['05', 'Commercial Agreement', 'Territory allocation, minimum order commitments, brand guidelines, and channel terms are formally documented.'],
-  ['06', 'Onboarding & Supply', 'Receive official dealer signage, product sampling kits, digital locator listing, and initial stock dispatch.'],
+  [
+    "01",
+    "Submit Business Profile",
+    "Share your store location, existing product portfolio, warehousing infrastructure, and preferred partnership route.",
+  ],
+  [
+    "02",
+    "Territory & Demand Review",
+    "Pentagon reviews market coverage, logistics feasibility, and channel growth opportunity in your target territory.",
+  ],
+  [
+    "03",
+    "Commercial Discussion",
+    "Our channel team connects with you to discuss product ranges, opening order plans, pricing structure, and delivery terms.",
+  ],
+  [
+    "04",
+    "Capability Verification",
+    "Quick validation of business documents, shop/warehouse photos, or trade references to complete compliance.",
+  ],
+  [
+    "05",
+    "Commercial Agreement",
+    "Territory allocation, minimum order commitments, brand guidelines, and channel terms are formally documented.",
+  ],
+  [
+    "06",
+    "Onboarding & Supply",
+    "Receive official dealer signage, product sampling kits, digital locator listing, and initial stock dispatch.",
+  ],
 ];
 
 const applicantTypes = [
-  'Existing plywood and wood-panel dealers',
-  'Building-material retailers & hardware stores',
-  'Timber and board wholesalers',
-  'Door, laminate and interior surface sellers',
-  'Interior-material showrooms & design hubs',
-  'Furniture manufacturing material suppliers',
-  'Regional stockists & bulk suppliers',
-  'Infrastructure & project material suppliers',
-  'New entrepreneurs with suitable infrastructure',
+  "Existing plywood and wood-panel dealers",
+  "Building-material retailers & hardware stores",
+  "Timber and board wholesalers",
+  "Door, laminate and interior surface sellers",
+  "Interior-material showrooms & design hubs",
+  "Furniture manufacturing material suppliers",
+  "Regional stockists & bulk suppliers",
+  "Infrastructure & project material suppliers",
+  "New entrepreneurs with suitable infrastructure",
 ];
 
 const evaluationFactors = [
-  'Established business identity and GST registration',
-  'Suitable showroom, shop, or warehousing facility',
-  'Understanding of local plywood & wood-panel trade',
-  'Active relationships with local carpenters, contractors & interior designers',
-  'Financial capability to maintain appropriate stock levels',
-  'Dedicated sales or logistics setup for local distribution',
+  "Established business identity and GST registration",
+  "Suitable showroom, shop, or warehousing facility",
+  "Understanding of local plywood & wood-panel trade",
+  "Active relationships with local carpenters, contractors & interior designers",
+  "Financial capability to maintain appropriate stock levels",
+  "Dedicated sales or logistics setup for local distribution",
 ];
 
 const partnerExpectations = [
-  'Communicate product grades and technical specs transparently to buyers',
-  'Maintain appropriate stock handling and moisture-controlled storage',
-  'Communicate Pentagon product grades and available specifications accurately in your operational area',
-  'Provide prompt feedback on market demand and customer requirements',
-  'Follow documented commercial terms and territory guidelines',
-  'Protect commercial brand representation in all store marketing',
+  "Communicate product grades and technical specs transparently to buyers",
+  "Maintain appropriate stock handling and moisture-controlled storage",
+  "Communicate Pentagon product grades and available specifications accurately in your operational area",
+  "Provide prompt feedback on market demand and customer requirements",
+  "Follow documented commercial terms and territory guidelines",
+  "Protect commercial brand representation in all store marketing",
 ];
 
 const faqItems = [
-   ['How can I become a Pentagon Plywood dealer?', 'Submit the partnership application with your business, location, experience, infrastructure and product interests. Pentagon will review the opportunity and contact relevant applicants.'],
-  ['Who can apply for a dealership?', 'Plywood dealers, building-material retailers, wholesalers, timber and board sellers, interior-material showrooms, stockists and other businesses with relevant capability may apply.'],
-  ['Can a new business apply?', 'Yes. Pentagon will assess its location, business plan, infrastructure, product knowledge and market opportunity. An application does not guarantee appointment.'],
-  ['What is the difference between a dealer and a distributor?', 'A dealer usually serves a local market. A distributor generally holds more stock and supplies a broader territory or network of dealers. Pentagon determines the appropriate relationship after review.'],
-  ['Is there a minimum investment?', 'Pentagon has not published a fixed investment requirement. It may depend on product range, stock plan, location, infrastructure and the commercial arrangement.'],
-  ['Is a minimum opening order required?', 'Opening-order requirements are confirmed during commercial discussion and may vary by product, quantity, freight and territory.'],
-  ['Will I receive an exclusive territory?', 'No exclusivity is created by submitting an application. Any protected territory must be specifically reviewed, approved and documented.'],
-  ['Does Pentagon offer credit?', 'Payment and credit terms are subject to commercial review and written approval.'],
-  ['Does Pentagon provide samples or marketing material?', 'Available samples, catalogues, product images and other partner material are discussed during onboarding.'],
-  ['Which products can dealers stock?', 'Applicants can discuss plywood, blockboard and flush doors. Selected allied products may be available through sourcing or trading, subject to current availability.'],
-  ['Can I apply for more than one city or district?', 'Yes. State the complete proposed coverage. Pentagon will assess it against network coverage, logistics and business capability.'],
-  ['How can customers find my business on this website?', 'Selected approved partners may be added to the locator after verification and consent to publish. Listing is not automatic.'],
-  ['Does Pentagon supply throughout India?', 'Each enquiry is reviewed according to product, quantity, location, freight and channel availability. The website does not promise that every order can be served directly.'],
+  [
+    "How can I become a Pentagon Plywood dealer?",
+    "Submit the partnership application with your business, location, experience, infrastructure and product interests. Pentagon will review the opportunity and contact relevant applicants.",
+  ],
+  [
+    "Who can apply for a dealership?",
+    "Plywood dealers, building-material retailers, wholesalers, timber and board sellers, interior-material showrooms, stockists and other businesses with relevant capability may apply.",
+  ],
+  [
+    "Can a new business apply?",
+    "Yes. Pentagon will assess its location, business plan, infrastructure, product knowledge and market opportunity. An application does not guarantee appointment.",
+  ],
+  [
+    "What is the difference between a dealer and a distributor?",
+    "A dealer usually serves a local market. A distributor generally holds more stock and supplies a broader territory or network of dealers. Pentagon determines the appropriate relationship after review.",
+  ],
+  [
+    "Is there a minimum investment?",
+    "Pentagon has not published a fixed investment requirement. It may depend on product range, stock plan, location, infrastructure and the commercial arrangement.",
+  ],
+  [
+    "Is a minimum opening order required?",
+    "Opening-order requirements are confirmed during commercial discussion and may vary by product, quantity, freight and territory.",
+  ],
+  [
+    "Will I receive an exclusive territory?",
+    "No exclusivity is created by submitting an application. Any protected territory must be specifically reviewed, approved and documented.",
+  ],
+  [
+    "Does Pentagon offer credit?",
+    "Payment and credit terms are subject to commercial review and written approval.",
+  ],
+  [
+    "Does Pentagon provide samples or marketing material?",
+    "Available samples, catalogues, product images and other partner material are discussed during onboarding.",
+  ],
+  [
+    "Which products can dealers stock?",
+    "Applicants can discuss plywood, blockboard and flush doors. Selected allied products may be available through sourcing or trading, subject to current availability.",
+  ],
+  [
+    "Can I apply for more than one city or district?",
+    "Yes. State the complete proposed coverage. Pentagon will assess it against network coverage, logistics and business capability.",
+  ],
+  [
+    "How can customers find my business on this website?",
+    "Selected approved partners may be added to the locator after verification and consent to publish. Listing is not automatic.",
+  ],
+  [
+    "Does Pentagon supply throughout India?",
+    "Each enquiry is reviewed according to product, quantity, location, freight and channel availability. The website does not promise that every order can be served directly.",
+  ],
 ];
 
 const PRODUCT_CHIPS = [
-  'MR Grade Plywood',
-  'BWP Grade Plywood',
-  'Calibrated Plywood',
-  'Blockboard',
-  'Flush Doors',
-  'Marine Grade Plywood',
-  'Fire Retardant Plywood',
-  'Sourced / traded materials',
-  'HDHMR / WPC',
-  'Architectural Laminates',
+  "MR Grade Plywood",
+  "BWP Grade Plywood",
+  "Calibrated Plywood",
+  "Blockboard",
+  "Flush Doors",
+  "Marine Grade Plywood",
+  "Fire Retardant Plywood",
+  "Sourced / traded materials",
+  "HDHMR / WPC",
+  "Architectural Laminates",
 ];
 
 const CATEGORY_CHIPS = [
-  'Plywood & Board Dealer',
-  'Timber Merchant',
-  'Hardware & Lock Store',
-  'Building Material Retailer',
-  'Interior Showroom',
-  'Furniture Manufacturer Supplier',
+  "Plywood & Board Dealer",
+  "Timber Merchant",
+  "Hardware & Lock Store",
+  "Building Material Retailer",
+  "Interior Showroom",
+  "Furniture Manufacturer Supplier",
 ];
 
 const initialForm = {
-  partnerType: 'Dealer / Retailer',
-  products: '',
-  state: '',
-  territory: '',
-  legalName: '',
-  tradeName: '',
-  contactName: '',
-  designation: '',
-  mobile: '',
-  whatsapp: '',
-  email: '',
-  address: '',
-  city: '',
-  district: '',
-  pin: '',
-  gstin: '',
-  established: '',
-  categories: '',
-  brands: '',
-  customers: '',
-  markets: '',
-  experience: '',
-  potential: '',
-  reason: '',
-  showroom: 'Yes',
-  warehouse: 'Yes',
-  warehouseArea: '',
-  logistics: '',
-  teamSize: '',
-  tradeRelationships: '',
-  openingOrder: '',
-  monthlyPurchase: '',
-  territoryRequested: '',
-  discussionDate: '',
-  opportunities: '',
-  additional: '',
+  partnerType: "Dealer / Retailer",
+  products: "",
+  state: "",
+  territory: "",
+  legalName: "",
+  tradeName: "",
+  contactName: "",
+  designation: "",
+  mobile: "",
+  whatsapp: "",
+  email: "",
+  address: "",
+  city: "",
+  district: "",
+  pin: "",
+  gstin: "",
+  established: "",
+  categories: "",
+  brands: "",
+  customers: "",
+  markets: "",
+  experience: "",
+  potential: "",
+  reason: "",
+  showroom: "Yes",
+  warehouse: "Yes",
+  warehouseArea: "",
+  logistics: "",
+  teamSize: "",
+  tradeRelationships: "",
+  openingOrder: "",
+  monthlyPurchase: "",
+  territoryRequested: "",
+  discussionDate: "",
+  opportunities: "",
+  additional: "",
 };
 
-function Arrow({ className = '' }) {
-  return <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>;
+function Arrow({ className = "" }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14M13 5l7 7-7 7" />
+    </svg>
+  );
 }
 
 function PhoneIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>;
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
 }
 
 function WhatsAppIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>;
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+    </svg>
+  );
 }
 
 function MapPinIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>;
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
 }
 
 function CheckIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>;
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      aria-hidden="true"
+    >
+      <path d="M20 6L9 17l-5-5" />
+    </svg>
+  );
 }
 
 function SearchIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>;
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="M21 21l-4.35-4.35" />
+    </svg>
+  );
 }
 
 function Heading({ eyebrow, title, copy, light = false }) {
   return (
-    <div className={`dealer-page-heading${light ? ' is-light' : ''}`}>
+    <div className={`dealer-page-heading${light ? " is-light" : ""}`}>
       <span>{eyebrow}</span>
       <h2>{title}</h2>
       {copy && <p>{copy}</p>}
@@ -304,108 +476,136 @@ function Heading({ eyebrow, title, copy, light = false }) {
 
 function Field({ label, required, wide = false, children }) {
   return (
-    <label className={`dealer-form-field${wide ? ' is-wide' : ''}`}>
-      <span>{label}{required && <b>*</b>}</span>
+    <label className={`dealer-form-field${wide ? " is-wide" : ""}`}>
+      <span>
+        {label}
+        {required && <b>*</b>}
+      </span>
       {children}
     </label>
   );
 }
 
 function DealersPage() {
-  const [route, setRoute] = useState('dealer');
+  const [route, setRoute] = useState("dealer");
   const [formStep, setFormStep] = useState(1);
   const [form, setForm] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [consent, setConsent] = useState(false);
-  const [stepError, setStepError] = useState('');
+  const [stepError, setStepError] = useState("");
 
   // Locator Filter States
-  const [searchState, setSearchState] = useState('');
-  const [searchCity, setSearchCity] = useState('');
-  const [searchPin, setSearchPin] = useState('');
-  const [searchProduct, setSearchProduct] = useState('');
-  const [activeRegion, setActiveRegion] = useState('All');
+  const [searchState, setSearchState] = useState("");
+  const [searchCity, setSearchCity] = useState("");
+  const [searchPin, setSearchPin] = useState("");
+  const [searchProduct, setSearchProduct] = useState("");
+  const [activeRegion, setActiveRegion] = useState("All");
   const [hoveredHub, setHoveredHub] = useState(null);
 
   // Partnership Finder Quiz States
-  const [quizSetup, setQuizSetup] = useState('');
-  const [quizReach, setQuizReach] = useState('');
+  const [quizSetup, setQuizSetup] = useState("");
+  const [quizReach, setQuizReach] = useState("");
 
   // FAQ Search & Open state
-  const [faqFilter, setFaqFilter] = useState('');
+  const [faqFilter, setFaqFilter] = useState("");
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
   useEffect(() => {
-    document.title = 'Dealers & Distributors | Partner With Pentagon Plywood';
+    document.title = "Dealers & Distributors | Partner With Pentagon Plywood";
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'description';
+      meta = document.createElement("meta");
+      meta.name = "description";
       document.head.appendChild(meta);
     }
-    meta.content = 'Locate authorized Pentagon Plywood sellers across India or apply for channel dealership, retail partnership, and regional distributorship.';
+    meta.content =
+      "Locate authorized Pentagon Plywood sellers across India or apply for channel dealership, retail partnership, and regional distributorship.";
   }, []);
 
   const update = (key) => (event) => {
-    setStepError('');
+    setStepError("");
     setForm((current) => ({ ...current, [key]: event.target.value }));
   };
 
   const toggleChipInField = (field, chipText) => {
-    setStepError('');
+    setStepError("");
     setForm((current) => {
-      const existing = current[field] ? current[field].split(',').map((s) => s.trim()).filter(Boolean) : [];
+      const existing = current[field]
+        ? current[field]
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean)
+        : [];
       let updated;
       if (existing.includes(chipText)) {
         updated = existing.filter((item) => item !== chipText);
       } else {
         updated = [...existing, chipText];
       }
-      return { ...current, [field]: updated.join(', ') };
+      return { ...current, [field]: updated.join(", ") };
     });
   };
 
   const chooseRoute = (value) => {
     setRoute(value);
-    if (value === 'seller') {
-      document.getElementById('dealer-locator')?.scrollIntoView({ behavior: 'smooth' });
+    if (value === "seller") {
+      document
+        .getElementById("dealer-locator")
+        ?.scrollIntoView({ behavior: "smooth" });
     } else {
       setForm((current) => ({
         ...current,
-        partnerType: value === 'distributor' ? 'Distributor' : 'Dealer / Retailer',
+        partnerType:
+          value === "distributor" ? "Distributor" : "Dealer / Retailer",
       }));
-      document.getElementById('partner-application')?.scrollIntoView({ behavior: 'smooth' });
+      document
+        .getElementById("partner-application")
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const selectMapHub = (dealer) => {
     setSearchState(dealer.state);
     setSearchCity(dealer.city);
-    document.getElementById('dealer-locator')?.scrollIntoView({ behavior: 'smooth' });
+    document
+      .getElementById("dealer-locator")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   // Filter Dealers logic
   const filteredDealers = MOCK_DEALERS.filter((dealer) => {
-    if (activeRegion !== 'All' && dealer.region !== activeRegion) return false;
-    if (searchState && dealer.state.toLowerCase() !== searchState.toLowerCase()) return false;
-    if (searchCity && !dealer.city.toLowerCase().includes(searchCity.trim().toLowerCase()) && !dealer.name.toLowerCase().includes(searchCity.trim().toLowerCase())) return false;
+    if (activeRegion !== "All" && dealer.region !== activeRegion) return false;
+    if (searchState && dealer.state.toLowerCase() !== searchState.toLowerCase())
+      return false;
+    if (
+      searchCity &&
+      !dealer.city.toLowerCase().includes(searchCity.trim().toLowerCase()) &&
+      !dealer.name.toLowerCase().includes(searchCity.trim().toLowerCase())
+    )
+      return false;
     if (searchPin && !dealer.pin.includes(searchPin.trim())) return false;
-    if (searchProduct && !dealer.products.some((p) => p.toLowerCase().includes(searchProduct.toLowerCase()))) return false;
+    if (
+      searchProduct &&
+      !dealer.products.some((p) =>
+        p.toLowerCase().includes(searchProduct.toLowerCase()),
+      )
+    )
+      return false;
     return true;
   });
 
   const resetFilters = () => {
-    setSearchState('');
-    setSearchCity('');
-    setSearchPin('');
-    setSearchProduct('');
-    setActiveRegion('All');
+    setSearchState("");
+    setSearchCity("");
+    setSearchPin("");
+    setSearchProduct("");
+    setActiveRegion("All");
   };
 
   const submitApplication = (event) => {
     event.preventDefault();
     if (!consent) {
-      setStepError('Please review and check the consent box to proceed.');
+      setStepError("Please review and check the consent box to proceed.");
       return;
     }
     setSubmitted(true);
@@ -413,22 +613,34 @@ function DealersPage() {
 
   const nextStep = () => {
     const requiredByStep = {
-      1: ['products', 'state', 'territory'],
-      2: ['legalName', 'contactName', 'mobile', 'email', 'address', 'city', 'pin'],
-      3: ['categories', 'reason'],
+      1: ["products", "state", "territory"],
+      2: [
+        "legalName",
+        "contactName",
+        "mobile",
+        "email",
+        "address",
+        "city",
+        "pin",
+      ],
+      3: ["categories", "reason"],
       4: [],
     };
-    const missing = (requiredByStep[formStep] || []).some((key) => !form[key]?.trim());
+    const missing = (requiredByStep[formStep] || []).some(
+      (key) => !form[key]?.trim(),
+    );
     if (missing) {
-      setStepError('Please fill out the required fields marked with * before continuing.');
+      setStepError(
+        "Please fill out the required fields marked with * before continuing.",
+      );
       return;
     }
-    setStepError('');
+    setStepError("");
     setFormStep((step) => Math.min(5, step + 1));
   };
 
   const previousStep = () => {
-    setStepError('');
+    setStepError("");
     setFormStep((step) => Math.max(1, step - 1));
   };
 
@@ -442,17 +654,20 @@ function DealersPage() {
   // Calculate Quiz recommendation
   let quizRecommendation = null;
   if (quizSetup && quizReach) {
-    if (quizReach === 'Multi-District / State-Wide' || quizSetup === 'Warehousing / Bulk Yard') {
+    if (
+      quizReach === "Multi-District / State-Wide" ||
+      quizSetup === "Warehousing / Bulk Yard"
+    ) {
       quizRecommendation = {
-        title: 'Distributor / Stockist Partnership',
-        desc: 'Ideal for businesses with warehousing capability, dedicated logistics, and a strong trade network across multiple districts.',
-        type: 'Distributor',
+        title: "Distributor / Stockist Partnership",
+        desc: "Ideal for businesses with warehousing capability, dedicated logistics, and a strong trade network across multiple districts.",
+        type: "Distributor",
       };
     } else {
       quizRecommendation = {
-        title: 'Dealer / Retail Partner',
-        desc: 'Perfect for retail stores, hardware shops, and regional stockists serving trade professionals and local projects.',
-        type: 'Dealer / Retailer',
+        title: "Dealer / Retail Partner",
+        desc: "Perfect for retail stores, hardware shops, and regional stockists serving trade professionals and local projects.",
+        type: "Dealer / Retailer",
       };
     }
   }
@@ -1596,7 +1811,7 @@ function DealersPage() {
 
                 <a className="dealer-discuss-link" href={PHONE}>
                   Prefer to discuss directly? Call Pentagon Channel Cell: +91
-                  72061 04340
+                  70150 85556
                 </a>
               </div>
             </form>

@@ -3,13 +3,13 @@ import livingImg from "../assets/product/Applications/Contemporary living room w
 import officeImg from "../assets/product/Applications/Modern office with desks and partitions.png";
 import wardrobeImg from "../assets/product/Applications/Modern wardrobe with sliding doors.png";
 
-export const PHONE_DISPLAY = "+91 72061 04340";
-export const PHONE_LINK = "tel:+917206104340";
-export const EMAIL = "pentagonplywood@gmail.com";
+export const PHONE_DISPLAY = "+91 70150 85556";
+export const PHONE_LINK = "tel:+917015085556";
+export const EMAIL = "sales@pentagonply.com";
 export const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hello Pentagon Plywood, I would like to enquire about a product. My required quantity is and the delivery location is."
 );
-export const WHATSAPP_LINK = `https://wa.me/917206104340?text=${WHATSAPP_MESSAGE}`;
+export const WHATSAPP_LINK = `https://wa.me/917015085556?text=${WHATSAPP_MESSAGE}`;
 
 export const enquiryTypes = [
   {

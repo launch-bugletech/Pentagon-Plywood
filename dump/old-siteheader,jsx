@@ -129,10 +129,10 @@ function SiteHeader({ activePage = 'home' }) {
           <span>CELEBRATING 25+ YEARS OF TRUST, QUALITY & INNOVATION
           </span>
           <div>
-            <a href="mailto:pentagonplywood@gmail.com">
-              pentagonplywood@gmail.com
+            <a href="mailto:sales@pentagonply.com">
+              sales@pentagonply.com
             </a>
-            <a href="tel:+917206104340">+91 7206 104 340</a>
+            <a href="tel:+917015085556">+91 70150 85556</a>
           </div>
         </div>
       </div>
@@ -227,7 +227,7 @@ function SiteHeader({ activePage = 'home' }) {
         <div className="header-cta">
           <div className="header-phone">
             <small>Sales enquiries</small>
-            <strong>+91 7206 104 340</strong>
+            <strong>+91 70150 85556</strong>
           </div>
           <a href={enquiryHref} className="btn btn-primary">
             Request a Quote <ArrowIcon />

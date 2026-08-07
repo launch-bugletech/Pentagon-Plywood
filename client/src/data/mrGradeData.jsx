@@ -1,7 +1,12 @@
+import { CONTACT_SECTIONS, HOME_SECTIONS, MR_GRADE_SECTIONS, ROUTES } from "../app/routes.js";
 import wardrobeImage from "../assets/product/Applications/Modern wardrobe with sliding doors.png";
 import bedroomImage from "../assets/product/mr plywood/Cozy minimalist bedroom with natural light.png";
 import officeImage from "../assets/product/Applications/Modern office with desks and partitions.png";
 import livingImage from "../assets/product/Applications/Contemporary living room with furniture.png";
+import plywoodImage from "../assets/product/mr plywood/mr-grade-plywood-1671449588-6629452.webp";
+import heroRoomBg from "../assets/product/mr plywood/mr-hero-bg-room.png";
+import edgeImage from "../assets/product/mr plywood/Wood veneer layers on plywood edge.png";
+import surfaceImage from "../assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
 
 export const quickFactsData = [
   { label: "INTERIOR USE", value: "Furniture & cabinetry", icon: "Shield" },
@@ -227,3 +232,195 @@ export const faqsData = [
     answer: "MR is a recognised grade under IS 303:2024. A current BIS licence and approved scope should be reviewed before treating this specific product as certified.",
   },
 ];
+
+export const mrGradeProductData = {
+  pageTitle: "MR Grade Plywood",
+  breadcrumbs: [
+    ["Home", ROUTES.home],
+    ["Products", ROUTES.products],
+    ["Plywood", ROUTES.plywood],
+    ["MR Grade Plywood", null],
+  ],
+  hero: {
+    categoryBadge: "INTERIOR GRADE PLYWOOD",
+    gradeBadge: "MR GRADE",
+    title: (
+      <>
+        A reliable foundation{" "}
+        <span className="text-[#E7B572]">for everyday interior</span> furniture.
+      </>
+    ),
+    description:
+      "Pentagon MR Grade Plywood is crafted for furniture, cabinetry and interior installations in relatively dry indoor spaces.",
+    subDescription:
+      "It resists the normal moisture and humidity encountered inside homes, offices and commercial interiors—making it a practical choice for everyday furniture requirements.",
+    primaryCta: { text: "Request a Quote", href: MR_GRADE_SECTIONS.enquiry },
+    secondaryCta: { text: "Discuss Your Application", href: CONTACT_SECTIONS.form },
+    productImage: plywoodImage,
+    productImageAlt: "Pentagon MR Grade plywood sheet showing stacked wood layers",
+    productImageBadge: "MR GRADE · INTERIOR USE",
+    heroBg: heroRoomBg,
+  },
+  quickFacts: quickFactsData,
+  overview: {
+    eyebrow: "Understand the Grade",
+    title: "Made for the moisture conditions found in everyday interiors.",
+    edgeImage: edgeImage,
+    edgeCaption: "Balanced veneer construction",
+    paragraphs: [
+      <>
+        <strong className="text-[#14211A]">MR stands for Moisture Resistant.</strong> MR Grade Plywood is a general-purpose plywood intended primarily for furniture and interior applications.
+      </>,
+      "Multiple wood-veneer layers are bonded to create a balanced panel suitable for fabrication into furniture, cabinets, partitions and interior components.",
+      "It tolerates normal indoor humidity and occasional atmospheric moisture better than untreated wood, but is not intended for prolonged water exposure, continuous dampness or exterior use.",
+    ],
+    callout: {
+      title: "Market terminology",
+      copy: "MR Grade is frequently called “Commercial Plywood” in India. Always compare the actual grade, construction and specification—not only the market name.",
+    },
+    cta: {
+      text: "Ask whether MR Grade fits my project",
+      href: MR_GRADE_SECTIONS.enquiry,
+    },
+  },
+  benefits: {
+    eyebrow: "Designed for Everyday Interiors",
+    title: "The performance you need without specifying more than the application requires.",
+    items: benefitsData,
+  },
+  applications: {
+    eyebrow: "From Board to Furniture",
+    title: "Designed for the things you use every day.",
+    copy: "Choose MR Grade around a relatively dry interior environment, then select the construction and thickness around what the furniture must do.",
+    items: applicationsData,
+    cta: {
+      text: "Find the Right Thickness",
+      href: MR_GRADE_SECTIONS.thickness,
+    },
+  },
+  limitations: {
+    eyebrow: "Choose With Clarity",
+    title: "Moisture resistant is not the same as waterproof.",
+    copy: "MR Grade Plywood should not be the default choice where water, rain or persistent dampness form part of the installation conditions.",
+    items: limitationsData,
+    footnote:
+      "For kitchens, utility spaces and more demanding moisture conditions, consider Pentagon’s BWR/BWP or Marine Plywood according to verified product specifications.",
+    cta: {
+      text: "Compare Moisture-Resistant Options",
+      href: MR_GRADE_SECTIONS.comparison,
+    },
+  },
+  specifications: {
+    eyebrow: "Product Information",
+    title: "Available for different interior furniture requirements.",
+    items: specificationsData,
+    alert: {
+      eyebrow: "Responsible specification",
+      title: "Verify certification before making the claim.",
+      paragraph1:
+        "Use “MR Grade Plywood for general-purpose furniture and interior applications” until Pentagon’s current BIS licence and approved product scope are reviewed.",
+      paragraph2:
+        "Do not display an ISI mark, licence number or “IS 303 certified” statement before verification.",
+      linkText: "View quality information",
+      linkHref: HOME_SECTIONS.quality,
+    },
+  },
+  thicknessGuide: {
+    eyebrow: "Select by Construction",
+    title: "The right thickness depends on what the sheet must do.",
+    items: thicknessesData,
+    note: "These are general application examples, not structural recommendations. Final thickness depends on span, load, support spacing, joinery, hardware and furniture design.",
+    cta: {
+      text: "Get Thickness Guidance",
+      href: MR_GRADE_SECTIONS.enquiry,
+    },
+  },
+  comparison: {
+    eyebrow: "Compare Before You Choose",
+    title: "Choose the grade around the installation environment.",
+    copy: "MR Grade is not an inferior choice when it is used correctly. In a dry interior, specifying marine-grade plywood may add performance and cost the application does not require.",
+    columns: ["Comparison", "MR Grade", "BWR / BWP", "Marine Plywood"],
+    rows: comparisonsData,
+    cta: {
+      text: "Help Me Compare Plywood",
+      href: CONTACT_SECTIONS.form,
+    },
+  },
+  finishes: {
+    eyebrow: "Fabrication and Finishing",
+    title: "Select the core first. Then create the surface you want.",
+    copy: "Depending on face quality and the finishing system, MR Grade Plywood can be prepared for:",
+    surfaceImage: surfaceImage,
+    surfaceCaption: "Plain surface · finish as required",
+    items: finishesData,
+    checksTitle: "Before fabrication, confirm:",
+    checks: fabricationChecksData,
+    cta: {
+      text: "Discuss fabrication requirements",
+      href: MR_GRADE_SECTIONS.enquiry,
+    },
+  },
+  quality: {
+    eyebrow: "Know the Standard",
+    title: "MR is a recognised grade of general-purpose plywood.",
+    paragraphs: [
+      "The Bureau of Indian Standards classifies general-purpose plywood under IS 303:2024. The classification covers MR, BWR and BWP grades along with requirements for dimensions, workmanship, water-resistance testing, moisture content, strength and formaldehyde content.",
+      "These are requirements of the standard. They should not automatically be presented as verified Pentagon product features until the relevant licence and test documents are reviewed.",
+    ],
+    badge: {
+      isNumber: "303",
+      year: "2024",
+      label: "General-purpose plywood standard",
+      sub: "Scope verification required",
+    },
+    cta: {
+      text: "View Quality & Certifications",
+      href: HOME_SECTIONS.quality,
+    },
+  },
+  whyPentagon: {
+    eyebrow: "Made Around Real Requirements",
+    title: "Because everyday furniture still deserves the right foundation.",
+    items: whyPentagonData,
+  },
+  bulkSection: {
+    eyebrow: "For Trade and Project Requirements",
+    title: (
+      <>
+        Planning more than one piece of furniture?{" "}
+        <em className="text-[#F4D8B4]">
+          Let’s discuss the complete requirement.
+        </em>
+      </>
+    ),
+    copy: "For resale, furniture production or an interior project, share the thickness, sheet size, quantity, application and delivery location.",
+    primaryCta: { text: "Request a Bulk Quote", href: MR_GRADE_SECTIONS.enquiry },
+    secondaryCta: { text: "Become a Dealer", href: ROUTES.dealers },
+    useCases: [
+      "Dealer & distributor supply",
+      "Furniture manufacturing",
+      "Wardrobe production",
+      "Office furniture projects",
+      "Residential interiors",
+      "Retail & commercial interiors",
+      "Bulk procurement",
+      "Export requirements",
+    ],
+  },
+  faqs: {
+    eyebrow: "Frequently Asked Questions",
+    title: "Clear answers before you select the sheet.",
+    items: faqsData,
+  },
+  enquiry: {
+    eyebrow: "Start With the Right Interior Plywood",
+    title: "Tell us what you’re making. We’ll help you select the right MR plywood.",
+    copy: "Share the furniture application, required thickness, sheet size, quantity and delivery location. Our team will contact you to discuss suitability and current availability.",
+    phoneLink: "tel:+917015085556",
+    phoneText: "Call +91 70150 85556",
+    whatsappLink: "https://wa.me/917015085556?text=Hello%20Pentagon%20Plywood%2C%20I%20would%20like%20to%20discuss%20MR%20Grade%20Plywood%20for%20an%20interior%20furniture%20requirement.",
+    whatsappText: "WhatsApp our team",
+    thicknesses: ["4 mm", "6 mm", "9 mm", "12 mm", "15 mm", "18 mm"],
+    sheetSizes: ["8×4 ft", "8×3 ft", "7×4 ft", "7×3 ft", "6×4 ft", "6×3 ft"],
+  },
+};
