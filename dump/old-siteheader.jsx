@@ -147,7 +147,7 @@ function SiteHeader({ activePage = 'home' }) {
             <PentagonIcon />
           </div>
           <div className="brand-name">
-            PentagonPlywood <small> Est. 1997</small>
+            PentagonPlywood <small> Est. 1986</small>
           </div>
         </a>
         <nav className="nav" aria-label="Main navigation">
