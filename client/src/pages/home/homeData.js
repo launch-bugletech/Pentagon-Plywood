@@ -3,6 +3,7 @@
 import heroImage from '../../assets/hero-home-desktop.png';
 import mobileHeroImage from '../../assets/hero-home-mobile.png';
 import anniversaryImage from '../../assets/hero-anniversary-laurels.png';
+import luxuryInteriorHero from '../../assets/hero-luxury-interior.png';
 
 // Application & Interior Images
 import modularImage from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";
@@ -25,14 +26,15 @@ import bisCertificateImage from '../../assets/homepage/certificates/bis-bureau-o
 import labCertificateImage from '../../assets/homepage/certificates/lab-tested-certified-approval-stamp-260nw-2640833869.png';
 
 export const HERO_DATA = {
-  eyebrow: "Pentagon Group · Yamunanagar & Morbi · Since 1986",
+  eyebrow: "Pentagon Group · Calibrated Core to Masterpiece Interiors",
   titleLine1: "Crafting",
   titleAccent: "excellence,",
   titleLine2: "building trust.",
-  caption: "Pentagon Group manufactures wood-based panels, flush doors and industrial chemicals—built through timber trading, veneer processing and integrated manufacturing since 1986.",
+  caption: "Transform precision-engineered plywood into stunning living spaces. Pentagon Group manufactures high-density calibrated panels and marine boards—built for flawless finishes and structural longevity since 1986.",
   badge: "Wood-based panels · Yamunanagar",
-  heroImage,
-  mobileHeroImage,
+  heroImage: luxuryInteriorHero,
+  mobileHeroImage: luxuryInteriorHero,
+  bgHeroImage: luxuryInteriorHero,
   anniversaryImage,
 };
 

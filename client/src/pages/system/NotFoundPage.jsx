@@ -109,7 +109,7 @@ function NotFoundPage() {
               href={ROUTES.home}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <Home size={20} />
               </div>
               <div>
@@ -129,7 +129,7 @@ function NotFoundPage() {
               href={PRODUCT_ROUTES.plywood}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <Layers size={20} />
               </div>
               <div>
@@ -149,7 +149,7 @@ function NotFoundPage() {
               href={PRODUCT_ROUTES.flushDoors}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <DoorOpen size={20} />
               </div>
               <div>
@@ -169,7 +169,7 @@ function NotFoundPage() {
               href={ROUTES.applications}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <Compass size={20} />
               </div>
               <div>
@@ -189,7 +189,7 @@ function NotFoundPage() {
               href={ROUTES.dealers}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <Search size={20} />
               </div>
               <div>
@@ -209,7 +209,7 @@ function NotFoundPage() {
               href={ROUTES.contact}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <PhoneCall size={20} />
               </div>
               <div>

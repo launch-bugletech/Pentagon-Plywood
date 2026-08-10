@@ -84,14 +84,14 @@ const Icon = {
 };
 
 const snapshotFacts = [
-  { value: "1997", label: "Year established", icon: Icon.Calendar },
+  { value: "1986", label: "Year established", icon: Icon.Calendar },
   { value: "Yamunanagar", label: "Manufacturing base", icon: Icon.Pin },
   { value: "3", label: "Core product categories", icon: Icon.Layers },
 ];
 
 const timeline = [
   [
-    "1997",
+    "1986",
     "The Beginning",
     "Pentagon Plywood Pvt. Ltd. begins its manufacturing journey in Yamunanagar.",
   ],
@@ -233,7 +233,7 @@ const commitments = [
 const faqs = [
   [
     "When was Pentagon Plywood established?",
-    "Pentagon Plywood Pvt. Ltd. was established in 1997.",
+    "Pentagon Plywood Pvt. Ltd. was established in 1986.",
   ],
   [
     "Where is Pentagon Plywood located?",
@@ -269,7 +269,7 @@ function SectionHeading({ eyebrow, children, copy, light = false }) {
 
 function AboutPage() {
   React.useEffect(() => {
-    document.title = "About Pentagon Plywood | Built Since 1997";
+    document.title = "About Pentagon Plywood | Built Since 1986";
   }, []);
 
   return (
@@ -287,7 +287,7 @@ function AboutPage() {
           <div className="about-hero-content">
             <div className="about-kicker">Our Story</div>
             <h1>
-              Built Since 1997.
+              Built Since 1986.
               <br />
               <em>Made for What Comes Next.</em>
             </h1>
@@ -320,7 +320,7 @@ function AboutPage() {
             </span>
           </div>
           <div className="about-year-rail">
-            <span>1997</span>
+            <span>1986</span>
             <i />
             <span>Today</span>
           </div>
@@ -328,7 +328,7 @@ function AboutPage() {
         <div className="about-trust-strip">
           <div className="container">
             {[
-              "Established in 1997",
+              "Established in 1986",
               "Based in Yamunanagar, Haryana",
               "Manufacturer and supplier",
               "Plywood, blockboards and doors",
@@ -372,7 +372,7 @@ function AboutPage() {
               <p>
                 Pentagon Plywood Pvt. Ltd. is a Yamunanagar-based manufacturer
                 and supplier of plywood, blockboards and door solutions. Since
-                1997, the company has served furniture makers, dealers,
+                1986, the company has served furniture makers, dealers,
                 contractors, interior professionals and project buyers with
                 products made for practical applications.
               </p>
@@ -427,7 +427,7 @@ function AboutPage() {
             eyebrow="Where It Began"
             copy="Established in Yamunanagar, Pentagon developed its manufacturing capabilities, production experience and product range while keeping the same central responsibility: understand what the product must do and manufacture it with care."
           >
-            A Manufacturing Journey That Started in <em>1997.</em>
+            A Manufacturing Journey That Started in <em>1986.</em>
           </SectionHeading>
           <div className="about-timeline">
             {timeline.map(([year, title, copy], index) => (

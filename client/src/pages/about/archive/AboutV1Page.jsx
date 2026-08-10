@@ -72,7 +72,7 @@ const timeline = [
     "Pentagon Plywood Private Limited was incorporated on 20 September 1996.",
   ],
   [
-    "1997",
+    "1986",
     "Beginning Plywood Manufacturing",
     "Pressing units enabled veneer to be converted into plywood.",
   ],

@@ -1331,7 +1331,7 @@ function DealersPage() {
             </p>
             <div className="dealer-stat-row">
               <div>
-                <strong>Since 1997</strong>
+                <strong>Since 1986</strong>
                 <span>Pentagon Plywood</span>
               </div>
               <div>

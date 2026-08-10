@@ -1,7 +1,18 @@
 import { useEffect, useState } from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   ArrowRight,
   Award,
@@ -25,7 +36,7 @@ import {
   Target,
   Trees,
   TrendingUp,
-  Users
+  Users,
 } from "lucide-react";
 import {
   ABOUT_SECTIONS,
@@ -34,7 +45,7 @@ import {
   DEALER_SECTIONS,
   HOME_SECTIONS,
   PRODUCT_ROUTES,
-  ROUTES
+  ROUTES,
 } from "../../app/routes.js";
 import manufacturingImage from "../../assets/homepage/Plywood-Manufacturing-1024x683.jpg";
 import heroInteriorImage from "../../assets/homepage/hero_wood_interior_plants.jpg";
@@ -46,8 +57,10 @@ import edgeImage from "../../assets/product/mr plywood/Wood veneer layers on ply
 
 const c = "mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10";
 const section = "py-16 sm:py-20 lg:py-28";
-const primary = "inline-flex items-center justify-center gap-2 rounded-full bg-[#143D2B] px-5 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-[#0B2A1D] hover:shadow-lg hover:-translate-y-0.5";
-const outline = "inline-flex items-center justify-center gap-2 rounded-full border border-current px-5 py-3 text-sm font-bold transition-all duration-300 hover:bg-[#143D2B] hover:text-white hover:border-[#143D2B]";
+const primary =
+  "inline-flex items-center justify-center gap-2 rounded-full bg-[#143D2B] px-5 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-[#0B2A1D] hover:shadow-lg hover:-translate-y-0.5";
+const outline =
+  "inline-flex items-center justify-center gap-2 rounded-full border border-current px-5 py-3 text-sm font-bold transition-all duration-300 hover:bg-[#143D2B] hover:text-white hover:border-[#143D2B]";
 
 // HERO PERSONAS (PUNCHY, USER-CONNECTED COPY)
 const PERSONAS = [
@@ -62,7 +75,11 @@ const PERSONAS = [
     secondaryText: "View Products",
     secondaryLink: HOME_SECTIONS.products,
     badge: "Trade Partnership",
-    highlights: ["Tier-1 Dealer Margins", "IS Grade Certified", "Direct Factory Supply"]
+    highlights: [
+      "Tier-1 Dealer Margins",
+      "IS Grade Certified",
+      "Direct Factory Supply",
+    ],
   },
   {
     id: "architects",
@@ -75,7 +92,11 @@ const PERSONAS = [
     secondaryText: "Explore Applications",
     secondaryLink: ROUTES.applications,
     badge: "Design Specifications",
-    highlights: ["Calibrated Core Thickness", "Zero Core Voids", "BWP IS:710 Certified"]
+    highlights: [
+      "Calibrated Core Thickness",
+      "Zero Core Voids",
+      "BWP IS:710 Certified",
+    ],
   },
   {
     id: "contractors",
@@ -88,7 +109,11 @@ const PERSONAS = [
     secondaryText: "Manufacturing Scale",
     secondaryLink: "#journey",
     badge: "Project Procurement",
-    highlights: ["3.3+ Lakh sq.ft. Facilities", "Direct Factory Dispatch", "Volume Project Pricing"]
+    highlights: [
+      "3.3+ Lakh sq.ft. Facilities",
+      "Direct Factory Dispatch",
+      "Volume Project Pricing",
+    ],
   },
   {
     id: "industrial",
@@ -101,15 +126,35 @@ const PERSONAS = [
     secondaryText: "Chemical Facilities",
     secondaryLink: "#about-manufacturing",
     badge: "Chemical Manufacturing",
-    highlights: ["200 MT/Day Capacity", "Morbi & Yamunanagar Units", "Industrial Grade Purity"]
-  }
+    highlights: [
+      "200 MT/Day Capacity",
+      "Morbi & Yamunanagar Units",
+      "Industrial Grade Purity",
+    ],
+  },
 ];
 
 const HERO_STATS = [
-  { value: "1986", label: "Group Journey Began", sub: "40+ Years Timber Heritage" },
-  { value: "3.3+ Lakh", label: "Sq. Ft. Facility Area", sub: "Yamunanagar & Morbi Plants" },
-  { value: "5,000 m²", label: "Daily Panel Installed Capacity", sub: "Plywood, Blockboard & Doors" },
-  { value: "₹100 Cr+", label: "FY 2025–26 Turnover", sub: "Panels & Chemical Units" }
+  {
+    value: "1986",
+    label: "Group Journey Began",
+    sub: "40+ Years Timber Heritage",
+  },
+  {
+    value: "3.3+ Lakh",
+    label: "Sq. Ft. Facility Area",
+    sub: "Yamunanagar & Morbi Plants",
+  },
+  {
+    value: "5,000 m²",
+    label: "Daily Panel Installed Capacity",
+    sub: "Plywood, Blockboard & Doors",
+  },
+  {
+    value: "₹100 Cr+",
+    label: "FY 2025–26 Turnover",
+    sub: "Panels & Chemical Units",
+  },
 ];
 
 // PLYWOOD ANATOMY INSPECTOR DATA
@@ -119,56 +164,95 @@ const PLYWOOD_LAYERS = [
     name: "Top Face Veneer",
     thickness: "0.5mm - 1.0mm",
     color: "#C86D51",
-    description: "Premium hardwood timber face veneer, peeled from selected logs for a smooth finish and natural wood grain aesthetic.",
-    benefit: "Enhances surface bonding for laminates and polished wood finishes."
+    description:
+      "Premium hardwood timber face veneer, peeled from selected logs for a smooth finish and natural wood grain aesthetic.",
+    benefit:
+      "Enhances surface bonding for laminates and polished wood finishes.",
   },
   {
     id: "core-1",
     name: "Cross-Grained Hardwood Core (Layer 1)",
     thickness: "2.5mm - 3.5mm",
     color: "#B87531",
-    description: "Completely gap-free, seasoned hardwood veneers laid perpendicularly to prevent structural warping and bending.",
-    benefit: "Provides high screw-holding capacity and dimensional stability."
+    description:
+      "Completely gap-free, seasoned hardwood veneers laid perpendicularly to prevent structural warping and bending.",
+    benefit: "Provides high screw-holding capacity and dimensional stability.",
   },
   {
     id: "resin-bond",
     name: "In-House Phenolic Resin Bond Line",
     thickness: "Micro-Adhesive Layer",
     color: "#E7B572",
-    description: "Formulated in-house using Formaldehyde manufactured by our chemical division (Synochem & Patson Industries).",
-    benefit: "Guarantees 100% Boiling Waterproof (BWP IS:710) bond protection."
+    description:
+      "Formulated in-house using Formaldehyde manufactured by our chemical division (Synochem & Patson Industries).",
+    benefit: "Guarantees 100% Boiling Waterproof (BWP IS:710) bond protection.",
   },
   {
     id: "core-2",
     name: "Cross-Grained Hardwood Core (Layer 2)",
     thickness: "2.5mm - 3.5mm",
     color: "#9C6846",
-    description: "Full-panel core assembly pressed under high tonnage and temperature for uniform internal strength.",
-    benefit: "Eliminates core voids, core overlaps, and internal air pockets."
+    description:
+      "Full-panel core assembly pressed under high tonnage and temperature for uniform internal strength.",
+    benefit: "Eliminates core voids, core overlaps, and internal air pockets.",
   },
   {
     id: "bottom-face",
     name: "Bottom Back Veneer",
     thickness: "0.5mm - 1.0mm",
     color: "#C86D51",
-    description: "Matching timber back veneer calibrated to balance tension across the plywood sheet.",
-    benefit: "Ensures flatness and prevents cupping or bowing under humidity changes."
-  }
+    description:
+      "Matching timber back veneer calibrated to balance tension across the plywood sheet.",
+    benefit:
+      "Ensures flatness and prevents cupping or bowing under humidity changes.",
+  },
 ];
 
 // GROUP SNAPSHOT METRICS DATA
 const GROUP_FACTS = [
   { label: "Group journey began", value: "1986", category: "legacy" },
-  { label: "Pentagon Plywood incorporated", value: "20 September 1996", category: "legacy" },
-  { label: "Group sectors", value: "Wood-based panels and chemicals", category: "capacity" },
-  { label: "Manufacturing locations", value: "Yamunanagar, Haryana and Morbi, Gujarat", category: "capacity" },
+  {
+    label: "Pentagon Plywood incorporated",
+    value: "20 September 1996",
+    category: "legacy",
+  },
+  {
+    label: "Group sectors",
+    value: "Wood-based panels and chemicals",
+    category: "capacity",
+  },
+  {
+    label: "Manufacturing locations",
+    value: "Yamunanagar, Haryana and Morbi, Gujarat",
+    category: "capacity",
+  },
   { label: "Manufacturing units", value: "4 Units", category: "capacity" },
-  { label: "Combined facility area", value: "Over 3.3 lakh sq. ft.", category: "capacity" },
-  { label: "Wood-panel installed capacity", value: "5,000 m² per day", category: "capacity" },
-  { label: "Wood-panel licensed capacity", value: "10,000 m² per day", category: "capacity" },
-  { label: "Chemical installed capacity", value: "200 MT per day", category: "capacity" },
+  {
+    label: "Combined facility area",
+    value: "Over 3.3 lakh sq. ft.",
+    category: "capacity",
+  },
+  {
+    label: "Wood-panel installed capacity",
+    value: "5,000 m² per day",
+    category: "capacity",
+  },
+  {
+    label: "Wood-panel licensed capacity",
+    value: "10,000 m² per day",
+    category: "capacity",
+  },
+  {
+    label: "Chemical installed capacity",
+    value: "200 MT per day",
+    category: "capacity",
+  },
   { label: "Team strength", value: "Approx. 390 people", category: "legacy" },
-  { label: "Combined turnover", value: "Approx. ₹100 crore in FY 2025–26", category: "legacy" }
+  {
+    label: "Combined turnover",
+    value: "Approx. ₹100 crore in FY 2025–26",
+    category: "legacy",
+  },
 ];
 
 // TIMELINE ERAS DATA
@@ -183,8 +267,8 @@ const ERAS = [
       "1986: Log trading operations commence in Yamunanagar",
       "1987: S. A. Timber Traders incorporated",
       "1991: First peeling machine installed for veneer processing",
-      "1995: Processing capacity expanded with additional peeling lines"
-    ]
+      "1995: Processing capacity expanded with additional peeling lines",
+    ],
   },
   {
     id: "era-2",
@@ -194,10 +278,10 @@ const ERAS = [
     icon: Factory,
     milestones: [
       "20 Sept 1996: Pentagon Plywood Pvt Ltd incorporated",
-      "1997: Pressing units installed for full plywood production",
+      "1986: Pressing units installed for full plywood production",
       "2008: Machinery & land expansion doubled panel capacity",
-      "National distribution expansion across major Indian cities"
-    ]
+      "National distribution expansion across major Indian cities",
+    ],
   },
   {
     id: "era-3",
@@ -209,8 +293,8 @@ const ERAS = [
       "2015-16: Licensed production capacity doubled to 10,000 m²/day",
       "2017: Synochem Organics (Yamunanagar) integrated for Formaldehyde",
       "2018: Patson Industries (Morbi, Gujarat) joined the group",
-      "2023: Patson chemical capacity doubled to 120 MT per day"
-    ]
+      "2023: Patson chemical capacity doubled to 120 MT per day",
+    ],
   },
   {
     id: "era-4",
@@ -222,9 +306,9 @@ const ERAS = [
       "Combined wood-panel installed capacity: 5,000 m²/day",
       "Chemical manufacturing capacity: 200 MT/day",
       "Serving Dealers, Architects, Contractors & Industrial Resin Buyers",
-      "Continuous machinery upgrading & responsible expansion"
-    ]
-  }
+      "Continuous machinery upgrading & responsible expansion",
+    ],
+  },
 ];
 
 // GROUP STRUCTURE DATA (4 COMPANIES)
@@ -235,7 +319,7 @@ const COMPANIES = [
     location: "Village Kami Majra, Khajuri Road, Yamunanagar, Haryana",
     desc: "The founding entity of the group, specializing in wooden-log procurement, timber trading, and rotary veneer processing.",
     sector: "Wood Veneers & Timber",
-    link: "#journey"
+    link: "#journey",
   },
   {
     name: "Pentagon Plywood Private Limited",
@@ -243,7 +327,7 @@ const COMPANIES = [
     location: "Village Raipur, Khajuri Road, Yamunanagar, Haryana",
     desc: "The flagship wood-panel manufacturing hub producing IS:303 & IS:710 certified plywood, blockboard, and flush doors.",
     sector: "Wood-Based Panels",
-    link: HOME_SECTIONS.products
+    link: HOME_SECTIONS.products,
   },
   {
     name: "Synochem Organics Private Limited",
@@ -251,7 +335,7 @@ const COMPANIES = [
     location: "Manakpur, Chhachhrauli Road, Jagadhri, Yamunanagar, Haryana",
     desc: "Chemical manufacturing unit supplying Formaldehyde used for resin production in plywood and wood composite bonding.",
     sector: "Industrial Chemicals",
-    link: PRODUCT_ROUTES.formaldehyde
+    link: PRODUCT_ROUTES.formaldehyde,
   },
   {
     name: "Patson Industries",
@@ -259,8 +343,8 @@ const COMPANIES = [
     location: "GIDC Vaghasia, Wankaner, Morbi, Gujarat",
     desc: "Chemical manufacturing facility in Gujarat with 120 MT/day capacity, serving resin, laminate, and chemical industries.",
     sector: "Industrial Chemicals",
-    link: PRODUCT_ROUTES.formaldehyde
-  }
+    link: PRODUCT_ROUTES.formaldehyde,
+  },
 ];
 
 // 3-STAGE MANUFACTURING PROCESS DATA
@@ -276,8 +360,8 @@ const PROCESS_STAGES = [
       "Strict log quality inspection & sorting",
       "High-precision rotary veneer peeling",
       "Thermostatically controlled veneer moisture drying",
-      "Veneer defect clipping & grading"
-    ]
+      "Veneer defect clipping & grading",
+    ],
   },
   {
     id: "stage-2",
@@ -290,8 +374,8 @@ const PROCESS_STAGES = [
       "Formulation of phenolic & melamine synthetic resins",
       "Automated glue spreader application",
       "Cross-grain core matrix assembly",
-      "Multi-day high pressure hydraulic hot pressing"
-    ]
+      "Multi-day high pressure hydraulic hot pressing",
+    ],
   },
   {
     id: "stage-3",
@@ -304,9 +388,9 @@ const PROCESS_STAGES = [
       "Wide-belt dual-head calibrated sanding",
       "4-side right-angle precision trimming",
       "IS:303 & IS:710 lab immersion & stress testing",
-      "Final surface inspection, branding & protective packaging"
-    ]
-  }
+      "Final surface inspection, branding & protective packaging",
+    ],
+  },
 ];
 
 // TARGET AUDIENCES (BUILT AROUND REAL REQUIREMENTS)
@@ -317,7 +401,7 @@ const AUDIENCES = [
     title: "Dealers and Distributors",
     copy: "Comprehensive product information, transparent pricing schedules, tier-1 margin support, and dependable multi-city inventory dispatch.",
     link: ROUTES.dealers,
-    cta: "Explore Dealership"
+    cta: "Explore Dealership",
   },
   {
     id: "furniture",
@@ -325,7 +409,7 @@ const AUDIENCES = [
     title: "Furniture Manufacturers",
     copy: "Wood panels and blockboards selected specifically around edge fabrication, screw holding, surface lamination, and intended furniture use.",
     link: HOME_SECTIONS.products,
-    cta: "View Panel Range"
+    cta: "View Panel Range",
   },
   {
     id: "contractors",
@@ -333,7 +417,7 @@ const AUDIENCES = [
     title: "Builders and Contractors",
     copy: "Bulk procurement discussions based on direct factory pricing, delivery schedules, site conditions, and strict IS standard compliance.",
     link: CONTACT_SECTIONS.form,
-    cta: "Request Project Quote"
+    cta: "Request Project Quote",
   },
   {
     id: "architects",
@@ -341,7 +425,7 @@ const AUDIENCES = [
     title: "Architects and Interior Professionals",
     copy: "Application-led guidance, technical specification sheets, grade certifications, and customized panel dimensions for interior designs.",
     link: ROUTES.applications,
-    cta: "Explore Applications"
+    cta: "Explore Applications",
   },
   {
     id: "industrial",
@@ -349,8 +433,8 @@ const AUDIENCES = [
     title: "Industrial Chemical Buyers",
     copy: "High-purity Formaldehyde supply from our Yamunanagar and Morbi units for resin, plywood, laminate, and chemical manufacturing requirements.",
     link: PRODUCT_ROUTES.formaldehyde,
-    cta: "Chemical Supply Enquiry"
-  }
+    cta: "Chemical Supply Enquiry",
+  },
 ];
 
 // MANUFACTURING HUBS
@@ -360,9 +444,18 @@ const MANUFACTURING_HUBS = [
     location: "Khajuri Road & Chhachhrauli Road, Yamunanagar, Haryana",
     sector: "Wood Panels & Formaldehyde Chemical",
     area: "Over 2.5 Lakh Sq. Ft.",
-    units: ["S. A. Timber Traders (Veneer Unit)", "Pentagon Plywood Pvt Ltd (Plywood Unit)", "Synochem Organics Pvt Ltd (Formaldehyde Unit)"],
-    products: ["BWP Marine Plywood", "Commercial MR Plywood", "Blockboard & Flush Doors", "Formaldehyde Resin"],
-    accent: "#143D2B"
+    units: [
+      "S. A. Timber Traders (Veneer Unit)",
+      "Pentagon Plywood Pvt Ltd (Plywood Unit)",
+      "Synochem Organics Pvt Ltd (Formaldehyde Unit)",
+    ],
+    products: [
+      "BWP Marine Plywood",
+      "Commercial MR Plywood",
+      "Blockboard & Flush Doors",
+      "Formaldehyde Resin",
+    ],
+    accent: "#143D2B",
   },
   {
     name: "Morbi Industrial Chemical Hub",
@@ -370,35 +463,93 @@ const MANUFACTURING_HUBS = [
     sector: "Industrial Chemical Manufacturing",
     area: "7,456 Sq. Metres",
     units: ["Patson Industries (Formaldehyde Unit)"],
-    products: ["Industrial Grade Formaldehyde", "Resin Raw Materials for Laminates & Panels"],
-    accent: "#9C6846"
-  }
+    products: [
+      "Industrial Grade Formaldehyde",
+      "Resin Raw Materials for Laminates & Panels",
+    ],
+    accent: "#9C6846",
+  },
 ];
 
 const principles = [
-  { title: "Improvement Through Experience", copy: "Years in manufacturing matter when they lead to better processes, stronger capabilities and more informed decisions.", icon: Award },
-  { title: "Responsibility Before Claims", copy: "We communicate products according to their verified grade, intended application and available specifications.", icon: ShieldCheck },
-  { title: "Respect for the Requirement", copy: "We begin by understanding the actual requirement of each dealer, manufacturer, contractor and buyer.", icon: Users },
-  { title: "Integration With Purpose", copy: "Expansion into veneer processing, wood panels and Formaldehyde production strengthens the manufacturing foundation.", icon: Cpu },
-  { title: "Relationships Beyond the Order", copy: "Clear communication, reliable supply and accountable service build lasting working relationships.", icon: Sparkles }
+  {
+    title: "Improvement Through Experience",
+    copy: "Years in manufacturing matter when they lead to better processes, stronger capabilities and more informed decisions.",
+    icon: Award,
+  },
+  {
+    title: "Responsibility Before Claims",
+    copy: "We communicate products according to their verified grade, intended application and available specifications.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Respect for the Requirement",
+    copy: "We begin by understanding the actual requirement of each dealer, manufacturer, contractor and buyer.",
+    icon: Users,
+  },
+  {
+    title: "Integration With Purpose",
+    copy: "Expansion into veneer processing, wood panels and Formaldehyde production strengthens the manufacturing foundation.",
+    icon: Cpu,
+  },
+  {
+    title: "Relationships Beyond the Order",
+    copy: "Clear communication, reliable supply and accountable service build lasting working relationships.",
+    icon: Sparkles,
+  },
 ];
 
 const faqs = [
-  ["When did Pentagon’s journey begin?", "The group’s journey began in 1986 with timber trading. Pentagon Plywood Private Limited was incorporated on 20 September 1996."],
-  ["Who leads Pentagon Plywood Private Limited?", "Mr. Anand Jain is the Managing Director, and Mr. Ashu Jain is a Director."],
-  ["What does Pentagon manufacture?", "The group manufactures plywood, blockboard, flush doors and Formaldehyde through its wood-based panel and chemical manufacturing operations."],
-  ["Where are Pentagon’s manufacturing units located?", "The group operates manufacturing units in Yamunanagar, Haryana and Morbi, Gujarat."],
-  ["How many companies are part of the Pentagon Group?", "The group includes S. A. Timber Traders, Pentagon Plywood Private Limited, Synochem Organics Private Limited and Patson Industries."],
-  ["Does Pentagon serve only wood-panel customers?", "No. The group also manufactures Formaldehyde for industrial requirements, including applications connected to resin and plywood manufacturing."],
-  ["Can dealers, project buyers and manufacturers contact Pentagon directly?", "Yes. Contact the team to discuss products, quantities and delivery requirements."]
+  [
+    "When did Pentagon’s journey begin?",
+    "The group’s journey began in 1986 with timber trading. Pentagon Plywood Private Limited was incorporated on 20 September 1996.",
+  ],
+  [
+    "Who leads Pentagon Plywood Private Limited?",
+    "Mr. Anand Jain is the Managing Director, and Mr. Ashu Jain is a Director.",
+  ],
+  [
+    "What does Pentagon manufacture?",
+    "The group manufactures plywood, blockboard, flush doors and Formaldehyde through its wood-based panel and chemical manufacturing operations.",
+  ],
+  [
+    "Where are Pentagon’s manufacturing units located?",
+    "The group operates manufacturing units in Yamunanagar, Haryana and Morbi, Gujarat.",
+  ],
+  [
+    "How many companies are part of the Pentagon Group?",
+    "The group includes S. A. Timber Traders, Pentagon Plywood Private Limited, Synochem Organics Private Limited and Patson Industries.",
+  ],
+  [
+    "Does Pentagon serve only wood-panel customers?",
+    "No. The group also manufactures Formaldehyde for industrial requirements, including applications connected to resin and plywood manufacturing.",
+  ],
+  [
+    "Can dealers, project buyers and manufacturers contact Pentagon directly?",
+    "Yes. Contact the team to discuss products, quantities and delivery requirements.",
+  ],
 ];
 
 function Heading({ eyebrow, title, copy, light = false }) {
   return (
     <div className="max-w-3xl">
-      <p className={`mb-3 text-xs font-bold uppercase tracking-[.2em] ${light ? "text-[#E7B572]" : "text-[#9C6846]"}`}>{eyebrow}</p>
-      <h2 className={`font-['DM_Serif_Display',Georgia,serif] text-3xl leading-[1.05] sm:text-4xl lg:text-5xl ${light ? "text-white" : "text-[#14211A]"}`}>{title}</h2>
-      {copy && <p className={`mt-5 text-base leading-7 ${light ? "text-white/75" : "text-[#65736A]"}`}>{copy}</p>}
+      <p
+        className={`mb-3 text-xs font-bold uppercase tracking-[.2em] ${light ? "text-[#E7B572]" : "text-[#9C6846]"}`}
+      >
+        {eyebrow}
+      </p>
+      <h2
+        className={`font-['DM_Serif_Display',Georgia,serif] text-3xl leading-[1.05] sm:text-4xl lg:text-5xl ${light ? "text-white" : "text-[#14211A]"}`}
+      >
+        {title}
+      </h2>
+      {copy && (
+        <p
+          className={`mt-5 text-base leading-7 ${light ? "text-white/75" : "text-[#65736A]"}`}
+        >
+          {copy}
+        </p>
+      )}
     </div>
   );
 }
@@ -410,21 +561,30 @@ function AboutPage() {
   const [activeStageId, setActiveStageId] = useState("stage-1");
   const [snapshotCategory, setSnapshotCategory] = useState("all");
 
-  const activePersona = PERSONAS.find(p => p.id === activePersonaId) || PERSONAS[0];
-  const activeLayer = PLYWOOD_LAYERS.find(l => l.id === activeLayerId) || PLYWOOD_LAYERS[2];
-  const activeEra = ERAS.find(e => e.id === activeEraId) || ERAS[0];
-  const activeStage = PROCESS_STAGES.find(s => s.id === activeStageId) || PROCESS_STAGES[0];
+  const activePersona =
+    PERSONAS.find((p) => p.id === activePersonaId) || PERSONAS[0];
+  const activeLayer =
+    PLYWOOD_LAYERS.find((l) => l.id === activeLayerId) || PLYWOOD_LAYERS[2];
+  const activeEra = ERAS.find((e) => e.id === activeEraId) || ERAS[0];
+  const activeStage =
+    PROCESS_STAGES.find((s) => s.id === activeStageId) || PROCESS_STAGES[0];
 
-  const filteredFacts = snapshotCategory === "all"
-    ? GROUP_FACTS
-    : GROUP_FACTS.filter(f => f.category === snapshotCategory);
+  const filteredFacts =
+    snapshotCategory === "all"
+      ? GROUP_FACTS
+      : GROUP_FACTS.filter((f) => f.category === snapshotCategory);
 
-  useEffect(() => { document.title = "About Pentagon Plywood | Pentagon Group"; }, []);
+  useEffect(() => {
+    document.title = "About Pentagon Plywood | Pentagon Group";
+  }, []);
 
   return (
     <div className="overflow-hidden bg-[#FDFBF8] text-[#14211A]">
       {/* 1. HERO SECTION WITH REAL NATURAL INTERIOR & GREENERY BACKGROUND */}
-      <section id="story" className="relative isolate overflow-hidden bg-[#0D2419] text-white">
+      <section
+        id="story"
+        className="relative isolate overflow-hidden bg-[#0D2419] text-white"
+      >
         <img
           src={heroInteriorImage}
           alt="Pentagon Plywood natural wood interior with organic green houseplants"
@@ -435,8 +595,13 @@ function AboutPage() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0D2419] via-transparent to-black/40" />
 
         <div className={c}>
-          <nav className="flex items-center gap-2 py-4 sm:py-5 text-xs text-white/70" aria-label="Breadcrumb">
-            <a href={ROUTES.home} className="transition hover:text-[#E7B572]">Home</a>
+          <nav
+            className="flex items-center gap-2 py-4 sm:py-5 text-xs text-white/70"
+            aria-label="Breadcrumb"
+          >
+            <a href={ROUTES.home} className="transition hover:text-[#E7B572]">
+              Home
+            </a>
             <span className="text-white/40">›</span>
             <strong className="text-[#E7B572]">About Us</strong>
           </nav>
@@ -445,7 +610,10 @@ function AboutPage() {
             <div className="grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-center">
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#E7B572]/40 bg-[#E7B572]/15 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[.18em] text-[#E7B572] backdrop-blur-sm">
-                  <Sparkles size={14} className="animate-pulse text-[#E7B572]" />
+                  <Sparkles
+                    size={14}
+                    className="animate-pulse text-[#E7B572]"
+                  />
                   4 Decades of Craftsmanship & Trust
                 </div>
 
@@ -457,7 +625,10 @@ function AboutPage() {
                 </h1>
 
                 <p className="mt-4 sm:mt-6 max-w-2xl text-sm leading-7 text-white/90 sm:text-lg sm:leading-8">
-                  From morning kitchen cabinets to quiet bedroom doors, we engineer the core strength inside every sheet. Nearly 40 years of Indian timber heritage, manufactured with honest commitment and complete raw material control.
+                  From morning kitchen cabinets to quiet bedroom doors, we
+                  engineer the core strength inside every sheet. Nearly 40 years
+                  of Indian timber heritage, manufactured with honest commitment
+                  and complete raw material control.
                 </p>
 
                 <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2.5 text-xs font-medium text-white/80">
@@ -472,11 +643,17 @@ function AboutPage() {
                 </div>
 
                 <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-3.5">
-                  <a className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D99143] px-6 py-3.5 text-sm font-bold text-[#14211A] shadow-lg shadow-[#D99143]/20 transition-all duration-300 hover:bg-[#E7B572] hover:scale-[1.02]" href={CONTACT_SECTIONS.form}>
-                    Discuss Your Requirement <ArrowRight size={16}/>
+                  <a
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D99143] px-6 py-3.5 text-sm font-bold text-[#14211A] shadow-lg shadow-[#D99143]/20 transition-all duration-300 hover:bg-[#E7B572] hover:scale-[1.02]"
+                    href={CONTACT_SECTIONS.form}
+                  >
+                    Discuss Your Requirement <ArrowRight size={16} />
                   </a>
-                  <a className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#14211A]" href={HOME_SECTIONS.products}>
-                    Explore Products <ArrowRight size={16}/>
+                  <a
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#14211A]"
+                    href={HOME_SECTIONS.products}
+                  >
+                    Explore Products <ArrowRight size={16} />
                   </a>
                 </div>
               </div>
@@ -485,14 +662,20 @@ function AboutPage() {
               <div className="rounded-2xl sm:rounded-3xl border border-white/20 bg-gradient-to-b from-white/15 to-white/5 p-4.5 sm:p-7 shadow-2xl backdrop-blur-md">
                 <div className="flex items-center justify-between border-b border-white/15 pb-3 sm:pb-4">
                   <div>
-                    <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#E7B572]">How can we support you?</p>
-                    <h3 className="text-base sm:text-lg font-bold text-white">Select Your Role</h3>
+                    <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#E7B572]">
+                      How can we support you?
+                    </p>
+                    <h3 className="text-base sm:text-lg font-bold text-white">
+                      Select Your Role
+                    </h3>
                   </div>
-                  <span className="rounded-full bg-[#D99143]/20 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-[#E7B572]">Tailored Solutions</span>
+                  <span className="rounded-full bg-[#D99143]/20 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-[#E7B572]">
+                    Tailored Solutions
+                  </span>
                 </div>
 
                 <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-1.5 sm:gap-2">
-                  {PERSONAS.map(p => {
+                  {PERSONAS.map((p) => {
                     const Icon = p.icon;
                     const isActive = p.id === activePersonaId;
                     return (
@@ -505,7 +688,12 @@ function AboutPage() {
                             : "bg-white/5 text-white/80 hover:bg-white/15 hover:text-white font-medium"
                         }`}
                       >
-                        <Icon size={14} className={isActive ? "text-[#14211A]" : "text-[#E7B572]"} />
+                        <Icon
+                          size={14}
+                          className={
+                            isActive ? "text-[#14211A]" : "text-[#E7B572]"
+                          }
+                        />
                         <span className="truncate">{p.label}</span>
                       </button>
                     );
@@ -526,8 +714,11 @@ function AboutPage() {
                   </p>
 
                   <div className="mt-3 flex flex-wrap gap-1.5">
-                    {activePersona.highlights.map(h => (
-                      <span key={h} className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-medium text-white/90">
+                    {activePersona.highlights.map((h) => (
+                      <span
+                        key={h}
+                        className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-medium text-white/90"
+                      >
                         <Check size={11} className="text-[#E7B572]" />
                         {h}
                       </span>
@@ -535,11 +726,17 @@ function AboutPage() {
                   </div>
 
                   <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-white/10">
-                    <a href={activePersona.ctaLink} className="inline-flex items-center gap-1.5 rounded-xl bg-[#D99143] px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-bold text-[#14211A] hover:bg-[#E7B572] transition-colors">
-                      {activePersona.ctaText} <ChevronRight size={14}/>
+                    <a
+                      href={activePersona.ctaLink}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#D99143] px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-bold text-[#14211A] hover:bg-[#E7B572] transition-colors"
+                    >
+                      {activePersona.ctaText} <ChevronRight size={14} />
                     </a>
-                    <a href={activePersona.secondaryLink} className="inline-flex items-center gap-1 text-xs font-semibold text-white/80 hover:text-[#E7B572] transition-colors">
-                      {activePersona.secondaryText} <ArrowRight size={12}/>
+                    <a
+                      href={activePersona.secondaryLink}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-white/80 hover:text-[#E7B572] transition-colors"
+                    >
+                      {activePersona.secondaryText} <ArrowRight size={12} />
                     </a>
                   </div>
                 </div>
@@ -549,11 +746,16 @@ function AboutPage() {
             {/* HERO METRIC CARDS (HIDDEN ON MOBILE TO PREVENT BULKINESS, SHOWN ON TABLET & DESKTOP) */}
             <div className="mt-12 hidden grid-cols-2 gap-3 sm:grid sm:grid-cols-4 lg:mt-16">
               {HERO_STATS.map((stat) => (
-                <div key={stat.label} className="group rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur-md transition-all duration-300 hover:border-[#E7B572]/50 hover:bg-white/10 hover:-translate-y-1">
+                <div
+                  key={stat.label}
+                  className="group rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur-md transition-all duration-300 hover:border-[#E7B572]/50 hover:bg-white/10 hover:-translate-y-1"
+                >
                   <p className="font-['DM_Serif_Display',Georgia,serif] text-2xl text-[#E7B572] sm:text-3xl lg:text-4xl group-hover:scale-105 transition-transform">
                     {stat.value}
                   </p>
-                  <p className="mt-1 text-xs font-bold text-white">{stat.label}</p>
+                  <p className="mt-1 text-xs font-bold text-white">
+                    {stat.label}
+                  </p>
                   <p className="mt-0.5 text-[11px] text-white/60">{stat.sub}</p>
                 </div>
               ))}
@@ -574,15 +776,24 @@ function AboutPage() {
               />
               <div className="mt-6 space-y-4 text-sm leading-7 text-[#526057]">
                 <p>
-                  Pentagon Plywood Private Limited is part of the Pentagon Group of Companies, operating across <strong>wood-based panel manufacturing</strong> and <strong>chemical manufacturing</strong>. By manufacturing our own Formaldehyde resin raw materials, we achieve uncompromised bonding control over every single sheet.
+                  Pentagon Plywood Private Limited is part of the Pentagon Group
+                  of Companies, operating across{" "}
+                  <strong>wood-based panel manufacturing</strong> and{" "}
+                  <strong>chemical manufacturing</strong>. By manufacturing our
+                  own Formaldehyde resin raw materials, we achieve uncompromised
+                  bonding control over every single sheet.
                 </p>
               </div>
 
               <div className="mt-8 rounded-2xl border border-[#E7E1D8] bg-[#F7F3EC] p-5">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#9C6846]">Interactive Sheet Anatomy</p>
-                <p className="mt-1 text-sm font-semibold text-[#14211A]">Click any layer on the diagram to inspect its construction:</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-[#9C6846]">
+                  Interactive Sheet Anatomy
+                </p>
+                <p className="mt-1 text-sm font-semibold text-[#14211A]">
+                  Click any layer on the diagram to inspect its construction:
+                </p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {PLYWOOD_LAYERS.map(layer => (
+                  {PLYWOOD_LAYERS.map((layer) => (
                     <button
                       key={layer.id}
                       onClick={() => setActiveLayerId(layer.id)}
@@ -604,7 +815,9 @@ function AboutPage() {
               <div className="flex items-center justify-between border-b border-[#E7E1D8] pb-4">
                 <div className="flex items-center gap-2">
                   <Layers className="text-[#9C6846]" size={20} />
-                  <h3 className="font-['DM_Serif_Display',Georgia,serif] text-xl text-[#14211A]">Plywood Layer Inspector</h3>
+                  <h3 className="font-['DM_Serif_Display',Georgia,serif] text-xl text-[#14211A]">
+                    Plywood Layer Inspector
+                  </h3>
                 </div>
                 <Badge variant="accent">Cross-Section View</Badge>
               </div>
@@ -628,11 +841,15 @@ function AboutPage() {
                             className="h-4 w-4 rounded-full shadow-inner"
                             style={{ backgroundColor: layer.color }}
                           />
-                          <span className={`text-sm font-bold ${isActive ? "text-[#143D2B]" : "text-[#14211A]"}`}>
+                          <span
+                            className={`text-sm font-bold ${isActive ? "text-[#143D2B]" : "text-[#14211A]"}`}
+                          >
                             {layer.name}
                           </span>
                         </div>
-                        <span className="text-[11px] font-semibold text-[#65736A]">{layer.thickness}</span>
+                        <span className="text-[11px] font-semibold text-[#65736A]">
+                          {layer.thickness}
+                        </span>
                       </div>
                     </div>
                   );
@@ -641,11 +858,19 @@ function AboutPage() {
 
               <div className="mt-6 rounded-2xl bg-[#143D2B] p-5 text-white">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#E7B572]">Layer Specification</span>
-                  <span className="text-xs text-white/65">{activeLayer.thickness}</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#E7B572]">
+                    Layer Specification
+                  </span>
+                  <span className="text-xs text-white/65">
+                    {activeLayer.thickness}
+                  </span>
                 </div>
-                <h4 className="mt-2 font-['DM_Serif_Display',Georgia,serif] text-lg text-white">{activeLayer.name}</h4>
-                <p className="mt-2 text-xs leading-relaxed text-white/80">{activeLayer.description}</p>
+                <h4 className="mt-2 font-['DM_Serif_Display',Georgia,serif] text-lg text-white">
+                  {activeLayer.name}
+                </h4>
+                <p className="mt-2 text-xs leading-relaxed text-white/80">
+                  {activeLayer.description}
+                </p>
                 <div className="mt-3 inline-flex items-center gap-2 rounded-lg bg-white/10 px-3 py-1.5 text-xs text-[#E7B572]">
                   <Check size={14} />
                   <span>{activeLayer.benefit}</span>
@@ -670,8 +895,8 @@ function AboutPage() {
               {[
                 { id: "all", label: "All Verified Facts" },
                 { id: "capacity", label: "Capacities & Scale" },
-                { id: "legacy", label: "Legacy & Workforce" }
-              ].map(cat => (
+                { id: "legacy", label: "Legacy & Workforce" },
+              ].map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setSnapshotCategory(cat.id)}
@@ -694,14 +919,20 @@ function AboutPage() {
                   key={fact.label}
                   className="grid grid-cols-1 gap-2 px-6 py-4.5 transition-colors hover:bg-[#FDFBF8] sm:grid-cols-2 sm:items-center sm:gap-8 sm:px-8"
                 >
-                  <span className="text-sm font-semibold text-[#65736A]">{fact.label}</span>
-                  <strong className="text-sm font-bold text-[#14211A]">{fact.value}</strong>
+                  <span className="text-sm font-semibold text-[#65736A]">
+                    {fact.label}
+                  </span>
+                  <strong className="text-sm font-bold text-[#14211A]">
+                    {fact.value}
+                  </strong>
                 </div>
               ))}
             </div>
           </div>
           <p className="mt-5 text-xs text-[#65736A]">
-            * Production capacities are shown separately because wood-based panels (m²/day) and industrial chemicals (MT/day) are measured differently.
+            * Production capacities are shown separately because wood-based
+            panels (m²/day) and industrial chemicals (MT/day) are measured
+            differently.
           </p>
         </div>
       </section>
@@ -731,16 +962,25 @@ function AboutPage() {
                 >
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className={`text-xs font-bold uppercase tracking-wider ${isActive ? "text-[#E7B572]" : "text-[#9C6846]"}`}>
+                      <span
+                        className={`text-xs font-bold uppercase tracking-wider ${isActive ? "text-[#E7B572]" : "text-[#9C6846]"}`}
+                      >
                         {era.period}
                       </span>
-                      <Icon size={20} className={isActive ? "text-[#E7B572]" : "text-[#9C6846]"} />
+                      <Icon
+                        size={20}
+                        className={
+                          isActive ? "text-[#E7B572]" : "text-[#9C6846]"
+                        }
+                      />
                     </div>
                     <h3 className="mt-3 font-['DM_Serif_Display',Georgia,serif] text-xl leading-tight">
                       {era.title}
                     </h3>
                   </div>
-                  <div className={`mt-4 flex items-center gap-1 text-xs font-bold ${isActive ? "text-[#E7B572]" : "text-[#143D2B]"}`}>
+                  <div
+                    className={`mt-4 flex items-center gap-1 text-xs font-bold ${isActive ? "text-[#E7B572]" : "text-[#143D2B]"}`}
+                  >
                     <span>View Era Highlights</span>
                     <ChevronRight size={14} />
                   </div>
@@ -752,7 +992,9 @@ function AboutPage() {
           <div className="mt-8 rounded-3xl border border-[#D7C5AE] bg-white p-6 shadow-xl sm:p-8">
             <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
               <div>
-                <Badge variant="default" className="bg-[#9C6846]">{activeEra.period}</Badge>
+                <Badge variant="default" className="bg-[#9C6846]">
+                  {activeEra.period}
+                </Badge>
                 <h3 className="mt-3 font-['DM_Serif_Display',Georgia,serif] text-3xl text-[#14211A]">
                   {activeEra.title}
                 </h3>
@@ -762,13 +1004,20 @@ function AboutPage() {
               </div>
 
               <div className="space-y-3 border-l-2 border-[#E7B572] pl-5">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#9C6846]">Key Era Milestones</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-[#9C6846]">
+                  Key Era Milestones
+                </p>
                 {activeEra.milestones.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-3 rounded-xl bg-[#FDFBF8] p-3 border border-[#E7E1D8]">
+                  <div
+                    key={idx}
+                    className="flex items-start gap-3 rounded-xl bg-[#FDFBF8] p-3 border border-[#E7E1D8]"
+                  >
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#D99143] text-xs font-bold text-white">
                       {idx + 1}
                     </span>
-                    <span className="text-xs font-semibold leading-relaxed text-[#14211A]">{item}</span>
+                    <span className="text-xs font-semibold leading-relaxed text-[#14211A]">
+                      {item}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -778,7 +1027,10 @@ function AboutPage() {
       </section>
 
       {/* 5. LEADERSHIP (MISSING SECTION 2 RE-INTEGRATED WITH GENERATED IMAGE) */}
-      <section id="leadership" className="bg-[#143D2B] py-16 text-white sm:py-24">
+      <section
+        id="leadership"
+        className="bg-[#143D2B] py-16 text-white sm:py-24"
+      >
         <div className={c}>
           <div className="grid gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
             <div>
@@ -793,25 +1045,38 @@ function AboutPage() {
               <div className="mt-10 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-all hover:bg-white/15">
                   <Users className="text-[#E7B572]" size={30} />
-                  <h4 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-2xl text-white">Mr. Anand Jain</h4>
-                  <p className="text-xs font-semibold text-[#E7B572]">Managing Director</p>
+                  <h4 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-2xl text-white">
+                    Mr. Anand Jain
+                  </h4>
+                  <p className="text-xs font-semibold text-[#E7B572]">
+                    Managing Director
+                  </p>
                   <p className="mt-3 text-xs leading-relaxed text-white/75">
-                    Guides strategic direction, timber sourcing, and backward integration across wood-panel and chemical divisions.
+                    Guides strategic direction, timber sourcing, and backward
+                    integration across wood-panel and chemical divisions.
                   </p>
                 </div>
 
                 <div className="rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-all hover:bg-white/15">
                   <Users className="text-[#E7B572]" size={30} />
-                  <h4 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-2xl text-white">Mr. Ashu Jain</h4>
-                  <p className="text-xs font-semibold text-[#E7B572]">Director</p>
+                  <h4 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-2xl text-white">
+                    Mr. Ashu Jain
+                  </h4>
+                  <p className="text-xs font-semibold text-[#E7B572]">
+                    Director
+                  </p>
                   <p className="mt-3 text-xs leading-relaxed text-white/75">
-                    Leads plant operations, machinery upgrades, quality compliance, and distribution network growth.
+                    Leads plant operations, machinery upgrades, quality
+                    compliance, and distribution network growth.
                   </p>
                 </div>
               </div>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <a className="inline-flex items-center gap-2 rounded-full bg-[#D99143] px-5 py-3 text-xs font-bold text-[#14211A] hover:bg-[#E7B572] transition-colors" href={CONTACT_SECTIONS.form}>
+                <a
+                  className="inline-flex items-center gap-2 rounded-full bg-[#D99143] px-5 py-3 text-xs font-bold text-[#14211A] hover:bg-[#E7B572] transition-colors"
+                  href={CONTACT_SECTIONS.form}
+                >
                   Connect With Our Leadership <ArrowRight size={14} />
                 </a>
               </div>
@@ -826,7 +1091,8 @@ function AboutPage() {
               />
               <div className="absolute -bottom-5 -left-5 max-w-xs rounded-2xl border border-white/20 bg-[#1A1512]/90 p-4 backdrop-blur-md hidden sm:block">
                 <p className="text-xs italic text-white/90">
-                  "Understand the requirement, strengthen the process, and build lasting working relationships."
+                  "Understand the requirement, strengthen the process, and build
+                  lasting working relationships."
                 </p>
               </div>
             </div>
@@ -851,8 +1117,13 @@ function AboutPage() {
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#9C6846]">0{i + 1}</span>
-                    <Badge variant="secondary" className="bg-[#F7F3EC] text-[#143D2B]">
+                    <span className="text-xs font-bold text-[#9C6846]">
+                      0{i + 1}
+                    </span>
+                    <Badge
+                      variant="secondary"
+                      className="bg-[#F7F3EC] text-[#143D2B]"
+                    >
                       {comp.sector}
                     </Badge>
                   </div>
@@ -860,8 +1131,12 @@ function AboutPage() {
                   <h3 className="mt-5 font-['DM_Serif_Display',Georgia,serif] text-2xl text-[#14211A] group-hover:text-[#143D2B]">
                     {comp.name}
                   </h3>
-                  <p className="mt-1 text-xs font-semibold text-[#9C6846]">{comp.inc}</p>
-                  <p className="mt-3 text-xs leading-relaxed text-[#65736A]">{comp.desc}</p>
+                  <p className="mt-1 text-xs font-semibold text-[#9C6846]">
+                    {comp.inc}
+                  </p>
+                  <p className="mt-3 text-xs leading-relaxed text-[#65736A]">
+                    {comp.desc}
+                  </p>
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-[#E7E1D8] flex items-center justify-between">
@@ -869,7 +1144,10 @@ function AboutPage() {
                     <MapPin size={12} className="text-[#9C6846]" />
                     {comp.location}
                   </span>
-                  <a href={comp.link} className="inline-flex items-center gap-1 text-xs font-bold text-[#143D2B] hover:text-[#D99143]">
+                  <a
+                    href={comp.link}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#143D2B] hover:text-[#D99143]"
+                  >
                     Explore <ArrowRight size={12} />
                   </a>
                 </div>
@@ -891,30 +1169,64 @@ function AboutPage() {
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             <article className="rounded-3xl bg-white p-8 shadow-xl border border-[#D7C5AE]">
               <Layers className="text-[#9C6846]" size={36} />
-              <h3 className="mt-6 font-['DM_Serif_Display',Georgia,serif] text-3xl text-[#14211A]">Wood-Based Panel Manufacturing</h3>
-              <p className="mt-4 text-sm leading-relaxed text-[#65736A]">Through S. A. Timber Traders and Pentagon Plywood Private Limited, the group manufactures:</p>
+              <h3 className="mt-6 font-['DM_Serif_Display',Georgia,serif] text-3xl text-[#14211A]">
+                Wood-Based Panel Manufacturing
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-[#65736A]">
+                Through S. A. Timber Traders and Pentagon Plywood Private
+                Limited, the group manufactures:
+              </p>
               <ul className="mt-5 space-y-3">
-                {["BWP Marine & MR Plywood", "Commercial & Waterproof Blockboard", "Flush Doors & Custom Specifications"].map(x => (
-                  <li className="flex items-center gap-3 text-sm font-semibold text-[#14211A]" key={x}>
-                    <CheckCircle2 className="text-[#143D2B]" size={18}/>
+                {[
+                  "BWP Marine & MR Plywood",
+                  "Commercial & Waterproof Blockboard",
+                  "Flush Doors & Custom Specifications",
+                ].map((x) => (
+                  <li
+                    className="flex items-center gap-3 text-sm font-semibold text-[#14211A]"
+                    key={x}
+                  >
+                    <CheckCircle2 className="text-[#143D2B]" size={18} />
                     {x}
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-xs font-medium text-[#65736A]">Located in Yamunanagar with a combined floor area of approximately 2.5 lakh sq. ft.</p>
-              <a className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-[#143D2B] hover:text-[#9C6846]" href={HOME_SECTIONS.products}>
+              <p className="mt-6 text-xs font-medium text-[#65736A]">
+                Located in Yamunanagar with a combined floor area of
+                approximately 2.5 lakh sq. ft.
+              </p>
+              <a
+                className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-[#143D2B] hover:text-[#9C6846]"
+                href={HOME_SECTIONS.products}
+              >
                 View Wood Panel Range <ArrowRight size={14} />
               </a>
             </article>
 
             <article className="rounded-3xl bg-[#143D2B] p-8 text-white shadow-xl">
               <Factory className="text-[#E7B572]" size={36} />
-              <h3 className="mt-6 font-['DM_Serif_Display',Georgia,serif] text-3xl text-white">Chemical Manufacturing</h3>
-              <p className="mt-4 text-sm leading-relaxed text-white/75">Through Synochem Organics Private Limited and Patson Industries, the group manufactures:</p>
-              <p className="mt-4 text-2xl font-bold text-[#E7B572]">High-Purity Formaldehyde</p>
-              <p className="mt-2 text-xs leading-relaxed text-white/70">Crucial raw material for synthetic resin, laminates, and industrial wood composite manufacturing.</p>
-              <p className="mt-6 text-xs text-white/65">Operations located in Yamunanagar (HR) and Morbi (GJ), combined area of 7,456 sq. metres.</p>
-              <a className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-[#E7B572] hover:text-white" href={PRODUCT_ROUTES.formaldehyde}>
+              <h3 className="mt-6 font-['DM_Serif_Display',Georgia,serif] text-3xl text-white">
+                Chemical Manufacturing
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-white/75">
+                Through Synochem Organics Private Limited and Patson Industries,
+                the group manufactures:
+              </p>
+              <p className="mt-4 text-2xl font-bold text-[#E7B572]">
+                High-Purity Formaldehyde
+              </p>
+              <p className="mt-2 text-xs leading-relaxed text-white/70">
+                Crucial raw material for synthetic resin, laminates, and
+                industrial wood composite manufacturing.
+              </p>
+              <p className="mt-6 text-xs text-white/65">
+                Operations located in Yamunanagar (HR) and Morbi (GJ), combined
+                area of 7,456 sq. metres.
+              </p>
+              <a
+                className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-[#E7B572] hover:text-white"
+                href={PRODUCT_ROUTES.formaldehyde}
+              >
                 Formaldehyde Specifications <ArrowRight size={14} />
               </a>
             </article>
@@ -933,8 +1245,12 @@ function AboutPage() {
                 className="aspect-square rounded-3xl object-cover shadow-2xl border border-[#D9D3C8]"
               />
               <div className="absolute bottom-5 right-5 rounded-2xl bg-[#143D2B] p-4 text-white shadow-lg hidden sm:block">
-                <p className="font-['DM_Serif_Display',Georgia,serif] text-xl text-[#E7B572]">5,000 m² / Day</p>
-                <p className="text-[11px] text-white/80">Daily Wood-Panel Capacity</p>
+                <p className="font-['DM_Serif_Display',Georgia,serif] text-xl text-[#E7B572]">
+                  5,000 m² / Day
+                </p>
+                <p className="text-[11px] text-white/80">
+                  Daily Wood-Panel Capacity
+                </p>
               </div>
             </div>
 
@@ -953,10 +1269,13 @@ function AboutPage() {
                   "Increased wood-panel capacity",
                   "Backward integration into Formaldehyde",
                   "Expansion into Gujarat",
-                  "Continued chemical capacity development"
-                ].map(item => (
-                  <li className="flex items-center gap-2.5 rounded-xl border border-[#E7E1D8] bg-white p-3 text-xs font-semibold text-[#14211A] shadow-xs" key={item}>
-                    <Check className="shrink-0 text-[#9C6846]" size={16}/>
+                  "Continued chemical capacity development",
+                ].map((item) => (
+                  <li
+                    className="flex items-center gap-2.5 rounded-xl border border-[#E7E1D8] bg-white p-3 text-xs font-semibold text-[#14211A] shadow-xs"
+                    key={item}
+                  >
+                    <Check className="shrink-0 text-[#9C6846]" size={16} />
                     {item}
                   </li>
                 ))}
@@ -989,14 +1308,20 @@ function AboutPage() {
                       : "border border-[#D9D3C8] bg-white text-[#14211A] hover:bg-[#FDFBF8]"
                   }`}
                 >
-                  <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${isActive ? "bg-[#D99143] text-[#14211A]" : "bg-[#F4EADD] text-[#9C6846]"}`}>
+                  <div
+                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${isActive ? "bg-[#D99143] text-[#14211A]" : "bg-[#F4EADD] text-[#9C6846]"}`}
+                  >
                     <Icon size={24} />
                   </div>
                   <div>
-                    <span className={`text-[10px] font-bold uppercase tracking-wider ${isActive ? "text-[#E7B572]" : "text-[#9C6846]"}`}>
+                    <span
+                      className={`text-[10px] font-bold uppercase tracking-wider ${isActive ? "text-[#E7B572]" : "text-[#9C6846]"}`}
+                    >
                       {s.stage}
                     </span>
-                    <h4 className="font-['DM_Serif_Display',Georgia,serif] text-lg leading-snug">{s.title}</h4>
+                    <h4 className="font-['DM_Serif_Display',Georgia,serif] text-lg leading-snug">
+                      {s.title}
+                    </h4>
                   </div>
                 </button>
               );
@@ -1012,18 +1337,28 @@ function AboutPage() {
               <p className="text-sm leading-relaxed text-[#65736A]">
                 {activeStage.desc}
               </p>
-              <a href={CONTACT_SECTIONS.form} className="inline-flex items-center gap-2 text-xs font-bold text-[#143D2B] hover:text-[#9C6846]">
+              <a
+                href={CONTACT_SECTIONS.form}
+                className="inline-flex items-center gap-2 text-xs font-bold text-[#143D2B] hover:text-[#9C6846]"
+              >
                 Ask about our manufacturing standards <ArrowRight size={14} />
               </a>
             </div>
 
             <div className="rounded-2xl bg-[#FDFBF8] p-6 border border-[#E7E1D8]">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#9C6846] mb-4">Core Process Checkpoints</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#9C6846] mb-4">
+                Core Process Checkpoints
+              </h4>
               <div className="space-y-3">
                 {activeStage.steps.map((step, idx) => (
-                  <div key={idx} className="flex items-center gap-3 rounded-xl bg-white p-3 border border-[#E7E1D8] shadow-xs">
+                  <div
+                    key={idx}
+                    className="flex items-center gap-3 rounded-xl bg-white p-3 border border-[#E7E1D8] shadow-xs"
+                  >
                     <Check size={16} className="text-[#143D2B] shrink-0" />
-                    <span className="text-xs font-semibold text-[#14211A]">{step}</span>
+                    <span className="text-xs font-semibold text-[#14211A]">
+                      {step}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -1045,10 +1380,18 @@ function AboutPage() {
             {principles.map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={item.title} className="group rounded-2xl border border-[#D9D3C8] bg-white p-7 transition-all duration-300 hover:border-[#143D2B] hover:shadow-lg hover:-translate-y-1">
+                <div
+                  key={item.title}
+                  className="group rounded-2xl border border-[#D9D3C8] bg-white p-7 transition-all duration-300 hover:border-[#143D2B] hover:shadow-lg hover:-translate-y-1"
+                >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#9C6846]">0{i + 1}</span>
-                    <Icon size={24} className="text-[#143D2B] transition-transform group-hover:scale-110" />
+                    <span className="text-xs font-bold text-[#9C6846]">
+                      0{i + 1}
+                    </span>
+                    <Icon
+                      size={24}
+                      className="text-[#143D2B] transition-transform group-hover:scale-110"
+                    />
                   </div>
                   <h3 className="mt-6 font-['DM_Serif_Display',Georgia,serif] text-xl text-[#14211A]">
                     {item.title}
@@ -1120,22 +1463,25 @@ function AboutPage() {
               {
                 title: "Our Vision",
                 icon: Target,
-                copy: "To build Pentagon into a trusted manufacturing group known for dependable products, responsible information and long-term customer relationships."
+                copy: "To build Pentagon into a trusted manufacturing group known for dependable products, responsible information and long-term customer relationships.",
               },
               {
                 title: "Our Mission",
                 icon: Compass,
-                copy: "To manufacture and supply wood-based panels, doors and industrial chemicals through capable people, strengthened processes and continuous improvement."
+                copy: "To manufacture and supply wood-based panels, doors and industrial chemicals through capable people, strengthened processes and continuous improvement.",
               },
               {
                 title: "Our Commitment",
                 icon: ShieldCheck,
-                copy: "To keep improving manufacturing capabilities, communicate clearly and support customers with materials suited to their real requirements."
-              }
-            ].map(item => {
+                copy: "To keep improving manufacturing capabilities, communicate clearly and support customers with materials suited to their real requirements.",
+              },
+            ].map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.title} className="group rounded-3xl bg-[#143D2B] p-8 text-white transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                <div
+                  key={item.title}
+                  className="group rounded-3xl bg-[#143D2B] p-8 text-white transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                >
                   <div className="flex items-center justify-between">
                     <h3 className="font-['DM_Serif_Display',Georgia,serif] text-3xl text-[#E7B572]">
                       {item.title}
@@ -1164,7 +1510,10 @@ function AboutPage() {
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {MANUFACTURING_HUBS.map((hub) => (
-              <div key={hub.name} className="flex flex-col justify-between rounded-3xl border border-white/20 bg-white/10 p-7 backdrop-blur-md">
+              <div
+                key={hub.name}
+                className="flex flex-col justify-between rounded-3xl border border-white/20 bg-white/10 p-7 backdrop-blur-md"
+              >
                 <div>
                   <div className="flex items-center justify-between">
                     <span className="rounded-full bg-[#E7B572]/20 px-3 py-1 text-xs font-bold text-[#E7B572]">
@@ -1177,12 +1526,19 @@ function AboutPage() {
                     {hub.name}
                   </h3>
                   <p className="mt-2 text-xs text-white/70">{hub.location}</p>
-                  <p className="mt-1 text-xs font-bold text-[#E7B572]">Facility Area: {hub.area}</p>
+                  <p className="mt-1 text-xs font-bold text-[#E7B572]">
+                    Facility Area: {hub.area}
+                  </p>
 
                   <div className="mt-5 space-y-2 border-t border-white/10 pt-4">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-white/50">Operating Companies</p>
-                    {hub.units.map(unit => (
-                      <div key={unit} className="flex items-center gap-2 text-xs font-medium text-white/90">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-white/50">
+                      Operating Companies
+                    </p>
+                    {hub.units.map((unit) => (
+                      <div
+                        key={unit}
+                        className="flex items-center gap-2 text-xs font-medium text-white/90"
+                      >
                         <Check size={14} className="text-[#E7B572]" />
                         <span>{unit}</span>
                       </div>
@@ -1191,10 +1547,15 @@ function AboutPage() {
                 </div>
 
                 <div className="mt-6 border-t border-white/10 pt-4">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-2">Key Outputs</p>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/50 mb-2">
+                    Key Outputs
+                  </p>
                   <div className="flex flex-wrap gap-1.5">
-                    {hub.products.map(p => (
-                      <span key={p} className="rounded-md bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white">
+                    {hub.products.map((p) => (
+                      <span
+                        key={p}
+                        className="rounded-md bg-white/15 px-2.5 py-1 text-[11px] font-semibold text-white"
+                      >
                         {p}
                       </span>
                     ))}
@@ -1209,12 +1570,26 @@ function AboutPage() {
       {/* 14. FREQUENTLY ASKED QUESTIONS */}
       <section id="about-faq" className={section}>
         <div className={`${c} grid gap-10 lg:grid-cols-[.8fr_1.2fr]`}>
-          <Heading eyebrow="Frequently Asked Questions" title="Clear answers about the group." />
-          <Accordion type="single" collapsible defaultValue="faq-0" className="rounded-2xl border border-[#D9D3C8] bg-white px-5 sm:px-7">
+          <Heading
+            eyebrow="Frequently Asked Questions"
+            title="Clear answers about the group."
+          />
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="faq-0"
+            className="rounded-2xl border border-[#D9D3C8] bg-white px-5 sm:px-7"
+          >
             {faqs.map(([q, a], i) => (
-              <AccordionItem value={`faq-${i}`} key={q} className="border-[#E7E1D8]">
+              <AccordionItem
+                value={`faq-${i}`}
+                key={q}
+                className="border-[#E7E1D8]"
+              >
                 <AccordionTrigger className="py-5 text-left text-base font-bold no-underline hover:no-underline">
-                  <span className="mr-4 text-xs text-[#9C6846]">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="mr-4 text-xs text-[#9C6846]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   {q}
                 </AccordionTrigger>
                 <AccordionContent className="pb-5 pl-8 leading-7 text-[#65736A]">
@@ -1227,24 +1602,40 @@ function AboutPage() {
       </section>
 
       {/* 15. START A CONVERSATION CTA */}
-      <section id="about-enquiry" className="bg-[#143D2B] py-16 text-white sm:py-24">
+      <section
+        id="about-enquiry"
+        className="bg-[#143D2B] py-16 text-white sm:py-24"
+      >
         <div className={`${c} text-center`}>
-          <p className="text-xs font-bold uppercase tracking-[.18em] text-[#E7B572]">Start a Conversation</p>
+          <p className="text-xs font-bold uppercase tracking-[.18em] text-[#E7B572]">
+            Start a Conversation
+          </p>
           <h2 className="mx-auto mt-5 max-w-4xl font-['DM_Serif_Display',Georgia,serif] text-4xl leading-tight sm:text-5xl">
             Tell Us What You Need. Let’s Begin With the Material Behind It.
           </h2>
           <p className="mx-auto mt-6 max-w-2xl leading-7 text-white/70">
-            Whether you require plywood, blockboard, flush doors, or industrial Formaldehyde, share your product requirement, quantity, and delivery location with our team.
+            Whether you require plywood, blockboard, flush doors, or industrial
+            Formaldehyde, share your product requirement, quantity, and delivery
+            location with our team.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a className="inline-flex items-center gap-2 rounded-full bg-[#D99143] px-6 py-3.5 text-sm font-bold text-[#14211A] hover:bg-[#E7B572] transition-colors" href={CONTACT_SECTIONS.form}>
-              Send Your Requirement <ArrowRight size={16}/>
+            <a
+              className="inline-flex items-center gap-2 rounded-full bg-[#D99143] px-6 py-3.5 text-sm font-bold text-[#14211A] hover:bg-[#E7B572] transition-colors"
+              href={CONTACT_SECTIONS.form}
+            >
+              Send Your Requirement <ArrowRight size={16} />
             </a>
-            <a className="inline-flex items-center gap-2 rounded-full border border-white/50 px-6 py-3.5 text-sm font-bold hover:bg-white hover:text-[#14211A] transition-colors" href={ROUTES.dealers}>
-              Become a Dealer <ArrowRight size={16}/>
+            <a
+              className="inline-flex items-center gap-2 rounded-full border border-white/50 px-6 py-3.5 text-sm font-bold hover:bg-white hover:text-[#14211A] transition-colors"
+              href={ROUTES.dealers}
+            >
+              Become a Dealer <ArrowRight size={16} />
             </a>
-            <a className="inline-flex items-center gap-2 rounded-full border border-white/50 px-6 py-3.5 text-sm font-bold hover:bg-white hover:text-[#14211A] transition-colors" href={ROUTES.brands}>
-              Explore Our Brand Portfolio <ArrowRight size={16}/>
+            <a
+              className="inline-flex items-center gap-2 rounded-full border border-white/50 px-6 py-3.5 text-sm font-bold hover:bg-white hover:text-[#14211A] transition-colors"
+              href={ROUTES.brands}
+            >
+              Explore Our Brand Portfolio <ArrowRight size={16} />
             </a>
           </div>
         </div>

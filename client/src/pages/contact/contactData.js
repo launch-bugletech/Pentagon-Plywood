@@ -1,7 +1,7 @@
-import kitchenImg from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";
-import livingImg from "../../assets/product/Applications/Contemporary living room with furniture.png";
-import officeImg from "../../assets/product/Applications/Modern office with desks and partitions.png";
-import wardrobeImg from "../../assets/product/Applications/Modern wardrobe with sliding doors.png";
+import kitchenImg from "@/assets/product/Applications/Modern kitchen with cabinets and island.png";
+import livingImg from "@/assets/product/Applications/Contemporary living room with furniture.png";
+import officeImg from "@/assets/product/Applications/Modern office with desks and partitions.png";
+import wardrobeImg from "@/assets/product/Applications/Modern wardrobe with sliding doors.png";
 
 export const PHONE_DISPLAY = "+91 70150 85556";
 export const PHONE_LINK = "tel:+917015085556";

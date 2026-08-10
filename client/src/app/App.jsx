@@ -13,6 +13,11 @@ import DealersPage from "@/pages/dealers/DealersPage.jsx";
 import ApplicationsPage from "@/pages/applications/ApplicationsPage.jsx";
 import PlywoodPage from "@/pages/products/plywood/PlywoodPage.jsx";
 import MRGradePage from "@/pages/products/plywood/mr-grade/MRGradePage.jsx";
+import BWPGradePage from "@/pages/products/plywood/bwp-grade/BWPGradePage.jsx";
+import MarineGradePage from "@/pages/products/plywood/marine-grade/MarineGradePage.jsx";
+import FireRetardantPage from "@/pages/products/plywood/fire-retardant/FireRetardantPage.jsx";
+import MRBlockboardPage from "@/pages/products/blockboard/mr-grade/MRBlockboardPage.jsx";
+import BWPBlockboardPage from "@/pages/products/blockboard/bwp-grade/BWPBlockboardPage.jsx";
 import ProductsPage from "@/pages/products/ProductsPage.jsx";
 import ComingSoonPage from "@/pages/system/ComingSoonPage.jsx";
 import NotFoundPage from "@/pages/system/NotFoundPage.jsx";
@@ -94,6 +99,31 @@ const routes = {
     ROUTES.mrGradePlywood,
     () => MRGradePage,
     "plywood",
+  ),
+  [ROUTES.bwpGradePlywood]: makeRoute(
+    ROUTES.bwpGradePlywood,
+    () => BWPGradePage,
+    "plywood",
+  ),
+  [PRODUCT_ROUTES.marineGradePlywood]: makeRoute(
+    PRODUCT_ROUTES.marineGradePlywood,
+    () => MarineGradePage,
+    "plywood",
+  ),
+  [PRODUCT_ROUTES.fireRetardantPlywood]: makeRoute(
+    PRODUCT_ROUTES.fireRetardantPlywood,
+    () => FireRetardantPage,
+    "plywood",
+  ),
+  [PRODUCT_ROUTES.mrGradeBlockboard]: makeRoute(
+    PRODUCT_ROUTES.mrGradeBlockboard,
+    () => MRBlockboardPage,
+    "products",
+  ),
+  [PRODUCT_ROUTES.bwpGradeBlockboard]: makeRoute(
+    PRODUCT_ROUTES.bwpGradeBlockboard,
+    () => BWPBlockboardPage,
+    "products",
   ),
   [ROUTES.comingSoon]: makeRoute(ROUTES.comingSoon, () => ComingSoonPage, null),
 };

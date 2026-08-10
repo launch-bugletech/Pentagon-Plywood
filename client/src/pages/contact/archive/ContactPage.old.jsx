@@ -22,11 +22,11 @@ import {
   plannerCategories,
   projectEstimates,
   plannerTabs,
-} from "../contactData.js";
+} from "./contactData.old.js";
 import "../contact-page.css";
 
 const FACTORY_360_URL =
-  "https://www.google.com/maps/embed?pb=!4v1786021997875!6m8!1m7!1sR9TCbEr38ulcKQYtMl5aJA!2m2!1d30.09940653232269!2d77.28578053381996!3f85.68189271022864!4f-16.154239758161893!5f0.7820865974627469";
+  "https://www.google.com/maps/embed?pb=!4v1786021986875!6m8!1m7!1sR9TCbEr38ulcKQYtMl5aJA!2m2!1d30.09940653232269!2d77.28578053381996!3f85.68189271022864!4f-16.154239758161893!5f0.7820865974627469";
 
 function ArrowIcon() {
   return (
@@ -217,7 +217,9 @@ function ContactOldPage() {
   });
 
   const activeCategoryData = useMemo(
-    () => plannerCategories.find((c) => c.id === selectedPlannerCat) || plannerCategories[0],
+    () =>
+      plannerCategories.find((c) => c.id === selectedPlannerCat) ||
+      plannerCategories[0],
     [selectedPlannerCat],
   );
 
@@ -275,8 +277,8 @@ function ContactOldPage() {
             </h1>
             <p>
               Looking for plywood, blockboard or doors for resale, furniture,
-              interiors or a larger project? Share your requirement below for a quick response,
-              or explore our Advanced Level Planning tools.
+              interiors or a larger project? Share your requirement below for a
+              quick response, or explore our Advanced Level Planning tools.
             </p>
             <div className="contact-hero-actions">
               <a className="btn btn-primary" href={PHONE_LINK}>
@@ -315,7 +317,9 @@ function ContactOldPage() {
             {heroSubmitted ? (
               <div className="contact-success" role="status">
                 <span className="contact-success-mark">✓</span>
-                <div className="contact-eyebrow">Quick Requirement Received</div>
+                <div className="contact-eyebrow">
+                  Quick Requirement Received
+                </div>
                 <h2>Thank You. We Have Received Your Note.</h2>
                 <p>
                   Your enquiry reference is{" "}
@@ -355,7 +359,8 @@ function ContactOldPage() {
                   <span>FAST RESPONSES</span>
                 </div>
                 <p className="contact-form-intro">
-                  Tell us what you are making or looking for. Our team will get back to you with pricing, grade details, and availability.
+                  Tell us what you are making or looking for. Our team will get
+                  back to you with pricing, grade details, and availability.
                 </p>
 
                 <div className="contact-form-grid">
@@ -418,7 +423,8 @@ function ContactOldPage() {
                     required
                   />
                   <span>
-                    I agree to let Pentagon Plywood reach out via Phone, WhatsApp or Email regarding this enquiry.
+                    I agree to let Pentagon Plywood reach out via Phone,
+                    WhatsApp or Email regarding this enquiry.
                   </span>
                 </label>
 
@@ -429,7 +435,8 @@ function ContactOldPage() {
                   Send Quick Enquiry <ArrowIcon />
                 </button>
                 <p className="contact-form-footnote">
-                  Fields marked * are required. Have a complex BOQ or business partnership? Scroll down to the Advanced Planning section.
+                  Fields marked * are required. Have a complex BOQ or business
+                  partnership? Scroll down to the Advanced Planning section.
                 </p>
               </>
             )}
@@ -477,7 +484,8 @@ function ContactOldPage() {
                   <h3>Select Your Application & Project Scale</h3>
                 </div>
                 <p>
-                  Understand the ideal plywood grade, thickness, and sheet count needed for your project before purchasing.
+                  Understand the ideal plywood grade, thickness, and sheet count
+                  needed for your project before purchasing.
                 </p>
               </div>
 
@@ -520,9 +528,12 @@ function ContactOldPage() {
                     type="button"
                     className="btn btn-primary"
                     style={{ marginTop: "20px" }}
-                    onClick={() => applyCategoryToHero(activeCategoryData.category)}
+                    onClick={() =>
+                      applyCategoryToHero(activeCategoryData.category)
+                    }
                   >
-                    Select {activeCategoryData.category} in Quick Hero Form <ArrowIcon />
+                    Select {activeCategoryData.category} in Quick Hero Form{" "}
+                    <ArrowIcon />
                   </button>
                 </div>
 
@@ -536,7 +547,9 @@ function ContactOldPage() {
                           <strong>{est.label}</strong>
                           <small>Grade: {est.plyGrade}</small>
                         </div>
-                        <span className="planner-estimate-count">{est.sheets}</span>
+                        <span className="planner-estimate-count">
+                          {est.sheets}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -553,7 +566,10 @@ function ContactOldPage() {
                   <span className="contact-success-mark">✓</span>
                   <div className="contact-eyebrow">BOQ Received</div>
                   <h3>Thank You. Your Project BOQ Has Been Submitted.</h3>
-                  <p>Our project team will review the specification and send a quotation.</p>
+                  <p>
+                    Our project team will review the specification and send a
+                    quotation.
+                  </p>
                   <button
                     type="button"
                     className="contact-reset"
@@ -572,7 +588,9 @@ function ContactOldPage() {
                   <div className="planner-form-head">
                     <h3>Project & BOQ Submission Form</h3>
                     <p>
-                      For Architects, Interior Designers, Hospitality & Commercial Contractors. Share your BOQ or specifications for factory direct pricing.
+                      For Architects, Interior Designers, Hospitality &
+                      Commercial Contractors. Share your BOQ or specifications
+                      for factory direct pricing.
                     </p>
                   </div>
                   <div className="contact-form-grid">
@@ -587,7 +605,11 @@ function ContactOldPage() {
                       <input type="text" placeholder="City & State" required />
                     </Field>
                     <Field label="Approximate Quantity (Sheets/Doors)" required>
-                      <input type="text" placeholder="e.g. 150 Sheets / 45 Flush Doors" required />
+                      <input
+                        type="text"
+                        placeholder="e.g. 150 Sheets / 45 Flush Doors"
+                        required
+                      />
                     </Field>
                     <Field label="Target Procurement Date">
                       <input type="date" />
@@ -602,16 +624,26 @@ function ContactOldPage() {
                       <input type="email" placeholder="email@company.com" />
                     </Field>
                     <Field label="Upload Drawing or BOQ (Optional)">
-                      <input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,image/*" />
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,image/*"
+                      />
                     </Field>
-                    <Field label="Additional Specification Notes" className="is-wide">
+                    <Field
+                      label="Additional Specification Notes"
+                      className="is-wide"
+                    >
                       <textarea
                         rows="3"
                         placeholder="Mention required grades (BWP, MR, FR), fire retardant rating, thickness tolerance, etc."
                       />
                     </Field>
                   </div>
-                  <button type="submit" className="btn btn-primary" style={{ marginTop: "24px" }}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ marginTop: "24px" }}
+                  >
                     Submit Project BOQ Requirement <ArrowIcon />
                   </button>
                 </form>
@@ -627,7 +659,10 @@ function ContactOldPage() {
                   <span className="contact-success-mark">✓</span>
                   <div className="contact-eyebrow">Application Received</div>
                   <h3>Thank You. Dealership Application Submitted.</h3>
-                  <p>Our sales team will evaluate your territory and contact you for partnership discussions.</p>
+                  <p>
+                    Our sales team will evaluate your territory and contact you
+                    for partnership discussions.
+                  </p>
                   <button
                     type="button"
                     className="contact-reset"
@@ -646,21 +681,34 @@ function ContactOldPage() {
                   <div className="planner-form-head">
                     <h3>Dealer & Distributor Application Form</h3>
                     <p>
-                      Partner with Pentagon Plywood. Share your business profile to discuss exclusive regional dealership & wholesale supply terms.
+                      Partner with Pentagon Plywood. Share your business profile
+                      to discuss exclusive regional dealership & wholesale
+                      supply terms.
                     </p>
                   </div>
                   <div className="contact-form-grid">
                     <Field label="Firm / Business Name" required>
-                      <input type="text" placeholder="e.g. Royal Timber & Plywood Mart" required />
+                      <input
+                        type="text"
+                        placeholder="e.g. Royal Timber & Plywood Mart"
+                        required
+                      />
                     </Field>
                     <Field label="City & District" required>
                       <input type="text" placeholder="City, State" required />
                     </Field>
                     <Field label="Market / Territory Served" required>
-                      <input type="text" placeholder="e.g. North Delhi & NCR" required />
+                      <input
+                        type="text"
+                        placeholder="e.g. North Delhi & NCR"
+                        required
+                      />
                     </Field>
                     <Field label="Current Product Categories Handled">
-                      <input type="text" placeholder="e.g. Plywood, Laminates, Hardware" />
+                      <input
+                        type="text"
+                        placeholder="e.g. Plywood, Laminates, Hardware"
+                      />
                     </Field>
                     <Field label="Contact Person" required>
                       <input type="text" placeholder="Full Name" required />
@@ -672,7 +720,10 @@ function ContactOldPage() {
                       <input type="email" placeholder="business@email.com" />
                     </Field>
                     <Field label="Estimated Monthly Volume">
-                      <input type="text" placeholder="e.g. 1 Truckload / 500 Sheets" />
+                      <input
+                        type="text"
+                        placeholder="e.g. 1 Truckload / 500 Sheets"
+                      />
                     </Field>
                     <Field label="Business Proposal Note" className="is-wide">
                       <textarea
@@ -681,7 +732,11 @@ function ContactOldPage() {
                       />
                     </Field>
                   </div>
-                  <button type="submit" className="btn btn-primary" style={{ marginTop: "24px" }}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ marginTop: "24px" }}
+                  >
                     Apply for Dealership <ArrowIcon />
                   </button>
                 </form>
@@ -695,9 +750,14 @@ function ContactOldPage() {
               {tabSubmissions.export ? (
                 <div className="contact-success">
                   <span className="contact-success-mark">✓</span>
-                  <div className="contact-eyebrow">Export Requirement Received</div>
+                  <div className="contact-eyebrow">
+                    Export Requirement Received
+                  </div>
                   <h3>Thank You. Export / Chemical Enquiry Received.</h3>
-                  <p>Our international trade & industrial team will reach out with technical specs and export quotes.</p>
+                  <p>
+                    Our international trade & industrial team will reach out
+                    with technical specs and export quotes.
+                  </p>
                   <button
                     type="button"
                     className="contact-reset"
@@ -716,7 +776,9 @@ function ContactOldPage() {
                   <div className="planner-form-head">
                     <h3>Export & Industrial Chemical Enquiry Form</h3>
                     <p>
-                      For overseas buyers & chemical industrial clients. Discuss Formaldehyde (37%/43%) chemical shipments or export grade plywood.
+                      For overseas buyers & chemical industrial clients. Discuss
+                      Formaldehyde (37%/43%) chemical shipments or export grade
+                      plywood.
                     </p>
                   </div>
                   <div className="contact-form-grid">
@@ -724,7 +786,11 @@ function ContactOldPage() {
                       <input type="text" placeholder="Company Name" required />
                     </Field>
                     <Field label="Destination Country & Port" required>
-                      <input type="text" placeholder="e.g. Jebel Ali, UAE / Mundra Port" required />
+                      <input
+                        type="text"
+                        placeholder="e.g. Jebel Ali, UAE / Mundra Port"
+                        required
+                      />
                     </Field>
                     <Field label="Product / Chemical Required" required>
                       <select required defaultValue="Formaldehyde 37%">
@@ -736,28 +802,47 @@ function ContactOldPage() {
                       </select>
                     </Field>
                     <Field label="Estimated Order / Tanker Volume" required>
-                      <input type="text" placeholder="e.g. 2 x 20ft Container / Tanker Load" required />
+                      <input
+                        type="text"
+                        placeholder="e.g. 2 x 20ft Container / Tanker Load"
+                        required
+                      />
                     </Field>
                     <Field label="Contact Person Name" required>
                       <input type="text" placeholder="Full Name" required />
                     </Field>
                     <Field label="Email Address" required>
-                      <input type="email" placeholder="name@company.com" required />
+                      <input
+                        type="email"
+                        placeholder="name@company.com"
+                        required
+                      />
                     </Field>
                     <Field label="Phone / WhatsApp Number" required>
-                      <input type="tel" placeholder="+ country code & number" required />
+                      <input
+                        type="tel"
+                        placeholder="+ country code & number"
+                        required
+                      />
                     </Field>
                     <Field label="Shipping & Delivery Terms">
                       <input type="text" placeholder="FOB / CIF / Ex-Factory" />
                     </Field>
-                    <Field label="Technical Requirement Details" className="is-wide">
+                    <Field
+                      label="Technical Requirement Details"
+                      className="is-wide"
+                    >
                       <textarea
                         rows="3"
                         placeholder="Detail specific chemical purity percentages, plywood core specifications, packaging, or inspection requirements..."
                       />
                     </Field>
                   </div>
-                  <button type="submit" className="btn btn-primary" style={{ marginTop: "24px" }}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ marginTop: "24px" }}
+                  >
                     Submit Export / Chemical Enquiry <ArrowIcon />
                   </button>
                 </form>

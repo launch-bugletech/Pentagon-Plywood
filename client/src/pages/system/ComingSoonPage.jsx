@@ -136,7 +136,7 @@ function ComingSoonPage() {
               href={ROUTES.products}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <Layers size={20} />
               </div>
               <div>
@@ -156,7 +156,7 @@ function ComingSoonPage() {
               href={ROUTES.applications}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <Compass size={20} />
               </div>
               <div>
@@ -176,7 +176,7 @@ function ComingSoonPage() {
               href={HOME_SECTIONS.resources}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <FileText size={20} />
               </div>
               <div>
@@ -196,7 +196,7 @@ function ComingSoonPage() {
               href={CONTACT_SECTIONS.form}
               className="group p-5 rounded-2xl bg-[#F7F3EC]/70 hover:bg-[#F7F3EC] border border-[#E2DDD5] hover:border-[#143D2B] transition-all shadow-2xs hover:shadow-md space-y-3 cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-[#E8927C] group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-[#143D2B] text-white group-hover:bg-[#C86D51] group-hover:text-white flex items-center justify-center transition-colors">
                 <PhoneCall size={20} />
               </div>
               <div>

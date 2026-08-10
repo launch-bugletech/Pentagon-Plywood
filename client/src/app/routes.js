@@ -17,6 +17,7 @@ export const ROUTES = Object.freeze({
   plywoodOverview: '/products/plywood',
   plywood: '/plywood',
   mrGradePlywood: '/products/plywood/mr-grade-plywood',
+  bwpGradePlywood: '/products/plywood/bwp-grade-plywood',
   comingSoon: '/coming-soon',
 });
 
@@ -26,7 +27,7 @@ export const PRODUCT_ROUTES = Object.freeze({
   traded: ROUTES.tradedProducts,
   plywood: ROUTES.plywoodOverview,
   mrGradePlywood: ROUTES.mrGradePlywood,
-  bwpGradePlywood: '/products/plywood/bwp-grade-plywood',
+  bwpGradePlywood: ROUTES.bwpGradePlywood,
   marineGradePlywood: '/products/plywood/marine-grade-plywood',
   fireRetardantPlywood: '/products/plywood/fire-retardant-plywood',
   blockboard: '/products/blockboard',

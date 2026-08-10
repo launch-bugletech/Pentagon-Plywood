@@ -100,102 +100,111 @@ function HomePage() {
   return (
     <div className="bg-[#FDFBF8] text-[#14211A] overflow-hidden font-['Manrope',sans-serif]">
       {/* 1. HERO SECTION */}
-      <section className="relative bg-[#143D2B] text-white py-16 lg:py-24 overflow-hidden">
-        {/* Decorative Grid & Blur Orbs */}
-        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#C86D51_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-[#C86D51]/20 blur-3xl pointer-events-none" />
+      <section className="relative min-h-[92vh] flex items-center bg-[#0B2A1D] text-white py-16 lg:py-24 overflow-hidden">
+        {/* Full-bleed Interior Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 scale-105"
+          style={{ backgroundImage: `url(${HERO_DATA.bgHeroImage})` }}
+        />
+        {/* Multi-layered Gradient & Vignette Overlay for High Contrast & Crystal Legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#071D14]/95 via-[#0D3324]/88 to-[#0B2A1D]/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B2A1D] via-transparent to-[#071D14]/40" />
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#C86D51_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none" />
+        <div className="absolute top-1/4 -right-20 w-[500px] h-[500px] rounded-full bg-[#C86D51]/15 blur-[120px] pointer-events-none" />
 
-        <div className="max-w-[1280px] mx-auto px-7 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="max-w-[1280px] mx-auto px-7 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full">
           {/* Left Column: Heading & Content */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 bg-[#C86D51]/20 border border-[#C86D51]/40 text-[#E8927C] font-bold text-[11px] leading-tight tracking-[0.18em] uppercase px-4 py-1.5 rounded-full">
-              <Award className="h-3.5 w-3.5 text-[#C86D51]" />{" "}
+            <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md border border-[#C86D51]/50 text-[#F2A995] font-bold text-[11px] leading-tight tracking-[0.18em] uppercase px-4 py-2 rounded-full shadow-lg">
+              <Award className="h-4 w-4 text-[#C86D51]" />{" "}
               {HERO_DATA.eyebrow}
             </div>
 
-            <h1 className="font-['Oswald',sans-serif] text-[44px] sm:text-[60px] lg:text-[72px] font-bold leading-[1.02] tracking-[-1.5px] text-white">
+            <h1 className="font-['Oswald',sans-serif] text-[46px] sm:text-[62px] lg:text-[76px] font-bold leading-[1.01] tracking-[-1.5px] text-white drop-shadow-sm">
               {HERO_DATA.titleLine1}{" "}
-              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#C86D51] font-normal not-italic">
+              <em className="font-['DM_Serif_Display',Georgia,serif] text-[#E8927C] font-normal not-italic drop-shadow-md">
                 {HERO_DATA.titleAccent}
               </em>{" "}
               <span className="block mt-1">{HERO_DATA.titleLine2}</span>
             </h1>
 
-            <p className="text-white/85 text-[16px] sm:text-[18px] leading-[1.7] max-w-2xl">
+            <p className="text-white/90 text-[16px] sm:text-[19px] leading-[1.7] max-w-2xl font-normal drop-shadow-sm">
               {HERO_DATA.caption}
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
               <a
                 href={ROUTES.products}
-                className="inline-flex h-13 items-center justify-center gap-2.5 rounded-full bg-[#C86D51] px-8 text-xs font-bold uppercase tracking-wider text-white shadow-xl hover:bg-[#A85238] transition-all cursor-pointer"
+                className="inline-flex h-13 items-center justify-center gap-2.5 rounded-full bg-[#C86D51] px-8 text-xs font-bold uppercase tracking-wider text-white shadow-xl hover:bg-[#A85238] hover:shadow-[#C86D51]/30 transition-all cursor-pointer transform hover:-translate-y-0.5"
               >
-                Explore Our Products <ArrowRight className="h-4 w-4" />
+                Explore Products <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href="#enquiry"
-                className="inline-flex h-13 items-center justify-center gap-2.5 rounded-full border border-white/30 bg-white/10 px-8 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-all backdrop-blur-sm"
+                className="inline-flex h-13 items-center justify-center gap-2.5 rounded-full border border-white/30 bg-white/10 px-8 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-all backdrop-blur-md shadow-lg"
               >
                 Request a Quote
               </a>
             </div>
 
-            <div className="pt-6 border-t border-white/15 flex flex-wrap items-center gap-6 text-xs text-white/75">
-              <span className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#C86D51]" /> 100%
-                Calibrated Core
+            <div className="pt-6 border-t border-white/20 flex flex-wrap items-center gap-6 text-xs font-semibold text-white/90">
+              <span className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
+                <CheckCircle2 className="h-4 w-4 text-[#E8927C]" /> 100% Calibrated Core
               </span>
-              <span className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#C86D51]" /> IS:710 &
-                IS:303 Certified
+              <span className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
+                <CheckCircle2 className="h-4 w-4 text-[#E8927C]" /> IS:710 Marine Standard
               </span>
-              <span className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#C86D51]" /> Direct
-                Factory Supply
+              <span className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
+                <CheckCircle2 className="h-4 w-4 text-[#E8927C]" /> Factory Direct Supply
               </span>
             </div>
           </div>
 
-          {/* Right Column: Hero Visual Card */}
+          {/* Right Column: Interactive Real Connection Showcase Card */}
           <div className="lg:col-span-5">
-            <div className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl bg-[#0B2A1D] group">
-              <picture>
-                <source
-                  media="(max-width: 900px)"
-                  srcSet={HERO_DATA.mobileHeroImage}
-                />
+            <div className="relative rounded-3xl overflow-hidden border border-white/25 shadow-2xl bg-white/10 backdrop-blur-xl group hover:border-[#C86D51]/60 transition-all duration-500">
+              <div className="relative h-[380px] sm:h-[440px] w-full overflow-hidden">
                 <img
                   src={HERO_DATA.heroImage}
-                  alt="Pentagon Warm Plywood Interior Architecture"
-                  className="w-full h-[420px] sm:h-[480px] object-cover object-center opacity-90 group-hover:scale-105 transition-transform duration-700"
+                  alt="Pentagon Plywood Finished Luxury Interior Result"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
-              </picture>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071D14] via-[#071D14]/30 to-transparent" />
 
-              {/* Anniversary Laurels Floating Tag */}
-              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-white/20 rounded-2xl p-2.5 flex items-center gap-3">
-                <img
-                  src={HERO_DATA.anniversaryImage}
-                  alt="40 Years"
-                  className="h-10 w-auto"
-                />
-                <div className="text-white text-[10px] leading-tight font-bold">
-                  <span className="text-[#C86D51] uppercase block">
-                    CELEBRATING
+                {/* Floating "After Result" Badge */}
+                <div className="absolute top-4 left-4 bg-[#0B2A1D]/85 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 flex items-center gap-2 text-white shadow-lg">
+                  <span className="h-2 w-2 rounded-full bg-[#E8927C] animate-pulse" />
+                  <span className="text-[10px] font-extrabold tracking-widest uppercase text-white/90">
+                    FINISHED RESULT PREVIEW
                   </span>
-                  <span>40 YEARS GROUP LEGACY</span>
                 </div>
-              </div>
 
-              {/* Bottom Card Meta */}
-              <div className="absolute bottom-5 left-5 right-5 text-white flex items-center justify-between">
-                <div>
-                  <small className="text-[10px] font-extrabold tracking-widest text-[#C86D51] uppercase block">
-                    INTEGRATED MANUFACTURING
-                  </small>
-                  <strong className="text-lg font-bold">
-                    Yamunanagar & Morbi Facilities
+                {/* Anniversary Laurels / 40 Years Badge */}
+                <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-md border border-white/20 rounded-2xl p-3 flex items-center gap-3 shadow-lg">
+                  <div className="text-white text-[10px] leading-tight font-bold">
+                    <span className="text-[#E8927C] uppercase block tracking-wider">
+                      ESTABLISHED 1986
+                    </span>
+                    <span className="text-white/90">40 YEARS OF EXCELLENCE</span>
+                  </div>
+                </div>
+
+                {/* Connection Box at Bottom of Visual Card */}
+                <div className="absolute bottom-4 left-4 right-4 p-5 rounded-2xl bg-black/60 backdrop-blur-md border border-white/20 text-white space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-extrabold tracking-widest text-[#E8927C] uppercase">
+                      THE PENTAGON ADVANTAGE
+                    </span>
+                    <span className="text-[10px] font-bold text-white/70 bg-white/10 px-2 py-0.5 rounded">
+                      IS:710 & IS:303
+                    </span>
+                  </div>
+                  <strong className="text-base font-bold text-white block">
+                    Zero-Warping Plywood for Bespoke Interiors
                   </strong>
+                  <p className="text-[11px] text-white/80 leading-relaxed">
+                    Quad-pressed core composition ensures perfectly flat surfaces for seamless veneer work and long-lasting cabinetry.
+                  </p>
                 </div>
               </div>
             </div>
@@ -214,7 +223,7 @@ function HomePage() {
                   key={idx}
                   className="flex items-center gap-5 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-[#C86D51]/50 transition-colors"
                 >
-                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C] shadow-md border border-white/10">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-white shadow-md border border-white/10">
                     <IconComponent className="h-6 w-6" />
                   </div>
                   <div>
@@ -290,7 +299,7 @@ function HomePage() {
                       className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-108"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <span className="absolute top-3 left-3 bg-[#143D2B]/90 backdrop-blur-md text-[#E8927C] text-[10px] font-extrabold tracking-widest px-3 py-1 rounded-full uppercase border border-white/20">
+                    <span className="absolute top-3 left-3 bg-[#143D2B]/90 backdrop-blur-md text-white text-[10px] font-extrabold tracking-widest px-3 py-1 rounded-full uppercase border border-white/20">
                       {p.imageLabel}
                     </span>
                   </div>
@@ -366,7 +375,7 @@ function HomePage() {
                   className="p-6 rounded-2xl border border-[#CAD4CC] bg-[#FDFBF8] hover:border-[#143D2B] hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
                 >
                   <div>
-                    <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C] mb-4 shadow-sm border border-white/10">
+                    <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#143D2B] text-white mb-4 shadow-sm border border-white/10">
                       <IconComp className="h-5 w-5" />
                     </div>
                     <h3 className="font-['DM_Serif_Display',Georgia,serif] text-xl text-[#14211A] mb-2">
@@ -416,7 +425,7 @@ function HomePage() {
                 className="p-5 rounded-2xl border border-[#CAD4CC] bg-[#F7F3EC] hover:bg-white hover:border-[#143D2B] shadow-xs transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#143D2B] text-[#E8927C] text-[9px] font-extrabold uppercase tracking-widest">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#143D2B] text-white text-[9px] font-extrabold uppercase tracking-widest">
                     {brand.tierLbl}
                   </span>
                 </div>
@@ -514,7 +523,7 @@ function HomePage() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-6">
-                      <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C] shadow-sm border border-white/10">
+                      <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#143D2B] text-white shadow-sm border border-white/10">
                         <IconComp className="h-5 w-5" />
                       </div>
                       <span className="text-xl font-bold font-['Oswald',sans-serif] text-[#CAD4CC]">
@@ -581,7 +590,7 @@ function HomePage() {
                   key={step.num}
                   className="p-4 rounded-2xl bg-white/5 border border-white/10"
                 >
-                  <span className="text-xs font-extrabold text-[#C86D51] uppercase tracking-widest block mb-1">
+                  <span className="text-xs font-extrabold text-white uppercase tracking-widest block mb-1">
                     STEP {step.num}
                   </span>
                   <strong className="text-sm font-bold text-white block">
@@ -619,7 +628,7 @@ function HomePage() {
                   key={item.num}
                   className="flex items-start gap-4 p-4 rounded-2xl bg-[#F7F3EC] border border-[#CAD4CC]/60"
                 >
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#C86D51] font-bold text-xs">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-white font-bold text-xs">
                     {item.num}
                   </span>
                   <div>
@@ -863,7 +872,7 @@ function HomePage() {
                 </p>
 
                 <div className="flex items-center gap-3 pt-4 border-t border-[#CAD4CC]/50">
-                  <div className="grid h-10 w-10 place-items-center rounded-full bg-[#143D2B] text-[#C86D51] font-bold text-sm">
+                  <div className="grid h-10 w-10 place-items-center rounded-full bg-[#143D2B] text-white font-bold text-sm">
                     {item.initial}
                   </div>
                   <div>
@@ -903,7 +912,7 @@ function HomePage() {
                 className="p-7 rounded-3xl border border-[#CAD4CC] bg-[#F7F3EC] hover:bg-white hover:border-[#143D2B] shadow-xs transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <span className="px-3 py-1 rounded-full bg-[#143D2B] text-[#E8927C] text-[10px] font-bold uppercase tracking-wider inline-block mb-3">
+                  <span className="px-3 py-1 rounded-full bg-[#143D2B] text-white text-[10px] font-bold uppercase tracking-wider inline-block mb-3">
                     {res.tag}
                   </span>
                   <h3 className="font-['DM_Serif_Display',Georgia,serif] text-xl text-[#14211A] mb-2">

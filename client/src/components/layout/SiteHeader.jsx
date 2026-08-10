@@ -127,7 +127,7 @@ const ProductCategoryIcon = ({ type }) => {
   };
 
   return (
-    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C] shadow-xs group-hover:bg-[#C86D51] group-hover:text-white transition-all duration-200">
+    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-white shadow-xs group-hover:bg-[#C86D51] group-hover:text-white transition-all duration-200">
       <svg
         className="w-4 h-4"
         viewBox="0 0 24 24"
@@ -279,7 +279,7 @@ const NavItemIcon = ({ type }) => {
   };
 
   return (
-    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C] shadow-xs group-hover:bg-[#C86D51] group-hover:text-white group-hover:scale-105 transition-all duration-200">
+    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-white shadow-xs group-hover:bg-[#C86D51] group-hover:text-white group-hover:scale-105 transition-all duration-200">
       <svg
         className="w-5 h-5"
         viewBox="0 0 24 24"
@@ -858,7 +858,7 @@ function SiteHeader({ activePage = "home" }) {
                               >
                                 <div className="flex-1 min-w-0 space-y-2.5 z-10 flex flex-col justify-between">
                                   <div className="flex items-center gap-2.5">
-                                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C] shadow-xs group-hover:scale-105 transition-transform duration-200">
+                                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-white shadow-xs group-hover:scale-105 transition-transform duration-200">
                                       <ProductCategoryIcon type={group.id} />
                                     </span>
                                     <a
@@ -1395,7 +1395,7 @@ function SiteHeader({ activePage = "home" }) {
                 className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-[#CAD4CC]/60 text-[#14211A] font-bold"
                 onClick={closeMenu}
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-[#E8927C]">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#143D2B] text-white">
                   <svg
                     className="h-5 w-5"
                     viewBox="0 0 24 24"
