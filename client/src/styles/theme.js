@@ -9,15 +9,16 @@ export const THEME_COLORS = Object.freeze({
   forestDark: "#0B2A1D",
   forestLight: "#29483A",
 
-  // Warm Terracotta / Copper Accent Palette
-  accent: "#C86D51",
-  accentLight: "#E8927C",
-  accentDark: "#A85238",
+  // Pentagon logo brown accent palette
+  accent: "#8E510D",
+  accentLight: "#D6B07A",
+  accentDark: "#6B3200",
+  softBrown: "#F5EBDD",
 
-  // Warm Cream & Light Backgrounds
-  cream: "#FDFBF8",
-  creamAlt: "#F7F3EC",
-  creamDeep: "#EDE5D9",
+  // Neutral page surfaces
+  cream: "#FFFFFF",
+  creamAlt: "#F7F7F5",
+  creamDeep: "#EEECE8",
 
   // Typography & Neutrals
   charcoal: "#14211A",
@@ -30,7 +31,10 @@ export const THEME_COLORS = Object.freeze({
 });
 
 export const THEME_FONTS = Object.freeze({
-  display: "'Oswald', sans-serif",
+  display: "'Oswald', 'Arial Narrow', Impact, sans-serif",
   serif: "'DM Serif Display', Georgia, serif",
-  sans: "'Manrope', Arial, sans-serif",
+  sans: "'Manrope', Inter, 'Segoe UI', Arial, sans-serif",
+  mono: "'JetBrains Mono', Consolas, 'Courier New', monospace",
+  label:
+    "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
 });
