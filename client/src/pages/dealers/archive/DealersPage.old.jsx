@@ -5,7 +5,7 @@ import {
   ROUTES,
   comingSoonUrl,
 } from "@/app/routes.js";
-import "./dealers-page.css";
+import "./dealers-page.old.css";
 
 const PHONE = "tel:+917015085556";
 const WHATSAPP_BASE = "https://wa.me/917015085556?text=";

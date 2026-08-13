@@ -4,6 +4,7 @@ import heroImage from '../../assets/hero-home-desktop.png';
 import mobileHeroImage from '../../assets/hero-home-mobile.png';
 import anniversaryImage from '../../assets/hero-anniversary-laurels.png';
 import luxuryInteriorHero from '../../assets/hero-luxury-interior.png';
+import luxuryInteriorHeroLight from '../../assets/homepage/hero-luxury-interior-light.png';
 
 // Application & Interior Images
 import modularImage from "../../assets/product/Applications/Modern kitchen with cabinets and island.png";
@@ -26,38 +27,52 @@ import bisCertificateImage from '../../assets/homepage/certificates/bis-bureau-o
 import labCertificateImage from '../../assets/homepage/certificates/lab-tested-certified-approval-stamp-260nw-2640833869.png';
 
 export const HERO_DATA = {
-  eyebrow: "Pentagon Group · Calibrated Core to Masterpiece Interiors",
-  titleLine1: "Crafting",
-  titleAccent: "excellence,",
-  titleLine2: "building trust.",
-  caption: "Transform precision-engineered plywood into stunning living spaces. Pentagon Group manufactures high-density calibrated panels and marine boards—built for flawless finishes and structural longevity since 1986.",
+  eyebrow: "PENTAGON PLYWOOD • YAMUNANAGAR • SINCE 1986",
+  titleLine1: "You imagine",
+  titleLine2: "the space.",
+  titleAccent: "We build its strength.",
+  caption: "High-performance plywood, blockboards and doors, crafted with precision and trusted by professionals across India.",
   badge: "Wood-based panels · Yamunanagar",
-  heroImage: luxuryInteriorHero,
-  mobileHeroImage: luxuryInteriorHero,
-  bgHeroImage: luxuryInteriorHero,
+  heroImage: luxuryInteriorHeroLight,
+  mobileHeroImage: luxuryInteriorHeroLight,
+  bgHeroImage: luxuryInteriorHeroLight,
   anniversaryImage,
 };
 
-export const TRUST_STATS = [
+export const HERO_TRUST_BAR = [
   {
     num: "1986",
-    title: "Group Journey Began",
-    desc: "From timber trading to integrated manufacturing",
+    title: "Since 1986",
+    desc: "Nearly four decades of manufacturing legacy",
     iconName: "Calendar",
   },
   {
-    num: "4",
-    title: "Manufacturing Units",
-    desc: "Across Yamunanagar and Morbi cluster",
-    iconName: "Users",
+    num: "Manufacturing",
+    title: "In-House Manufacturing",
+    desc: "Complete control from raw material to finished board",
+    iconName: "Building2",
   },
   {
-    num: "₹100 Cr+",
-    title: "Combined Turnover",
-    desc: "Approximate turnover FY 2025–26",
+    num: "Quality",
+    title: "Quality You Can Trust",
+    desc: "IS certified products with rigorous quality checks",
     iconName: "ShieldCheck",
   },
+  {
+    num: "Sustainable",
+    title: "Sustainable Approach",
+    desc: "Responsible sourcing & environment conscious",
+    iconName: "Leaf",
+  },
+  {
+    num: "Pan India",
+    title: "Pan India Presence",
+    desc: "Supplying to 20+ states across India",
+    iconName: "Users",
+  },
 ];
+
+export const TRUST_STATS = HERO_TRUST_BAR;
 
 export const PRODUCTS_DATA = [
   {

@@ -10,6 +10,7 @@ import ContactPage from "@/pages/contact/ContactPage.jsx";
 import ContactOldPage from "@/pages/contact/archive/ContactPage.old.jsx";
 import ContactV2Page from "@/pages/contact/archive/ContactV2Page.jsx";
 import DealersPage from "@/pages/dealers/DealersPage.jsx";
+import DealersV2Page from "@/pages/dealers/archive/DealersPage.old.jsx";
 import ApplicationsPage from "@/pages/applications/ApplicationsPage.jsx";
 import PlywoodPage from "@/pages/products/plywood/PlywoodPage.jsx";
 import MRGradePage from "@/pages/products/plywood/mr-grade/MRGradePage.jsx";
@@ -19,6 +20,7 @@ import FireRetardantPage from "@/pages/products/plywood/fire-retardant/FireRetar
 import MRBlockboardPage from "@/pages/products/blockboard/mr-grade/MRBlockboardPage.jsx";
 import BWPBlockboardPage from "@/pages/products/blockboard/bwp-grade/BWPBlockboardPage.jsx";
 import ProductsPage from "@/pages/products/ProductsPage.jsx";
+import ProductsPageV2 from "@/pages/products/archive/ProductPageV2.jsx";
 import ComingSoonPage from "@/pages/system/ComingSoonPage.jsx";
 import NotFoundPage from "@/pages/system/NotFoundPage.jsx";
 import SiteHeader from "@/components/layout/SiteHeader.jsx";
@@ -28,6 +30,7 @@ import AppErrorBoundary from "@/components/system/AppErrorBoundary.jsx";
 import { normalizePath, PRODUCT_ROUTES, ROUTES } from "./routes.js";
 import { Toaster } from "@/components/ui/toaster.jsx";
 import { useToast } from "@/hooks/use-toast";
+
 const TWEAKS_ENABLED =
   import.meta.env.DEV && import.meta.env.VITE_ENABLE_TWEAKS === "true";
 // const TWEAKS_ENABLED = 'false';
@@ -73,12 +76,14 @@ const routes = {
     "contact",
   ),
   [ROUTES.dealers]: makeRoute(ROUTES.dealers, () => DealersPage, "dealers"),
+  [ROUTES.dealersV2]: makeRoute(ROUTES.dealersV2, () => DealersV2Page, "dealers"),
   [ROUTES.applications]: makeRoute(
     ROUTES.applications,
     () => ApplicationsPage,
     "applications",
   ),
   [ROUTES.products]: makeRoute(ROUTES.products, () => ProductsPage, "products"),
+  [ROUTES.productsv2]: makeRoute(ROUTES.productsv2, () => ProductsPageV2, "products"),
   [ROUTES.manufacturedProducts]: makeRoute(
     ROUTES.manufacturedProducts,
     () => ProductsPage,

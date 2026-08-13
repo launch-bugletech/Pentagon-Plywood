@@ -595,11 +595,11 @@ function SiteHeader({ activePage = "home" }) {
       <div className="bg-[#0B2A1D] text-white py-2.5 border-b border-white/10 text-xs font-semibold tracking-wide relative z-50 w-full">
         <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-2.5">
-            <span className="inline-flex h-5 px-2.5 items-center justify-center rounded-full bg-[#C86D51] text-[10px] font-extrabold uppercase tracking-wider text-white shadow-xs">
+            {/* <span className="inline-flex h-5 px-2.5 items-center justify-center rounded-full bg-[#C86D51] text-[10px] font-extrabold uppercase tracking-wider text-white shadow-xs">
               40+ Years
-            </span>
+            </span> */}
             <span className="text-white/90 text-[11px] sm:text-xs">
-              OF TRUST &amp; MANUFACTURING EXCELLENCE
+              40+ Years OF TRUST &amp; MANUFACTURING EXCELLENCE
             </span>
           </div>
 

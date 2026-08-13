@@ -687,10 +687,9 @@ function DealersPage() {
 
       return {
         ...current,
-        [field]: (
-          entries.includes(value)
-            ? entries.filter((item) => item !== value)
-            : [...entries, value]
+        [field]: (entries.includes(value)
+          ? entries.filter((item) => item !== value)
+          : [...entries, value]
         ).join(", "),
       };
     });
@@ -700,12 +699,10 @@ function DealersPage() {
     setRoute(value);
 
     if (value === "seller") {
-      document
-        .querySelector("#dealer-network-coverage")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+      document.querySelector("#dealer-network-coverage")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
 
       return;
     }
@@ -715,12 +712,10 @@ function DealersPage() {
       partnerType: "Dealer",
     }));
 
-    document
-      .querySelector("#partner-application")
-      ?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+    document.querySelector("#partner-application")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   const nextStep = () => {
@@ -750,9 +745,9 @@ function DealersPage() {
     setFormStep((step) => Math.min(5, step + 1));
   };
 
-const hero = (
-  <section
-    className="
+  const hero = (
+    <section
+      className="
       relative
       overflow-hidden
       px-4
@@ -765,8 +760,8 @@ const hero = (
       lg:pb-14
       lg:pt-16
     "
-    style={{
-      backgroundImage: `
+      style={{
+        backgroundImage: `
         linear-gradient(
           90deg,
           rgba(253,249,242,.96) 0%,
@@ -777,19 +772,19 @@ const hero = (
         url(${dealerHero})
       `,
 
-      backgroundSize: "cover",
+        backgroundSize: "cover",
 
-      backgroundPosition: "center bottom",
+        backgroundPosition: "center bottom",
 
-      backgroundRepeat: "no-repeat",
-    }}
-  >
-    {/* ====================================
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* ====================================
         TOP SUBTLE CONTOUR DETAIL
     ===================================== */}
 
-    <div
-      className="
+      <div
+        className="
         pointer-events-none
         absolute
         right-[10%]
@@ -798,8 +793,8 @@ const hero = (
         w-[620px]
         opacity-[.10]
       "
-      style={{
-        backgroundImage: `
+        style={{
+          backgroundImage: `
           repeating-radial-gradient(
             ellipse at center,
             transparent 0,
@@ -808,15 +803,15 @@ const hero = (
             transparent 24px
           )
         `,
-      }}
-    />
+        }}
+      />
 
-    {/* ====================================
+      {/* ====================================
         HERO GRID
     ===================================== */}
 
-    <div
-      className={`
+      <div
+        className={`
         ${wrapClass}
 
         relative
@@ -831,16 +826,16 @@ const hero = (
 
         lg:gap-12
       `}
-    >
-      {/* =================================
+      >
+        {/* =================================
           LEFT HERO CONTENT
       ================================== */}
 
-      <div className="relative z-10 py-5 lg:py-10">
-        {/* BADGE */}
+        <div className="relative z-10 py-5 lg:py-10">
+          {/* BADGE */}
 
-        <div
-          className="
+          <div
+            className="
             inline-flex
             items-center
             gap-2
@@ -853,26 +848,26 @@ const hero = (
             shadow-sm
             backdrop-blur
           "
-        >
-          <MapPin size={15} strokeWidth={2} className="text-[#C86D51]" />
+          >
+            <MapPin size={15} strokeWidth={2} className="text-[#C86D51]" />
 
-          <span
-            className="
+            <span
+              className="
               text-[10px]
               font-bold
               uppercase
               tracking-[0.12em]
               text-[#263b30]
             "
-          >
-            Pentagon Dealer Network
-          </span>
-        </div>
+            >
+              Pentagon Dealer Network
+            </span>
+          </div>
 
-        {/* HEADING */}
+          {/* HEADING */}
 
-        <h1
-          className="
+          <h1
+            className="
             mt-8
             max-w-[670px]
 
@@ -894,25 +889,25 @@ const hero = (
 
             xl:text-[74px]
           "
-        >
-          Bring Better
-          <br />
-          Material Choices
-          <br />
-          <em
-            className="
+          >
+            Bring Better
+            <br />
+            Material Choices
+            <br />
+            <em
+              className="
               font-normal
               text-[#C86D51]
             "
-          >
-            Closer to Your Market.
-          </em>
-        </h1>
+            >
+              Closer to Your Market.
+            </em>
+          </h1>
 
-        {/* COPY */}
+          {/* COPY */}
 
-        <p
-          className="
+          <p
+            className="
             mt-7
             max-w-[525px]
 
@@ -924,19 +919,19 @@ const hero = (
 
             sm:text-[16px]
           "
-        >
-          Pentagon partners with dealers across India to make plywood,
-          blockboard, flush doors and selected allied materials more accessible
-          to customers, trade professionals and projects.
-        </p>
+          >
+            Pentagon partners with dealers across India to make plywood,
+            blockboard, flush doors and selected allied materials more
+            accessible to customers, trade professionals and projects.
+          </p>
 
-        {/* ACTIONS */}
+          {/* ACTIONS */}
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() => chooseRoute("seller")}
-            className="
+          <div className="mt-8 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => chooseRoute("seller")}
+              className="
               inline-flex
               h-12
               items-center
@@ -961,16 +956,16 @@ const hero = (
 
               hover:bg-[#ae573d]
             "
-          >
-            <MapPin size={17} />
-            Find a Dealer
-            <ArrowRight size={16} />
-          </button>
+            >
+              <MapPin size={17} />
+              Find a Dealer
+              <ArrowRight size={16} />
+            </button>
 
-          <button
-            type="button"
-            onClick={() => chooseRoute("dealer")}
-            className="
+            <button
+              type="button"
+              onClick={() => chooseRoute("dealer")}
+              className="
               inline-flex
               h-12
               items-center
@@ -998,27 +993,27 @@ const hero = (
 
               hover:bg-white
             "
-          >
-            <Handshake size={17} />
-            Become a Dealer
-            <ArrowRight size={16} />
-          </button>
+            >
+              <Handshake size={17} />
+              Become a Dealer
+              <ArrowRight size={16} />
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* =================================
+        {/* =================================
           RIGHT MAP CARD
       ================================== */}
 
-      <DealerNetworkMap />
-    </div>
+        <DealerNetworkMap />
+      </div>
 
-    {/* ====================================
+      {/* ====================================
         HERO TRUST STRIP
     ===================================== */}
 
-    <div
-      className={`
+      <div
+        className={`
         ${wrapClass}
 
         relative
@@ -1029,9 +1024,9 @@ const hero = (
 
         lg:mt-8
       `}
-    >
-      <div
-        className="
+      >
+        <div
+          className="
           grid
 
           overflow-hidden
@@ -1052,35 +1047,35 @@ const hero = (
 
           lg:grid-cols-4
         "
-      >
-        {[
-          {
-            icon: MapPin,
-            title: "Wide Coverage",
-            copy: "Dealer presence across key markets",
-          },
+        >
+          {[
+            {
+              icon: MapPin,
+              title: "Wide Coverage",
+              copy: "Dealer presence across key markets",
+            },
 
-          {
-            icon: Truck,
-            title: "Reliable Supply",
-            copy: "Coordinated from Yamunanagar",
-          },
+            {
+              icon: Truck,
+              title: "Reliable Supply",
+              copy: "Coordinated from Yamunanagar",
+            },
 
-          {
-            icon: PackageCheck,
-            title: "Product Range",
-            copy: "Plywood, blockboard & doors",
-          },
+            {
+              icon: PackageCheck,
+              title: "Product Range",
+              copy: "Plywood, blockboard & doors",
+            },
 
-          {
-            icon: Handshake,
-            title: "Dealer Support",
-            copy: "Building long-term partnerships",
-          },
-        ].map(({ icon: Icon, title, copy }, index) => (
-          <div
-            key={title}
-            className={`
+            {
+              icon: Handshake,
+              title: "Dealer Support",
+              copy: "Building long-term partnerships",
+            },
+          ].map(({ icon: Icon, title, copy }, index) => (
+            <div
+              key={title}
+              className={`
               flex
 
               min-h-[105px]
@@ -1111,11 +1106,11 @@ const hero = (
                   : ""
               }
             `}
-          >
-            {/* ICON */}
+            >
+              {/* ICON */}
 
-            <span
-              className="
+              <span
+                className="
                 grid
 
                 h-12
@@ -1138,15 +1133,15 @@ const hero = (
 
                 shadow-sm
               "
-            >
-              <Icon size={21} strokeWidth={1.7} />
-            </span>
+              >
+                <Icon size={21} strokeWidth={1.7} />
+              </span>
 
-            {/* COPY */}
+              {/* COPY */}
 
-            <div>
-              <strong
-                className="
+              <div>
+                <strong
+                  className="
                   block
 
                   font-['DM_Serif_Display',Georgia,serif]
@@ -1157,12 +1152,12 @@ const hero = (
 
                   text-[#263b30]
                 "
-              >
-                {title}
-              </strong>
+                >
+                  {title}
+                </strong>
 
-              <span
-                className="
+                <span
+                  className="
                   mt-1
 
                   block
@@ -1173,424 +1168,421 @@ const hero = (
 
                   text-[#6c756e]
                 "
-              >
-                {copy}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-const routesSection = (
-  <section
-    id="choose-route"
-    className="relative overflow-hidden bg-[#fbf7f0] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28"
-  >
-    {/* very subtle background glow */}
-    <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[#e9d7c5]/20 blur-[120px]" />
-
-    <div className={`${wrapClass} relative`}>
-      {/* SECTION HEADING */}
-      {/* <div className="max-w-[720px]"> */}
-      <div >
-        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C86D51]">
-          Connect With Pentagon
-        </span>
-
-        <h2 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-[38px] font-normal leading-[1.05] tracking-[-0.02em] text-[#173d2e] sm:text-[46px] lg:text-[52px]">
-          Looking to Buy or Looking to Grow With Us?
-        </h2>
-
-        <p className="mt-5 max-w-[750px] text-[14px] leading-7 text-[#6b746e] sm:text-[15px]">
-          Start with the option that matches your requirement. Customers can explore our dealer presence, while businesses can introduce themselves for dealership review.
-        </p>
-      </div>
-
-      {/* TWO LARGE CARDS */}
-      <div className="mt-12 grid gap-6 lg:grid-cols-2">
-        {/* FIND DEALER */}
-        <article className="group relative min-h-[410px] overflow-hidden rounded-[20px] border border-[#dfbda8] bg-[#fffaf4] p-7 sm:p-9">
-          {/* illustration */}
-          <div className="pointer-events-none absolute bottom-16 right-3 opacity-[0.10]">
-            <svg
-              width="220"
-              height="160"
-              viewBox="0 0 220 160"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M10 145L48 110L82 120L117 74L153 96L205 55"
-                stroke="#C86D51"
-                strokeWidth="1.5"
-              />
-              <path
-                d="M10 145H208M35 128V145M64 117V145M92 111V145M121 83V145M153 99V145M182 75V145"
-                stroke="#C86D51"
-                strokeWidth="1"
-              />
-              <circle
-                cx="118"
-                cy="74"
-                r="17"
-                stroke="#C86D51"
-                strokeWidth="1.5"
-              />
-              <path
-                d="M118 66C113.8 66 110.5 69.3 110.5 73.5C110.5 79.2 118 85 118 85C118 85 125.5 79.2 125.5 73.5C125.5 69.3 122.2 66 118 66Z"
-                stroke="#C86D51"
-                strokeWidth="1.5"
-              />
-            </svg>
-          </div>
-
-          <div className="relative z-10 flex h-full flex-col">
-            <div className="flex items-start gap-5">
-              <span className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-full bg-[#f7c7ad] text-[#C86D51]">
-                <MapPin size={27} strokeWidth={1.6} />
-              </span>
-
-              <div>
-                <h3 className="font-['DM_Serif_Display',Georgia,serif] text-[25px] font-normal text-[#7d3528]">
-                  Find a Pentagon Dealer
-                </h3>
-
-                <strong className="mt-2 block text-[11px] font-bold text-[#7d3528]">
-                  For Customers &amp; Trade Buyers
-                </strong>
+                >
+                  {copy}
+                </span>
               </div>
             </div>
-
-            <p className="mt-7 max-w-[380px] text-[13px] leading-6 text-[#6b746e]">
-              Looking for Pentagon plywood, blockboard, flush doors or allied
-              products? Explore our network and connect with a dealer serving
-              your area.
-            </p>
-
-            <div className="mt-7 space-y-3">
-              {[
-                "Access genuine Pentagon products",
-                "Check dealer presence in your market",
-                "Connect with an appropriate local partner",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-3 text-[12px] text-[#59625d]"
-                >
-                  <span className="grid h-[15px] w-[15px] place-items-center rounded-full bg-[#E8927C] text-white">
-                    <Check size={9} strokeWidth={3} />
-                  </span>
-
-                  {item}
-                </div>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => chooseRoute("seller")}
-              className="mt-auto flex h-12 w-full items-center justify-center gap-3 rounded-lg bg-[#C86D51] px-6 text-[12px] font-semibold text-white transition hover:bg-[#ad583f]"
-            >
-              Explore Dealer Network
-              <ArrowRight size={15} />
-            </button>
-          </div>
-        </article>
-
-        {/* BECOME DEALER */}
-        <article className="group relative min-h-[410px] overflow-hidden rounded-[20px] border border-[#bfcbbf] bg-[#fbfcf8] p-7 sm:p-9">
-          {/* building line illustration */}
-          <div className="pointer-events-none absolute bottom-10 right-0 opacity-[0.10]">
-            <svg
-              width="250"
-              height="170"
-              viewBox="0 0 250 170"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path d="M12 154H239" stroke="#173d2e" strokeWidth="1.2" />
-              <path
-                d="M80 154V85L126 65V154"
-                stroke="#173d2e"
-                strokeWidth="1.2"
-              />
-              <path
-                d="M126 154V48L172 26V154"
-                stroke="#173d2e"
-                strokeWidth="1.2"
-              />
-              <path
-                d="M172 154V82L217 58V154"
-                stroke="#173d2e"
-                strokeWidth="1.2"
-              />
-              {[98, 115, 143, 159, 188, 204].map((x) => (
-                <path
-                  key={x}
-                  d={`M${x} 95V135`}
-                  stroke="#173d2e"
-                  strokeWidth="1"
-                />
-              ))}
-            </svg>
-          </div>
-
-          <div className="relative z-10 flex h-full flex-col">
-            <div className="flex items-start gap-5">
-              <span className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-full bg-[#e2e9df] text-[#173d2e]">
-                <Users size={27} strokeWidth={1.6} />
-              </span>
-
-              <div>
-                <h3 className="font-['DM_Serif_Display',Georgia,serif] text-[25px] font-normal text-[#173d2e]">
-                  Become a Pentagon Dealer
-                </h3>
-
-                <strong className="mt-2 block text-[11px] font-bold text-[#263b30]">
-                  For Businesses &amp; Trade Partners
-                </strong>
-              </div>
-            </div>
-
-            <p className="mt-7 max-w-[395px] text-[13px] leading-6 text-[#6b746e]">
-              Already selling plywood, boards, doors, hardware or building
-              materials? Introduce your business and explore the opportunity to
-              grow with Pentagon.
-            </p>
-
-            <div className="mt-7 space-y-3">
-              {[
-                "Manufactured and sourced product portfolio",
-                "Commercial and product coordination",
-                "Long-term market partnership opportunity",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-3 text-[12px] text-[#59625d]"
-                >
-                  <span className="grid h-[15px] w-[15px] place-items-center rounded-full bg-[#a9bba9] text-white">
-                    <Check size={9} strokeWidth={3} />
-                  </span>
-
-                  {item}
-                </div>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => chooseRoute("dealer")}
-              className="mt-auto flex h-12 w-full items-center justify-center gap-3 rounded-lg border border-[#173d2e] bg-white/30 px-6 text-[12px] font-semibold text-[#173d2e] transition hover:bg-[#173d2e] hover:text-white"
-            >
-              Apply for Dealership
-              <ArrowRight size={15} />
-            </button>
-          </div>
-        </article>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 
-const dealerCoverageSection = (
-  <section
-    id="dealer-network-coverage"
-    className="bg-[#fbf7f0] px-4 pb-12 pt-20 sm:px-6 sm:pt-24 lg:px-8 lg:pt-28"
-  >
-    <div className={wrapClass}>
-      <div className="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
-        {/* LEFT COPY */}
-        <div>
+  const routesSection = (
+    <section
+      id="choose-route"
+      className="relative overflow-hidden bg-[#fbf7f0] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+    >
+      {/* very subtle background glow */}
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[#e9d7c5]/20 blur-[120px]" />
+
+      <div className={`${wrapClass} relative`}>
+        {/* SECTION HEADING */}
+        <div className="max-w-[720px]">
           <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C86D51]">
-            Dealer Presence
+            Connect With Pentagon
           </span>
 
-          <h2 className="mt-4 max-w-[430px] font-['DM_Serif_Display',Georgia,serif] text-[38px] font-normal leading-[1.08] tracking-[-0.02em] text-[#173d2e] sm:text-[46px]">
-            Growing Across Key
+          <h2 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-[38px] font-normal leading-[1.05] tracking-[-0.02em] text-[#173d2e] sm:text-[46px] lg:text-[52px]">
+            Looking to Buy or Looking to
             <br />
-            Markets in India.
+            Grow With Us?
           </h2>
 
-          <p className="mt-5 max-w-[420px] text-[14px] leading-7 text-[#6b746e]">
-            Pentagon currently has dealer presence across these states and union
-            territories. Contact our team for the appropriate dealer serving
-            your city, district or product requirement.
+          <p className="mt-5 max-w-[640px] text-[14px] leading-7 text-[#6b746e] sm:text-[15px]">
+            Start with the option that matches your requirement. Customers can
+            explore our dealer presence, while businesses can introduce
+            themselves for dealership review.
           </p>
-
-          {/* nearest dealer */}
-          <div className="mt-8 max-w-[370px] rounded-[18px] border border-[#e4d6c8] bg-[#f8efe5] p-6">
-            <div className="flex gap-4">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#143d2b] text-white">
-                <MapPin size={21} />
-              </span>
-
-              <div>
-                <h3 className="font-['DM_Serif_Display',Georgia,serif] text-[20px] leading-tight text-[#263b30]">
-                  Need the nearest
-                  <br />
-                  Pentagon dealer?
-                </h3>
-
-                <p className="mt-4 text-[12px] leading-6 text-[#6b746e]">
-                  Share your city and required product with our team.
-                </p>
-              </div>
-            </div>
-
-            <a
-              href={CONTACT_SECTIONS.form}
-              className="mt-8 inline-flex items-center gap-3 text-[11px] font-bold text-[#a74d35]"
-            >
-              Ask for Nearest Dealer
-              <ArrowRight size={14} />
-            </a>
-          </div>
         </div>
 
-        {/* RIGHT */}
-        <div className="grid gap-4 md:grid-cols-2">
-          {/* NORTH INDIA */}
-          <div className="row-span-2 rounded-[18px] border border-[#d9ded7] bg-[#fffdfa] p-5 sm:p-6">
-            <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#C86D51]">
-                North India
-              </span>
-
-              <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#eef0ea] px-2 text-[10px] font-bold text-[#667069]">
-                8
-              </span>
+        {/* TWO LARGE CARDS */}
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          {/* FIND DEALER */}
+          <article className="group relative min-h-[410px] overflow-hidden rounded-[20px] border border-[#dfbda8] bg-[#fffaf4] p-7 sm:p-9">
+            {/* illustration */}
+            <div className="pointer-events-none absolute bottom-16 right-3 opacity-[0.10]">
+              <svg
+                width="220"
+                height="160"
+                viewBox="0 0 220 160"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M10 145L48 110L82 120L117 74L153 96L205 55"
+                  stroke="#C86D51"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M10 145H208M35 128V145M64 117V145M92 111V145M121 83V145M153 99V145M182 75V145"
+                  stroke="#C86D51"
+                  strokeWidth="1"
+                />
+                <circle
+                  cx="118"
+                  cy="74"
+                  r="17"
+                  stroke="#C86D51"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M118 66C113.8 66 110.5 69.3 110.5 73.5C110.5 79.2 118 85 118 85C118 85 125.5 79.2 125.5 73.5C125.5 69.3 122.2 66 118 66Z"
+                  stroke="#C86D51"
+                  strokeWidth="1.5"
+                />
+              </svg>
             </div>
 
-            <div className="mt-5">
-              {[
-                "Haryana",
-                "Punjab",
-                "Rajasthan",
-                "Himachal Pradesh",
-                "New Delhi",
-                "Jammu & Kashmir",
-                "Chandigarh",
-                "Uttar Pradesh",
-              ].map((state) => (
-                <div
-                  key={state}
-                  className="flex min-h-[43px] items-center gap-3 border-b border-[#e7e6e1] text-[12px] text-[#39463f] last:border-b-0"
-                >
-                  <span className="h-[6px] w-[6px] rounded-full bg-[#C86D51]" />
-                  {state}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* WEST */}
-          <div className="rounded-[18px] border border-[#d9ded7] bg-[#fffdfa] p-5 sm:p-6">
-            <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#C86D51]">
-                West India
-              </span>
-
-              <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#eef0ea] px-2 text-[10px] font-bold text-[#667069]">
-                3
-              </span>
-            </div>
-
-            <div className="mt-5">
-              {["Maharashtra", "Gujarat", "Goa"].map((state) => (
-                <div
-                  key={state}
-                  className="flex min-h-[43px] items-center gap-3 border-b border-[#e7e6e1] text-[12px] text-[#39463f] last:border-b-0"
-                >
-                  <span className="h-[6px] w-[6px] rounded-full bg-[#C86D51]" />
-                  {state}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* CENTRAL */}
-          <div className="rounded-[18px] border border-[#d9ded7] bg-[#fffdfa] p-5 sm:p-6">
-            <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#C86D51]">
-                Central India
-              </span>
-
-              <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#eef0ea] px-2 text-[10px] font-bold text-[#667069]">
-                1
-              </span>
-            </div>
-
-            <div className="mt-5">
-              <div className="flex min-h-[43px] items-center gap-3 text-[12px] text-[#39463f]">
-                <span className="h-[6px] w-[6px] rounded-full bg-[#C86D51]" />
-                Madhya Pradesh
-              </div>
-            </div>
-          </div>
-
-          {/* NETWORK GROWTH */}
-          <div className="relative overflow-hidden rounded-[18px] border border-[#c9d1c5] bg-[#e8ede3] p-6 md:col-span-2">
-            <div className="pointer-events-none absolute -right-10 -top-12 h-44 w-44 rounded-full border border-[#173d2e]/10" />
-
-            <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-5">
-                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-[#143d2b] text-white">
-                  <Handshake size={25} />
+            <div className="relative z-10 flex h-full flex-col">
+              <div className="flex items-start gap-5">
+                <span className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-full bg-[#f7c7ad] text-[#C86D51]">
+                  <MapPin size={27} strokeWidth={1.6} />
                 </span>
 
                 <div>
-                  <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#C86D51]">
-                    Network Growth
-                  </span>
-
-                  <h3 className="mt-2 font-['DM_Serif_Display',Georgia,serif] text-[24px] font-normal text-[#173d2e]">
-                    Interested in representing Pentagon?
+                  <h3 className="font-['DM_Serif_Display',Georgia,serif] text-[25px] font-normal text-[#7d3528]">
+                    Find a Pentagon Dealer
                   </h3>
 
-                  <p className="mt-2 text-[12px] leading-6 text-[#667069]">
-                    Tell us about your business, market, product categories and
-                    infrastructure.
-                  </p>
+                  <strong className="mt-2 block text-[11px] font-bold text-[#7d3528]">
+                    For Customers &amp; Trade Buyers
+                  </strong>
                 </div>
+              </div>
+
+              <p className="mt-7 max-w-[380px] text-[13px] leading-6 text-[#6b746e]">
+                Looking for Pentagon plywood, blockboard, flush doors or allied
+                products? Explore our network and connect with a dealer serving
+                your area.
+              </p>
+
+              <div className="mt-7 space-y-3">
+                {[
+                  "Access genuine Pentagon products",
+                  "Check dealer presence in your market",
+                  "Connect with an appropriate local partner",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-3 text-[12px] text-[#59625d]"
+                  >
+                    <span className="grid h-[15px] w-[15px] place-items-center rounded-full bg-[#E8927C] text-white">
+                      <Check size={9} strokeWidth={3} />
+                    </span>
+
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => chooseRoute("seller")}
+                className="mt-auto flex h-12 w-full items-center justify-center gap-3 rounded-lg bg-[#C86D51] px-6 text-[12px] font-semibold text-white transition hover:bg-[#ad583f]"
+              >
+                Explore Dealer Network
+                <ArrowRight size={15} />
+              </button>
+            </div>
+          </article>
+
+          {/* BECOME DEALER */}
+          <article className="group relative min-h-[410px] overflow-hidden rounded-[20px] border border-[#bfcbbf] bg-[#fbfcf8] p-7 sm:p-9">
+            {/* building line illustration */}
+            <div className="pointer-events-none absolute bottom-10 right-0 opacity-[0.10]">
+              <svg
+                width="250"
+                height="170"
+                viewBox="0 0 250 170"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path d="M12 154H239" stroke="#173d2e" strokeWidth="1.2" />
+                <path
+                  d="M80 154V85L126 65V154"
+                  stroke="#173d2e"
+                  strokeWidth="1.2"
+                />
+                <path
+                  d="M126 154V48L172 26V154"
+                  stroke="#173d2e"
+                  strokeWidth="1.2"
+                />
+                <path
+                  d="M172 154V82L217 58V154"
+                  stroke="#173d2e"
+                  strokeWidth="1.2"
+                />
+                {[98, 115, 143, 159, 188, 204].map((x) => (
+                  <path
+                    key={x}
+                    d={`M${x} 95V135`}
+                    stroke="#173d2e"
+                    strokeWidth="1"
+                  />
+                ))}
+              </svg>
+            </div>
+
+            <div className="relative z-10 flex h-full flex-col">
+              <div className="flex items-start gap-5">
+                <span className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-full bg-[#e2e9df] text-[#173d2e]">
+                  <Users size={27} strokeWidth={1.6} />
+                </span>
+
+                <div>
+                  <h3 className="font-['DM_Serif_Display',Georgia,serif] text-[25px] font-normal text-[#173d2e]">
+                    Become a Pentagon Dealer
+                  </h3>
+
+                  <strong className="mt-2 block text-[11px] font-bold text-[#263b30]">
+                    For Businesses &amp; Trade Partners
+                  </strong>
+                </div>
+              </div>
+
+              <p className="mt-7 max-w-[385px] text-[13px] leading-6 text-[#6b746e]">
+                Already selling plywood, boards, doors, hardware or building
+                materials? Introduce your business and explore the opportunity
+                to grow with Pentagon.
+              </p>
+
+              <div className="mt-7 space-y-3">
+                {[
+                  "Manufactured and sourced product portfolio",
+                  "Commercial and product coordination",
+                  "Long-term market partnership opportunity",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-3 text-[12px] text-[#59625d]"
+                  >
+                    <span className="grid h-[15px] w-[15px] place-items-center rounded-full bg-[#a9bba9] text-white">
+                      <Check size={9} strokeWidth={3} />
+                    </span>
+
+                    {item}
+                  </div>
+                ))}
               </div>
 
               <button
                 type="button"
                 onClick={() => chooseRoute("dealer")}
-                className="inline-flex h-11 shrink-0 items-center justify-center gap-3 rounded-lg bg-[#143d2b] px-6 text-[11px] font-semibold text-white"
+                className="mt-auto flex h-12 w-full items-center justify-center gap-3 rounded-lg border border-[#173d2e] bg-white/30 px-6 text-[12px] font-semibold text-[#173d2e] transition hover:bg-[#173d2e] hover:text-white"
               >
                 Apply for Dealership
-                <ArrowRight size={14} />
+                <ArrowRight size={15} />
               </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+
+  const dealerCoverageSection = (
+    <section
+      id="dealer-network-coverage"
+      className="bg-[#fbf7f0] px-4 pb-12 pt-20 sm:px-6 sm:pt-24 lg:px-8 lg:pt-28"
+    >
+      <div className={wrapClass}>
+        <div className="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
+          {/* LEFT COPY */}
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C86D51]">
+              Dealer Presence
+            </span>
+
+            <h2 className="mt-4 max-w-[430px] font-['DM_Serif_Display',Georgia,serif] text-[38px] font-normal leading-[1.08] tracking-[-0.02em] text-[#173d2e] sm:text-[46px]">
+              Growing Across Key
+              <br />
+              Markets in India.
+            </h2>
+
+            <p className="mt-5 max-w-[420px] text-[14px] leading-7 text-[#6b746e]">
+              Pentagon currently has dealer presence across these states and
+              union territories. Contact our team for the appropriate dealer
+              serving your city, district or product requirement.
+            </p>
+
+            {/* nearest dealer */}
+            <div className="mt-8 max-w-[370px] rounded-[18px] border border-[#e4d6c8] bg-[#f8efe5] p-6">
+              <div className="flex gap-4">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#143d2b] text-white">
+                  <MapPin size={21} />
+                </span>
+
+                <div>
+                  <h3 className="font-['DM_Serif_Display',Georgia,serif] text-[20px] leading-tight text-[#263b30]">
+                    Need the nearest
+                    <br />
+                    Pentagon dealer?
+                  </h3>
+
+                  <p className="mt-4 text-[12px] leading-6 text-[#6b746e]">
+                    Share your city and required product with our team.
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href={CONTACT_SECTIONS.form}
+                className="mt-8 inline-flex items-center gap-3 text-[11px] font-bold text-[#a74d35]"
+              >
+                Ask for Nearest Dealer
+                <ArrowRight size={14} />
+              </a>
+            </div>
+          </div>
+
+          {/* RIGHT */}
+          <div className="grid gap-4 md:grid-cols-2">
+            {/* NORTH INDIA */}
+            <div className="row-span-2 rounded-[18px] border border-[#d9ded7] bg-[#fffdfa] p-5 sm:p-6">
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#C86D51]">
+                  North India
+                </span>
+
+                <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#eef0ea] px-2 text-[10px] font-bold text-[#667069]">
+                  8
+                </span>
+              </div>
+
+              <div className="mt-5">
+                {[
+                  "Haryana",
+                  "Punjab",
+                  "Rajasthan",
+                  "Himachal Pradesh",
+                  "New Delhi",
+                  "Jammu & Kashmir",
+                  "Chandigarh",
+                  "Uttar Pradesh",
+                ].map((state) => (
+                  <div
+                    key={state}
+                    className="flex min-h-[43px] items-center gap-3 border-b border-[#e7e6e1] text-[12px] text-[#39463f] last:border-b-0"
+                  >
+                    <span className="h-[6px] w-[6px] rounded-full bg-[#C86D51]" />
+                    {state}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* WEST */}
+            <div className="rounded-[18px] border border-[#d9ded7] bg-[#fffdfa] p-5 sm:p-6">
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#C86D51]">
+                  West India
+                </span>
+
+                <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#eef0ea] px-2 text-[10px] font-bold text-[#667069]">
+                  3
+                </span>
+              </div>
+
+              <div className="mt-5">
+                {["Maharashtra", "Gujarat", "Goa"].map((state) => (
+                  <div
+                    key={state}
+                    className="flex min-h-[43px] items-center gap-3 border-b border-[#e7e6e1] text-[12px] text-[#39463f] last:border-b-0"
+                  >
+                    <span className="h-[6px] w-[6px] rounded-full bg-[#C86D51]" />
+                    {state}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CENTRAL */}
+            <div className="rounded-[18px] border border-[#d9ded7] bg-[#fffdfa] p-5 sm:p-6">
+              <div className="flex items-center justify-between">
+                <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#C86D51]">
+                  Central India
+                </span>
+
+                <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#eef0ea] px-2 text-[10px] font-bold text-[#667069]">
+                  1
+                </span>
+              </div>
+
+              <div className="mt-5">
+                <div className="flex min-h-[43px] items-center gap-3 text-[12px] text-[#39463f]">
+                  <span className="h-[6px] w-[6px] rounded-full bg-[#C86D51]" />
+                  Madhya Pradesh
+                </div>
+              </div>
+            </div>
+
+            {/* NETWORK GROWTH */}
+            <div className="relative overflow-hidden rounded-[18px] border border-[#c9d1c5] bg-[#e8ede3] p-6 md:col-span-2">
+              <div className="pointer-events-none absolute -right-10 -top-12 h-44 w-44 rounded-full border border-[#173d2e]/10" />
+
+              <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-5">
+                  <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-[#143d2b] text-white">
+                    <Handshake size={25} />
+                  </span>
+
+                  <div>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#C86D51]">
+                      Network Growth
+                    </span>
+
+                    <h3 className="mt-2 font-['DM_Serif_Display',Georgia,serif] text-[24px] font-normal text-[#173d2e]">
+                      Interested in representing Pentagon?
+                    </h3>
+
+                    <p className="mt-2 text-[12px] leading-6 text-[#667069]">
+                      Tell us about your business, market, product categories
+                      and infrastructure.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => chooseRoute("dealer")}
+                  className="inline-flex h-11 shrink-0 items-center justify-center gap-3 rounded-lg bg-[#143d2b] px-6 text-[11px] font-semibold text-white"
+                >
+                  Apply for Dealership
+                  <ArrowRight size={14} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-    </div>
-  </section>
-);
+    </section>
+  );
 
   return (
     <main className="min-h-screen bg-[#fbf8f2] font-['Manrope',sans-serif] text-[#14211a]">
       {/* BREADCRUMB */}
       <div className="border-b border-[#dbe2dc] bg-white px-4 py-3 text-sm text-[#65736a] sm:px-6 lg:px-8">
         <div className={wrapClass}>
-          <a
-            className="hover:text-[#143d2b]"
-            href={ROUTES.home}
-          >
+          <a className="hover:text-[#143d2b]" href={ROUTES.home}>
             Home
           </a>
 
           <span className="mx-2">›</span>
 
-          <strong className="text-[#263b30]">
-            Dealer Network
-          </strong>
+          <strong className="text-[#263b30]">Dealer Network</strong>
         </div>
       </div>
 
