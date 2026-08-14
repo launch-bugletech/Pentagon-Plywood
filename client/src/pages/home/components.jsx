@@ -15,7 +15,7 @@ import WardrobeApplication from "../../assets/product/Applications/Modern wardro
 import BathroomApplication from "../../assets/product/Applications/Modern bathroom with vanity and mirror.png";
 import LivingRoomApplication from "../../assets/product/Applications/Contemporary living room with furniture.png";
 
-import manufacturingImage from "../../assets/homepage/Plywood-Manufacturing-1024x683.jpg";
+import manufacturingImage from "../../assets/homepage/Plywood-Manufacturing-1024x683.png"; 
 import marinePlywoodImage from "../../assets/homepage/products/Marine-plywood-1000x1000.webp";
 import mrPlywoodImage from "../../assets/homepage/products/mr-grade-plywood-1671449588-6629452.webp";
 import blockboardImage from "../../assets/homepage/products/is303-blockboard-1671450145-6629496.webp";
@@ -258,7 +258,7 @@ const Hero = () => (
           <div className="hero-caption-row">
             <p className="hero-caption">
               Pentagon Group manufactures wood-based panels, flush doors and
-              industrial chemicals—built through timber trading, veneer
+              industrial chemicals built through timber trading, veneer
               processing and integrated manufacturing since 1986.
             </p>
             <div className="hero-actions">

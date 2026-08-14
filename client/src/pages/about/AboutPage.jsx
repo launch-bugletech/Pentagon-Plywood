@@ -47,7 +47,8 @@ import {
   PRODUCT_ROUTES,
   ROUTES,
 } from "../../app/routes.js";
-import manufacturingImage from "../../assets/homepage/Plywood-Manufacturing-1024x683.jpg";
+// import manufacturingImage from "../../assets/homepage/Plywood-Manufacturing-1024x683.jpg";
+import manufacturingImage from "../../assets/homepage/Plywood-Manufacturing-1024x683.png"; 
 import heroInteriorImage from "../../assets/homepage/hero_wood_interior_plants.jpg";
 import leadershipOfficeImage from "../../assets/homepage/pentagon_leadership_office.jpg";
 import pressFactoryImage from "../../assets/homepage/plywood_press_factory.jpg";
@@ -58,9 +59,9 @@ import edgeImage from "../../assets/product/mr plywood/Wood veneer layers on ply
 const c = "mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10";
 const section = "py-16 sm:py-20 lg:py-28";
 const primary =
-  "inline-flex items-center justify-center gap-2 rounded-full bg-[#143D2B] px-5 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-[#0B2A1D] hover:shadow-lg hover:-translate-y-0.5";
+  "inline-flex items-center justify-center gap-2 rounded-full bg-[#143D2B] px-5 py-3 text-sm font-bold text-white transition-all duration-300 hover:bg-[#8E510D] hover:shadow-lg hover:-translate-y-0.5";
 const outline =
-  "inline-flex items-center justify-center gap-2 rounded-full border border-current px-5 py-3 text-sm font-bold transition-all duration-300 hover:bg-[#143D2B] hover:text-white hover:border-[#143D2B]";
+  "inline-flex items-center justify-center gap-2 rounded-full border border-[#8E510D]/40 text-[#8E510D] px-5 py-3 text-sm font-bold transition-all duration-300 hover:bg-[#143D2B] hover:text-white hover:border-[#143D2B]";
 
 // HERO PERSONAS (PUNCHY, USER-CONNECTED COPY)
 const PERSONAS = [
@@ -182,7 +183,7 @@ const PLYWOOD_LAYERS = [
     id: "resin-bond",
     name: "In-House Phenolic Resin Bond Line",
     thickness: "Micro-Adhesive Layer",
-    color: "#E7B572",
+    color: "#C86D51",
     description:
       "Formulated in-house using Formaldehyde manufactured by our chemical division (Synochem & Patson Industries).",
     benefit: "Guarantees 100% Boiling Waterproof (BWP IS:710) bond protection.",
@@ -534,12 +535,12 @@ function Heading({ eyebrow, title, copy, light = false }) {
   return (
     <div className="max-w-3xl">
       <p
-        className={`mb-3 text-xs font-bold uppercase tracking-[.2em] ${light ? "text-[#E7B572]" : "text-[#9C6846]"}`}
+        className={`mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] ${light ? "text-[#C86D51]" : "text-[#8E510D]"}`}
       >
         {eyebrow}
       </p>
       <h2
-        className={`font-['DM_Serif_Display',Georgia,serif] text-3xl leading-[1.05] sm:text-4xl lg:text-5xl ${light ? "text-white" : "text-[#14211A]"}`}
+        className={`font-display text-3xl leading-[1.05] sm:text-4xl lg:text-5xl ${light ? "text-white" : "text-brand-charcoal"}`}
       >
         {title}
       </h2>
@@ -579,7 +580,10 @@ function AboutPage() {
   }, []);
 
   return (
-    <div className="overflow-hidden bg-[#FDFBF8] text-[#14211A]">
+    <div
+      data-palette="pentagon-brand"
+      className="home-theme bg-brand-cream text-brand-charcoal overflow-hidden font-sans"
+    >
       {/* 1. HERO SECTION WITH REAL NATURAL INTERIOR & GREENERY BACKGROUND */}
       <section
         id="story"
@@ -599,27 +603,27 @@ function AboutPage() {
             className="flex items-center gap-2 py-4 sm:py-5 text-xs text-white/70"
             aria-label="Breadcrumb"
           >
-            <a href={ROUTES.home} className="transition hover:text-[#E7B572]">
+            <a href={ROUTES.home} className="transition hover:text-[#C86D51]">
               Home
             </a>
             <span className="text-white/40">›</span>
-            <strong className="text-[#E7B572]">About Us</strong>
+            <strong className="text-[#C86D51]">About Us</strong>
           </nav>
 
           <div className="py-6 sm:py-8 lg:py-14">
             <div className="grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-center">
               <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#E7B572]/40 bg-[#E7B572]/15 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[.18em] text-[#E7B572] backdrop-blur-sm">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#C86D51]/40 bg-[#C86D51]/15 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[.18em] text-[#C86D51] backdrop-blur-sm">
                   <Sparkles
                     size={14}
-                    className="animate-pulse text-[#E7B572]"
+                    className="animate-pulse text-[#C86D51]"
                   />
                   4 Decades of Craftsmanship & Trust
                 </div>
 
-                <h1 className="mt-4 max-w-3xl font-['DM_Serif_Display',Georgia,serif] text-3xl leading-[1.05] sm:text-5xl lg:text-6xl text-white">
+                <h1 className="mt-4 max-w-3xl font-display text-3xl leading-[1.05] sm:text-5xl lg:text-6xl text-white">
                   Built From Timber. <br className="hidden sm:inline" />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E7B572] to-[#D99143]">
+                  <span className="home-heading-accent-on-dark font-normal not-italic">
                     Crafted for Spaces That Last.
                   </span>
                 </h1>
@@ -633,18 +637,18 @@ function AboutPage() {
 
                 <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2.5 text-xs font-medium text-white/80">
                   <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 border border-white/15 backdrop-blur-sm">
-                    <ShieldCheck size={14} className="text-[#E7B572]" />
+                    <ShieldCheck size={14} className="text-[#C86D51]" />
                     <span>IS:303 & IS:710 Certified</span>
                   </div>
                   <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 border border-white/15 backdrop-blur-sm">
-                    <MapPin size={14} className="text-[#E7B572]" />
+                    <MapPin size={14} className="text-[#C86D51]" />
                     <span>Yamunanagar & Morbi Plants</span>
                   </div>
                 </div>
 
                 <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-3.5">
                   <a
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D99143] px-6 py-3.5 text-sm font-bold text-[#14211A] shadow-lg shadow-[#D99143]/20 transition-all duration-300 hover:bg-[#E7B572] hover:scale-[1.02]"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D99143] px-6 py-3.5 text-sm font-bold text-[#14211A] shadow-lg shadow-[#D99143]/20 transition-all duration-300 hover:bg-[#C86D51] hover:scale-[1.02]"
                     href={CONTACT_SECTIONS.form}
                   >
                     Discuss Your Requirement <ArrowRight size={16} />
@@ -662,14 +666,14 @@ function AboutPage() {
               <div className="rounded-2xl sm:rounded-3xl border border-white/20 bg-gradient-to-b from-white/15 to-white/5 p-4.5 sm:p-7 shadow-2xl backdrop-blur-md">
                 <div className="flex items-center justify-between border-b border-white/15 pb-3 sm:pb-4">
                   <div>
-                    <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#E7B572]">
+                    <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#C86D51]">
                       How can we support you?
                     </p>
                     <h3 className="text-base sm:text-lg font-bold text-white">
                       Select Your Role
                     </h3>
                   </div>
-                  <span className="rounded-full bg-[#D99143]/20 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-[#E7B572]">
+                  <span className="rounded-full bg-[#D99143]/20 px-2.5 py-1 text-[10px] sm:text-[11px] font-bold text-[#C86D51]">
                     Tailored Solutions
                   </span>
                 </div>
@@ -691,7 +695,7 @@ function AboutPage() {
                         <Icon
                           size={14}
                           className={
-                            isActive ? "text-[#14211A]" : "text-[#E7B572]"
+                            isActive ? "text-[#14211A]" : "text-[#C86D51]"
                           }
                         />
                         <span className="truncate">{p.label}</span>
@@ -702,7 +706,7 @@ function AboutPage() {
 
                 <div className="mt-4 sm:mt-5 rounded-xl sm:rounded-2xl border border-white/15 bg-[#0D2419]/90 p-4 sm:p-5 backdrop-blur-sm">
                   <div className="flex items-center gap-2">
-                    <span className="rounded-md bg-[#E7B572]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#E7B572]">
+                    <span className="rounded-md bg-[#C86D51]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#C86D51]">
                       {activePersona.badge}
                     </span>
                   </div>
@@ -719,7 +723,7 @@ function AboutPage() {
                         key={h}
                         className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-medium text-white/90"
                       >
-                        <Check size={11} className="text-[#E7B572]" />
+                        <Check size={11} className="text-[#C86D51]" />
                         {h}
                       </span>
                     ))}
@@ -728,13 +732,13 @@ function AboutPage() {
                   <div className="mt-4 flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-white/10">
                     <a
                       href={activePersona.ctaLink}
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#D99143] px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-bold text-[#14211A] hover:bg-[#E7B572] transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#D99143] px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs font-bold text-[#14211A] hover:bg-[#C86D51] transition-colors"
                     >
                       {activePersona.ctaText} <ChevronRight size={14} />
                     </a>
                     <a
                       href={activePersona.secondaryLink}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-white/80 hover:text-[#E7B572] transition-colors"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-white/80 hover:text-[#C86D51] transition-colors"
                     >
                       {activePersona.secondaryText} <ArrowRight size={12} />
                     </a>
@@ -748,9 +752,9 @@ function AboutPage() {
               {HERO_STATS.map((stat) => (
                 <div
                   key={stat.label}
-                  className="group rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur-md transition-all duration-300 hover:border-[#E7B572]/50 hover:bg-white/10 hover:-translate-y-1"
+                  className="group rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur-md transition-all duration-300 hover:border-[#C86D51]/50 hover:bg-white/10 hover:-translate-y-1"
                 >
-                  <p className="font-['DM_Serif_Display',Georgia,serif] text-2xl text-[#E7B572] sm:text-3xl lg:text-4xl group-hover:scale-105 transition-transform">
+                  <p className="font-['DM_Serif_Display',Georgia,serif] text-2xl text-[#C86D51] sm:text-3xl lg:text-4xl group-hover:scale-105 transition-transform">
                     {stat.value}
                   </p>
                   <p className="mt-1 text-xs font-bold text-white">
@@ -858,7 +862,7 @@ function AboutPage() {
 
               <div className="mt-6 rounded-2xl bg-[#143D2B] p-5 text-white">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#E7B572]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#C86D51]">
                     Layer Specification
                   </span>
                   <span className="text-xs text-white/65">
@@ -871,7 +875,7 @@ function AboutPage() {
                 <p className="mt-2 text-xs leading-relaxed text-white/80">
                   {activeLayer.description}
                 </p>
-                <div className="mt-3 inline-flex items-center gap-2 rounded-lg bg-white/10 px-3 py-1.5 text-xs text-[#E7B572]">
+                <div className="mt-3 inline-flex items-center gap-2 rounded-lg bg-white/10 px-3 py-1.5 text-xs text-[#C86D51]">
                   <Check size={14} />
                   <span>{activeLayer.benefit}</span>
                 </div>
@@ -943,7 +947,7 @@ function AboutPage() {
           <Heading
             eyebrow="Where It Began"
             title="From Timber Trading to Integrated Manufacturing."
-            copy="Nearly 40 years of continuous development—expanding from log trading to high-capacity veneer peeling, hydraulic pressing, and backward integration into Formaldehyde chemical plants."
+            copy="Nearly 40 years of continuous development expanding from log trading to high-capacity veneer peeling, hydraulic pressing, and backward integration into Formaldehyde chemical plants."
           />
 
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -963,14 +967,14 @@ function AboutPage() {
                   <div>
                     <div className="flex items-center justify-between">
                       <span
-                        className={`text-xs font-bold uppercase tracking-wider ${isActive ? "text-[#E7B572]" : "text-[#9C6846]"}`}
+                        className={`text-xs font-bold uppercase tracking-wider ${isActive ? "text-[#C86D51]" : "text-[#9C6846]"}`}
                       >
                         {era.period}
                       </span>
                       <Icon
                         size={20}
                         className={
-                          isActive ? "text-[#E7B572]" : "text-[#9C6846]"
+                          isActive ? "text-[#C86D51]" : "text-[#9C6846]"
                         }
                       />
                     </div>
@@ -979,7 +983,7 @@ function AboutPage() {
                     </h3>
                   </div>
                   <div
-                    className={`mt-4 flex items-center gap-1 text-xs font-bold ${isActive ? "text-[#E7B572]" : "text-[#143D2B]"}`}
+                    className={`mt-4 flex items-center gap-1 text-xs font-bold ${isActive ? "text-[#C86D51]" : "text-[#143D2B]"}`}
                   >
                     <span>View Era Highlights</span>
                     <ChevronRight size={14} />
@@ -1003,7 +1007,7 @@ function AboutPage() {
                 </p>
               </div>
 
-              <div className="space-y-3 border-l-2 border-[#E7B572] pl-5">
+              <div className="space-y-3 border-l-2 border-[#C86D51] pl-5">
                 <p className="text-xs font-bold uppercase tracking-wider text-[#9C6846]">
                   Key Era Milestones
                 </p>
@@ -1044,11 +1048,11 @@ function AboutPage() {
               {/* Leadership Profiles */}
               <div className="mt-10 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-all hover:bg-white/15">
-                  <Users className="text-[#E7B572]" size={30} />
+                  <Users className="text-[#C86D51]" size={30} />
                   <h4 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-2xl text-white">
                     Mr. Anand Jain
                   </h4>
-                  <p className="text-xs font-semibold text-[#E7B572]">
+                  <p className="text-xs font-semibold text-[#C86D51]">
                     Managing Director
                   </p>
                   <p className="mt-3 text-xs leading-relaxed text-white/75">
@@ -1058,11 +1062,11 @@ function AboutPage() {
                 </div>
 
                 <div className="rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-all hover:bg-white/15">
-                  <Users className="text-[#E7B572]" size={30} />
+                  <Users className="text-[#C86D51]" size={30} />
                   <h4 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-2xl text-white">
                     Mr. Ashu Jain
                   </h4>
-                  <p className="text-xs font-semibold text-[#E7B572]">
+                  <p className="text-xs font-semibold text-[#C86D51]">
                     Director
                   </p>
                   <p className="mt-3 text-xs leading-relaxed text-white/75">
@@ -1074,7 +1078,7 @@ function AboutPage() {
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
-                  className="inline-flex items-center gap-2 rounded-full bg-[#D99143] px-5 py-3 text-xs font-bold text-[#14211A] hover:bg-[#E7B572] transition-colors"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#D99143] px-5 py-3 text-xs font-bold text-[#14211A] hover:bg-[#C86D51] transition-colors"
                   href={CONTACT_SECTIONS.form}
                 >
                   Connect With Our Leadership <ArrowRight size={14} />
@@ -1204,7 +1208,7 @@ function AboutPage() {
             </article>
 
             <article className="rounded-3xl bg-[#143D2B] p-8 text-white shadow-xl">
-              <Factory className="text-[#E7B572]" size={36} />
+              <Factory className="text-[#C86D51]" size={36} />
               <h3 className="mt-6 font-['DM_Serif_Display',Georgia,serif] text-3xl text-white">
                 Chemical Manufacturing
               </h3>
@@ -1212,7 +1216,7 @@ function AboutPage() {
                 Through Synochem Organics Private Limited and Patson Industries,
                 the group manufactures:
               </p>
-              <p className="mt-4 text-2xl font-bold text-[#E7B572]">
+              <p className="mt-4 text-2xl font-bold text-[#C86D51]">
                 High-Purity Formaldehyde
               </p>
               <p className="mt-2 text-xs leading-relaxed text-white/70">
@@ -1224,7 +1228,7 @@ function AboutPage() {
                 area of 7,456 sq. metres.
               </p>
               <a
-                className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-[#E7B572] hover:text-white"
+                className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-[#C86D51] hover:text-white"
                 href={PRODUCT_ROUTES.formaldehyde}
               >
                 Formaldehyde Specifications <ArrowRight size={14} />
@@ -1245,7 +1249,7 @@ function AboutPage() {
                 className="aspect-square rounded-3xl object-cover shadow-2xl border border-[#D9D3C8]"
               />
               <div className="absolute bottom-5 right-5 rounded-2xl bg-[#143D2B] p-4 text-white shadow-lg hidden sm:block">
-                <p className="font-['DM_Serif_Display',Georgia,serif] text-xl text-[#E7B572]">
+                <p className="font-['DM_Serif_Display',Georgia,serif] text-xl text-[#C86D51]">
                   5,000 m² / Day
                 </p>
                 <p className="text-[11px] text-white/80">
@@ -1291,7 +1295,7 @@ function AboutPage() {
           <Heading
             eyebrow="Manufacturing Process"
             title="Every Finished Product Begins With the Process Behind It."
-            copy="Quality isn't just claimed—it is built into every log peeled, every glue spread, and every hydraulic hot press cycle."
+            copy="Quality isn't just claimed it is built into every log peeled, every glue spread, and every hydraulic hot press cycle."
           />
 
           <div className="mt-10 grid gap-3 sm:grid-cols-3">
@@ -1304,7 +1308,7 @@ function AboutPage() {
                   onClick={() => setActiveStageId(s.id)}
                   className={`flex items-center gap-4 rounded-2xl p-5 text-left transition-all duration-300 ${
                     isActive
-                      ? "bg-[#143D2B] text-white shadow-xl ring-2 ring-[#E7B572]"
+                      ? "bg-[#143D2B] text-white shadow-xl ring-2 ring-[#C86D51]"
                       : "border border-[#D9D3C8] bg-white text-[#14211A] hover:bg-[#FDFBF8]"
                   }`}
                 >
@@ -1315,7 +1319,7 @@ function AboutPage() {
                   </div>
                   <div>
                     <span
-                      className={`text-[10px] font-bold uppercase tracking-wider ${isActive ? "text-[#E7B572]" : "text-[#9C6846]"}`}
+                      className={`text-[10px] font-bold uppercase tracking-wider ${isActive ? "text-[#C86D51]" : "text-[#9C6846]"}`}
                     >
                       {s.stage}
                     </span>
@@ -1483,10 +1487,10 @@ function AboutPage() {
                   className="group rounded-3xl bg-[#143D2B] p-8 text-white transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
                 >
                   <div className="flex items-center justify-between">
-                    <h3 className="font-['DM_Serif_Display',Georgia,serif] text-3xl text-[#E7B572]">
+                    <h3 className="font-['DM_Serif_Display',Georgia,serif] text-3xl text-[#C86D51]">
                       {item.title}
                     </h3>
-                    <Icon size={28} className="text-[#E7B572]" />
+                    <Icon size={28} className="text-[#C86D51]" />
                   </div>
                   <p className="mt-5 text-sm leading-relaxed text-white/80">
                     {item.copy}
@@ -1516,17 +1520,17 @@ function AboutPage() {
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="rounded-full bg-[#E7B572]/20 px-3 py-1 text-xs font-bold text-[#E7B572]">
+                    <span className="rounded-full bg-[#C86D51]/20 px-3 py-1 text-xs font-bold text-[#C86D51]">
                       {hub.sector}
                     </span>
-                    <MapPin className="text-[#E7B572]" size={20} />
+                    <MapPin className="text-[#C86D51]" size={20} />
                   </div>
 
                   <h3 className="mt-5 font-['DM_Serif_Display',Georgia,serif] text-2xl text-white">
                     {hub.name}
                   </h3>
                   <p className="mt-2 text-xs text-white/70">{hub.location}</p>
-                  <p className="mt-1 text-xs font-bold text-[#E7B572]">
+                  <p className="mt-1 text-xs font-bold text-[#C86D51]">
                     Facility Area: {hub.area}
                   </p>
 
@@ -1539,7 +1543,7 @@ function AboutPage() {
                         key={unit}
                         className="flex items-center gap-2 text-xs font-medium text-white/90"
                       >
-                        <Check size={14} className="text-[#E7B572]" />
+                        <Check size={14} className="text-[#C86D51]" />
                         <span>{unit}</span>
                       </div>
                     ))}
@@ -1607,7 +1611,7 @@ function AboutPage() {
         className="bg-[#143D2B] py-16 text-white sm:py-24"
       >
         <div className={`${c} text-center`}>
-          <p className="text-xs font-bold uppercase tracking-[.18em] text-[#E7B572]">
+          <p className="text-xs font-bold uppercase tracking-[.18em] text-[#C86D51]">
             Start a Conversation
           </p>
           <h2 className="mx-auto mt-5 max-w-4xl font-['DM_Serif_Display',Georgia,serif] text-4xl leading-tight sm:text-5xl">
@@ -1620,7 +1624,7 @@ function AboutPage() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a
-              className="inline-flex items-center gap-2 rounded-full bg-[#D99143] px-6 py-3.5 text-sm font-bold text-[#14211A] hover:bg-[#E7B572] transition-colors"
+              className="inline-flex items-center gap-2 rounded-full bg-[#D99143] px-6 py-3.5 text-sm font-bold text-[#14211A] hover:bg-[#C86D51] transition-colors"
               href={CONTACT_SECTIONS.form}
             >
               Send Your Requirement <ArrowRight size={16} />

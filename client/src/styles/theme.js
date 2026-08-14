@@ -11,7 +11,7 @@ export const THEME_COLORS = Object.freeze({
 
   // Pentagon logo brown accent palette
   accent: "#8E510D",
-  accentLight: "#D6B07A",
+  accentLight: "#C86D51",
   accentDark: "#6B3200",
   softBrown: "#F5EBDD",
 

@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import submitPentagonEnquiry from '@/services/pentagonEnquiry.js';
 import {
   ArrowRight,
   Blocks,
@@ -25,7 +26,7 @@ import heroBoards from '../../assets/Wooden layered boards.png';
 import plywoodImage from '../../assets/homepage/products/mr-grade-plywood-1671449588-6629452.webp';
 import blockboardImage from '../../assets/homepage/products/is303-blockboard-1671450145-6629496.webp';
 import doorImage from '../../assets/homepage/products/waterproof-flush-door-1671449760-6629491.webp';
-import factoryImage from '../../assets/homepage/Plywood-Manufacturing-1024x683.jpg';
+import factoryImage from "../../assets/homepage/Plywood-Manufacturing-1024x683.png"; 
 import surfaceImage from '../../assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg';
 import './products-page.css';
 
@@ -50,9 +51,48 @@ const categoryVisuals = {
 };
 
 function ProductsPage() {
+  const [form, setForm] = useState({
+    name: '',
+    phone: '',
+    application: '',
+    product: 'Not sure; help me choose',
+    quantity: '',
+    location: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
   useEffect(() => {
     document.title = 'Products | Pentagon Plywood';
   }, []);
+
+  const update = (key) => (e) => setForm({ ...form, [key]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      await submitPentagonEnquiry({
+        enquiryType: form.product === "Formaldehyde" ? "industrial-chemical" : "product",
+        formSource: "products-catalog",
+        productCategory: form.product !== "Not sure; help me choose" ? form.product : "General Portfolio",
+        name: form.name,
+        phone: form.phone,
+        application: form.application,
+        quantity: form.quantity,
+        location: form.location,
+      });
+
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(err.message || "Failed to submit requirement. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="products-page">
@@ -211,17 +251,28 @@ function ProductsPage() {
             <SectionHeading light eyebrow="Let’s Build the Product List" title="Tell us what you’re making. We’ll help find the required materials." copy="Share the application, product, size, thickness, finish, quantity and delivery location. If you are unsure of the exact board, describe the finished requirement." />
             <div className="products-enquiry-points"><span><Check />Dealer and distributor supply</span><span><Check />Furniture and interior projects</span><span><Check />Bulk board procurement</span><span><Check />Industrial chemical requirements</span></div>
           </div>
-          <form className="products-enquiry-form" action={CONTACT_SECTIONS.form} method="get">
-            <div className="products-form-heading"><span>Product requirement</span><strong>Start with the details you know.</strong></div>
-            <label><span>Name</span><input name="name" autoComplete="name" required placeholder="Your full name" /></label>
-            <label><span>Phone number</span><input name="phone" type="tel" autoComplete="tel" required placeholder="+91" /></label>
-            <label className="is-wide"><span>What are you making?</span><input name="application" placeholder="e.g. wardrobes, kitchen cabinets or doors" /></label>
-            <label><span>Product category</span><select name="product"><option>Not sure — help me choose</option><option>Plywood</option><option>Blockboard</option><option>Flush Doors</option><option>Formaldehyde</option><option>Traded & sourced products</option></select></label>
-            <label><span>Quantity</span><input name="quantity" placeholder="Sheets / doors / bulk volume" /></label>
-            <label className="is-wide"><span>Delivery city and state</span><input name="location" autoComplete="address-level2" placeholder="City, State" /></label>
-            <button className="products-btn products-btn-primary is-wide" type="submit">Send my product requirement <ArrowRight /></button>
-            <p className="products-form-note is-wide">Need several products? You can also WhatsApp your complete requirement list after connecting with the team.</p>
-          </form>
+          {submitted ? (
+            <div className="products-enquiry-form text-center py-8">
+              <h3 className="text-xl font-bold text-white mb-2">Requirement Submitted!</h3>
+              <p className="text-sm text-white/80 mb-4">Thank you for sharing your material requirements. Our team will review and get back to you shortly.</p>
+              <button onClick={() => setSubmitted(false)} className="products-btn products-btn-primary">Send Another Requirement</button>
+            </div>
+          ) : (
+            <form className="products-enquiry-form" onSubmit={handleSubmit}>
+              <div className="products-form-heading"><span>Product requirement</span><strong>Start with the details you know.</strong></div>
+              {submitError && <div className="is-wide p-3 rounded bg-red-900/50 text-red-200 text-xs font-semibold">{submitError}</div>}
+              <label><span>Name *</span><input name="name" required value={form.name} onChange={update("name")} placeholder="Your full name" /></label>
+              <label><span>Phone number *</span><input name="phone" type="tel" required value={form.phone} onChange={update("phone")} placeholder="+91" /></label>
+              <label className="is-wide"><span>What are you making?</span><input name="application" value={form.application} onChange={update("application")} placeholder="e.g. wardrobes, kitchen cabinets or doors" /></label>
+              <label><span>Product category</span><select name="product" value={form.product} onChange={update("product")}><option>Not sure; help me choose</option><option>Plywood</option><option>Blockboard</option><option>Flush Doors</option><option>Formaldehyde</option><option>Traded & sourced products</option></select></label>
+              <label><span>Quantity</span><input name="quantity" value={form.quantity} onChange={update("quantity")} placeholder="Sheets / doors / bulk volume" /></label>
+              <label className="is-wide"><span>Delivery city and state</span><input name="location" value={form.location} onChange={update("location")} placeholder="City, State" /></label>
+              <button className="products-btn products-btn-primary is-wide" type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Sending..." : "Send my product requirement"} <ArrowRight />
+              </button>
+              <p className="products-form-note is-wide">Need several products? You can also WhatsApp your complete requirement list after connecting with the team.</p>
+            </form>
+          )}
         </div>
       </section>
     </div>

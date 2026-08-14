@@ -30,7 +30,7 @@ import formArmchair from "@/assets/products/products_form_armchair.jpg";
 import plywoodImage from "@/assets/homepage/products/mr-grade-plywood-1671449588-6629452.webp";
 import is303Blockboard from "@/assets/homepage/products/is303-blockboard-1671450145-6629496.webp";
 import doorImage from "@/assets/homepage/products/waterproof-flush-door-1671449760-6629491.webp";
-import factoryImage from "@/assets/homepage/Plywood-Manufacturing-1024x683.jpg";
+import factoryImage from "@/assets/homepage/Plywood-Manufacturing-1024x683.png";
 
 function ProductsPage() {
   const [formData, setFormData] = useState({
@@ -88,7 +88,7 @@ function ProductsPage() {
 
               <p className="text-[#65736A] text-[16px] sm:text-[18px] leading-[1.65] max-w-2xl font-medium">
                 From core panels to decorative finishes, we manufacture and
-                source everything you need — with application guidance and
+                source everything you need with application guidance and
                 reliable supply for projects of any scale.
               </p>
 

@@ -168,7 +168,7 @@ export const whyPentagonData = [
   {
     number: "03",
     title: "Application-Led Selection",
-    copy: "Begin with the environment—kitchen, utility space, humid interior, coastal location or specialised project—and then select the material.",
+    copy: "Begin with the environment kitchen, utility space, humid interior, coastal location or specialised project and then select the material.",
   },
   {
     number: "04",
@@ -261,7 +261,7 @@ export const marineGradeProductData = {
     edgeCaption: "Hardwood veneer & phenolic resin bonding",
     paragraphs: [
       "Some furniture and projects face more than normal indoor humidity. They may be installed in humid regions, near water sources, in demanding kitchens, in coastal environments or in locations that experience repeated changes between wet and dry conditions.",
-      "Marine Plywood is designed for these more demanding conditions. Unlike MR and BWP grades, which sit within the general-purpose plywood standard, Marine Plywood has its own dedicated Indian Standard: IS 710:2024 — Marine Plywood Specification.",
+      "Marine Plywood is designed for these more demanding conditions. Unlike MR and BWP grades, which sit within the general-purpose plywood standard, Marine Plywood has its own dedicated Indian Standard: IS 710:2024 Marine Plywood Specification.",
       "Pentagon describes its Marine Plywood as hardwood-veneer plywood bonded with phenol-formaldehyde resin under high temperature and pressure to provide stronger bonding for fluctuating moisture conditions.",
     ],
     callout: {
@@ -354,7 +354,7 @@ export const marineGradeProductData = {
     eyebrow: "Understanding IS 710:2024",
     title: "A Dedicated Standard for Marine Plywood.",
     paragraphs: [
-      "The Bureau of Indian Standards publishes IS 710:2024 — Marine Plywood Specification (Third Revision) specifically for this product category.",
+      "The Bureau of Indian Standards publishes IS 710:2024 Marine Plywood Specification (Third Revision) specifically for this product category.",
       "The standard addresses materials, manufacture, dimensions, workmanship, adhesion of plies, water resistance, tensile strength, wet and dry bending strength, mycological testing, preservative retention and formaldehyde requirements.",
       "The current BIS product manual also specifies that adhesives used for bonding veneers must be based on a suitable synthetic resin conforming to the BWP type of IS 848.",
     ],

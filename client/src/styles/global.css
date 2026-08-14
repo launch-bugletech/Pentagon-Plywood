@@ -6,7 +6,7 @@
   --color-brand-forest-light: #29483a;
 
   --color-brand-accent: #8e510d;
-  --color-brand-accent-light: #d6b07a;
+  --color-brand-accent-light: #c86d51;
   --color-brand-accent-dark: #6b3200;
   --color-brand-soft-brown: #f5ebdd;
 
@@ -139,7 +139,7 @@
   --brand-forest-light: #29483a;
 
   --brand-accent: #8e510d;
-  --brand-accent-light: #d6b07a;
+  --brand-accent-light: #c86d51;
   --brand-accent-dark: #6b3200;
   --brand-soft-brown: #f5ebdd;
 
@@ -278,7 +278,7 @@
 .home-theme
   .bg-brand-forest-dark
   :is(div, span, label)[class*="uppercase"][class*="tracking-"] {
-  color: #d6b07a;
+  color: #c86d51;
 }
 
 /* Home semantic colour roles: labels/icons use logo brown; interactions use gold. */
@@ -3198,7 +3198,7 @@
   height: 30px;
 }
 
-/* ============ 2026 REDESIGN — CLEAN RETAIL SYSTEM ============ */
+/* ============ 2026 REDESIGN - CLEAN RETAIL SYSTEM ============ */
 .topbar {
   background: var(--accent);
   color: #fff;

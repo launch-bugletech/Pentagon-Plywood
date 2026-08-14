@@ -76,7 +76,10 @@ function BrandsPage() {
     : null;
 
   return (
-    <div className="bg-[#FDFBF8] text-[#14211A] font-['Manrope',sans-serif]">
+    <div
+      data-palette="pentagon-brand"
+      className="home-theme bg-brand-cream text-brand-charcoal overflow-hidden font-sans"
+    >
       {/* HERO SECTION */}
       <section className="bg-[#143D2B] text-white">
         <div className={wrapClass}>
@@ -93,12 +96,14 @@ function BrandsPage() {
           </nav>
 
           <div className="max-w-4xl py-16 sm:py-24">
-            <p className="text-xs font-bold uppercase tracking-[.18em] text-[#E7B572]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#C86D51]">
               Our Brand Portfolio
             </p>
-            <h1 className="mt-5 font-['DM_Serif_Display',Georgia,serif] text-5xl leading-[.95] sm:text-6xl">
+            <h1 className="mt-5 font-display text-5xl leading-[.95] sm:text-6xl">
               Our Brands &amp;{" "}
-              <span className="text-[#E7B572]">Trademarks.</span>
+              <span className="home-heading-accent-on-dark font-normal not-italic">
+                Trademarks.
+              </span>
             </h1>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-white/80">
               Over the years, the Pentagon Group has developed and registered a
@@ -114,10 +119,10 @@ function BrandsPage() {
       <section className="py-16 sm:py-24">
         <div className={wrapClass}>
           <div className="mb-10 max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[.18em] text-[#9C6846]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8E510D]">
               Registered Brands
             </p>
-            <h2 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-4xl">
+            <h2 className="mt-4 font-display text-4xl">
               Names built alongside a long manufacturing journey.
             </h2>
             <p className="mt-2 text-sm text-[#65736A]">
@@ -163,10 +168,10 @@ function BrandsPage() {
           className={`${wrapClass} grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-center`}
         >
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.18em] text-[#9C6846]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8E510D]">
               Need Product Information?
             </p>
-            <h2 className="mt-5 font-['DM_Serif_Display',Georgia,serif] text-4xl">
+            <h2 className="mt-5 font-display text-4xl">
               Tell us what you are making.
             </h2>
             <p className="mt-5 max-w-xl leading-7 text-[#65736A]">

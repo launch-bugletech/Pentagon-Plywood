@@ -128,7 +128,7 @@ function MRGradePage() {
               </p>
               <p className="mt-4 max-w-xl leading-7 text-white/65">
                 It resists the normal moisture and humidity encountered inside
-                homes, offices and commercial interiors—making it a practical
+                homes, offices and commercial interiors making it a practical
                 choice for everyday furniture requirements.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
@@ -226,7 +226,7 @@ function MRGradePage() {
               <p className="mt-2 text-sm leading-6 text-[#526057]">
                 MR Grade is frequently called “Commercial Plywood” in India.
                 Always compare the actual grade, construction and
-                specification—not only the market name.
+                specification not only the market name.
               </p>
             </div>
             <a

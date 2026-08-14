@@ -15,7 +15,7 @@ import WardrobeApplication from '../../assets/product/Applications/Modern wardro
 import LivingRoomApplication from "../../assets/product/Applications/Contemporary living room with furniture.png";
 
 // Product & Manufacturing Images
-import manufacturingImage from '../../assets/homepage/Plywood-Manufacturing-1024x683.jpg';
+import manufacturingImage from '../../assets/homepage/Plywood-Manufacturing-1024x683.png'; 
 import marinePlywoodImage from '../../assets/homepage/products/Marine-plywood-1000x1000.webp';
 import mrPlywoodImage from '../../assets/homepage/products/mr-grade-plywood-1671449588-6629452.webp';
 import blockboardImage from '../../assets/homepage/products/is303-blockboard-1671450145-6629496.webp';
@@ -293,7 +293,7 @@ export const RESOURCES_DATA = [
   {
     tag: "Technical Note",
     title: "How to Identify Genuine Borer-Proof Plywood",
-    desc: "Six quick physical checks you can run on any board at the dealer godown—no lab equipment required.",
+    desc: "Six quick physical checks you can run on any board at the dealer godown no lab equipment required.",
     meta: "5 min read · Jan 2026",
   },
   {

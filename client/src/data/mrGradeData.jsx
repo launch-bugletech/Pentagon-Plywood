@@ -9,7 +9,7 @@ import edgeImage from "@/assets/product/mr plywood/Wood veneer layers on plywood
 import surfaceImage from "@/assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
 
 export const quickFactsData = [
-  { label: "GRADE", value: "MR — Moisture Resistant", icon: "Drop" },
+  { label: "GRADE", value: "MR - Moisture Resistant", icon: "Drop" },
   { label: "COMMONLY KNOWN AS", value: "Commercial Plywood", icon: "Layers" },
   { label: "BEST SUITED FOR", value: "Furniture & interior applications", icon: "Shield" },
   { label: "THICKNESS", value: "4 mm to 18 mm", icon: "Ruler" },

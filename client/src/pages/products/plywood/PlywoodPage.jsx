@@ -1,23 +1,53 @@
-/* Pentagon Plywood - Plywood product page. */
+/* Pentagon Plywood - Plywood Product Overview Page */
 
-import React from "react";
-import { ROUTES } from "@/app/routes.js";
+import React, { useState, useEffect } from "react";
+import {
+  ArrowRight,
+  Check,
+  CheckCircle2,
+  ChevronRight,
+  Factory,
+  FileText,
+  HelpCircle,
+  Info,
+  Layers,
+  MapPin,
+  MessageSquare,
+  Minus,
+  PhoneCall,
+  Plus,
+  Ruler,
+  ShieldCheck,
+  Sparkles,
+  TreePine,
+  Truck,
+  Wrench,
+  Boxes,
+  ExternalLink,
+  Award,
+  Droplets,
+} from "lucide-react";
+import {
+  ROUTES,
+  PRODUCT_ROUTES,
+  APPLICATION_SECTIONS,
+  HOME_SECTIONS,
+} from "@/app/routes.js";
+import submitPentagonEnquiry from "@/services/pentagonEnquiry.js";
 import "./plywood-page.css";
 
-// Marine - plywood - 1000x1000.webp';
-// mr plywood/
+// Assets
+import HeroBgImage from "@/assets/product/plywood-hero-bg.jpg";
 import MRPlywood from "@/assets/product/mr plywood/mr-grade-plywood-1671449588-6629452.webp";
 import BedroomApplication from "@/assets/product/mr plywood/Cozy minimalist bedroom with natural light.png";
 import MREdge from "@/assets/product/mr plywood/Wood veneer layers on plywood edge.png";
 import MRSurface from "@/assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
 
-// Marine - plywood
 import MarinePlywood from "@/assets/homepage/products/Marine-plywood-1000x1000.webp";
 import MarineApplication from "@/assets/product/marine plywood/marine-plywood-kitchen.png";
 import MarineEdge from "@/assets/product/marine plywood/marine-plywood-layered-board.png";
 import MarineSurface from "@/assets/product/marine plywood/marine-plywood-wood-grain.png";
 
-//  Application images
 import WardrobeApplication from "@/assets/product/Applications/Modern wardrobe with sliding doors.png";
 import KitchenApplication from "@/assets/product/Applications/Modern kitchen with cabinets and island.png";
 import LivingRoomApplication from "@/assets/product/Applications/Contemporary living room with furniture.png";
@@ -25,452 +55,108 @@ import OfficeApplication from "@/assets/product/Applications/Modern office with 
 import RetailApplication from "@/assets/product/Applications/Retail store interior with shelves and displays.png";
 import BathroomApplication from "@/assets/product/Applications/Modern bathroom with vanity and mirror.png";
 
-const P = {
-  // shorthand icons reuse
-  Arr: () => (
-    <svg
-      className="arr"
-      viewBox="0 0 24 24"
-      width="16"
-      height="16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-    >
-      <path d="M5 12h14M13 5l7 7-7 7" />
-    </svg>
-  ),
-  Check: () => (
-    <svg
-      viewBox="0 0 16 16"
-      width="14"
-      height="14"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M3 8l3 3 7-7" />
-    </svg>
-  ),
-  Dash: () => (
-    <svg
-      viewBox="0 0 16 16"
-      width="14"
-      height="14"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M4 8h8" />
-    </svg>
-  ),
-  Plus: () => (
-    <svg
-      viewBox="0 0 16 16"
-      width="14"
-      height="14"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    >
-      <path d="M8 3v10M3 8h10" />
-    </svg>
-  ),
-  Minus: () => (
-    <svg
-      viewBox="0 0 16 16"
-      width="14"
-      height="14"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    >
-      <path d="M3 8h10" />
-    </svg>
-  ),
-  Info: () => (
-    <svg
-      viewBox="0 0 20 20"
-      width="16"
-      height="16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    >
-      <circle cx="10" cy="10" r="8" />
-      <path d="M10 7v0M10 10v4" />
-    </svg>
-  ),
-  Drop: () => (
-    <svg
-      viewBox="0 0 48 48"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-    >
-      <path d="M24 4 39 10v12c0 10-6.3 17.4-15 22-8.7-4.6-15-12-15-22V10L24 4Z" />
-      <path d="M24 15c-3 4.4-5.5 7.4-5.5 11a5.5 5.5 0 0 0 11 0c0-3.6-2.5-6.6-5.5-11Z" />
-    </svg>
-  ),
-  Layers: () => (
-    <svg
-      viewBox="0 0 48 48"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-    >
-      <path d="m24 6 17 10-17 10L7 16 24 6Z" />
-      <path d="m9 24 15 9 15-9M9 32l15 9 15-9" />
-    </svg>
-  ),
-  Clipboard: () => (
-    <svg
-      viewBox="0 0 48 48"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-    >
-      <rect x="10" y="8" width="28" height="35" rx="3" />
-      <path d="M19 8V5h10v3M16 18l2 2 4-5M16 27l2 2 4-5M16 36l2 2 4-5M26 18h7M26 27h7M26 36h7" />
-    </svg>
-  ),
-  Pin: () => (
-    <svg
-      viewBox="0 0 48 48"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-    >
-      <path d="M24 43s13-12.2 13-24A13 13 0 0 0 11 19c0 11.8 13 24 13 24Z" />
-      <circle cx="24" cy="19" r="5" />
-      <path d="M16 42h16" />
-    </svg>
-  ),
-  Whatsapp: () => (
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.8-.7-1.4-1.7-1.5-1.9-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.3 0-.5s-.7-1.7-1-2.3c-.2-.6-.5-.5-.7-.5H8c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 22a10 10 0 01-5.1-1.4L2 22l1.4-4.8A10 10 0 1112 22zm0-18a8 8 0 00-6.8 12.2l.2.3-.8 2.8 2.9-.8.3.2A8 8 0 1012 4z" />
-    </svg>
-  ),
-};
-
 /* ============ BREADCRUMB ============ */
 const Breadcrumb = () => (
-  <div className="breadcrumb">
-    <div className="container">
-      <a href={ROUTES.home}>Home</a>
-      <span className="sep">›</span>
-      <span>Products</span>
-      <span className="sep">›</span>
-      <span className="cur">Plywood</span>
+  <nav className="ply-breadcrumb" aria-label="Breadcrumb">
+    <div className="ply-container flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs uppercase tracking-widest text-brand-muted py-3 sm:py-3.5 border-b border-brand-border/40 overflow-x-auto">
+      <a href={ROUTES.home} className="hover:text-brand-accent transition-colors shrink-0">
+        Home
+      </a>
+      <span className="opacity-40 shrink-0">›</span>
+      <a href={ROUTES.products} className="hover:text-brand-accent transition-colors shrink-0">
+        Products
+      </a>
+      <span className="opacity-40 shrink-0">›</span>
+      <span className="text-brand-charcoal font-semibold shrink-0">Plywood</span>
     </div>
-  </div>
+  </nav>
 );
 
-/* ============ HERO ============ */
-const PlyHero = () => {
-  const [mobileGrade, setMobileGrade] = React.useState("mr");
-  const mobileProduct =
-    mobileGrade === "mr"
-      ? {
-          image: MRPlywood,
-          alt: "MR Grade plywood sheets for indoor furniture",
-        }
-      : {
-          image: MarinePlywood,
-          alt: "Marine plywood sheets for moisture-prone applications",
-        };
+/* ============ HERO SECTION ============ */
+const PlyHero = () => (
+  <section className="ply-hero relative py-6 sm:py-10 lg:py-12 bg-brand-cream text-brand-charcoal overflow-hidden border-b border-brand-border/50">
+    {/* Full-bleed Hero Background Image */}
+    <div
+      className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
+      style={{ backgroundImage: `url(${HeroBgImage})` }}
+    />
+    {/* Soft Fade Overlay for Legibility */}
+    <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/30 pointer-events-none lg:to-transparent" />
+    <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/60 to-transparent pointer-events-none md:hidden" />
 
-  return (
-    <section className="ply-hero">
-      <div className="wood-grain-bg" />
-      <div className="container">
-        <div className="ply-hero-grid">
-          <div className="ply-hero-left">
-            <div className="hero-eyebrow">
-              <span className="eyebrow">Pentagon Plywood Range</span>
-            </div>
-            <h1 className="h-display ply-hero-title">
-              Plywood built for
-              <br />
-              <em className="italic-em">how you use it.</em>
-            </h1>
-            <p className="ply-hero-copy">
-              Explore the four confirmed Pentagon plywood grades—MR, BWP, Marine
-              and Fire Retardant—according to the application and project
-              requirement.
-            </p>
-            <div className="ply-hero-mobile-switch" aria-label="Plywood grade">
-              <button
-                type="button"
-                className={mobileGrade === "mr" ? "is-active" : undefined}
-                aria-pressed={mobileGrade === "mr"}
-                onClick={() => setMobileGrade("mr")}
-              >
-                MR Grade (IS 303)
-              </button>
-              <button
-                type="button"
-                className={mobileGrade === "marine" ? "is-active" : undefined}
-                aria-pressed={mobileGrade === "marine"}
-                onClick={() => setMobileGrade("marine")}
-              >
-                Marine (IS 710)
-              </button>
-            </div>
-            <div className="ply-hero-mobile-image">
-              <img src={mobileProduct.image} alt={mobileProduct.alt} />
-            </div>
-            <div className="ply-hero-actions">
-              <a href="#range" className="btn btn-primary">
-                Explore the range <P.Arr />
-              </a>
-              <a href="#enquiry" className="btn btn-ghost">
-                Discuss your requirement →
-              </a>
-            </div>
-
-            <div className="ply-hero-quick">
-              <div className="ply-hero-quick-item">
-                <span className="quick-icon">
-                  <P.Drop />
-                </span>
-                <span className="lbl">Grades</span>
-                <span className="val">Four confirmed grades</span>
-              </div>
-              <div className="ply-hero-quick-item">
-                <span className="quick-icon">
-                  <P.Layers />
-                </span>
-                <span className="lbl">Thicknesses</span>
-                <span className="val">From 4 to 18 mm</span>
-              </div>
-              <div className="ply-hero-quick-item">
-                <span className="quick-icon">
-                  <P.Clipboard />
-                </span>
-                <span className="lbl">Sheet Sizes</span>
-                <span className="val">Standard IS</span>
-              </div>
-              <div className="ply-hero-quick-item">
-                <span className="quick-icon">
-                  <P.Pin />
-                </span>
-                <span className="lbl">Manufactured</span>
-                <span className="val">Yamunanagar</span>
-              </div>
-            </div>
-          </div>
-          <div className="ply-hero-visual">
-            <div className="ply-hero-img ply-hero-img-a">
-              <img
-                src={MRPlywood}
-                alt="MR Grade plywood sheets for indoor furniture"
-              />
-              <span className="ply-hero-tag">IS 303 · MR Grade</span>
-            </div>
-            <div className="ply-hero-img ply-hero-img-b">
-              <img
-                src={MarinePlywood}
-                alt="Marine plywood sheets for moisture-prone applications"
-              />
-              <span className="ply-hero-tag">IS 710 · Marine</span>
-            </div>
-          </div>
+    <div className="ply-container relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center w-full pt-2 sm:pt-4 pb-4">
+      <div className="lg:col-span-9 xl:col-span-8 space-y-4 sm:space-y-5">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-forest/10 border border-brand-forest/20 text-[#8E510D] font-semibold text-[10px] sm:text-[11px] tracking-[0.18em] sm:tracking-[0.2em] uppercase">
+          <Sparkles className="w-3.5 h-3.5 text-brand-honey-dark shrink-0" />
+          Pentagon Plywood Range
         </div>
-      </div>
-      <div className="hero-side-meta">Vol. 02 · Product · Plywood</div>
-    </section>
-  );
-};
 
-/* ============ RANGE SELECTION ============ */
-const PlyRange = () => (
-  <section id="range" className="section">
-    <div className="container">
-      <div className="sec-head">
-        <div>
-          <div className="eyebrow">Choose by Application</div>
-          <h2 className="h-section">
-            Not every project needs the{" "}
-            <em className="italic-em">same grade</em> of plywood.
-          </h2>
-        </div>
-        <p className="lede">
-          An indoor wardrobe has different requirements from a kitchen cabinet,
-          a moisture-conscious installation or a fire-conscious project.
-          Pentagon’s four confirmed grades should be selected around the actual
-          application—not only sheet thickness.
+        {/* H1 strictly 2 lines on all screens: Line 1 = "The Right Plywood Starts With", Line 2 = "Where You’ll Use It." */}
+        <h1 className="font-display text-[22px] xs:text-[27px] sm:text-[38px] md:text-[46px] lg:text-[54px] xl:text-[60px] font-normal leading-[1.08] sm:leading-[1.02] tracking-[-0.02em] text-brand-charcoal">
+          <span className="block whitespace-nowrap">The Right Plywood Starts With</span>
+          <span className="home-heading-accent block whitespace-nowrap mt-0.5 sm:mt-1.5">
+            Where You’ll Use It.
+          </span>
+        </h1>
+
+        <p className="text-brand-muted text-xs sm:text-base leading-[1.65] max-w-2xl font-medium">
+          A wardrobe, kitchen cabinet, office workstation and fire-conscious commercial interior do not all ask the same thing from the plywood behind them. Pentagon offers plywood options for different furniture, interior and project requirements from everyday dry interiors to moisture-prone spaces, demanding high-moisture conditions and fire-retardant specifications.
         </p>
+
+        <div className="p-3 sm:p-4 rounded-xl bg-white/80 backdrop-blur-xs border border-brand-border/60 text-xs sm:text-sm font-semibold text-brand-charcoal">
+          Start with <strong className="text-brand-forest">what you are building, where it will be installed and the conditions it will face</strong>. Then choose the appropriate grade, thickness and sheet size.
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+          <a
+            href="#range"
+            className="inline-flex h-12 sm:h-13 items-center justify-center gap-2.5 rounded-full bg-brand-forest px-6 sm:px-8 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-brand-accent transition-all cursor-pointer text-center"
+          >
+            Explore Plywood Range <ArrowRight className="h-4 w-4" />
+          </a>
+          <a
+            href="#enquiry"
+            className="inline-flex h-12 sm:h-13 items-center justify-center gap-2.5 rounded-full border border-brand-accent/40 bg-white/90 backdrop-blur-sm px-6 sm:px-8 text-xs font-bold uppercase tracking-wider text-brand-honey-dark hover:bg-brand-soft-brown hover:border-brand-accent transition-all shadow-xs text-center"
+          >
+            Discuss Requirement <ArrowRight className="h-4 w-4 text-brand-charcoal" />
+          </a>
+        </div>
       </div>
 
-      <div className="range-grid">
-        <div className="range-card">
-          <div className="range-img">
-            <img
-              src={MRPlywood}
-              alt="MR Grade plywood sheet stack"
-              loading="lazy"
-            />
-            <span className="product-image-label">Interior grade · IS 303</span>
-          </div>
-          <div className="range-body">
-            <div className="range-tag">01 · Interior Grade · IS 303</div>
-            <h3 className="range-name">MR Grade Plywood</h3>
-            <p className="range-desc">
-              For indoor furniture and interior applications with limited
-              moisture exposure.
-            </p>
-            <div className="range-facts">
-              <span>
-                <small>Environment</small>Dry interiors
-              </span>
-              <span>
-                <small>Thickness</small>4–18 mm
-              </span>
-            </div>
-            <div className="range-suited">
-              <div className="range-suited-lbl">Best suited for</div>
-              <ul>
-                <li>
-                  <P.Check /> Wardrobes
-                </li>
-                <li>
-                  <P.Check /> Beds and tables
-                </li>
-                <li>
-                  <P.Check /> Shelves
-                </li>
-                <li>
-                  <P.Check /> Office furniture
-                </li>
-                <li>
-                  <P.Check /> Interior partitions
-                </li>
-              </ul>
-            </div>
-            <a href={ROUTES.mrGradePlywood} className="btn btn-outline">
-              Explore MR Grade Plywood <P.Arr />
-            </a>
-          </div>
+      <div className="hidden lg:block lg:col-span-3 xl:col-span-4" />
+    </div>
+
+    {/* Quick Range Info Bar immediately following Hero content */}
+    <div className="ply-container relative z-10 w-full mt-4 sm:mt-6">
+      <div className="rounded-2xl border border-brand-cool-border bg-white/95 backdrop-blur-md shadow-xl p-4 sm:p-6">
+        <div className="text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase text-brand-honey-dark mb-3">
+          Quick Range Information
         </div>
 
-        <div className="range-card range-card-flagship">
-          <div className="range-flag">Flagship</div>
-          <div className="range-img">
-            <img
-              src={MarinePlywood}
-              alt="Marine plywood sheet stack"
-              loading="lazy"
-            />
-            <span className="product-image-label">Marine grade · IS 710</span>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 divide-y-0 text-left">
+          <div className="p-2.5 rounded-xl bg-brand-cream-alt/50 border border-brand-border/40">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-brand-muted block tracking-wider">Grades</span>
+            <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block mt-0.5">MR, BWP, Marine &amp; Fire Retardant</strong>
           </div>
-          <div className="range-body">
-            <div className="range-tag">02 · Marine Grade · IS 710</div>
-            <h3 className="range-name">Marine Plywood</h3>
-            <p className="range-desc">
-              For more demanding applications where moisture, humidity or
-              changing conditions are greater concerns.
-            </p>
-            <div className="range-facts">
-              <span>
-                <small>Environment</small>Wet &amp; humid
-              </span>
-              <span>
-                <small>Thickness</small>4–18 mm
-              </span>
-            </div>
-            <div className="range-suited">
-              <div className="range-suited-lbl">Best suited for</div>
-              <ul>
-                <li>
-                  <P.Check /> Kitchen furniture
-                </li>
-                <li>
-                  <P.Check /> Moisture-prone interiors
-                </li>
-                <li>
-                  <P.Check /> Commercial furniture
-                </li>
-                <li>
-                  <P.Check /> High-usage installations
-                </li>
-                <li>
-                  <P.Check /> Projects facing fluctuating conditions
-                </li>
-              </ul>
-            </div>
-            <a href="#marine" className="btn btn-primary">
-              Explore Marine Plywood <P.Arr />
-            </a>
+          <div className="p-2.5 rounded-xl bg-brand-cream-alt/50 border border-brand-border/40">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-brand-muted block tracking-wider">Thicknesses</span>
+            <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block mt-0.5">4 mm to 18 mm</strong>
           </div>
-        </div>
-
-        <div className="range-card">
-          <div className="range-img">
-            <img
-              src={MarinePlywood}
-              alt="Plywood for moisture-conscious applications"
-              loading="lazy"
-            />
-            <span className="product-image-label">BWP grade</span>
+          <div className="p-2.5 rounded-xl bg-brand-cream-alt/50 border border-brand-border/40">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-brand-muted block tracking-wider">Sheet Sizes</span>
+            <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block mt-0.5">Multiple Formats</strong>
           </div>
-          <div className="range-body">
-            <div className="range-tag">03 · BWP Grade</div>
-            <h3 className="range-name">BWP Grade Plywood</h3>
-            <p className="range-desc">
-              A confirmed Pentagon plywood grade for applications where
-              water-resistance requirements need to be discussed against the
-              product specification.
-            </p>
-            <div className="range-suited">
-              <div className="range-suited-lbl">Discuss for</div>
-              <ul>
-                <li>
-                  <P.Check /> Moisture-conscious interiors
-                </li>
-                <li>
-                  <P.Check /> Kitchen and utility requirements
-                </li>
-                <li>
-                  <P.Check /> Project specifications
-                </li>
-              </ul>
-            </div>
-            <a href={ROUTES.bwpGradePlywood} className="btn btn-outline">
-              Discuss BWP Grade <P.Arr />
-            </a>
+          <div className="p-2.5 rounded-xl bg-brand-cream-alt/50 border border-brand-border/40">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-brand-muted block tracking-wider">Applications</span>
+            <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block mt-0.5">Furniture, Kitchens &amp; Projects</strong>
           </div>
-        </div>
-
-        <div className="range-card">
-          <div className="range-img">
-            <img src={MREdge} alt="Plywood layers" loading="lazy" />
-            <span className="product-image-label">Specialised grade</span>
+          <div className="p-2.5 rounded-xl bg-brand-cream-alt/50 border border-brand-border/40">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-brand-muted block tracking-wider">Manufactured In</span>
+            <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block mt-0.5">Yamunanagar, HR</strong>
           </div>
-          <div className="range-body">
-            <div className="range-tag">04 · Fire Retardant</div>
-            <h3 className="range-name">Fire Retardant Plywood</h3>
-            <p className="range-desc">
-              A confirmed specialised plywood grade for fire-conscious
-              applications and project discussions.
-            </p>
-            <div className="range-suited">
-              <div className="range-suited-lbl">Discuss for</div>
-              <ul>
-                <li>
-                  <P.Check /> Fire-conscious interiors
-                </li>
-                <li>
-                  <P.Check /> Commercial projects
-                </li>
-                <li>
-                  <P.Check /> Requirement-led specifications
-                </li>
-              </ul>
-            </div>
-            <a href={ROUTES.fireRetardantPlywood} className="btn btn-outline">
-              Discuss Fire Retardant Plywood <P.Arr />
-            </a>
+          <div className="p-2.5 rounded-xl bg-brand-cream-alt/50 border border-brand-border/40 col-span-2 sm:col-span-1">
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-brand-muted block tracking-wider">Supply</span>
+            <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block mt-0.5">Individual, Dealer &amp; Bulk</strong>
           </div>
         </div>
       </div>
@@ -478,833 +164,723 @@ const PlyRange = () => (
   </section>
 );
 
-/* ============ COMPARISON ============ */
-const compareRows = [
-  ["Grade type", "Interior-grade plywood", "Marine-grade plywood"],
-  ["Applicable standard", "IS 303", "IS 710"],
-  [
-    "Moisture performance",
-    "Moisture resistant, not waterproof",
-    "Made for greater exposure to moisture and humidity",
-  ],
-  [
-    "Recommended environment",
-    "Indoor and relatively dry spaces",
-    "Humid and moisture-prone conditions",
-  ],
-  [
-    "Common uses",
-    "Wardrobes, beds, shelves and office furniture",
-    "Kitchens, demanding furniture and commercial applications",
-  ],
-  ["Thicknesses", "4, 6, 9, 12, 15 and 18 mm", "4, 6, 9, 12, 15 and 18 mm"],
-  ["Minimum order", "50 pieces", "50 pieces"],
-];
-const Compare = () => {
-  const [active, setActive] = React.useState(null); // null | 'mr' | 'marine'  (mobile tab)
-  return (
-    <section id="compare" className="section compare-section">
-      <div className="container">
-        <div className="sec-head">
-          <div>
-            <div className="eyebrow">MR or Marine?</div>
-            <h2 className="h-section">
-              Choose according to the <em className="italic-em">conditions</em>{" "}
-              your project will face.
-            </h2>
+/* ============ WHAT IS PLYWOOD? ============ */
+const WhatIsPlywood = () => (
+  <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream border-b border-brand-border">
+    <div className="ply-container">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="lg:col-span-6 space-y-4 sm:space-y-5">
+          <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+            WHAT IS PLYWOOD?
           </div>
-          <p className="lede">
-            A side-by-side of the two Pentagon plywood grades. Use it to specify
-            the right board for the room not just the right thickness for the
-            job.
+          <h2 className="font-display text-[28px] sm:text-[40px] lg:text-[46px] font-bold leading-tight text-brand-charcoal">
+            Layers Working Together to{" "}
+            <em className="home-heading-accent font-normal not-italic block mt-1">
+              Build a Stronger Panel.
+            </em>
+          </h2>
+          <p className="text-brand-muted text-xs sm:text-base leading-relaxed">
+            Plywood is an engineered wood panel made by bonding multiple layers of wood veneer together to form a finished sheet. The arrangement of these layers creates a practical material that can be cut, drilled, fixed and finished for a wide variety of furniture and interior applications.
+          </p>
+          <p className="text-brand-slate text-xs sm:text-sm leading-relaxed">
+            But not every plywood sheet is designed for the same environment. Its <strong>grade, construction, bonding, thickness and intended application</strong> all influence where the plywood should be used.
+          </p>
+          <div className="p-3.5 sm:p-4 rounded-xl bg-brand-cream-alt border border-brand-border/60">
+            <p className="text-xs sm:text-sm font-semibold text-brand-charcoal">
+              💡 That is why choosing plywood should begin with the <strong>finished application</strong>, not simply sheet thickness or price.
+            </p>
+          </div>
+        </div>
+
+        <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+          <div className="p-5 sm:p-6 rounded-2xl bg-white border border-brand-border shadow-2xs space-y-2.5">
+            <div className="w-9 h-9 rounded-xl bg-brand-forest/10 flex items-center justify-center text-brand-forest">
+              <Layers className="w-4 h-4" />
+            </div>
+            <h3 className="font-display text-base sm:text-lg font-bold text-brand-charcoal">Cross-Banded Core</h3>
+            <p className="text-xs text-brand-muted leading-relaxed">
+              Veneer grain is rotated 90 degrees per layer, minimizing warping and improving dimensional stability.
+            </p>
+          </div>
+
+          <div className="p-5 sm:p-6 rounded-2xl bg-white border border-brand-border shadow-2xs space-y-2.5">
+            <div className="w-9 h-9 rounded-xl bg-brand-forest/10 flex items-center justify-center text-brand-forest">
+              <ShieldCheck className="w-4 h-4" />
+            </div>
+            <h3 className="font-display text-base sm:text-lg font-bold text-brand-charcoal">Grade &amp; Resin Bonding</h3>
+            <p className="text-xs text-brand-muted leading-relaxed">
+              Urea or Phenolic resins determine moisture resistance from indoor dry furniture to boiling waterproof panels.
+            </p>
+          </div>
+
+          <div className="p-5 sm:p-6 rounded-2xl bg-white border border-brand-border shadow-2xs space-y-2.5">
+            <div className="w-9 h-9 rounded-xl bg-brand-forest/10 flex items-center justify-center text-brand-forest">
+              <Ruler className="w-4 h-4" />
+            </div>
+            <h3 className="font-display text-base sm:text-lg font-bold text-brand-charcoal">Calibrated Thickness</h3>
+            <p className="text-xs text-brand-muted leading-relaxed">
+              Uniform board thickness from 4 mm to 18 mm ensures accurate joinery and screw-holding capability.
+            </p>
+          </div>
+
+          <div className="p-5 sm:p-6 rounded-2xl bg-white border border-brand-border shadow-2xs space-y-2.5">
+            <div className="w-9 h-9 rounded-xl bg-brand-forest/10 flex items-center justify-center text-brand-forest">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <h3 className="font-display text-base sm:text-lg font-bold text-brand-charcoal">Surface Preparation</h3>
+            <p className="text-xs text-brand-muted leading-relaxed">
+              Sanded face veneers ready for decorative laminates, wood veneers, lacquer, polish, or edge banding.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+/* ============ EXPLORE THE PENTAGON PLYWOOD RANGE ============ */
+const PlyRange = () => {
+  const grades = [
+    {
+      id: "mr-grade",
+      tag: "Interior Plywood",
+      code: "MR Grade Plywood",
+      title: "Dependable Plywood for Everyday Interior Work.",
+      desc: "MR stands for Moisture Resistant. It is a practical plywood option for furniture and interior applications in relatively dry spaces where the board may experience normal indoor humidity but not frequent water contact.",
+      apps: [
+        "Wardrobes",
+        "Beds and tables",
+        "TV units",
+        "Bookshelves",
+        "Office furniture",
+        "Interior partitions",
+        "Wall panelling",
+        "General home furniture",
+      ],
+      bestWhen: "The furniture will remain inside a relatively dry residential or commercial environment.",
+      ctaText: "Explore MR Grade Plywood",
+      link: ROUTES.mrGradePlywood,
+      image: MRPlywood,
+      flagship: false,
+    },
+    {
+      id: "bwp-grade",
+      tag: "Water-Resistant Plywood",
+      code: "BWP Grade Plywood",
+      title: "Made for Interiors Where Moisture Needs Greater Attention.",
+      desc: "BWP stands for Boiling Water Proof. It provides a higher level of water resistance than MR Grade and can be considered for furniture installed in kitchens, utility areas, humid interiors and other locations where moisture exposure is a greater concern.",
+      apps: [
+        "Kitchen cabinets",
+        "Base and overhead kitchen units",
+        "Utility furniture",
+        "Storage cabinets",
+        "Wardrobes in humid interiors",
+        "Commercial furniture",
+        "Moisture-conscious interior applications",
+      ],
+      bestWhen: "Humidity, occasional spills or moisture are more likely than in an ordinary dry interior.",
+      ctaText: "Explore BWP Grade Plywood",
+      link: ROUTES.bwpGradePlywood,
+      image: KitchenApplication,
+      flagship: false,
+    },
+    {
+      id: "marine",
+      tag: "High-Moisture Plywood",
+      code: "Marine Grade Plywood",
+      title: "Made for More Demanding Moisture Conditions.",
+      desc: "Marine Plywood is intended for applications where moisture, humidity and changing wet-and-dry conditions place greater demands on the plywood. It can be considered when the project requires performance beyond ordinary interior or general moisture-conscious furniture applications.",
+      apps: [
+        "Demanding kitchen furniture",
+        "Under-sink units",
+        "Utility areas",
+        "High-humidity interiors",
+        "Coastal-region interiors",
+        "Commercial furniture",
+        "Selected specialised applications",
+        "Projects facing repeated moisture exposure",
+      ],
+      bestWhen: "The plywood will face more demanding or repeated moisture conditions.",
+      ctaText: "Explore Marine Plywood",
+      link: PRODUCT_ROUTES.marineGradePlywood,
+      image: MarinePlywood,
+      flagship: true,
+    },
+    {
+      id: "fire-retardant",
+      tag: "Special Performance Plywood",
+      code: "Fire Retardant Plywood",
+      title: "Additional Fire-Retardant Performance for Specified Interiors.",
+      desc: "Fire Retardant Plywood is intended for applications where the plywood specification includes improved behaviour when exposed to fire. It is treated specifically for fire-retardant performance and should not be confused with a fireproof material.",
+      apps: [
+        "Interior wall panelling",
+        "Commercial interiors",
+        "Office interiors",
+        "Retail spaces",
+        "Hospitality interiors",
+        "Furniture and cabinetry",
+        "Interior partitions",
+        "Project-specified applications",
+      ],
+      bestWhen: "The architect, consultant or project requirement specifies additional fire-retardant performance.",
+      ctaText: "Explore Fire Retardant Plywood",
+      link: PRODUCT_ROUTES.fireRetardantPlywood,
+      image: MREdge,
+      flagship: false,
+    },
+  ];
+
+  return (
+    <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream-alt" id="range">
+      <div className="ply-container space-y-8 sm:space-y-12">
+        <div className="max-w-3xl space-y-2.5 sm:space-y-3">
+          <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+            CHOOSE PLYWOOD BY APPLICATION
+          </div>
+          <h2 className="font-display text-[28px] sm:text-[42px] lg:text-[50px] font-bold leading-tight text-brand-charcoal">
+            Explore the Pentagon{" "}
+            <em className="home-heading-accent font-normal not-italic">
+              Plywood Range.
+            </em>
+          </h2>
+          <p className="text-brand-muted text-xs sm:text-base leading-relaxed">
+            Four Plywood Options. Different Performance Requirements. Not every project needs the same grade select the board engineered for the space it will inhabit.
           </p>
         </div>
 
-        <div className="compare-tabs">
-          <button
-            className={`compare-tab ${active === "mr" || active === null ? "active" : ""}`}
-            onClick={() => setActive("mr")}
-          >
-            MR Grade
-          </button>
-          <button
-            className={`compare-tab ${active === "marine" ? "active" : ""}`}
-            onClick={() => setActive("marine")}
-          >
-            Marine
-          </button>
-        </div>
-
-        <div className={`compare-table active-${active || "both"}`}>
-          <div className="compare-row compare-head">
-            <div className="compare-cell compare-label"></div>
-            <div className="compare-cell compare-mr">
-              <div className="compare-h">
-                <div className="compare-h-tag">Interior · IS 303</div>
-                <div className="compare-h-name">MR Grade Plywood</div>
-              </div>
-            </div>
-            <div className="compare-cell compare-marine">
-              <div className="compare-h">
-                <div className="compare-h-tag">Marine · IS 710</div>
-                <div className="compare-h-name">Marine Plywood</div>
-                <span className="compare-h-flag">Flagship</span>
-              </div>
-            </div>
-          </div>
-          {compareRows.map(([label, mr, marine], i) => (
-            <div className="compare-row" key={i}>
-              <div className="compare-cell compare-label">{label}</div>
-              <div className="compare-cell compare-mr">{mr}</div>
-              <div className="compare-cell compare-marine">{marine}</div>
-            </div>
-          ))}
-          <div className="compare-row compare-actions">
-            <div className="compare-cell compare-label"></div>
-            <div className="compare-cell compare-mr">
-              <a href={ROUTES.mrGradePlywood} className="btn btn-outline">
-                View MR range <P.Arr />
-              </a>
-            </div>
-            <div className="compare-cell compare-marine">
-              <a href="#marine" className="btn btn-primary">
-                View Marine range <P.Arr />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="compare-note">
-          <div className="compare-note-inner">
-            <P.Info />
-            <div>
-              <strong>Still unsure?</strong> Tell us what you are building,
-              where it will be installed and the quantity you require. Our team
-              will help you identify a suitable option.
-            </div>
-            <a href="#enquiry" className="btn btn-ghost">
-              Help me choose →
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-/* ============ PRODUCT DEEP DIVE (MR & Marine share layout) ============ */
-const ProductDetail = ({
-  id,
-  side,
-  tag,
-  title,
-  desc,
-  uses,
-  highlights,
-  specs,
-  cta1,
-  cta2,
-  note,
-  flagship,
-  heroImage,
-  edgeImage,
-  surfaceImage,
-}) => (
-  <section
-    id={id}
-    className={`section product-detail ${flagship ? "is-flagship" : ""}`}
-  >
-    <div className="container">
-      <div className="pd-head">
-        <div className="pd-head-left">
-          <div className="pd-tag">{tag}</div>
-          <h2 className="h-section pd-title">{title}</h2>
-        </div>
-        <div className="pd-head-right">
-          {desc.map((p, i) => (
-            <p className="lede" key={i} style={{ marginBottom: 16 }}>
-              {p}
-            </p>
-          ))}
-        </div>
-      </div>
-
-      <div className="pd-body">
-        <div className="pd-visual">
-          <div className="pd-img-main">
-            <div className="pd-image" data-label={`${side} plywood · hero`}>
-              <img
-                src={heroImage}
-                alt={`${side} plywood application`}
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div className="pd-img-row">
-            <div className="pd-img-sm">
-              <div className="pd-image" data-label="edge · cross-section">
-                <img
-                  src={edgeImage}
-                  alt={`${side} plywood veneer edge cross-section`}
-                  loading="lazy"
-                />
-              </div>
-            </div>
-            <div className="pd-img-sm">
-              <div className="pd-image" data-label="surface · polished">
-                <img
-                  src={surfaceImage}
-                  alt={`${side} plywood polished surface texture`}
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </div>
-          {note && (
-            <div className="pd-note">
-              <div className="pd-note-title">{note.title}</div>
-              <div className="pd-note-body">{note.body}</div>
-            </div>
-          )}
-        </div>
-
-        <div className="pd-details">
-          <div className="pd-section">
-            <div className="eyebrow" style={{ marginBottom: 16 }}>
-              Where you can use it
-            </div>
-            <div className="pd-uses">
-              {uses.map((u, i) => (
-                <div className="pd-use" key={i}>
-                  <P.Check />
-                  {u}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {grades.map((g) => (
+            <div
+              key={g.id}
+              className={`group flex flex-col justify-between rounded-2xl sm:rounded-3xl border bg-white shadow-2xs hover:shadow-xl transition-all duration-300 overflow-hidden ${
+                g.flagship ? "border-brand-accent/60 ring-1 ring-brand-accent/30" : "border-brand-border hover:border-brand-accent/50"
+              }`}
+            >
+              <div>
+                <div className="relative h-44 sm:h-56 w-full overflow-hidden bg-brand-charcoal">
+                  <img
+                    src={g.image}
+                    alt={g.code}
+                    loading="lazy"
+                    className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  <span className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-[#143D2B] text-white text-[9px] sm:text-[10px] font-extrabold tracking-widest px-2.5 sm:px-3 py-1 rounded-full uppercase border border-[#29483A]">
+                    {g.tag}
+                  </span>
+                  {g.flagship && (
+                    <span className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-brand-accent text-white text-[9px] sm:text-[10px] font-extrabold tracking-widest px-2.5 sm:px-3 py-1 rounded-full uppercase shadow-md">
+                      Flagship Grade
+                    </span>
+                  )}
                 </div>
-              ))}
-            </div>
-          </div>
 
-          <div className="pd-section">
-            <div className="eyebrow" style={{ marginBottom: 16 }}>
-              Product highlights
-            </div>
-            <ul className="pd-highlights">
-              {highlights.map((h, i) => (
-                <li key={i}>
-                  <span className="n">0{i + 1}</span>
-                  {h}
-                </li>
-              ))}
-            </ul>
-          </div>
+                <div className="p-5 sm:p-8 space-y-3.5 sm:space-y-4">
+                  <div className="space-y-1">
+                    <span className="text-[10px] sm:text-[11px] font-extrabold tracking-wider text-[#8E510D] uppercase block">
+                      {g.code}
+                    </span>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-brand-charcoal">
+                      {g.title}
+                    </h3>
+                  </div>
 
-          <div className="pd-section">
-            <div className="eyebrow" style={{ marginBottom: 16 }}>
-              Specifications
-            </div>
-            <table className="pd-spec-table">
-              <tbody>
-                {specs.map(([k, v], i) => (
-                  <tr key={i}>
-                    <td>{k}</td>
-                    <td>{v}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                  <p className="text-brand-muted text-xs sm:text-sm leading-relaxed">
+                    {g.desc}
+                  </p>
 
-          <div className="pd-cta-row">
-            <a href="#enquiry" className="btn btn-primary">
-              {cta1} <P.Arr />
-            </a>
-            <a href="#enquiry" className="btn btn-outline">
-              {cta2} <P.Arr />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
+                  <div className="pt-3.5 border-t border-brand-border/60 space-y-2.5">
+                    <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-charcoal">
+                      Common Applications:
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
+                      {g.apps.slice(0, 6).map((app, idx) => (
+                        <div key={idx} className="flex items-center gap-1.5 text-xs text-brand-slate font-medium">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-accent shrink-0" />
+                          <span>{app}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
 
-const MRDetail = () => (
-  <ProductDetail
-    id="mr-grade"
-    side="MR"
-    heroImage={BedroomApplication}
-    edgeImage={MREdge}
-    surfaceImage={MRSurface}
-    tag="Interior Grade · IS 303"
-    title={
-      <>
-        A practical foundation for <em className="italic-em">everyday</em>{" "}
-        interior furniture.
-      </>
-    }
-    desc={[
-      "MR stands for Moisture Resistant. Commonly known as commercial plywood in India, MR Grade Plywood is intended for indoor furniture and interior applications.",
-      "It offers resistance to normal moisture and humidity encountered indoors, but it should not be treated as completely waterproof. Its internal construction makes it a practical material for furniture, storage and interior installations in relatively dry areas.",
-    ]}
-    uses={[
-      "Wardrobes and cabinets",
-      "Beds and side tables",
-      "Bookshelves and storage units",
-      "Office desks and furniture",
-      "Wall panelling",
-      "Indoor partitions",
-      "General home furniture",
-    ]}
-    highlights={[
-      "Made for interior applications",
-      "Moisture-resistant grade",
-      "Plain surface with polished finishing",
-      "Suitable for home and office furniture",
-      "Multiple thickness options",
-      "Conforms to IS 303, subject to certificate verification",
-    ]}
-    specs={[
-      ["Product", "MR Grade Plywood"],
-      ["Product grade", "MR Grade Plywood"],
-      ["Country of origin", "India"],
-      ["Standard", "IS 303"],
-      ["Application", "Furniture and interior use"],
-      ["Pattern", "Plain"],
-      ["Finish", "Polished"],
-      ["Thicknesses", "4, 6, 9, 12, 15 and 18 mm"],
-      ["Sheet sizes", "8×4, 8×3, 7×4, 7×3, 6×4 and 6×3 ft"],
-      ["Minimum order", "50 pieces"],
-      ["Business supply", "Manufacturer, exporter, supplier and retailer"],
-    ]}
-    cta1="View MR Grade Plywood"
-    cta2="Request MR Plywood Quote"
-    note={{
-      title: "Moisture resistant does not mean waterproof.",
-      body: "MR Grade Plywood can handle normal indoor humidity and occasional moisture, but it is not recommended for areas that experience frequent water contact or prolonged dampness.",
-    }}
-  />
-);
+                  <div className="p-3 sm:p-3.5 rounded-xl bg-brand-cream-alt border border-brand-border/40 text-xs text-brand-charcoal">
+                    <strong className="text-brand-forest block sm:inline">Best starting point when:</strong> {g.bestWhen}
+                  </div>
+                </div>
+              </div>
 
-const MarineDetail = () => (
-  <ProductDetail
-    id="marine"
-    side="Marine"
-    heroImage={MarineApplication}
-    edgeImage={MarineEdge}
-    surfaceImage={MarineSurface}
-    tag="Marine Grade · IS 710"
-    title={
-      <>
-        Made for projects that face{" "}
-        <em className="italic-em">more demanding</em> conditions.
-      </>
-    }
-    desc={[
-      "When a project may experience greater humidity, changing weather or repeated moisture exposure, the plywood behind it needs to be selected accordingly.",
-      "Pentagon Marine Plywood is manufactured from hardwood veneers bonded with phenol-formaldehyde resin under high temperature and pressure. This construction is intended to provide stronger bonding and improved stability under demanding conditions.",
-      "It is suited to projects where resistance to humidity, alternating wet and dry conditions, load and regular use are important considerations.",
-    ]}
-    uses={[
-      "Kitchen cabinets and furniture",
-      "Moisture-prone interior areas",
-      "Commercial furniture",
-      "High-usage storage units",
-      "Interior projects in humid regions",
-      "Furniture requiring stronger bonding",
-      "Selected coastal-area applications",
-    ]}
-    highlights={[
-      "Designed for humid and demanding conditions",
-      "Hardwood veneer construction",
-      "Phenol-formaldehyde resin bonding",
-      "High-pressure manufacturing",
-      "Intended to offer dimensional stability",
-      "Multiple thickness options",
-      "Conforms to IS 710, subject to certificate verification",
-    ]}
-    specs={[
-      ["Product", "Marine Plywood"],
-      ["Country of origin", "India"],
-      ["Standard", "IS 710"],
-      ["Application", "Furniture and moisture-prone interior use"],
-      ["Pattern", "Plain"],
-      ["Finish", "Polished"],
-      ["Thicknesses", "4, 6, 9, 12, 15 and 18 mm"],
-      ["Sheet sizes", "8×4, 8×3, 7×4, 7×3, 6×4 and 6×3 ft"],
-      ["Minimum order", "50 pieces"],
-      ["Business supply", "Manufacturer, exporter, supplier and retailer"],
-    ]}
-    cta1="View Marine Plywood"
-    cta2="Request Marine Plywood Quote"
-    note={{
-      title: "Designed for demanding conditions.",
-      body: "Marine Plywood is engineered for applications where greater resistance to moisture, humidity and changing environmental conditions is required not a claim of universal waterproofing.",
-    }}
-    flagship={true}
-  />
-);
-
-/* ============ THICKNESS GUIDE ============ */
-const thickRows = [
-  ["4 mm", "Back panels, decorative work and lightweight lining", "light"],
-  ["6 mm", "Drawer bottoms, cabinet backs and lightweight panels", "light"],
-  ["9 mm", "Panelling, partitions and selected furniture components", "med"],
-  ["12 mm", "Cabinets, shelves and medium-duty furniture components", "med"],
-  ["15 mm", "Furniture bodies, storage units and stronger panels", "heavy"],
-  [
-    "18 mm",
-    "Wardrobes, beds, tables, shelves and load-bearing furniture",
-    "heavy",
-  ],
-];
-const ThicknessGuide = () => (
-  <section className="section" style={{ background: "var(--bg-alt)" }}>
-    <div className="container">
-      <div className="sec-head">
-        <div>
-          <div className="eyebrow">Choose the Right Thickness</div>
-          <h2 className="h-section">
-            Strength also depends on how the plywood will be{" "}
-            <em className="italic-em">used.</em>
-          </h2>
-        </div>
-        <p className="lede">
-          The appropriate thickness depends on span, load, support structure,
-          hardware and furniture design. Use this as an initial guide and
-          confirm final selection with your furniture maker, architect or
-          project professional.
-        </p>
-      </div>
-
-      <div className="thick-viz">
-        <div className="thick-head" aria-hidden="true">
-          <span>Thickness</span>
-          <span>Relative strength / application range</span>
-          <span>Typical applications</span>
-          <span>Duty level</span>
-        </div>
-        {thickRows.map(([mm, desc, weight], i) => (
-          <div className={`thick-row weight-${weight}`} key={i}>
-            <div className="thick-mm">{mm}</div>
-            <div className="thick-bar">
-              <div
-                className="thick-bar-fill"
-                style={{ width: `${(parseInt(mm) / 18) * 100}%` }}
-              />
-              <div className="thick-slice" />
-            </div>
-            <div className="thick-desc">{desc}</div>
-            <div className="thick-weight">
-              {weight === "light" && "Light-duty"}
-              {weight === "med" && "Medium-duty"}
-              {weight === "heavy" && "Heavy-duty"}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="thick-note">
-        <P.Info />
-        <span>
-          These are general application examples, not structural
-          recommendations. The final thickness should be selected according to
-          the design and load requirements.
-        </span>
-        <a href="#enquiry" className="btn btn-ghost">
-          Ask about size & thickness →
-        </a>
-      </div>
-    </div>
-  </section>
-);
-
-/* ============ APPLICATION SECTION ============ */
-const plyApps = [
-  {
-    name: "Wardrobes",
-    rec: "MR Grade",
-    desc: "Can be considered for wardrobes and storage furniture in dry indoor areas.",
-    ph: "wardrobe · interior",
-    image: WardrobeApplication,
-    alt: "Contemporary wardrobe with sliding doors",
-  },
-  {
-    name: "Kitchens",
-    rec: "Marine",
-    desc: "More suitable where humidity, spills and moisture exposure are greater concerns.",
-    ph: "kitchen · cabinetry",
-    image: KitchenApplication,
-    alt: "Modern kitchen with cabinets and island",
-  },
-  {
-    name: "Home Furniture",
-    rec: "Grade varies",
-    desc: "Select the grade and thickness according to furniture type, expected load and room conditions.",
-    ph: "living room · furniture",
-    image: LivingRoomApplication,
-    alt: "Contemporary living room with furniture",
-  },
-  {
-    name: "Office Furniture",
-    rec: "MR Grade",
-    desc: "Plywood for desks, cabinets, partitions and everyday commercial use.",
-    ph: "office · workstations",
-    image: OfficeApplication,
-    alt: "Modern office with desks and partitions",
-  },
-  {
-    name: "Retail & Commercial",
-    rec: "Grade varies",
-    desc: "Choose according to usage intensity, installation conditions and required performance.",
-    ph: "retail interior",
-    image: RetailApplication,
-    alt: "Retail store interior with shelves and displays",
-  },
-  {
-    name: "Moisture-Prone Spaces",
-    rec: "Marine",
-    desc: "Consider Marine Plywood where the application may experience higher humidity or changing moisture.",
-    ph: "bathroom · vanity",
-    image: BathroomApplication,
-    alt: "Modern bathroom with vanity and mirror",
-  },
-];
-const PlyApps = () => (
-  <section className="section">
-    <div className="container">
-      <div className="sec-head">
-        <div>
-          <div className="eyebrow">From Sheet to Space</div>
-          <h2 className="h-section">
-            What will your plywood <em className="italic-em">become?</em>
-          </h2>
-        </div>
-        <p className="lede">
-          The right plywood is selected by understanding the finished
-          application. Start with what you are creating, then consider moisture
-          exposure, expected load, usage and finish.
-        </p>
-      </div>
-      <div className="ply-app-grid">
-        {plyApps.map((a, i) => (
-          <div className="ply-app-card" key={i}>
-            <div className="ply-app-img">
-              <div className="pd-image" data-label={a.ph}>
-                {a.image ? (
-                  <img src={a.image} alt={a.alt} loading="lazy" />
-                ) : (
-                  <div className="ph" aria-hidden="true" />
-                )}
+              <div className="p-5 sm:p-8 pt-0">
+                <a
+                  href={g.link}
+                  className="inline-flex w-full items-center justify-center gap-2 h-11 rounded-xl bg-brand-forest text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-accent transition-colors shadow-xs"
+                >
+                  <span>{g.ctaText}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
               </div>
             </div>
-            <div className="ply-app-body">
-              <div className="ply-app-rec">
-                Recommended · <strong>{a.rec}</strong>
-              </div>
-              <h4 className="ply-app-name">{a.name}</h4>
-              <p className="ply-app-desc">{a.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div style={{ textAlign: "center", marginTop: 60 }}>
-        <a href="/#applications" className="btn btn-outline">
-          Explore plywood by application <P.Arr />
-        </a>
-      </div>
-    </div>
-  </section>
-);
-
-/* ============ STANDARDS ============ */
-const Standards = () => (
-  <section
-    className="section"
-    style={{ background: "var(--dark-panel)", color: "var(--dark-panel-ink)" }}
-  >
-    <div className="container">
-      <div className="sec-head-single" style={{ maxWidth: 780 }}>
-        <div
-          className="eyebrow"
-          style={{
-            marginBottom: 20,
-            color:
-              "color-mix(in oklab, var(--dark-panel-ink) 60%, transparent)",
-          }}
-        >
-          Know What You're Choosing
-        </div>
-        <h2 className="h-section" style={{ color: "var(--dark-panel-ink)" }}>
-          IS 303 and IS 710 serve <em className="italic-em">different</em>{" "}
-          requirements.
-        </h2>
-      </div>
-
-      <div className="standards-grid">
-        <div className="standard-card">
-          <div className="standard-code">
-            IS
-            <br />
-            303
-          </div>
-          <div className="standard-body">
-            <h3>General-purpose plywood</h3>
-            <p>
-              Used for general-purpose plywood categories, including MR-grade
-              plywood intended primarily for interior applications.
-            </p>
-            <div className="standard-meta">
-              <span>Category</span>
-              <strong>Interior Grade</strong>
-              <span>Bonding</span>
-              <strong>Urea-formaldehyde</strong>
-              <span>Common use</span>
-              <strong>Furniture & interiors</strong>
-            </div>
-          </div>
-        </div>
-
-        <div className="standard-card">
-          <div className="standard-code">
-            IS
-            <br />
-            710
-          </div>
-          <div className="standard-body">
-            <h3>Marine-grade plywood</h3>
-            <p>
-              Associated with marine plywood designed for more demanding
-              moisture and water-resistance requirements.
-            </p>
-            <div className="standard-meta">
-              <span>Category</span>
-              <strong>Marine Grade</strong>
-              <span>Bonding</span>
-              <strong>Phenol-formaldehyde</strong>
-              <span>Common use</span>
-              <strong>Kitchens & humid areas</strong>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
+    </section>
+  );
+};
 
-      <div className="standards-note">
-        <p>
-          The standard is not simply a label. It helps identify the product
-          category and the conditions for which it is intended. Always select
-          according to the actual application.
-        </p>
-        <a
-          href="/#resources"
-          className="btn btn-outline"
-          style={{
-            color: "var(--dark-panel-ink)",
-            boxShadow:
-              "inset 0 0 0 1px color-mix(in oklab, var(--dark-panel-ink) 50%, transparent)",
-          }}
-        >
-          Learn more about plywood grades <P.Arr />
-        </a>
-      </div>
-    </div>
-  </section>
-);
+/* ============ COMPARE THE PLYWOOD RANGE ============ */
+const CompareRange = () => {
+  const [activeMobileGrade, setActiveMobileGrade] = useState("mr");
 
-/* ============ WHY PENTAGON ============ */
-const whyPly = [
-  {
-    n: "01",
-    icon: <P.Drop />,
-    t: "Choices for different conditions",
-    p: "Select between interior-grade MR Plywood and Marine Plywood for more demanding environments.",
-  },
-  {
-    n: "02",
-    icon: <P.Layers />,
-    t: "Multiple sizes and thicknesses",
-    p: "Choose from commonly used sheet formats and thicknesses ranging from 4 mm to 18 mm.",
-  },
-  {
-    n: "03",
-    icon: <P.Clipboard />,
-    t: "Clear product guidance",
-    p: "Tell us the application, quantity and location so our team can understand your requirement.",
-  },
-  {
-    n: "04",
-    icon: <P.Pin />,
-    t: "Manufactured in Yamunanagar",
-    p: "Our plywood range comes from one of India's established wood-products manufacturing regions.",
-  },
-];
-const WhyPly = () => (
-  <section className="section why-ply-section">
-    <div className="container">
-      <div className="sec-head">
-        <div>
-          <div className="eyebrow">Behind Every Sheet</div>
-          <h2 className="h-section">
-            Because your finished work depends on what goes{" "}
-            <em className="italic-em">underneath.</em>
+  const mobileGradeDetails = {
+    mr: {
+      name: "MR Grade Plywood",
+      purpose: "Everyday interior furniture",
+      env: "Relatively dry interiors",
+      moisture: "Normal interior moisture",
+      apps: "Wardrobes, beds, desks, shelves",
+      question: "Is the space relatively dry?",
+      link: ROUTES.mrGradePlywood,
+    },
+    bwp: {
+      name: "BWP Grade Plywood",
+      purpose: "Moisture-conscious interiors",
+      env: "Kitchens and humid interiors",
+      moisture: "Higher water resistance",
+      apps: "Kitchens, utility furniture, humid-area cabinetry",
+      question: "Will moisture be a regular concern?",
+      link: ROUTES.bwpGradePlywood,
+    },
+    marine: {
+      name: "Marine Grade Plywood",
+      purpose: "More demanding moisture conditions",
+      env: "High-moisture / demanding conditions",
+      moisture: "Designed for demanding moisture exposure",
+      apps: "Demanding kitchens, high-humidity and selected specialized uses",
+      question: "Will conditions be particularly demanding?",
+      link: PRODUCT_ROUTES.marineGradePlywood,
+    },
+    fr: {
+      name: "Fire Retardant Plywood",
+      purpose: "Additional fire-retardant performance",
+      env: "Project-specified interiors",
+      moisture: "Depends on underlying specification",
+      apps: "Panelling, partitions and specified furniture",
+      question: "Does the project require fire-retardant plywood?",
+      link: PRODUCT_ROUTES.fireRetardantPlywood,
+    },
+  };
+
+  const tableData = [
+    {
+      feature: "Primary purpose",
+      mr: "Everyday interior furniture",
+      bwp: "Moisture-conscious interiors",
+      marine: "More demanding moisture conditions",
+      fr: "Additional fire-retardant performance",
+    },
+    {
+      feature: "Typical environment",
+      mr: "Relatively dry interiors",
+      bwp: "Kitchens and humid interiors",
+      marine: "High-moisture / demanding conditions",
+      fr: "Project-specified interiors",
+    },
+    {
+      feature: "Moisture resistance",
+      mr: "Normal interior moisture",
+      bwp: "Higher water resistance",
+      marine: "Designed for demanding moisture exposure",
+      fr: "Depends on underlying specification",
+    },
+    {
+      feature: "Common starting applications",
+      mr: "Wardrobes, beds, desks, shelves",
+      bwp: "Kitchens, utility furniture, humid-area cabinetry",
+      marine: "Demanding kitchens, high-humidity & specialised uses",
+      fr: "Panelling, partitions and specified furniture",
+    },
+    {
+      feature: "Main selection question",
+      mr: "Is the space relatively dry?",
+      bwp: "Will moisture be a regular concern?",
+      marine: "Will conditions be particularly demanding?",
+      fr: "Does the project require fire-retardant plywood?",
+    },
+  ];
+
+  return (
+    <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream border-b border-brand-border" id="compare">
+      <div className="ply-container space-y-8 sm:space-y-12">
+        <div className="max-w-3xl space-y-2.5 sm:space-y-3">
+          <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+            SIDE-BY-SIDE EVALUATION
+          </div>
+          <h2 className="font-display text-[28px] sm:text-[42px] lg:text-[50px] font-bold leading-tight text-brand-charcoal">
+            Compare the{" "}
+            <em className="home-heading-accent font-normal not-italic">
+              Plywood Range.
+            </em>
           </h2>
-        </div>
-        <p className="lede">
-          Once plywood becomes part of a finished piece of furniture, much of it
-          is no longer visible. But its grade, thickness, bonding and
-          suitability continue to influence how that furniture performs.
-        </p>
-      </div>
-      <div className="why-grid">
-        {whyPly.map((w, i) => (
-          <div className="why-item" key={i}>
-            <div className="why-item-top">
-              <div className="n">{w.n}</div>
-              <div className="why-icon" aria-hidden="true">
-                {w.icon}
-              </div>
-            </div>
-            <div className="why-item-copy">
-              <h3>{w.t}</h3>
-              <p>{w.p}</p>
-            </div>
-            {/* <span className="why-card-arrow" aria-hidden="true"><P.Arr/></span> */}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-/* ============ BULK ENQUIRY ============ */
-const bulkOpts = [
-  "Dealer or distributor requirement",
-  "Furniture manufacturing",
-  "Interior or commercial project",
-  "Bulk product requirement",
-  "Export enquiry",
-  "General product enquiry",
-];
-const Bulk = () => (
-  <section className="section" style={{ background: "var(--bg-alt)" }}>
-    <div className="container">
-      <div className="bulk-grid">
-        <div>
-          <div className="eyebrow" style={{ marginBottom: 24 }}>
-            For Dealers, Furniture Makers & Projects
-          </div>
-          <h2 className="h-section">
-            Need plywood for
-            <br />
-            <em className="italic-em">more than one</em> project? Let's talk.
-          </h2>
-          <p className="lede" style={{ marginTop: 24 }}>
-            Whether you are sourcing for resale, furniture production, interior
-            work or a commercial requirement, share the product, thickness,
-            quantity and delivery location with us.
+          <p className="text-brand-muted text-xs sm:text-base leading-relaxed">
+            Start with the condition around the finished furniture. Compare how Pentagon MR Grade, BWP Grade, Marine Plywood, and Fire Retardant Plywood map to your project.
           </p>
-          <div
-            style={{
-              display: "flex",
-              gap: 16,
-              marginTop: 32,
-              flexWrap: "wrap",
-            }}
-          >
-            <a href="#enquiry" className="btn btn-primary">
-              Request a bulk quote <P.Arr />
+        </div>
+
+        {/* Mobile Tab Switcher (< md) */}
+        <div className="md:hidden space-y-4">
+          <div className="flex rounded-xl bg-brand-cream-alt p-1 border border-brand-border overflow-x-auto text-xs font-bold">
+            <button
+              onClick={() => setActiveMobileGrade("mr")}
+              className={`flex-1 py-2 px-3 rounded-lg transition-all ${activeMobileGrade === "mr" ? "bg-brand-forest text-white shadow-xs" : "text-brand-slate"}`}
+            >
+              MR
+            </button>
+            <button
+              onClick={() => setActiveMobileGrade("bwp")}
+              className={`flex-1 py-2 px-3 rounded-lg transition-all ${activeMobileGrade === "bwp" ? "bg-brand-forest text-white shadow-xs" : "text-brand-slate"}`}
+            >
+              BWP
+            </button>
+            <button
+              onClick={() => setActiveMobileGrade("marine")}
+              className={`flex-1 py-2 px-3 rounded-lg transition-all ${activeMobileGrade === "marine" ? "bg-brand-accent text-white shadow-xs" : "text-brand-slate"}`}
+            >
+              Marine
+            </button>
+            <button
+              onClick={() => setActiveMobileGrade("fr")}
+              className={`flex-1 py-2 px-3 rounded-lg transition-all ${activeMobileGrade === "fr" ? "bg-brand-forest text-white shadow-xs" : "text-brand-slate"}`}
+            >
+              FR
+            </button>
+          </div>
+
+          {/* Active Grade Mobile Card */}
+          {(() => {
+            const activeData = mobileGradeDetails[activeMobileGrade];
+            return (
+              <div className="p-5 rounded-2xl bg-white border border-brand-border space-y-3.5 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <strong className="font-display text-xl text-brand-charcoal">{activeData.name}</strong>
+                  <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-brand-cream-alt text-brand-forest border border-brand-border">
+                    Grade Specification
+                  </span>
+                </div>
+                <div className="space-y-2 text-xs divide-y divide-brand-border/40">
+                  <div className="pt-1 flex justify-between gap-2">
+                    <span className="text-brand-muted uppercase font-bold">Primary Purpose:</span>
+                    <span className="text-brand-charcoal font-medium text-right">{activeData.purpose}</span>
+                  </div>
+                  <div className="pt-2 flex justify-between gap-2">
+                    <span className="text-brand-muted uppercase font-bold">Environment:</span>
+                    <span className="text-brand-charcoal font-medium text-right">{activeData.env}</span>
+                  </div>
+                  <div className="pt-2 flex justify-between gap-2">
+                    <span className="text-brand-muted uppercase font-bold">Moisture Resistance:</span>
+                    <span className="text-brand-charcoal font-medium text-right">{activeData.moisture}</span>
+                  </div>
+                  <div className="pt-2 flex justify-between gap-2">
+                    <span className="text-brand-muted uppercase font-bold">Common Uses:</span>
+                    <span className="text-brand-charcoal font-medium text-right">{activeData.apps}</span>
+                  </div>
+                  <div className="pt-2 flex justify-between gap-2">
+                    <span className="text-brand-muted uppercase font-bold">Key Question:</span>
+                    <span className="text-brand-forest font-bold text-right">{activeData.question}</span>
+                  </div>
+                </div>
+                <a
+                  href={activeData.link}
+                  className="inline-flex w-full items-center justify-center gap-2 h-10 rounded-xl bg-brand-forest text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-accent transition-colors pt-1"
+                >
+                  <span>Explore {activeData.name}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            );
+          })()}
+        </div>
+
+        {/* Desktop / Tablet Full Table (md+) */}
+        <div className="hidden md:block overflow-x-auto rounded-2xl border border-brand-border bg-white shadow-md">
+          <table className="w-full text-left border-collapse min-w-[750px]">
+            <thead>
+              <tr className="bg-brand-forest text-white">
+                <th className="p-4 sm:p-5 text-xs font-bold uppercase tracking-wider w-1/5 border-r border-brand-forest-dark">Comparison</th>
+                <th className="p-4 sm:p-5 text-xs font-bold uppercase tracking-wider w-1/5 border-r border-brand-forest-dark">MR Grade</th>
+                <th className="p-4 sm:p-5 text-xs font-bold uppercase tracking-wider w-1/5 border-r border-brand-forest-dark">BWP Grade</th>
+                <th className="p-4 sm:p-5 text-xs font-bold uppercase tracking-wider w-1/5 border-r border-brand-forest-dark bg-brand-accent text-white">Marine Grade</th>
+                <th className="p-4 sm:p-5 text-xs font-bold uppercase tracking-wider w-1/5">Fire Retardant</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-brand-border/60 text-xs sm:text-sm">
+              {tableData.map((row, idx) => (
+                <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-brand-cream-alt/40"}>
+                  <td className="p-4 sm:p-5 font-bold text-brand-charcoal border-r border-brand-border/60 bg-brand-cream-alt/60">
+                    {row.feature}
+                  </td>
+                  <td className="p-4 sm:p-5 text-brand-slate border-r border-brand-border/60">{row.mr}</td>
+                  <td className="p-4 sm:p-5 text-brand-slate border-r border-brand-border/60">{row.bwp}</td>
+                  <td className="p-4 sm:p-5 text-brand-charcoal font-medium border-r border-brand-border/60 bg-brand-soft-brown/40">{row.marine}</td>
+                  <td className="p-4 sm:p-5 text-brand-slate">{row.fr}</td>
+                </tr>
+              ))}
+              <tr className="bg-brand-cream border-t-2 border-brand-border">
+                <td className="p-4 sm:p-5 font-bold text-brand-charcoal border-r border-brand-border/60">Explore Page</td>
+                <td className="p-4 sm:p-5 border-r border-brand-border/60">
+                  <a href={ROUTES.mrGradePlywood} className="inline-flex items-center gap-1 text-xs font-bold text-brand-forest hover:text-brand-accent">
+                    MR Grade <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </td>
+                <td className="p-4 sm:p-5 border-r border-brand-border/60">
+                  <a href={ROUTES.bwpGradePlywood} className="inline-flex items-center gap-1 text-xs font-bold text-brand-forest hover:text-brand-accent">
+                    BWP Grade <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </td>
+                <td className="p-4 sm:p-5 border-r border-brand-border/60 bg-brand-soft-brown/40">
+                  <a href={PRODUCT_ROUTES.marineGradePlywood} className="inline-flex items-center gap-1 text-xs font-bold text-brand-accent hover:text-brand-forest">
+                    Marine Plywood <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </td>
+                <td className="p-4 sm:p-5">
+                  <a href={PRODUCT_ROUTES.fireRetardantPlywood} className="inline-flex items-center gap-1 text-xs font-bold text-brand-forest hover:text-brand-accent">
+                    Fire Retardant <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* A Simple Way to Start Box */}
+        <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-brand-border shadow-xs space-y-4 sm:space-y-6">
+          <h3 className="font-display text-xl sm:text-2xl font-bold text-brand-charcoal">A Simple Way to Start</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <a href={ROUTES.mrGradePlywood} className="p-3.5 sm:p-4 rounded-xl bg-brand-cream-alt border border-brand-border hover:border-brand-accent transition-all group">
+              <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-brand-muted block">Dry everyday interiors</span>
+              <strong className="text-xs sm:text-sm font-bold text-brand-charcoal group-hover:text-brand-accent transition-colors flex items-center justify-between mt-1">
+                MR Grade <ArrowRight className="w-3.5 h-3.5" />
+              </strong>
             </a>
-            <a href="#enquiry" className="btn btn-outline">
-              Call or WhatsApp us <P.Arr />
+            <a href={ROUTES.bwpGradePlywood} className="p-3.5 sm:p-4 rounded-xl bg-brand-cream-alt border border-brand-border hover:border-brand-accent transition-all group">
+              <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-brand-muted block">Kitchens &amp; moisture-conscious</span>
+              <strong className="text-xs sm:text-sm font-bold text-brand-charcoal group-hover:text-brand-accent transition-colors flex items-center justify-between mt-1">
+                BWP Grade <ArrowRight className="w-3.5 h-3.5" />
+              </strong>
+            </a>
+            <a href={PRODUCT_ROUTES.marineGradePlywood} className="p-3.5 sm:p-4 rounded-xl bg-brand-cream-alt border border-brand-border hover:border-brand-accent transition-all group">
+              <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-brand-muted block">More demanding moisture</span>
+              <strong className="text-xs sm:text-sm font-bold text-brand-charcoal group-hover:text-brand-accent transition-colors flex items-center justify-between mt-1">
+                Marine Plywood <ArrowRight className="w-3.5 h-3.5" />
+              </strong>
+            </a>
+            <a href={PRODUCT_ROUTES.fireRetardantPlywood} className="p-3.5 sm:p-4 rounded-xl bg-brand-cream-alt border border-brand-border hover:border-brand-accent transition-all group">
+              <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-brand-muted block">Additional fire-performance</span>
+              <strong className="text-xs sm:text-sm font-bold text-brand-charcoal group-hover:text-brand-accent transition-colors flex items-center justify-between mt-1">
+                Fire Retardant <ArrowRight className="w-3.5 h-3.5" />
+              </strong>
             </a>
           </div>
+
+          <div className="p-3.5 sm:p-4 rounded-xl bg-brand-soft-brown/40 border border-brand-accent/30 text-xs sm:text-sm text-brand-charcoal">
+            <strong>Note on Fire Retardant Plywood:</strong> Fire Retardant Plywood is slightly different from the other three. It addresses a different performance requirement (reaction to fire rather than moisture alone).
+          </div>
         </div>
-        <div className="bulk-opts">
-          <div className="bulk-opts-lbl">Enquiry options</div>
-          <div className="bulk-opts-list">
-            {bulkOpts.map((o, i) => (
-              <div className="bulk-opt" key={i}>
-                <span className="n">0{i + 1}</span>
-                <strong>{o}</strong>
-                <span className="arr">→</span>
+      </div>
+    </section>
+  );
+};
+
+/* ============ CHOOSE THE RIGHT THICKNESS & SHEET SIZES ============ */
+const ThicknessAndSizes = () => {
+  const thicknesses = [
+    { mm: "4 mm", desc: "Suitable starting point for lightweight backing, lining and selected decorative applications." },
+    { mm: "6 mm", desc: "Commonly considered for cabinet backs, drawer bottoms and lightweight panels." },
+    { mm: "9 mm", desc: "Useful for selected partitions, panelling and lighter furniture components." },
+    { mm: "12 mm", desc: "A practical option for cabinetry and general furniture fabrication." },
+    { mm: "15 mm", desc: "Suitable for furniture bodies, storage units and stronger panels." },
+    { mm: "18 mm", desc: "Commonly considered for wardrobes, beds, tables, shelves and heavier furniture components." },
+  ];
+
+  const sizes = [
+    "8 × 4 ft",
+    "8 × 3 ft",
+    "7 × 4 ft",
+    "7 × 3 ft",
+    "6 × 4 ft",
+    "6 × 3 ft",
+  ];
+
+  return (
+    <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream-alt border-b border-brand-border" id="thickness">
+      <div className="ply-container space-y-12 sm:space-y-16">
+        {/* Thickness Section */}
+        <div className="space-y-6 sm:space-y-8">
+          <div className="max-w-3xl space-y-2.5 sm:space-y-3">
+            <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+              CHOOSE THE RIGHT THICKNESS
+            </div>
+            <h2 className="font-display text-[28px] sm:text-[42px] lg:text-[50px] font-bold leading-tight text-brand-charcoal">
+              Grade Handles the Environment.{" "}
+              <em className="home-heading-accent font-normal not-italic block sm:inline">
+                Thickness Handles the Furniture.
+              </em>
+            </h2>
+            <p className="text-brand-muted text-xs sm:text-base leading-relaxed">
+              Choosing the correct plywood grade is only one part of the material decision. Thickness should be selected according to:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3 text-xs font-semibold text-brand-charcoal">
+            {["Furniture Component", "Panel Dimensions", "Unsupported Span", "Expected Load", "Support Spacing", "Hardware & Screw Fixing", "Joinery System", "Surface Finish", "Installation Conditions"].map((item, idx) => (
+              <div key={idx} className="p-2.5 sm:p-3 rounded-xl bg-white border border-brand-border flex items-center gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-brand-accent shrink-0" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pt-2">
+            {thicknesses.map((t, idx) => (
+              <div key={idx} className="p-5 sm:p-6 rounded-2xl bg-white border border-brand-border shadow-2xs hover:border-brand-accent transition-all space-y-2">
+                <div className="font-display text-2xl sm:text-3xl font-bold text-brand-forest">{t.mm}</div>
+                <p className="text-xs sm:text-sm text-brand-muted leading-relaxed">{t.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="p-3.5 sm:p-4 rounded-xl bg-brand-cream border border-brand-border text-xs text-brand-slate font-medium">
+            <strong>Important:</strong> These are general application examples. Final thickness depends on the actual furniture design, span, support and expected load.
+          </div>
+        </div>
+
+        {/* Sheet Sizes Section */}
+        <div className="pt-8 border-t border-brand-border/60 space-y-6 sm:space-y-8" id="sizes">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
+            <div>
+              <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+                AVAILABLE SHEET SIZES
+              </div>
+              <h2 className="font-display text-[26px] sm:text-[36px] lg:text-[42px] font-bold leading-tight text-brand-charcoal">
+                Plan the Sheet Around the Fabrication.
+              </h2>
+            </div>
+            <a
+              href="#enquiry"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-brand-forest px-6 text-xs font-bold uppercase tracking-wider text-white hover:bg-brand-accent transition-all self-start md:self-auto"
+            >
+              Check Size &amp; Thickness Availability <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+
+          <p className="text-brand-muted text-xs sm:text-sm max-w-2xl">
+            Pentagon’s plywood range can be discussed in commonly used sheet formats. Availability may vary according to the selected grade and thickness.
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+            {sizes.map((sz, idx) => (
+              <div key={idx} className="p-4 sm:p-5 rounded-2xl bg-white border border-brand-border text-center shadow-2xs hover:border-brand-accent transition-all">
+                <strong className="font-display text-xl sm:text-2xl font-bold text-brand-charcoal block">{sz}</strong>
+                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-brand-muted tracking-wider block mt-1">Standard Format</span>
               </div>
             ))}
           </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
-/* ============ FAQ ============ */
-const faqs = [
-  {
-    q: "What does MR Grade Plywood mean?",
-    a: "MR means Moisture Resistant. It is commonly called commercial plywood and is generally used for indoor furniture and interior applications.",
-  },
-  {
-    q: "Is MR Grade Plywood waterproof?",
-    a: "No. MR Plywood can resist normal indoor moisture and humidity, but it is not designed for prolonged or repeated water exposure.",
-  },
-  {
-    q: "When should I consider Marine Plywood?",
-    a: "Marine Plywood should be considered when an application may face greater humidity, moisture or alternating wet and dry conditions.",
-  },
-  {
-    q: "What is the difference between IS 303 and IS 710?",
-    a: "IS 303 applies to general-purpose plywood categories such as MR Grade Plywood, while IS 710 applies to marine-grade plywood intended for more demanding moisture conditions.",
-  },
-  {
-    q: "Which plywood is suitable for wardrobes?",
-    a: "MR Grade Plywood can be suitable for wardrobes in relatively dry indoor areas. The thickness should be selected according to the wardrobe design and expected load.",
-  },
-  {
-    q: "Which plywood should I use for kitchen cabinets?",
-    a: "Marine Plywood may be the more suitable category for kitchen furniture because kitchens can experience humidity, spills and moisture. Final selection should account for installation conditions and budget.",
-  },
-  {
-    q: "Which thicknesses are available?",
-    a: "The currently listed thicknesses are 4, 6, 9, 12, 15 and 18 mm.",
-  },
-  {
-    q: "What is the minimum order quantity?",
-    a: "The currently listed minimum order quantity is 50 pieces. Please confirm with our team whether this applies equally to every thickness and sheet size.",
-  },
-];
-const FAQ = () => {
-  const [open, setOpen] = React.useState(0);
+/* ============ FROM PLYWOOD TO FINISHED FURNITURE ============ */
+const FurnitureApplications = () => {
+  const apps = [
+    {
+      title: "Wardrobes & Storage",
+      desc: "Start with the wardrobe location, shelf span, shutter design, hardware and exposure to damp walls before selecting the grade and thickness.",
+      dir: "MR for ordinary dry interiors; consider higher water resistance where humidity or dampness is a greater concern.",
+      image: WardrobeApplication,
+      link: APPLICATION_SECTIONS.wardrobes,
+    },
+    {
+      title: "Modular Kitchens",
+      desc: "Kitchen furniture can experience humidity, spills, steam, plumbing and repeated cleaning.",
+      dir: "Consider BWP or Marine Plywood according to the actual moisture conditions and project specification.",
+      image: KitchenApplication,
+      link: APPLICATION_SECTIONS.kitchens,
+    },
+    {
+      title: "Home Furniture",
+      desc: "Beds, television units, study tables, cabinets and shelves may use different thicknesses depending on their construction and expected load.",
+      dir: "MR Grade is a practical option for many relatively dry residential applications.",
+      image: LivingRoomApplication,
+      link: APPLICATION_SECTIONS.furniture,
+    },
+    {
+      title: "Office Furniture",
+      desc: "Desks, cabinets, storage and partitions need material selected according to use, hardware, panel dimensions and environmental conditions.",
+      dir: "Select the plywood grade around both the component and installation environment.",
+      image: OfficeApplication,
+      link: APPLICATION_SECTIONS.commercial,
+    },
+    {
+      title: "Commercial Interiors",
+      desc: "Retail, office, hospitality and other commercial environments may require greater attention to repeated use, documentation, finish and project specifications.",
+      dir: "Consider moisture, load, surface requirements and any additional performance criteria before selecting the grade.",
+      image: RetailApplication,
+      link: APPLICATION_SECTIONS.commercial,
+    },
+    {
+      title: "Special Performance Requirements",
+      desc: "Some projects include requirements beyond ordinary moisture resistance.",
+      dir: "Where fire-retardant plywood is specified, review the Fire Retardant Plywood range and relevant project requirements separately.",
+      image: BathroomApplication,
+      link: PRODUCT_ROUTES.fireRetardantPlywood,
+    },
+  ];
+
   return (
-    <section id="faq" className="section">
-      <div className="container">
-        <div className="sec-head">
-          <div>
-            <div className="eyebrow">Frequently Asked</div>
-            <h2 className="h-section">
-              Questions we
-              <br />
-              get <em className="italic-em">most.</em>
-            </h2>
+    <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream border-b border-brand-border">
+      <div className="ply-container space-y-8 sm:space-y-12">
+        <div className="max-w-3xl space-y-2.5 sm:space-y-3">
+          <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+            FROM PLYWOOD TO FINISHED FURNITURE
           </div>
-          <p className="lede">
-            The most common questions from architects, interior designers,
-            contractors and homeowners about MR and Marine plywood answered
-            straight, without the marketing gloss.
+          <h2 className="font-display text-[28px] sm:text-[42px] lg:text-[50px] font-bold leading-tight text-brand-charcoal">
+            What Will the Sheet{" "}
+            <em className="home-heading-accent font-normal not-italic">
+              Become?
+            </em>
+          </h2>
+          <p className="text-brand-muted text-xs sm:text-base leading-relaxed">
+            Tailor the board selection to the exact piece of furniture or interior application you are crafting.
           </p>
         </div>
-        <div className="faq-list">
-          {faqs.map((f, i) => (
-            <div className={`faq-item ${open === i ? "open" : ""}`} key={i}>
-              <button
-                className="faq-q"
-                onClick={() => setOpen(open === i ? -1 : i)}
-              >
-                <span className="faq-n">
-                  Q.{String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="faq-text">{f.q}</span>
-                <span className="faq-icon">
-                  {open === i ? <P.Minus /> : <P.Plus />}
-                </span>
-              </button>
-              {open === i && <div className="faq-a">{f.a}</div>}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {apps.map((item, idx) => (
+            <div key={idx} className="group flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-brand-border bg-white overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300">
+              <div>
+                <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-brand-charcoal">
+                  <img src={item.image} alt={item.title} className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                  <h3 className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 font-display text-lg sm:text-xl font-bold text-white">
+                    {item.title}
+                  </h3>
+                </div>
+                <div className="p-5 sm:p-6 space-y-3">
+                  <p className="text-brand-muted text-xs sm:text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                  <div className="pt-3 border-t border-brand-border/60 text-xs text-brand-charcoal">
+                    <strong className="text-brand-forest">Starting direction:</strong> {item.dir}
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-5 sm:p-6 pt-0">
+                <a href={item.link} className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-forest hover:text-brand-accent transition-colors">
+                  <span>Explore Applications</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -1313,191 +889,616 @@ const FAQ = () => {
   );
 };
 
-/* ============ FINAL ENQUIRY (specialized for plywood) ============ */
-const PlyEnquiry = () => (
-  <section
-    id="enquiry"
-    className="section"
-    style={{ background: "var(--bg-deep)" }}
-  >
-    <div className="container">
-      <div className="enquiry-grid">
-        <div className="enquiry-left">
-          <div className="eyebrow" style={{ marginBottom: 24 }}>
-            Let's find your plywood
+/* ============ HOW PLYWOOD IS MADE ============ */
+const ManufacturingJourney = () => {
+  const steps = [
+    { n: "01", t: "Veneer Selection & Preparation", p: "Wood veneers are selected and prepared according to the plywood requirement." },
+    { n: "02", t: "Conditioning", p: "The veneers are conditioned to support consistent bonding and panel construction." },
+    { n: "03", t: "Veneer Assembly", p: "Prepared veneers are arranged in layers to form the plywood structure." },
+    { n: "04", t: "Adhesive Application", p: "The appropriate bonding system is applied according to the required product grade." },
+    { n: "05", t: "Controlled Pressing", p: "The assembled veneers are pressed under controlled manufacturing conditions." },
+    { n: "06", t: "Trimming & Sanding", p: "Pressed panels are trimmed to the required dimensions and their surfaces prepared." },
+    { n: "07", t: "Inspection", p: "Dimensions, bonding, surface condition and other applicable product requirements are evaluated." },
+    { n: "08", t: "Packaging & Dispatch", p: "Approved plywood is prepared for storage, handling and supply." },
+  ];
+
+  return (
+    <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream-alt border-b border-brand-border" id="manufacturing">
+      <div className="ply-container space-y-8 sm:space-y-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6">
+          <div className="max-w-2xl space-y-2.5 sm:space-y-3">
+            <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+              HOW PLYWOOD IS MADE
+            </div>
+            <h2 className="font-display text-[28px] sm:text-[42px] lg:text-[50px] font-bold leading-tight text-brand-charcoal">
+              The Finished Surface Is Only the{" "}
+              <em className="home-heading-accent font-normal not-italic">
+                Final Part of the Process.
+              </em>
+            </h2>
+            <p className="text-brand-muted text-xs sm:text-base leading-relaxed">
+              Plywood performance begins before the sheet reaches the furniture workshop. A typical plywood manufacturing journey at our Yamunanagar facility:
+            </p>
           </div>
-          <h2 className="h-section">
-            Tell us where you'll use it.
-            <br />
-            We'll help you start with the{" "}
-            <em className="italic-em">right grade.</em>
-          </h2>
-          <p className="lede" style={{ marginTop: 24 }}>
-            Share your application, preferred thickness, required quantity and
-            delivery location. Our team will contact you to discuss availability
-            and the next step.
-          </p>
-          {/* <div className="contact-block">
-            <div className="contact-item">
-              <span className="lbl">Location</span>
-              <span className="val">Khajuri, Yamunanagar<small>Haryana · India</small></span>
-            </div>
-            <div className="contact-item">
-              <span className="lbl">Phone</span>
-              <span className="val">+91 70150 85556<small>Also: +91 1732 239 416</small></span>
-            </div>
-            <div className="contact-item">
-              <span className="lbl">Email</span>
-              <span className="val">pentagonplywood<br/>@gmail.com</span>
-            </div>
-            <div className="contact-item">
-              <span className="lbl">Prefer chat?</span>
-              <span className="val">WhatsApp our team<small>Instant reply, weekdays 9am – 7pm IST</small></span>
-            </div>
-          </div> */}
+          <a
+            href={ROUTES.manufacturing}
+            className="inline-flex h-11 sm:h-12 items-center justify-center gap-2 rounded-full bg-brand-forest px-6 sm:px-7 text-xs font-bold uppercase tracking-wider text-white hover:bg-brand-accent transition-all shrink-0 self-start md:self-auto"
+          >
+            Explore Yamunanagar Facility <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
-        <div>
-          <form className="enquiry-form" onSubmit={(e) => e.preventDefault()}>
-            <div className="form-row">
-              <div className="field">
-                <label>Name</label>
-                <input placeholder="Your full name" />
-              </div>
-              <div className="field">
-                <label>Company (optional)</label>
-                <input placeholder="Firm / company name" />
-              </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+          {steps.map((s, idx) => (
+            <div key={idx} className="p-5 sm:p-6 rounded-2xl bg-white border border-brand-border shadow-2xs space-y-2.5">
+              <span className="font-display text-xl sm:text-2xl font-bold text-brand-honey-dark block">{s.n}</span>
+              <h3 className="font-display text-sm sm:text-base font-bold text-brand-charcoal">{s.t}</h3>
+              <p className="text-xs text-brand-muted leading-relaxed">{s.p}</p>
             </div>
-            <div className="form-row">
-              <div className="field">
-                <label>Phone number</label>
-                <input placeholder="+91 · · · · ·" />
-              </div>
-              <div className="field">
-                <label>Email</label>
-                <input placeholder="you@company.com" />
-              </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ============ STANDARDS, FABRICATION & BLOCKBOARD COMPARISON ============ */
+const AdditionalKnowledge = () => (
+  <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream border-b border-brand-border">
+    <div className="ply-container space-y-12 sm:space-y-16">
+      {/* Standards & Plywood vs Blockboard */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="lg:col-span-6 space-y-4">
+          <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+            UNDERSTANDING PLYWOOD STANDARDS
+          </div>
+          <h2 className="font-display text-[26px] sm:text-[38px] lg:text-[44px] font-bold leading-tight text-brand-charcoal">
+            The Standard Helps Explain What the Product Is Designed to Do.
+          </h2>
+          <p className="text-brand-muted text-xs sm:text-base leading-relaxed">
+            Different plywood categories can follow different product standards according to their intended use and performance requirements:
+          </p>
+          <div className="space-y-2.5 sm:space-y-3 pt-1">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-white border border-brand-border space-y-1">
+              <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block">General-Purpose Plywood (IS 303)</strong>
+              <span className="text-xs text-brand-muted block">MR and BWP are general-purpose plywood grades used for different moisture conditions.</span>
             </div>
-            <div className="form-row">
-              <div className="field">
-                <label>I am a</label>
-                <select>
-                  <option>Homeowner / Retail buyer</option>
-                  <option>Architect / Interior designer</option>
-                  <option>Contractor</option>
-                  <option>Dealer / Distributor</option>
-                  <option>Furniture manufacturer</option>
-                  <option>Project / Bulk buyer</option>
-                  <option>Export enquiry</option>
-                </select>
-              </div>
-              <div className="field">
-                <label>Grade</label>
-                <select>
-                  <option>MR Grade Plywood (IS 303)</option>
-                  <option>Marine Plywood (IS 710)</option>
-                  <option>Not sure; please advise</option>
-                </select>
-              </div>
+            <div className="p-3.5 sm:p-4 rounded-xl bg-white border border-brand-border space-y-1">
+              <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block">Marine Plywood (IS 710)</strong>
+              <span className="text-xs text-brand-muted block">Marine Plywood is a separate plywood category intended for more demanding moisture conditions.</span>
             </div>
-            <div className="form-row">
-              <div className="field">
-                <label>Required thickness</label>
-                <select>
-                  <option>4 mm</option>
-                  <option>6 mm</option>
-                  <option>9 mm</option>
-                  <option>12 mm</option>
-                  <option>15 mm</option>
-                  <option>18 mm</option>
-                  <option>Multiple</option>
-                </select>
-              </div>
-              <div className="field">
-                <label>Sheet size</label>
-                <select>
-                  <option>8×4 ft</option>
-                  <option>8×3 ft</option>
-                  <option>7×4 ft</option>
-                  <option>7×3 ft</option>
-                  <option>6×4 ft</option>
-                  <option>6×3 ft</option>
-                  <option>Multiple</option>
-                </select>
-              </div>
+            <div className="p-3.5 sm:p-4 rounded-xl bg-white border border-brand-border space-y-1">
+              <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block">Fire Retardant Plywood (IS 5509 / Spec)</strong>
+              <span className="text-xs text-brand-muted block">Fire Retardant Plywood follows a separate performance requirement focused on fire behavior.</span>
             </div>
-            <div className="form-row">
-              <div className="field">
-                <label>Quantity (pcs, min. 50)</label>
-                <input placeholder="e.g. 200" />
-              </div>
-              <div className="field">
-                <label>City & state</label>
-                <input placeholder="e.g. Chandigarh, Punjab" />
-              </div>
+          </div>
+          <p className="text-xs sm:text-sm text-brand-charcoal font-semibold pt-1">
+            Understanding that <strong>the grade and standard should match the conditions in which the plywood will actually be used.</strong>
+          </p>
+          <a
+            href={HOME_SECTIONS.quality}
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-forest hover:text-brand-accent pt-1"
+          >
+            <span>Explore Quality &amp; Certifications</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+
+        {/* Plywood or Blockboard */}
+        <div className="lg:col-span-6 p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-brand-forest text-white space-y-5 shadow-xl">
+          <span className="text-brand-accent-light text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest block">
+            MATERIAL COMPARISON
+          </span>
+          <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
+            Plywood or Blockboard?
+          </h2>
+          <p className="text-white/85 text-xs sm:text-sm leading-relaxed">
+            Plywood and blockboard can both be used for furniture, but their internal construction is different. <strong>Plywood</strong> is built from multiple layers of wood veneer, whereas <strong>Blockboard</strong> uses solid timber strips in its central core with veneer outer layers over them.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 space-y-2">
+              <strong className="text-xs font-bold text-brand-accent block uppercase tracking-wider">Consider Plywood When:</strong>
+              <ul className="text-[11px] text-white/80 space-y-1.5 list-disc pl-3.5">
+                <li>Furniture cabinetry is primary requirement</li>
+                <li>Uniform layered construction preferred</li>
+                <li>Fixing required at multiple locations</li>
+                <li>Specific moisture-performance grade needed</li>
+              </ul>
             </div>
-            <div className="field">
-              <label>Application</label>
-              <input placeholder="e.g. modular kitchen cabinetry, wardrobe production, showroom fit-out" />
+
+            <div className="p-3.5 sm:p-4 rounded-xl bg-white/10 border border-white/15 space-y-2">
+              <strong className="text-xs font-bold text-brand-accent block uppercase tracking-wider">Consider Blockboard When:</strong>
+              <ul className="text-[11px] text-white/80 space-y-1.5 list-disc pl-3.5">
+                <li>Design contains long furniture components</li>
+                <li>Wardrobe shutters, long shelves, or doors</li>
+                <li>Solid timber-strip core suits furniture build</li>
+              </ul>
             </div>
-            <div className="field">
-              <label>Additional message</label>
-              <textarea placeholder="Timeline, site conditions, past orders anything that helps us advise you better…" />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                gap: 16,
-                marginTop: 12,
-                flexWrap: "wrap",
-              }}
+          </div>
+
+          <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <span className="text-[10px] sm:text-[11px] text-white/70 italic">Choose according to finished component.</span>
+            <a
+              href={PRODUCT_ROUTES.blockboard}
+              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full bg-brand-accent px-5 text-xs font-bold uppercase tracking-wider text-white hover:bg-brand-accent-dark transition-colors shrink-0 w-full sm:w-auto text-center"
             >
-              <button type="submit" className="btn btn-primary">
-                Send my requirement <P.Arr />
-              </button>
-              <a href="#" className="btn btn-ghost">
-                Or call / WhatsApp our team →
-              </a>
+              Compare Blockboard <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Fabrication & Finishing */}
+      <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-brand-border shadow-xs space-y-5">
+        <div className="max-w-2xl space-y-2">
+          <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+            FABRICATION &amp; FINISHING
+          </div>
+          <h2 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-brand-charcoal">
+            The Core Creates the Foundation. The Finish Creates the Look.
+          </h2>
+          <p className="text-brand-muted text-xs sm:text-sm leading-relaxed">
+            Depending on the selected plywood and finishing system, plywood can provide a base for decorative laminates, natural veneers, paints, polish, edge banding, routed components and other compatible furniture finishes.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs font-semibold text-brand-charcoal">
+          {["Decorative Laminates", "Natural Veneers", "Decorative Veneers", "Paint & Lacquer", "Wood Polish", "Edge Banding", "Routed Components", "Compatible Finishes"].map((fin, idx) => (
+            <div key={idx} className="p-2.5 sm:p-3 rounded-xl bg-brand-cream-alt border border-brand-border flex items-center gap-2">
+              <Check className="w-3.5 h-3.5 text-brand-forest shrink-0" />
+              <span>{fin}</span>
             </div>
-            <div className="form-note">
-              Prefer a direct conversation? Call or WhatsApp our team.
-            </div>
-          </form>
+          ))}
+        </div>
+
+        <div className="p-3.5 rounded-xl bg-brand-soft-brown/40 border border-brand-accent/30 text-xs text-brand-charcoal">
+          <strong>Fabrication Note:</strong> The finished furniture should be treated as a complete system. Grade selection alone cannot compensate for poor edge treatment, unsuitable hardware or uncontrolled water leakage.
         </div>
       </div>
     </div>
   </section>
 );
 
-const PlyWhatsapp = () => (
-  <a href="#" className="whatsapp-float" aria-label="Chat on WhatsApp">
-    <P.Whatsapp />
-  </a>
+/* ============ WHY CHOOSE PENTAGON PLYWOOD ============ */
+const WhyChoosePentagon = () => {
+  const reasons = [
+    { title: "Manufactured in Yamunanagar", desc: "Plywood is one of Pentagon’s core in-house manufactured wood-product categories." },
+    { title: "Grades for Different Conditions", desc: "Choose plywood around the environment rather than specifying the same product everywhere." },
+    { title: "Multiple Sizes & Thicknesses", desc: "Discuss sheet format and thickness according to furniture component and fabrication requirement." },
+    { title: "Application-Led Guidance", desc: "If you do not know the grade, begin with what you are building and where it will be installed." },
+    { title: "Support for Different Buyers", desc: "Pentagon supports homeowners and furniture makers to dealers, contractors and project buyers." },
+  ];
+
+  return (
+    <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream-alt border-b border-brand-border">
+      <div className="ply-container space-y-8 sm:space-y-12">
+        <div className="max-w-3xl space-y-2.5 sm:space-y-3">
+          <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+            WHY CHOOSE PENTAGON PLYWOOD?
+          </div>
+          <h2 className="font-display text-[28px] sm:text-[42px] lg:text-[50px] font-bold leading-tight text-brand-charcoal">
+            Because the Material Behind the{" "}
+            <em className="home-heading-accent font-normal not-italic">
+              Furniture Still Matters.
+            </em>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {reasons.map((r, idx) => (
+            <div key={idx} className="p-5 sm:p-6 rounded-2xl bg-white border border-brand-border shadow-2xs space-y-3 flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-forest block mb-1.5">0{idx + 1}</span>
+                <h3 className="font-display text-base font-bold text-brand-charcoal mb-1.5">{r.title}</h3>
+                <p className="text-xs text-brand-muted leading-relaxed">{r.desc}</p>
+              </div>
+              <div className="pt-3 border-t border-brand-border/40 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-brand-honey-dark">
+                Pentagon Assurance
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ============ FOR DEALERS, FURNITURE MAKERS & PROJECTS ============ */
+const DealersAndProjects = () => (
+  <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream border-b border-brand-border">
+    <div className="ply-container">
+      <div className="rounded-2xl sm:rounded-3xl bg-brand-cream-alt border border-brand-border p-6 sm:p-10 lg:p-12 shadow-2xs grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+        <div className="lg:col-span-7 space-y-4">
+          <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+            FOR DEALERS, FURNITURE MAKERS &amp; PROJECTS
+          </div>
+          <h2 className="font-display text-[26px] sm:text-[38px] lg:text-[44px] font-bold leading-tight text-brand-charcoal">
+            Need More Than a Few Sheets?
+          </h2>
+          <p className="text-brand-muted text-xs sm:text-base leading-relaxed">
+            Pentagon can discuss plywood requirements for dealer &amp; distributor supply, furniture manufacturing, wardrobe production, modular kitchen lines, residential &amp; office fit-outs, and project procurement.
+          </p>
+          <div className="space-y-2 text-xs sm:text-sm text-brand-charcoal font-medium pt-1">
+            <p className="font-bold">Share your project details:</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {["Plywood Grade", "Application", "Thickness", "Sheet Size", "Quantity", "Delivery Location"].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-1.5 text-xs text-brand-slate">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-brand-accent shrink-0" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-3 sm:gap-4">
+          <a
+            href="#enquiry"
+            className="inline-flex h-12 sm:h-13 items-center justify-center gap-2 rounded-full bg-brand-forest px-7 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-brand-accent transition-all cursor-pointer text-center"
+          >
+            Request a Bulk Quote <ArrowRight className="w-4 h-4" />
+          </a>
+          <a
+            href={ROUTES.dealers}
+            className="inline-flex h-12 sm:h-13 items-center justify-center gap-2 rounded-full border border-brand-accent/40 bg-white px-7 text-xs font-bold uppercase tracking-wider text-brand-honey-dark hover:bg-brand-soft-brown transition-all shadow-xs text-center"
+          >
+            Become a Dealer <ArrowRight className="w-4 h-4 text-brand-charcoal" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 );
+
+/* ============ FREQUENTLY ASKED QUESTIONS ============ */
+const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  const faqs = [
+    {
+      q: "Which plywood should I choose?",
+      a: "Start with where the plywood will be used. MR Grade suits many relatively dry interiors, BWP is considered where moisture is a greater concern, Marine Plywood is for more demanding moisture conditions, and Fire Retardant Plywood is used where additional fire-retardant performance is required.",
+    },
+    {
+      q: "Which plywood is suitable for wardrobes?",
+      a: "MR Grade can be a practical option for wardrobes in relatively dry interiors. Consider the environment, shutter design, shelf span, hardware and required thickness before finalising the material.",
+    },
+    {
+      q: "Which plywood should I use for kitchen furniture?",
+      a: "BWP or Marine Plywood may be considered depending on the amount and frequency of moisture exposure. Under-sink areas, plumbing locations and utility zones require particular attention.",
+    },
+    {
+      q: "Does every kitchen need Marine Plywood?",
+      a: "Not necessarily. Material should be selected according to the actual moisture conditions and project requirement rather than automatically specifying the highest grade everywhere.",
+    },
+    {
+      q: "What does MR mean?",
+      a: "MR means Moisture Resistant and is primarily used for furniture and interior applications in relatively dry environments.",
+    },
+    {
+      q: "What does BWP mean?",
+      a: "BWP means Boiling Water Proof and is selected where a higher level of water resistance is required than ordinary MR Grade interior plywood.",
+    },
+    {
+      q: "Is BWP the same as Marine Plywood?",
+      a: "No. They are different plywood categories. Marine Plywood is intended for more demanding moisture conditions and follows a separate product specification.",
+    },
+    {
+      q: "Is Fire Retardant Plywood fireproof?",
+      a: "No. Fire-retardant plywood is designed to improve plywood's behaviour when exposed to fire. It should not be described as non-combustible or completely fireproof.",
+    },
+    {
+      q: "Which thickness should I use?",
+      a: "The correct thickness depends on the furniture component, dimensions, unsupported span, expected load, support, hardware and construction.",
+    },
+    {
+      q: "What thicknesses are available?",
+      a: "The standard Pentagon plywood range includes: 4 mm, 6 mm, 9 mm, 12 mm, 15 mm and 18 mm.",
+    },
+    {
+      q: "Which sheet sizes are available?",
+      a: "Common formats include: 8 × 4 ft, 8 × 3 ft, 7 × 4 ft, 7 × 3 ft, 6 × 4 ft and 6 × 3 ft. Availability should be checked according to required grade and thickness.",
+    },
+    {
+      q: "Can plywood be laminated or veneered?",
+      a: "Yes. Depending on the plywood face and finishing system, plywood can be used with suitable laminates, veneers, paints, polishes and other compatible furniture finishes.",
+    },
+    {
+      q: "Can homeowners enquire directly?",
+      a: "Yes. If you are unsure of the plywood grade, share what you are building, the installation location and approximate quantity so the requirement can be discussed.",
+    },
+  ];
+
+  return (
+    <section className="py-12 sm:py-16 lg:py-24 bg-brand-cream border-b border-brand-border" id="faq">
+      <div className="ply-container space-y-8 sm:space-y-12">
+        <div className="max-w-3xl space-y-2.5 sm:space-y-3">
+          <div className="text-[#8E510D] font-semibold text-[10px] sm:text-[11px] leading-tight tracking-[0.18em] uppercase">
+            FREQUENTLY ASKED QUESTIONS
+          </div>
+          <h2 className="font-display text-[28px] sm:text-[42px] lg:text-[50px] font-bold leading-tight text-brand-charcoal">
+            Questions About{" "}
+            <em className="home-heading-accent font-normal not-italic">
+              Plywood Selection.
+            </em>
+          </h2>
+        </div>
+
+        <div className="max-w-4xl space-y-2.5 sm:space-y-3">
+          {faqs.map((faq, idx) => (
+            <div
+              key={idx}
+              className="rounded-xl sm:rounded-2xl border border-brand-border bg-white overflow-hidden transition-all"
+            >
+              <button
+                type="button"
+                onClick={() => setOpenIndex(openIndex === idx ? -1 : idx)}
+                className="w-full p-4 sm:p-6 text-left flex items-center justify-between gap-3 font-display text-base sm:text-lg font-bold text-brand-charcoal hover:text-brand-accent transition-colors"
+              >
+                <span>{faq.q}</span>
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-cream-alt flex items-center justify-center shrink-0">
+                  {openIndex === idx ? <Minus className="w-3.5 h-3.5 text-brand-accent" /> : <Plus className="w-3.5 h-3.5 text-brand-charcoal" />}
+                </span>
+              </button>
+              {openIndex === idx && (
+                <div className="px-4 sm:px-6 pb-5 sm:pb-6 text-xs sm:text-sm text-brand-muted leading-relaxed border-t border-brand-border/40 pt-3.5">
+                  {faq.a}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ============ FINAL ENQUIRY FORM ============ */
+const PlyEnquiry = () => {
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    companyName: "",
+    phone: "",
+    email: "",
+    customerType: "Homeowner / Retail Buyer",
+    grade: "Not sure (Advise based on application)",
+    thickness: "Select thickness",
+    sheetSize: "Select sheet size",
+    quantity: "",
+    location: "",
+    application: "",
+    details: "",
+  });
+
+  const update = (key) => (e) => {
+    setForm({ ...form, [key]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      await submitPentagonEnquiry({
+        enquiryType: "product",
+        formSource: "plywood-overview",
+        productCategory: "Plywood",
+        productName: form.grade,
+        name: form.name,
+        companyName: form.companyName,
+        phone: form.phone,
+        email: form.email,
+        customerType: form.customerType,
+        grade: form.grade,
+        thickness: form.thickness !== "Select thickness" ? form.thickness : "",
+        quantity: form.quantity ? `${form.quantity} sheets (${form.sheetSize !== "Select sheet size" ? form.sheetSize : ""})` : "",
+        location: form.location,
+        application: form.application,
+        details: form.details,
+      });
+
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(err.message || "Failed to submit requirement. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section className="py-12 sm:py-16 lg:py-24 bg-brand-forest text-white" id="enquiry">
+      <div className="ply-container grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <div className="lg:col-span-5 space-y-4 sm:space-y-6">
+          <span className="px-3.5 py-1 rounded-full bg-brand-accent/20 text-brand-accent-light text-[10px] font-extrabold uppercase tracking-widest border border-brand-accent/40 inline-block">
+            START YOUR ENQUIRY
+          </span>
+          <h2 className="font-display text-[28px] sm:text-[40px] lg:text-[48px] font-bold leading-tight text-white">
+            Not Sure Which Plywood Grade You Need?
+          </h2>
+          <p className="text-white/85 text-xs sm:text-base leading-relaxed">
+            Tell Us What You’re Building. Start From the Application. You do not need to know the technical grade before contacting Pentagon.
+          </p>
+          <p className="text-white/75 text-xs sm:text-sm leading-relaxed">
+            Tell us whether you are making a wardrobe, kitchen, furniture unit, office interior, commercial project or another application, and share the conditions the plywood is likely to face. Our team will discuss the available grade, thickness, sheet size and supply requirement.
+          </p>
+
+          <div className="p-4 sm:p-5 rounded-2xl bg-white/10 border border-white/15 space-y-2 text-xs">
+            <strong className="text-brand-accent block text-xs sm:text-sm font-bold">Direct Communication:</strong>
+            <p className="text-white/80">Prefer to speak directly? Call or WhatsApp our trade desk for immediate guidance.</p>
+            <div className="pt-1 flex flex-wrap gap-3 sm:gap-4 font-bold text-white text-xs">
+              <span>📞 +91 70150 85556</span>
+              <span>💬 WhatsApp Active</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:col-span-7 bg-white text-brand-charcoal p-6 sm:p-10 rounded-2xl sm:rounded-3xl shadow-2xl border border-white/20">
+          {submitted ? (
+            <div className="text-center py-10 space-y-4">
+              <div className="w-14 h-14 bg-brand-forest text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold">
+                ✓
+              </div>
+              <h3 className="font-display text-xl sm:text-2xl font-bold">Requirement Received!</h3>
+              <p className="text-brand-muted text-xs sm:text-sm max-w-md mx-auto">
+                Thank you for reaching out. Our plywood specialists will review your application requirements and get back to you shortly.
+              </p>
+              <button
+                onClick={() => setSubmitted(false)}
+                className="mt-3 px-6 py-2.5 bg-brand-forest text-white text-xs font-bold uppercase rounded-full hover:bg-brand-accent cursor-pointer"
+              >
+                Send Another Requirement
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+              {submitError && (
+                <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-xs font-semibold text-red-800">
+                  {submitError}
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Name *</label>
+                  <input required value={form.name} onChange={update("name")} placeholder="Your full name" className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest" />
+                </div>
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Company Name</label>
+                  <input value={form.companyName} onChange={update("companyName")} placeholder="Firm / Company name" className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Phone Number *</label>
+                  <input required value={form.phone} onChange={update("phone")} placeholder="+91 · · · · ·" className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest" />
+                </div>
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Email Address *</label>
+                  <input required type="email" value={form.email} onChange={update("email")} placeholder="you@company.com" className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Customer Type</label>
+                  <select value={form.customerType} onChange={update("customerType")} className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest">
+                    <option>Homeowner / Retail Buyer</option>
+                    <option>Architect / Interior Designer</option>
+                    <option>Contractor / Builder</option>
+                    <option>Dealer / Stockist</option>
+                    <option>Furniture Manufacturer</option>
+                    <option>Project Procurement</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Plywood Grade</label>
+                  <select value={form.grade} onChange={update("grade")} className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest">
+                    <option>Not sure (Advise based on application)</option>
+                    <option>MR Grade Plywood (IS 303)</option>
+                    <option>BWP Grade Plywood</option>
+                    <option>Marine Grade Plywood (IS 710)</option>
+                    <option>Fire Retardant Plywood</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Thickness</label>
+                  <select value={form.thickness} onChange={update("thickness")} className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest">
+                    <option>Select thickness</option>
+                    <option>4 mm</option>
+                    <option>6 mm</option>
+                    <option>9 mm</option>
+                    <option>12 mm</option>
+                    <option>15 mm</option>
+                    <option>18 mm</option>
+                    <option>Multiple Thicknesses</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Sheet Size</label>
+                  <select value={form.sheetSize} onChange={update("sheetSize")} className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest">
+                    <option>Select sheet size</option>
+                    <option>8 × 4 ft</option>
+                    <option>8 × 3 ft</option>
+                    <option>7 × 4 ft</option>
+                    <option>7 × 3 ft</option>
+                    <option>6 × 4 ft</option>
+                    <option>6 × 3 ft</option>
+                    <option>Multiple Formats</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Quantity (sheets)</label>
+                  <input value={form.quantity} onChange={update("quantity")} placeholder="e.g. 100" className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">City &amp; State *</label>
+                  <input required value={form.location} onChange={update("location")} placeholder="e.g. Chandigarh, Punjab" className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest" />
+                </div>
+                <div>
+                  <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Application</label>
+                  <input value={form.application} onChange={update("application")} placeholder="e.g. Kitchen cabinetry, Wardrobes, Office fit-out" className="w-full h-11 px-4 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest" />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-slate block mb-1">Additional Requirements</label>
+                <textarea rows={3} value={form.details} onChange={update("details")} placeholder="Tell us more about your timeline, site conditions or project specifications..." className="w-full p-3.5 rounded-xl border border-brand-border bg-brand-cream-alt/40 text-xs sm:text-sm text-brand-charcoal focus:outline-none focus:border-brand-forest resize-none" />
+              </div>
+
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full sm:w-auto h-12 px-8 bg-brand-forest text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-brand-accent transition-colors shadow-md flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+                >
+                  <span>{isSubmitting ? "Sending..." : "Send Your Requirement"}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <span className="text-[10px] sm:text-[11px] text-brand-muted text-center sm:text-left">Direct dispatch from Yamunanagar facility</span>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 /* ============ PAGE ROOT ============ */
 function PlywoodPage() {
-  React.useEffect(() => {
-    document.documentElement.setAttribute("data-palette", "crafted-heritage");
-    document.title = "Plywood Products | Pentagon Plywood";
+  useEffect(() => {
+    document.documentElement.setAttribute("data-palette", "pentagon-brand");
+    document.title = "Plywood Products & Range Overview | Pentagon Plywood";
   }, []);
+
   return (
-    <>
+    <div className="plywood-overview-page bg-brand-cream text-brand-charcoal font-sans">
       <Breadcrumb />
       <PlyHero />
+      <WhatIsPlywood />
       <PlyRange />
-      <Compare />
-      <MRDetail />
-      <MarineDetail />
-      <ThicknessGuide />
-      <PlyApps />
-      <Standards />
-      <WhyPly />
-      <Bulk />
-      <FAQ />
+      <CompareRange />
+      <ThicknessAndSizes />
+      <FurnitureApplications />
+      <ManufacturingJourney />
+      <AdditionalKnowledge />
+      <WhyChoosePentagon />
+      <DealersAndProjects />
+      <FAQSection />
       <PlyEnquiry />
-      <PlyWhatsapp />
-    </>
+    </div>
   );
 }
 

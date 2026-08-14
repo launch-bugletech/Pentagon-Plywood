@@ -38,6 +38,7 @@ export const PRODUCT_ROUTES = Object.freeze({
   flushDoors: '/products/flush-doors',
   mrGradeFlushDoor: '/products/flush-doors/mr-grade-flush-door',
   bwpGradeFlushDoor: '/products/flush-doors/bwp-grade-flush-door',
+  industrialChemicals: '/products/industrial-chemicals',
   formaldehyde: '/products/industrial-chemicals/formaldehyde',
   laminates: '/products/traded/laminates',
   teakPly: '/products/traded/teak-ply',

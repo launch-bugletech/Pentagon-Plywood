@@ -24,6 +24,7 @@ import {
   Users,
 } from "lucide-react";
 import { CONTACT_SECTIONS, DEALER_SECTIONS, ROUTES } from "@/app/routes.js";
+import submitPentagonEnquiry from "@/services/pentagonEnquiry.js";
 import {
   Accordion,
   AccordionContent,
@@ -350,7 +351,7 @@ const initialForm = {
 };
 
 const inputClass =
-  "h-11 rounded-xl border-[#cad4cc] bg-white px-3 focus-visible:border-[#9c6846] focus-visible:ring-[#9c6846]/20";
+  "h-11 rounded-xl border-[#cad4cc] bg-white px-3 focus-visible:border-[#C86D51] focus-visible:ring-[#C86D51]/20";
 const selectClass = `${inputClass} w-full border text-sm outline-none`;
 const sectionClass = "px-4 py-16 sm:px-6 sm:py-20 lg:px-8";
 const wrapClass = "mx-auto max-w-7xl";
@@ -359,12 +360,12 @@ function Heading({ eyebrow, title, copy, light = false, center = false }) {
   return (
     <div className={`${center ? "mx-auto text-center" : ""} max-w-3xl`}>
       <p
-        className={`mb-3 text-xs font-bold uppercase tracking-[0.22em] ${light ? "text-[#e7b878]" : "text-[#9c6846]"}`}
+        className={`mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] ${light ? "text-[#C86D51]" : "text-[#8E510D]"}`}
       >
         {eyebrow}
       </p>
       <h2
-        className={`font-['DM_Serif_Display',Georgia,serif] text-3xl leading-tight sm:text-4xl lg:text-5xl ${light ? "text-white" : "text-[#14211a]"}`}
+        className={`font-display text-3xl leading-tight sm:text-4xl lg:text-5xl ${light ? "text-white" : "text-[#14211a]"}`}
       >
         {title}
       </h2>
@@ -451,7 +452,7 @@ function DealerNetworkMap() {
           ">
             <div style="
               margin-bottom: 6px;
-              color: #9c6846;
+              color: #8e510d;
               font-size: 9px;
               line-height: 1.2;
               font-weight: 800;
@@ -590,11 +591,11 @@ function DealerNetworkMap() {
       {/* TOP INFO */}
       <div className="pointer-events-none absolute left-4 top-4 z-10 sm:left-5 sm:top-5">
         <div className="rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-md">
-          <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-[#9c6846]">
+          <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-[#8E510D]">
             Pentagon Dealer Network
           </span>
 
-          <strong className="mt-1 block font-['DM_Serif_Display',Georgia,serif] text-xl font-normal text-[#14211a]">
+          <strong className="mt-1 block font-display text-xl font-bold text-[#14211a]">
             Dealer Presence Across India
           </strong>
         </div>
@@ -606,7 +607,7 @@ function DealerNetworkMap() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <div className="flex items-end gap-2">
-                <strong className="font-['DM_Serif_Display',Georgia,serif] text-3xl font-normal leading-none text-[#143d2b]">
+                <strong className="font-display text-3xl font-bold leading-none text-[#143d2b]">
                   12
                 </strong>
 
@@ -658,7 +659,56 @@ function DealersPage() {
   const [consent, setConsent] = useState(false);
   const [stepError, setStepError] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [faqFilter, setFaqFilter] = useState("");
+
+  const handleDealerSubmit = async (event) => {
+    event.preventDefault();
+    if (!consent) {
+      return setStepError("Please review and check the consent box to proceed.");
+    }
+
+    setIsSubmitting(true);
+    setStepError("");
+
+    try {
+      await submitPentagonEnquiry({
+        enquiryType: "dealer",
+        formSource: "dealer-application",
+
+        partnerType: form.partnerType || "Dealer",
+        state: form.state,
+        territory: form.territory,
+        products: form.products,
+        experienceYears: form.experience,
+        currentBrands: form.brands,
+
+        legalName: form.legalName,
+        tradeName: form.tradeName || form.legalName,
+
+        name: form.contactName,
+        designation: form.designation,
+        phone: form.mobile,
+        email: form.email,
+        gst: form.gstin,
+        address: `${form.address || ""}, ${form.city || ""}, ${form.state || ""} - ${form.pin || ""}`,
+        location: `${form.city || ""}, ${form.state || ""}`,
+
+        warehouseSpace: form.warehouseArea,
+        monthlyVolume: form.monthlyPurchase,
+
+        details: `Reason: ${form.reason || ""}\nCategories: ${form.categories || ""}\nCustomers: ${form.customers || ""}\nMarkets: ${form.markets || ""}\nLogistics: ${form.logistics || ""}\nTrade: ${form.tradeRelationships || ""}\nOpening Order: ${form.openingOrder || ""}\nDiscussion Date: ${form.discussionDate || ""}\nOpportunities: ${form.opportunities || ""}\nAdditional: ${form.additional || ""}`,
+
+        consent: true,
+      });
+
+      setSubmitted(true);
+    } catch (error) {
+      setStepError(error.message || "Could not submit dealer application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     document.title =
@@ -755,90 +805,52 @@ const hero = (
     className="
       relative
       overflow-hidden
+      bg-[#143D2B]
       px-4
-      pb-10
+      pb-12
       pt-14
+      text-white
       sm:px-6
-      sm:pb-14
+      sm:pb-16
       sm:pt-16
       lg:px-8
-      lg:pb-14
-      lg:pt-16
+      lg:pb-16
+      lg:pt-20
     "
     style={{
       backgroundImage: `
         linear-gradient(
           90deg,
-          rgba(253,249,242,.96) 0%,
-          rgba(253,249,242,.91) 33%,
-          rgba(253,249,242,.60) 52%,
-          rgba(253,249,242,.05) 100%
+          rgba(11, 42, 29, 0.95) 0%,
+          rgba(20, 61, 43, 0.88) 45%,
+          rgba(11, 42, 29, 0.65) 100%
         ),
         url(${dealerHero})
       `,
-
       backgroundSize: "cover",
-
       backgroundPosition: "center bottom",
-
       backgroundRepeat: "no-repeat",
     }}
   >
-    {/* ====================================
-        TOP SUBTLE CONTOUR DETAIL
-    ===================================== */}
+    {/* Background ambient glow */}
+    <div className="pointer-events-none absolute -left-20 top-1/4 h-[360px] w-[360px] rounded-full bg-[#C86D51]/15 blur-[110px]" />
 
-    <div
-      className="
-        pointer-events-none
-        absolute
-        right-[10%]
-        top-0
-        h-[420px]
-        w-[620px]
-        opacity-[.10]
-      "
-      style={{
-        backgroundImage: `
-          repeating-radial-gradient(
-            ellipse at center,
-            transparent 0,
-            transparent 22px,
-            #a6785c 23px,
-            transparent 24px
-          )
-        `,
-      }}
-    />
-
-    {/* ====================================
-        HERO GRID
-    ===================================== */}
-
+    {/* HERO GRID */}
     <div
       className={`
         ${wrapClass}
-
         relative
-
+        z-10
         grid
-
         items-center
-
         gap-12
-
         lg:grid-cols-[.88fr_1.12fr]
-
-        lg:gap-12
+        lg:gap-14
       `}
     >
-      {/* =================================
-          LEFT HERO CONTENT
-      ================================== */}
-
-      <div className="relative z-10 py-5 lg:py-10">
+      {/* LEFT HERO CONTENT */}
+      <div className="relative z-10 py-5 lg:py-8">
         {/* BADGE */}
-
         <div
           className="
             inline-flex
@@ -846,23 +858,21 @@ const hero = (
             gap-2
             rounded-full
             border
-            border-[#d8cfc3]
-            bg-[rgba(255,252,247,.86)]
+            border-white/20
+            bg-white/10
             px-4
             py-2
-            shadow-sm
-            backdrop-blur
+            backdrop-blur-md
           "
         >
           <MapPin size={15} strokeWidth={2} className="text-[#C86D51]" />
-
           <span
             className="
               text-[10px]
               font-bold
               uppercase
-              tracking-[0.12em]
-              text-[#263b30]
+              tracking-[0.18em]
+              text-white
             "
           >
             Pentagon Dealer Network
@@ -870,58 +880,39 @@ const hero = (
         </div>
 
         {/* HEADING */}
-
         <h1
           className="
-            mt-8
+            mt-7
             max-w-[670px]
-
-            font-['DM_Serif_Display',Georgia,serif]
-
-            text-[47px]
-
-            font-normal
-
-            leading-[.99]
-
-            tracking-[-.026em]
-
-            text-[#163c2d]
-
-            sm:text-[60px]
-
-            lg:text-[68px]
-
-            xl:text-[74px]
+            font-display
+            text-[44px]
+            font-bold
+            leading-[1.02]
+            tracking-tight
+            text-white
+            sm:text-[58px]
+            lg:text-[66px]
+            xl:text-[72px]
           "
         >
           Bring Better
           <br />
           Material Choices
           <br />
-          <em
-            className="
-              font-normal
-              text-[#C86D51]
-            "
-          >
+          <span className="home-heading-accent-on-dark font-normal not-italic block mt-1">
             Closer to Your Market.
-          </em>
+          </span>
         </h1>
 
         {/* COPY */}
-
         <p
           className="
-            mt-7
+            mt-6
             max-w-[525px]
-
             text-[15px]
-
-            leading-[1.85]
-
-            text-[#56625b]
-
+            font-medium
+            leading-[1.8]
+            text-white/80
             sm:text-[16px]
           "
         >
@@ -931,7 +922,6 @@ const hero = (
         </p>
 
         {/* ACTIONS */}
-
         <div className="mt-8 flex flex-wrap gap-3">
           <button
             type="button"
@@ -940,26 +930,18 @@ const hero = (
               inline-flex
               h-12
               items-center
-              gap-3
+              gap-2.5
               rounded-full
-
               bg-[#C86D51]
-
               px-6
-
-              text-[13px]
-
-              font-semibold
-
+              text-xs
+              font-bold
+              uppercase
+              tracking-wider
               text-white
-
-              shadow-[0_10px_28px_rgba(200,109,81,.25)]
-
-              transition-all
-
-              hover:-translate-y-[2px]
-
-              hover:bg-[#ae573d]
+              shadow-lg
+              transition
+              hover:bg-[#b55c42]
             "
           >
             <MapPin size={17} />
@@ -974,29 +956,20 @@ const hero = (
               inline-flex
               h-12
               items-center
-              gap-3
-
+              gap-2.5
               rounded-full
-
               border
-
-              border-[#294a3b]
-
-              bg-[rgba(255,252,247,.78)]
-
+              border-white/30
+              bg-white/10
               px-6
-
-              text-[13px]
-
-              font-semibold
-
-              text-[#163c2d]
-
-              backdrop-blur
-
+              text-xs
+              font-bold
+              uppercase
+              tracking-wider
+              text-white
+              backdrop-blur-md
               transition
-
-              hover:bg-white
+              hover:bg-white/20
             "
           >
             <Handshake size={17} />
@@ -1006,50 +979,31 @@ const hero = (
         </div>
       </div>
 
-      {/* =================================
-          RIGHT MAP CARD
-      ================================== */}
-
+      {/* RIGHT MAP CARD */}
       <DealerNetworkMap />
     </div>
 
-    {/* ====================================
-        HERO TRUST STRIP
-    ===================================== */}
-
+    {/* HERO TRUST STRIP */}
     <div
       className={`
         ${wrapClass}
-
         relative
-
         z-10
-
         mt-10
-
-        lg:mt-8
+        lg:mt-12
       `}
     >
       <div
         className="
           grid
-
           overflow-hidden
-
           rounded-[22px]
-
           border
-
-          border-[#ddd4c8]
-
-          bg-[rgba(253,249,243,.94)]
-
-          shadow-[0_18px_45px_rgba(62,46,32,.14)]
-
+          border-white/15
+          bg-white/10
+          shadow-2xl
           backdrop-blur-md
-
           sm:grid-cols-2
-
           lg:grid-cols-4
         "
       >
@@ -1059,19 +1013,16 @@ const hero = (
             title: "Wide Coverage",
             copy: "Dealer presence across key markets",
           },
-
           {
             icon: Truck,
             title: "Reliable Supply",
             copy: "Coordinated from Yamunanagar",
           },
-
           {
             icon: PackageCheck,
             title: "Product Range",
             copy: "Plywood, blockboard & doors",
           },
-
           {
             icon: Handshake,
             title: "Dealer Support",
@@ -1082,80 +1033,55 @@ const hero = (
             key={title}
             className={`
               flex
-
               min-h-[105px]
-
               items-center
-
               gap-4
-
               px-6
-
               py-5
-
               ${
                 index === 1
-                  ? "border-t border-[#ded5ca] sm:border-l sm:border-t-0"
+                  ? "border-t border-white/10 sm:border-l sm:border-t-0"
                   : ""
               }
-
               ${
                 index === 2
-                  ? "border-t border-[#ded5ca] lg:border-l lg:border-t-0"
+                  ? "border-t border-white/10 lg:border-l lg:border-t-0"
                   : ""
               }
-
               ${
                 index === 3
-                  ? "border-t border-[#ded5ca] sm:border-l lg:border-t-0"
+                  ? "border-t border-white/10 sm:border-l lg:border-t-0"
                   : ""
               }
             `}
           >
             {/* ICON */}
-
             <span
               className="
                 grid
-
                 h-12
-
                 w-12
-
                 shrink-0
-
                 place-items-center
-
                 rounded-full
-
                 border
-
-                border-[#ead8cc]
-
-                bg-white
-
+                border-white/20
+                bg-white/10
                 text-[#C86D51]
-
-                shadow-sm
               "
             >
               <Icon size={21} strokeWidth={1.7} />
             </span>
 
             {/* COPY */}
-
             <div>
               <strong
                 className="
                   block
-
-                  font-['DM_Serif_Display',Georgia,serif]
-
-                  text-[17px]
-
+                  font-display
+                  text-lg
                   font-normal
-
-                  text-[#263b30]
+                  text-white
                 "
               >
                 {title}
@@ -1163,15 +1089,11 @@ const hero = (
 
               <span
                 className="
-                  mt-1
-
+                  mt-0.5
                   block
-
-                  text-[11px]
-
+                  text-xs
                   leading-5
-
-                  text-[#6c756e]
+                  text-white/70
                 "
               >
                 {copy}
@@ -1187,103 +1109,68 @@ const hero = (
 const routesSection = (
   <section
     id="choose-route"
-    className="relative overflow-hidden bg-[#fbf7f0] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+    className="relative overflow-hidden bg-[#F7F7F5] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28 border-t border-brand-border/40"
   >
     {/* very subtle background glow */}
-    <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[#e9d7c5]/20 blur-[120px]" />
+    <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-[#C86D51]/10 blur-[120px]" />
 
     <div className={`${wrapClass} relative`}>
       {/* SECTION HEADING */}
-      {/* <div className="max-w-[720px]"> */}
-      <div >
-        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C86D51]">
+      <div>
+        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8E510D]">
           Connect With Pentagon
         </span>
 
-        <h2 className="mt-4 font-['DM_Serif_Display',Georgia,serif] text-[38px] font-normal leading-[1.05] tracking-[-0.02em] text-[#173d2e] sm:text-[46px] lg:text-[52px]">
-          Looking to Buy or Looking to Grow With Us?
+        <h2 className="mt-4 max-w-[620px] font-display text-[38px] font-bold leading-[1.05] tracking-tight text-[#14211a] sm:text-[48px]">
+          Choose Your Route Into the Network.
         </h2>
 
-        <p className="mt-5 max-w-[750px] text-[14px] leading-7 text-[#6b746e] sm:text-[15px]">
-          Start with the option that matches your requirement. Customers can explore our dealer presence, while businesses can introduce themselves for dealership review.
+        <p className="mt-4 max-w-[580px] text-[15px] leading-7 text-[#65736a]">
+          Whether you are looking to source Pentagon materials for your market or
+          introduce your business as a dealer applicant, choose the route that
+          fits your current status.
         </p>
       </div>
 
-      {/* TWO LARGE CARDS */}
+      {/* CARDS GRID */}
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
-        {/* FIND DEALER */}
-        <article className="group relative min-h-[410px] overflow-hidden rounded-[20px] border border-[#dfbda8] bg-[#fffaf4] p-7 sm:p-9">
-          {/* illustration */}
-          <div className="pointer-events-none absolute bottom-16 right-3 opacity-[0.10]">
-            <svg
-              width="220"
-              height="160"
-              viewBox="0 0 220 160"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M10 145L48 110L82 120L117 74L153 96L205 55"
-                stroke="#C86D51"
-                strokeWidth="1.5"
-              />
-              <path
-                d="M10 145H208M35 128V145M64 117V145M92 111V145M121 83V145M153 99V145M182 75V145"
-                stroke="#C86D51"
-                strokeWidth="1"
-              />
-              <circle
-                cx="118"
-                cy="74"
-                r="17"
-                stroke="#C86D51"
-                strokeWidth="1.5"
-              />
-              <path
-                d="M118 66C113.8 66 110.5 69.3 110.5 73.5C110.5 79.2 118 85 118 85C118 85 125.5 79.2 125.5 73.5C125.5 69.3 122.2 66 118 66Z"
-                stroke="#C86D51"
-                strokeWidth="1.5"
-              />
-            </svg>
-          </div>
-
+        {/* FIND A DEALER */}
+        <article className="group relative overflow-hidden rounded-[24px] border border-[#cad4cc] bg-white p-7 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1 sm:p-9">
           <div className="relative z-10 flex h-full flex-col">
             <div className="flex items-start gap-5">
-              <span className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-full bg-[#f7c7ad] text-[#C86D51]">
-                <MapPin size={27} strokeWidth={1.6} />
+              <span className="grid h-[56px] w-[56px] shrink-0 place-items-center rounded-2xl bg-[#143D2B]/10 text-[#143D2B]">
+                <Store size={26} strokeWidth={1.8} />
               </span>
 
               <div>
-                <h3 className="font-['DM_Serif_Display',Georgia,serif] text-[25px] font-normal text-[#7d3528]">
+                <h3 className="font-display text-2xl font-bold text-[#14211a]">
                   Find a Pentagon Dealer
                 </h3>
 
-                <strong className="mt-2 block text-[11px] font-bold text-[#7d3528]">
-                  For Customers &amp; Trade Buyers
-                </strong>
+                <span className="mt-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#8E510D]">
+                  For Buyers, Trade &amp; Projects
+                </span>
               </div>
             </div>
 
-            <p className="mt-7 max-w-[380px] text-[13px] leading-6 text-[#6b746e]">
-              Looking for Pentagon plywood, blockboard, flush doors or allied
-              products? Explore our network and connect with a dealer serving
-              your area.
+            <p className="mt-6 max-w-[420px] text-[14px] leading-relaxed text-[#65736a]">
+              Looking for Pentagon products? Explore our current dealer presence and
+              contact us to connect with the appropriate dealer serving your market.
             </p>
 
-            <div className="mt-7 space-y-3">
+            <div className="mt-6 space-y-2.5">
               {[
-                "Access genuine Pentagon products",
-                "Check dealer presence in your market",
-                "Connect with an appropriate local partner",
+                "Product availability & lead times",
+                "Regional dealer locations across 12 states",
+                "Assistance for project & trade buyers",
               ].map((item) => (
                 <div
                   key={item}
-                  className="flex items-center gap-3 text-[12px] text-[#59625d]"
+                  className="flex items-center gap-3 text-[13px] font-medium text-[#4A5750]"
                 >
-                  <span className="grid h-[15px] w-[15px] place-items-center rounded-full bg-[#E8927C] text-white">
-                    <Check size={9} strokeWidth={3} />
+                  <span className="grid h-[18px] w-[18px] place-items-center rounded-full bg-[#143D2B] text-white">
+                    <Check size={10} strokeWidth={3} />
                   </span>
-
                   {item}
                 </div>
               ))}
@@ -1292,7 +1179,7 @@ const routesSection = (
             <button
               type="button"
               onClick={() => chooseRoute("seller")}
-              className="mt-auto flex h-12 w-full items-center justify-center gap-3 rounded-lg bg-[#C86D51] px-6 text-[12px] font-semibold text-white transition hover:bg-[#ad583f]"
+              className="mt-8 flex h-12 w-full items-center justify-center gap-2.5 rounded-full border border-[#143D2B] bg-white px-6 text-xs font-bold uppercase tracking-wider text-[#143D2B] transition-all hover:bg-[#143D2B] hover:text-white"
             >
               Explore Dealer Network
               <ArrowRight size={15} />
@@ -1300,68 +1187,32 @@ const routesSection = (
           </div>
         </article>
 
-        {/* BECOME DEALER */}
-        <article className="group relative min-h-[410px] overflow-hidden rounded-[20px] border border-[#bfcbbf] bg-[#fbfcf8] p-7 sm:p-9">
-          {/* building line illustration */}
-          <div className="pointer-events-none absolute bottom-10 right-0 opacity-[0.10]">
-            <svg
-              width="250"
-              height="170"
-              viewBox="0 0 250 170"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path d="M12 154H239" stroke="#173d2e" strokeWidth="1.2" />
-              <path
-                d="M80 154V85L126 65V154"
-                stroke="#173d2e"
-                strokeWidth="1.2"
-              />
-              <path
-                d="M126 154V48L172 26V154"
-                stroke="#173d2e"
-                strokeWidth="1.2"
-              />
-              <path
-                d="M172 154V82L217 58V154"
-                stroke="#173d2e"
-                strokeWidth="1.2"
-              />
-              {[98, 115, 143, 159, 188, 204].map((x) => (
-                <path
-                  key={x}
-                  d={`M${x} 95V135`}
-                  stroke="#173d2e"
-                  strokeWidth="1"
-                />
-              ))}
-            </svg>
-          </div>
-
+        {/* BECOME A DEALER */}
+        <article className="group relative overflow-hidden rounded-[24px] border border-[#cad4cc] bg-white p-7 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1 sm:p-9">
           <div className="relative z-10 flex h-full flex-col">
             <div className="flex items-start gap-5">
-              <span className="grid h-[58px] w-[58px] shrink-0 place-items-center rounded-full bg-[#e2e9df] text-[#173d2e]">
-                <Users size={27} strokeWidth={1.6} />
+              <span className="grid h-[56px] w-[56px] shrink-0 place-items-center rounded-2xl bg-[#C86D51]/10 text-[#C86D51]">
+                <Handshake size={26} strokeWidth={1.8} />
               </span>
 
               <div>
-                <h3 className="font-['DM_Serif_Display',Georgia,serif] text-[25px] font-normal text-[#173d2e]">
+                <h3 className="font-display text-2xl font-bold text-[#14211a]">
                   Become a Pentagon Dealer
                 </h3>
 
-                <strong className="mt-2 block text-[11px] font-bold text-[#263b30]">
+                <span className="mt-1.5 block text-[11px] font-semibold uppercase tracking-wider text-[#8E510D]">
                   For Businesses &amp; Trade Partners
-                </strong>
+                </span>
               </div>
             </div>
 
-            <p className="mt-7 max-w-[395px] text-[13px] leading-6 text-[#6b746e]">
+            <p className="mt-6 max-w-[420px] text-[14px] leading-relaxed text-[#65736a]">
               Already selling plywood, boards, doors, hardware or building
               materials? Introduce your business and explore the opportunity to
               grow with Pentagon.
             </p>
 
-            <div className="mt-7 space-y-3">
+            <div className="mt-6 space-y-2.5">
               {[
                 "Manufactured and sourced product portfolio",
                 "Commercial and product coordination",
@@ -1369,12 +1220,11 @@ const routesSection = (
               ].map((item) => (
                 <div
                   key={item}
-                  className="flex items-center gap-3 text-[12px] text-[#59625d]"
+                  className="flex items-center gap-3 text-[13px] font-medium text-[#4A5750]"
                 >
-                  <span className="grid h-[15px] w-[15px] place-items-center rounded-full bg-[#a9bba9] text-white">
-                    <Check size={9} strokeWidth={3} />
+                  <span className="grid h-[18px] w-[18px] place-items-center rounded-full bg-[#C86D51] text-white">
+                    <Check size={10} strokeWidth={3} />
                   </span>
-
                   {item}
                 </div>
               ))}
@@ -1383,7 +1233,7 @@ const routesSection = (
             <button
               type="button"
               onClick={() => chooseRoute("dealer")}
-              className="mt-auto flex h-12 w-full items-center justify-center gap-3 rounded-lg border border-[#173d2e] bg-white/30 px-6 text-[12px] font-semibold text-[#173d2e] transition hover:bg-[#173d2e] hover:text-white"
+              className="mt-8 flex h-12 w-full items-center justify-center gap-2.5 rounded-full bg-[#C86D51] px-6 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all hover:bg-[#b55c42]"
             >
               Apply for Dealership
               <ArrowRight size={15} />
@@ -1398,43 +1248,39 @@ const routesSection = (
 const dealerCoverageSection = (
   <section
     id="dealer-network-coverage"
-    className="bg-[#fbf7f0] px-4 pb-12 pt-20 sm:px-6 sm:pt-24 lg:px-8 lg:pt-28"
+    className="bg-white px-4 pb-16 pt-20 sm:px-6 sm:pt-24 lg:px-8 lg:pt-28 border-t border-brand-border/40"
   >
     <div className={wrapClass}>
       <div className="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
         {/* LEFT COPY */}
         <div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C86D51]">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8E510D]">
             Dealer Presence
           </span>
 
-          <h2 className="mt-4 max-w-[430px] font-['DM_Serif_Display',Georgia,serif] text-[38px] font-normal leading-[1.08] tracking-[-0.02em] text-[#173d2e] sm:text-[46px]">
-            Growing Across Key
-            <br />
-            Markets in India.
+          <h2 className="mt-4 max-w-[430px] font-display text-[38px] font-bold leading-[1.05] tracking-tight text-[#14211a] sm:text-[46px]">
+            Growing Across Key Markets in India.
           </h2>
 
-          <p className="mt-5 max-w-[420px] text-[14px] leading-7 text-[#6b746e]">
+          <p className="mt-5 max-w-[420px] text-[14px] leading-7 text-[#65736a]">
             Pentagon currently has dealer presence across these states and union
             territories. Contact our team for the appropriate dealer serving
             your city, district or product requirement.
           </p>
 
           {/* nearest dealer */}
-          <div className="mt-8 max-w-[370px] rounded-[18px] border border-[#e4d6c8] bg-[#f8efe5] p-6">
+          <div className="mt-8 max-w-[370px] rounded-[20px] border border-brand-border bg-[#F7F7F5] p-6 shadow-sm">
             <div className="flex gap-4">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#143d2b] text-white">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#143D2B] text-white">
                 <MapPin size={21} />
               </span>
 
               <div>
-                <h3 className="font-['DM_Serif_Display',Georgia,serif] text-[20px] leading-tight text-[#263b30]">
-                  Need the nearest
-                  <br />
-                  Pentagon dealer?
+                <h3 className="font-display text-xl font-bold text-[#14211a]">
+                  Need the nearest Pentagon dealer?
                 </h3>
 
-                <p className="mt-4 text-[12px] leading-6 text-[#6b746e]">
+                <p className="mt-2 text-xs leading-relaxed text-[#65736a]">
                   Share your city and required product with our team.
                 </p>
               </div>
@@ -1442,7 +1288,7 @@ const dealerCoverageSection = (
 
             <a
               href={CONTACT_SECTIONS.form}
-              className="mt-8 inline-flex items-center gap-3 text-[11px] font-bold text-[#a74d35]"
+              className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#C86D51] hover:text-[#143D2B] transition-colors"
             >
               Ask for Nearest Dealer
               <ArrowRight size={14} />
@@ -1453,13 +1299,13 @@ const dealerCoverageSection = (
         {/* RIGHT */}
         <div className="grid gap-4 md:grid-cols-2">
           {/* NORTH INDIA */}
-          <div className="row-span-2 rounded-[18px] border border-[#d9ded7] bg-[#fffdfa] p-5 sm:p-6">
+          <div className="row-span-2 rounded-[20px] border border-brand-border/70 bg-[#F7F7F5] p-5 sm:p-6 shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#C86D51]">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8E510D]">
                 North India
               </span>
 
-              <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#eef0ea] px-2 text-[10px] font-bold text-[#667069]">
+              <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#143D2B] px-2 text-[10px] font-bold text-white">
                 8
               </span>
             </div>
@@ -1477,7 +1323,7 @@ const dealerCoverageSection = (
               ].map((state) => (
                 <div
                   key={state}
-                  className="flex min-h-[43px] items-center gap-3 border-b border-[#e7e6e1] text-[12px] text-[#39463f] last:border-b-0"
+                  className="flex min-h-[43px] items-center gap-3 border-b border-brand-border/50 text-[13px] font-medium text-[#14211a] last:border-b-0"
                 >
                   <span className="h-[6px] w-[6px] rounded-full bg-[#C86D51]" />
                   {state}
@@ -1487,13 +1333,13 @@ const dealerCoverageSection = (
           </div>
 
           {/* WEST */}
-          <div className="rounded-[18px] border border-[#d9ded7] bg-[#fffdfa] p-5 sm:p-6">
+          <div className="rounded-[20px] border border-brand-border/70 bg-[#F7F7F5] p-5 sm:p-6 shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#C86D51]">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8E510D]">
                 West India
               </span>
 
-              <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#eef0ea] px-2 text-[10px] font-bold text-[#667069]">
+              <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#143D2B] px-2 text-[10px] font-bold text-white">
                 3
               </span>
             </div>
@@ -1502,7 +1348,7 @@ const dealerCoverageSection = (
               {["Maharashtra", "Gujarat", "Goa"].map((state) => (
                 <div
                   key={state}
-                  className="flex min-h-[43px] items-center gap-3 border-b border-[#e7e6e1] text-[12px] text-[#39463f] last:border-b-0"
+                  className="flex min-h-[43px] items-center gap-3 border-b border-brand-border/50 text-[13px] font-medium text-[#14211a] last:border-b-0"
                 >
                   <span className="h-[6px] w-[6px] rounded-full bg-[#C86D51]" />
                   {state}
@@ -1512,19 +1358,19 @@ const dealerCoverageSection = (
           </div>
 
           {/* CENTRAL */}
-          <div className="rounded-[18px] border border-[#d9ded7] bg-[#fffdfa] p-5 sm:p-6">
+          <div className="rounded-[20px] border border-brand-border/70 bg-[#F7F7F5] p-5 sm:p-6 shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#C86D51]">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8E510D]">
                 Central India
               </span>
 
-              <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#eef0ea] px-2 text-[10px] font-bold text-[#667069]">
+              <span className="grid h-6 min-w-6 place-items-center rounded-full bg-[#143D2B] px-2 text-[10px] font-bold text-white">
                 1
               </span>
             </div>
 
             <div className="mt-5">
-              <div className="flex min-h-[43px] items-center gap-3 text-[12px] text-[#39463f]">
+              <div className="flex min-h-[43px] items-center gap-3 text-[13px] font-medium text-[#14211a]">
                 <span className="h-[6px] w-[6px] rounded-full bg-[#C86D51]" />
                 Madhya Pradesh
               </div>
@@ -1532,25 +1378,25 @@ const dealerCoverageSection = (
           </div>
 
           {/* NETWORK GROWTH */}
-          <div className="relative overflow-hidden rounded-[18px] border border-[#c9d1c5] bg-[#e8ede3] p-6 md:col-span-2">
-            <div className="pointer-events-none absolute -right-10 -top-12 h-44 w-44 rounded-full border border-[#173d2e]/10" />
+          <div className="relative overflow-hidden rounded-[20px] border border-[#143D2B] bg-[#143D2B] p-6 text-white md:col-span-2 shadow-lg">
+            <div className="pointer-events-none absolute -right-10 -top-12 h-44 w-44 rounded-full border border-white/10" />
 
             <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-5">
-                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-[#143d2b] text-white">
+                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-white/10 text-[#C86D51]">
                   <Handshake size={25} />
                 </span>
 
                 <div>
-                  <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#C86D51]">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C86D51]">
                     Network Growth
                   </span>
 
-                  <h3 className="mt-2 font-['DM_Serif_Display',Georgia,serif] text-[24px] font-normal text-[#173d2e]">
+                  <h3 className="mt-1 font-display text-[24px] font-bold text-white">
                     Interested in representing Pentagon?
                   </h3>
 
-                  <p className="mt-2 text-[12px] leading-6 text-[#667069]">
+                  <p className="mt-1 text-[13px] leading-relaxed text-white/80">
                     Tell us about your business, market, product categories and
                     infrastructure.
                   </p>
@@ -1560,7 +1406,7 @@ const dealerCoverageSection = (
               <button
                 type="button"
                 onClick={() => chooseRoute("dealer")}
-                className="inline-flex h-11 shrink-0 items-center justify-center gap-3 rounded-lg bg-[#143d2b] px-6 text-[11px] font-semibold text-white"
+                className="inline-flex h-11 shrink-0 items-center justify-center gap-2.5 rounded-full bg-[#C86D51] px-6 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#b55c42] transition-colors"
               >
                 Apply for Dealership
                 <ArrowRight size={14} />
@@ -1575,22 +1421,18 @@ const dealerCoverageSection = (
 );
 
   return (
-    <main className="min-h-screen bg-[#fbf8f2] font-['Manrope',sans-serif] text-[#14211a]">
+    <main
+      data-palette="pentagon-brand"
+      className="home-theme min-h-screen bg-brand-cream text-brand-charcoal overflow-hidden font-sans"
+    >
       {/* BREADCRUMB */}
-      <div className="border-b border-[#dbe2dc] bg-white px-4 py-3 text-sm text-[#65736a] sm:px-6 lg:px-8">
+      <div className="border-b border-white/10 bg-[#143D2B] py-3.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/65 px-4 sm:px-6 lg:px-8">
         <div className={wrapClass}>
-          <a
-            className="hover:text-[#143d2b]"
-            href={ROUTES.home}
-          >
+          <a className="transition hover:text-white" href={ROUTES.home}>
             Home
           </a>
-
-          <span className="mx-2">›</span>
-
-          <strong className="text-[#263b30]">
-            Dealer Network
-          </strong>
+          <span className="mx-2 text-[#C86D51]">›</span>
+          <strong className="text-white">Dealer Network</strong>
         </div>
       </div>
 
@@ -1663,7 +1505,7 @@ const dealerCoverageSection = (
                 className="hover:-translate-y-1 hover:shadow-lg"
               >
                 <CardHeader>
-                  <Icon className="text-[#9c6846]" size={28} />
+                  <Icon className="text-[#8E510D]" size={28} />
                   <CardTitle className="pt-3 text-xl">{title}</CardTitle>
                   <CardDescription className="leading-6">
                     {copy}
@@ -1674,7 +1516,7 @@ const dealerCoverageSection = (
           </div>
           <a
             href={ROUTES.products}
-            className="mt-8 inline-flex items-center gap-2 font-semibold text-[#143d2b] hover:text-[#9c6846]"
+            className="mt-8 inline-flex items-center gap-2 font-semibold text-[#143d2b] hover:text-[#C86D51]"
           >
             Explore product portfolio <ArrowRight size={17} />
           </a>
@@ -1686,7 +1528,7 @@ const dealerCoverageSection = (
         <div className={`${wrapClass} grid gap-6 lg:grid-cols-3`}>
           <Card>
             <CardHeader>
-              <Users className="text-[#9c6846]" />
+              <Users className="text-[#8E510D]" />
               <CardTitle>Who Can Apply</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -1703,7 +1545,7 @@ const dealerCoverageSection = (
           </Card>
           <Card>
             <CardHeader>
-              <ClipboardCheck className="text-[#9c6846]" />
+              <ClipboardCheck className="text-[#8E510D]" />
               <CardTitle>What We Evaluate</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -1741,7 +1583,7 @@ const dealerCoverageSection = (
       {/* PROCESS */}
       <section
         id="application-process"
-        className={`${sectionClass} bg-[#efe8dc]`}
+        className={`${sectionClass} bg-[#F7F7F5] border-t border-b border-brand-border/40`}
       >
         <div className={wrapClass}>
           <Heading
@@ -1751,12 +1593,12 @@ const dealerCoverageSection = (
           />
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {processSteps.map(([number, title, copy]) => (
-              <Card key={number}>
+              <Card key={number} className="bg-white border border-brand-border/70 shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader>
-                  <span className="text-3xl font-bold text-[#d7c3aa]">
+                  <span className="font-display text-3xl font-bold text-[#C86D51]">
                     {number}
                   </span>
-                  <CardTitle className="text-xl">{title}</CardTitle>
+                  <CardTitle className="font-display text-xl font-bold">{title}</CardTitle>
                   <CardDescription className="leading-6">
                     {copy}
                   </CardDescription>
@@ -1827,7 +1669,7 @@ const dealerCoverageSection = (
                 {submitted ? (
                   <div className="py-12 text-center">
                     <CircleCheck className="mx-auto text-[#143d2b]" size={56} />
-                    <h3 className="mt-5 font-['DM_Serif_Display',Georgia,serif] text-3xl">
+                    <h3 className="mt-5 font-display text-3xl font-bold">
                       Application prepared.
                     </h3>
                     <p className="mx-auto mt-3 max-w-lg leading-7 text-[#65736a]">
@@ -1849,16 +1691,7 @@ const dealerCoverageSection = (
                     </Button>
                   </div>
                 ) : (
-                  <form
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      if (!consent)
-                        return setStepError(
-                          "Please review and check the consent box to proceed.",
-                        );
-                      setSubmitted(true);
-                    }}
-                  >
+                  <form onSubmit={handleDealerSubmit}>
                     {formStep === 1 && (
                       <div className="grid gap-5 md:grid-cols-2">
                         <input
@@ -2175,9 +2008,9 @@ const dealerCoverageSection = (
                           ].map(([label, value]) => (
                             <div
                               key={label}
-                              className="rounded-xl bg-[#f7f3ec] p-4"
+                              className="rounded-xl bg-[#F7F7F5] border border-brand-border/50 p-4"
                             >
-                              <p className="text-xs font-bold uppercase tracking-wider text-[#9c6846]">
+                              <p className="text-[11px] font-semibold uppercase tracking-wider text-[#8E510D]">
                                 {label}
                               </p>
                               <p className="mt-1 text-sm leading-6">
@@ -2235,8 +2068,8 @@ const dealerCoverageSection = (
                           <ArrowRight size={16} />
                         </Button>
                       ) : (
-                        <Button type="submit" variant="primary">
-                          Submit application
+                        <Button type="submit" variant="primary" disabled={isSubmitting}>
+                          {isSubmitting ? "Submitting..." : "Submit application"}
                           <ArrowRight size={16} />
                         </Button>
                       )}
@@ -2302,18 +2135,18 @@ const dealerCoverageSection = (
       </section>
 
       {/* FINAL CTA */}
-      <section className="bg-[#C86D51] px-4 py-14 text-white sm:px-6 lg:px-8">
+      <section className="bg-[#143D2B] px-4 py-14 text-white sm:px-6 lg:px-8 border-t border-white/10">
         <div
           className={`${wrapClass} flex flex-col items-start justify-between gap-7 lg:flex-row lg:items-center`}
         >
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.2em] text-white/70">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#C86D51]">
               Start a conversation
             </p>
-            <h2 className="mt-2 font-['DM_Serif_Display',Georgia,serif] text-3xl sm:text-4xl">
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl text-white">
               Find a seller or introduce your business.
             </h2>
-            <p className="mt-3 max-w-2xl text-white/75">
+            <p className="mt-3 max-w-2xl text-white/80 text-sm sm:text-base leading-relaxed font-medium">
               Talk to Pentagon about product availability, territory, freight or
               a suitable partnership route.
             </p>
@@ -2321,7 +2154,7 @@ const dealerCoverageSection = (
           <div className="flex flex-wrap gap-3">
             <a
               href={PHONE}
-              className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 font-semibold text-[#143d2b]"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-[#C86D51] px-6 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-[#b55c42] transition-all"
             >
               <Phone size={18} />
               Call Pentagon
@@ -2330,14 +2163,14 @@ const dealerCoverageSection = (
               href={dealerWhatsappLink}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-12 items-center gap-2 rounded-full border border-white/35 px-6 font-semibold"
+              className="inline-flex h-12 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-all"
             >
-              <MessageCircle size={18} />
+              <MessageCircle size={18} className="text-[#25D366]" />
               WhatsApp
             </a>
             <a
               href={CONTACT_SECTIONS.form}
-              className="inline-flex h-12 items-center gap-2 rounded-full border border-white/35 px-6 font-semibold"
+              className="inline-flex h-12 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-all"
             >
               Contact form
               <ArrowRight size={18} />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   ArrowRight,
   Award,
@@ -37,12 +37,16 @@ import {
   TreePine,
   ArrowUpRight,
   ArrowDownLeft,
+  X,
 } from "lucide-react";
 import { ROUTES, CONTACT_SECTIONS } from "../../app/routes.js";
+import pentagonFactoryVideo from "../../assets/homepage/pentagon-factory.mp4";
 import guideEdgeImage from "../../assets/homepage/Duroply-Feature-Images-and-Blog-Images-8-1024x576.jpg";
 import guideBlockboardImage from "../../assets/homepage/products/is303-blockboard-1671450145-6629496.webp";
 import guideBedroomImage from "../../assets/product/Applications/Contemporary living room with furniture.png";
 import woodPanelTexture from "../../assets/product/mr plywood/Wood_panel_surface_texture_202607231226.jpeg";
+import BrandSection from "./BrandSection.jsx";
+import EnquirySection from "./EnquirySection.jsx";
 
 import spaceKitchens from "../../assets/spaces/spaces_kitchens.jpg";
 import spaceBathrooms from "../../assets/spaces/spaces_bathrooms.jpg";
@@ -127,7 +131,7 @@ const TESTIMONIALS_CARDS = [
   },
   {
     quote:
-      "Consistent quality, timely supply, and excellent support—that's what makes Pentagon our trusted partner.",
+      "Consistent quality, timely supply, and excellent support that's what makes Pentagon our trusted partner.",
     author: "Rohit Bansal",
     role: "Dealer, Indore",
     avatar:
@@ -214,6 +218,13 @@ const SPACES_GALLERY_DATA = [
 ];
 
 function HomePage() {
+  // Video Modal state for manufacturing process video
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
+  // Lazy loading state & ref for background preview video
+  const videoContainerRef = useRef(null);
+  const [isVideoInView, setIsVideoInView] = useState(false);
+
   // Partnership section FAQ accordion state (first question open by default)
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
@@ -252,6 +263,48 @@ function HomePage() {
     document.title = "Pentagon Plywood | Crafting Excellence Since 1986";
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setIsVideoModalOpen(false);
+      }
+    };
+    if (isVideoModalOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isVideoModalOpen]);
+
+  // IntersectionObserver to lazy-load video preview only when scrolled into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVideoInView(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (videoContainerRef.current) {
+      observer.observe(videoContainerRef.current);
+    }
+
+    return () => {
+      if (videoContainerRef.current) {
+        observer.unobserve(videoContainerRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div
       data-palette="pentagon-brand"
@@ -270,15 +323,14 @@ function HomePage() {
 
         <div className="max-w-[1280px] mx-auto px-7 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full my-auto pt-3 sm:pt-5 pb-4">
           {/* Left Column: Heading & Content */}
-          <div className="lg:col-span-7 xl:col-span-6 space-y-6">
+          <div className="lg:col-span-8 xl:col-span-7 space-y-6">
             <div className="text-[#8E510D] font-semibold text-[11px] leading-tight tracking-[0.2em] uppercase">
               {HERO_DATA.eyebrow}
             </div>
 
-            <h1 className="font-display text-[44px] sm:text-[58px] lg:text-[76px] font-normal leading-[0.95] tracking-[-0.02em] text-brand-charcoal">
-              {HERO_DATA.titleLine1}{" "}
-              <span className="block">{HERO_DATA.titleLine2}</span>
-              <span className="home-heading-accent block mt-0.5 sm:mt-1">
+            <h1 className="font-display text-[34px] sm:text-[48px] lg:text-[62px] xl:text-[66px] font-normal leading-[1.08] tracking-[-0.02em] text-brand-charcoal">
+              <span className="block">{HERO_DATA.titleLine1} {HERO_DATA.titleLine2}</span>
+              <span className="home-heading-accent block mt-1">
                 {HERO_DATA.titleAccent}
               </span>
             </h1>
@@ -338,7 +390,7 @@ function HomePage() {
           </div>
 
           {/* Right Column: Space allowing background interior image to shine through */}
-          <div className="hidden lg:block lg:col-span-5 xl:col-span-6 min-h-[420px]" />
+          <div className="hidden lg:block lg:col-span-4 xl:col-span-5 min-h-[420px]" />
         </div>
 
         {/* Floating Bottom Trust Bar */}
@@ -526,98 +578,8 @@ function HomePage() {
         </div>
       </section>
 
-      {/* 5. BRANDS & FLAGSHIP ESCOTEL SPOTLIGHT */}
-      <section className="py-[82px] lg:py-[120px] bg-brand-cream" id="brands">
-        <div className="max-w-[1280px] mx-auto px-7">
-          <div className="max-w-2xl mb-12">
-            <div className="text-[#8E510D] font-semibold text-[11px] leading-tight tracking-[0.18em] uppercase mb-2">
-              SIGNATURE RANGES
-            </div>
-            <h2 className="font-display text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-brand-charcoal">
-              Eight Brands.{" "}
-              <em className="home-heading-accent font-normal not-italic">
-                One Standard.
-              </em>
-            </h2>
-            <p className="mt-3 text-brand-slate text-sm leading-relaxed">
-              From economy to elite marine grade, every Pentagon brand is
-              manufactured in our Yamunanagar facility under identical quality
-              control standards.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-14">
-            {BRANDS_DATA.map((brand, idx) => (
-              <div
-                key={idx}
-                className="p-5 rounded-2xl border border-brand-border bg-brand-cream-alt hover:bg-brand-soft-brown hover:border-brand-accent shadow-xs transition-all duration-300"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="px-2.5 py-0.5 rounded-full bg-brand-forest text-white text-[9px] font-extrabold uppercase tracking-widest">
-                    {brand.tierLbl}
-                  </span>
-                </div>
-                <strong className="font-display text-2xl text-brand-charcoal block">
-                  {brand.name}{" "}
-                  <small className="text-sm font-normal text-brand-accent">
-                    {brand.sub}
-                  </small>
-                </strong>
-                <span className="text-[11px] text-brand-muted font-medium block mt-1">
-                  {brand.meta}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* FLAGSHIP ESCOTEL SPOTLIGHT BANNER */}
-          <div className="rounded-3xl bg-brand-forest text-white p-8 lg:p-12 relative overflow-hidden shadow-2xl border border-white/20">
-            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-brand-accent/20 blur-3xl pointer-events-none" />
-
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7 space-y-4">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-accent/20 text-brand-accent-light text-[10px] font-extrabold uppercase tracking-widest border border-brand-accent/40">
-                  <Sparkles className="h-3.5 w-3.5 text-brand-accent" />{" "}
-                  {ESCOTEL_SPOTLIGHT.kicker}
-                </span>
-
-                <h3 className="font-display text-3xl sm:text-4xl font-bold text-white">
-                  {ESCOTEL_SPOTLIGHT.title}
-                </h3>
-
-                <p className="text-white/85 text-sm sm:text-base leading-relaxed">
-                  {ESCOTEL_SPOTLIGHT.lead}
-                </p>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
-                  {ESCOTEL_SPOTLIGHT.features.map((feat, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/15"
-                    >
-                      <strong className="text-base font-bold text-brand-accent block">
-                        {feat.label}
-                      </strong>
-                      <span className="text-[11px] text-white/80 block mt-0.5">
-                        {feat.desc}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 text-right">
-                <a
-                  href="#enquiry"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-accent px-8 text-xs font-bold uppercase tracking-wider text-white shadow-xl hover:bg-brand-accent-dark transition-all cursor-pointer"
-                >
-                  Explore Escotel Range <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 5. BRANDS & FLAGSHIP ESCOTEL SPOTLIGHT (Redesigned Interactive Brand Slider Showcase) */}
+      <BrandSection />
 
       {/* 6. THE PENTAGON PROMISE */}
       <section
@@ -625,7 +587,7 @@ function HomePage() {
         id="promise"
       >
         <div className="max-w-[1280px] mx-auto px-7">
-          <div className="max-w-2xl mb-12">
+          <div className="text-center max-w-2xl mx-auto mb-12">
             <div className="text-[#8E510D] font-semibold text-[11px] leading-tight tracking-[0.18em] uppercase mb-2">
               THE PENTAGON PROMISE
             </div>
@@ -697,20 +659,42 @@ function HomePage() {
         <div className="max-w-[1280px] mx-auto px-6 sm:px-7 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left Image & Video Play Badge Container */}
           <div className="lg:col-span-6 relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-brand-border/60 h-[360px] sm:h-[440px] w-full bg-white group cursor-pointer">
-              <img
-                src={MANUFACTURING_DATA.image}
-                alt="Pentagon Plywood Precision Manufacturing Facility in Yamunanagar"
-                className="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />
+            <div
+              ref={videoContainerRef}
+              onClick={() => setIsVideoModalOpen(true)}
+              className="relative rounded-3xl overflow-hidden shadow-2xl border border-brand-border/60 h-[360px] sm:h-[440px] w-full bg-brand-charcoal group cursor-pointer"
+            >
+              {/* Lazy-loaded silent background preview video: 0 load on initial page render */}
+              {isVideoInView ? (
+                <video
+                  src={pentagonFactoryVideo}
+                  poster={MANUFACTURING_DATA.image}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="none"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 pointer-events-none"
+                />
+              ) : (
+                <img
+                  src={MANUFACTURING_DATA.image}
+                  alt="Pentagon Plywood Precision Manufacturing Facility in Yamunanagar"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
 
-              {/* Bottom-Left Video Play Badge */}
-              <a
-                href={ROUTES.manufacturing}
-                className="absolute bottom-5 left-5 flex items-center gap-3.5 z-10 cursor-pointer group/play"
+              {/* Bottom-Left Video Play Badge Button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsVideoModalOpen(true);
+                }}
+                className="absolute bottom-5 left-5 flex items-center gap-3.5 z-10 cursor-pointer group/play text-left border-none bg-transparent"
               >
-                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-2 border-white bg-white/20 backdrop-blur-md text-white group-hover/play:bg-brand-accent group-hover/play:border-brand-accent transition-all shadow-lg">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-2 border-white bg-white/20 backdrop-blur-md text-white group-hover/play:bg-brand-accent group-hover/play:border-brand-accent group-hover/play:scale-110 transition-all shadow-lg">
                   <Play className="h-5 w-5 fill-white ml-0.5" />
                 </div>
                 <div>
@@ -718,10 +702,10 @@ function HomePage() {
                     See Our Manufacturing Process
                   </strong>
                   <span className="text-[11px] text-white/80 font-medium block leading-tight mt-0.5">
-                    1:24 min
+                    0:20 min • Watch Full Video
                   </span>
                 </div>
-              </a>
+              </button>
             </div>
           </div>
 
@@ -1084,13 +1068,13 @@ function HomePage() {
               {/* Left Column */}
               <div className="lg:col-span-6 flex flex-col justify-between space-y-8">
                 <div className="space-y-6">
-                  <span className="text-[#D6B07A] font-semibold text-[11px] leading-tight tracking-[0.2em] uppercase block">
+                  <span className="text-[#C86D51] font-semibold text-[11px] leading-tight tracking-[0.2em] uppercase block">
                     PARTNER WITH US
                   </span>
 
                   <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.05] text-white">
                     Partner With a{" "}
-                    <span className="text-[#D6B07A] font-normal block mt-1">
+                    <span className="text-[#C86D51] font-normal block mt-1">
                       Legacy Brand.
                     </span>
                   </h2>
@@ -1211,7 +1195,7 @@ function HomePage() {
                   <span>Need more info?</span>
                   <a
                     href={CONTACT_SECTIONS.form}
-                    className="text-[#D6B07A] font-bold hover:text-white transition flex items-center gap-1"
+                    className="text-[#C86D51] font-bold hover:text-white transition flex items-center gap-1"
                   >
                     Talk to our team <ArrowRight className="h-3.5 w-3.5" />
                   </a>
@@ -1363,226 +1347,8 @@ function HomePage() {
         </div>
       </section>
 
-      {/* 14. TAILORED ENQUIRY FORM SECTION */}
-      <section
-        className="py-[82px] lg:py-[120px] bg-brand-forest text-white"
-        id="enquiry"
-      >
-        <div className="max-w-[1280px] mx-auto px-7 grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-5 space-y-6">
-            <div className="text-[#8E510D] font-semibold text-[11px] leading-tight tracking-[0.18em] uppercase">
-              GET IN TOUCH
-            </div>
-
-            <h2 className="font-display text-[40px] lg:text-[56px] font-bold leading-none tracking-[-1px] text-white">
-              Tell Us What You're{" "}
-              <em className="home-heading-accent-on-dark font-normal not-italic block mt-1">
-                Building.
-              </em>
-            </h2>
-
-            <p className="text-white/80 text-base leading-relaxed">
-              Reach out for bulk enquiries, custom quotes, dealership
-              discussions or technical assistance. Our sales desk responds
-              within 1 business day.
-            </p>
-
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-4">
-              <div className="flex items-center gap-3">
-                <MapPin className="h-5 w-5 text-[#D6B07A]" />
-                <span className="text-xs text-white/90">
-                  Village Raipur, Khajuri Road, Yamunanagar, Haryana 135001
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <PhoneCall className="h-5 w-5 text-[#D6B07A]" />
-                <span className="text-xs text-white/90">
-                  +91 70150 85556 · Sales Desk
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-[#D6B07A]" />
-                <span className="text-xs text-white/90">
-                  sales@pentagonply.com
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7">
-            <form
-              onSubmit={handleEnquirySubmit}
-              className="p-8 sm:p-10 rounded-3xl bg-brand-cream text-brand-charcoal shadow-2xl border border-white/20"
-            >
-              {enquirySubmitted ? (
-                <div className="text-center py-10">
-                  <CheckCircle2 className="h-12 w-12 text-[#8E510D] mx-auto mb-4" />
-                  <h3 className="font-display text-3xl font-bold text-brand-charcoal">
-                    Enquiry Received
-                  </h3>
-                  <p className="text-brand-muted mt-2">
-                    Thank you! Our sales team will get back to you within 24
-                    business hours.
-                  </p>
-                  <button
-                    type="button"
-                    className="mt-6 text-xs font-bold uppercase tracking-wider text-brand-charcoal underline cursor-pointer"
-                    onClick={() => setEnquirySubmitted(false)}
-                  >
-                    Submit another enquiry
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <div className="flex items-center justify-between pb-4 border-b border-brand-border">
-                    <div>
-                      <span className="text-[#8E510D] font-semibold text-[11px] tracking-[0.18em] uppercase block mb-1">
-                        DIRECT SALES DESK
-                      </span>
-                      <h3 className="font-display text-2xl sm:text-3xl font-bold text-brand-charcoal">
-                        Request a Tailored Quote
-                      </h3>
-                    </div>
-                    <span className="px-3.5 py-1.5 rounded-full bg-brand-forest text-white text-[10px] font-extrabold tracking-wider uppercase shadow-2xs">
-                      FAST RESPONSE
-                    </span>
-                  </div>
-
-                  <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <label className="brand-form-label">
-                      <span>FULL NAME *</span>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Your full name"
-                        value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
-                        className="brand-form-input"
-                      />
-                    </label>
-
-                    <label className="brand-form-label">
-                      <span>PHONE NUMBER *</span>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="+91 98765 43210"
-                        value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
-                        }
-                        className="brand-form-input"
-                      />
-                    </label>
-
-                    <label className="brand-form-label">
-                      <span>EMAIL ADDRESS</span>
-                      <input
-                        type="email"
-                        placeholder="you@company.com"
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
-                        className="brand-form-input"
-                      />
-                    </label>
-
-                    <label className="brand-form-label">
-                      <span>CITY &amp; STATE</span>
-                      <input
-                        type="text"
-                        placeholder="e.g. Chandigarh, Punjab"
-                        value={formData.city}
-                        onChange={(e) =>
-                          setFormData({ ...formData, city: e.target.value })
-                        }
-                        className="brand-form-input"
-                      />
-                    </label>
-
-                    <label className="brand-form-label">
-                      <span>I AM A</span>
-                      <select
-                        value={formData.profile}
-                        onChange={(e) =>
-                          setFormData({ ...formData, profile: e.target.value })
-                        }
-                        className="brand-form-input"
-                      >
-                        {ENQUIRY_PROFILES.map((p) => (
-                          <option key={p} value={p}>
-                            {p}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-
-                    <label className="brand-form-label">
-                      <span>ENQUIRY TYPE</span>
-                      <select
-                        value={formData.enquiryType}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            enquiryType: e.target.value,
-                          })
-                        }
-                        className="brand-form-input"
-                      >
-                        {ENQUIRY_TYPES.map((t) => (
-                          <option key={t} value={t}>
-                            {t}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-
-                    <label className="brand-form-label sm:col-span-2">
-                      <span>PRODUCT OF INTEREST</span>
-                      <select
-                        value={formData.product}
-                        onChange={(e) =>
-                          setFormData({ ...formData, product: e.target.value })
-                        }
-                        className="brand-form-input"
-                      >
-                        {ENQUIRY_PRODUCTS.map((prod) => (
-                          <option key={prod} value={prod}>
-                            {prod}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-
-                    <label className="brand-form-label sm:col-span-2">
-                      <span>REQUIREMENT DETAILS</span>
-                      <textarea
-                        rows="3"
-                        placeholder="Tell us thickness, sheet count, timeline, and application..."
-                        value={formData.details}
-                        onChange={(e) =>
-                          setFormData({ ...formData, details: e.target.value })
-                        }
-                        className="brand-form-input resize-y"
-                      />
-                    </label>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full mt-6 h-13 inline-flex items-center justify-center gap-2 rounded-full bg-brand-forest text-white text-xs font-bold uppercase tracking-wider hover:bg-[#8E510D] transition-all cursor-pointer shadow-lg"
-                  >
-                    <span>Send Enquiry</span> <ArrowRight className="h-4 w-4" />
-                  </button>
-                </>
-              )}
-            </form>
-          </div>
-        </div>
-      </section>
+      {/* 14. TAILORED ENQUIRY FORM SECTION (Redesigned matching reference aesthetic) */}
+      <EnquirySection />
 
       {/* 15. FLOATING WHATSAPP BUTTON */}
       <a
@@ -1594,6 +1360,55 @@ function HomePage() {
       >
         <MessageSquare className="h-7 w-7" />
       </a>
+
+      {/* FULL VIDEO MODAL POPUP WINDOW */}
+      {isVideoModalOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setIsVideoModalOpen(false)}
+        >
+          <div
+            className="relative max-w-4xl w-full bg-brand-charcoal rounded-3xl overflow-hidden shadow-2xl border border-white/20 text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/5">
+              <div className="flex items-center gap-3">
+                <div className="grid h-8 w-8 place-items-center rounded-full bg-brand-forest text-brand-accent">
+                  <Factory className="h-4 w-4" />
+                </div>
+                <div>
+                  <h3 className="font-display text-lg font-bold text-white leading-tight">
+                    Pentagon Plywood Manufacturing Facility
+                  </h3>
+                  <p className="text-[11px] text-white/60">
+                    Yamunanagar Factory Process • 0:20 min
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsVideoModalOpen(false)}
+                className="grid h-9 w-9 place-items-center rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white transition-colors cursor-pointer"
+                aria-label="Close modal"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Video Player */}
+            <div className="relative aspect-video bg-black flex items-center justify-center">
+              <video
+                src={pentagonFactoryVideo}
+                autoPlay
+                controls
+                playsInline
+                className="w-full h-full object-contain max-h-[75vh]"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

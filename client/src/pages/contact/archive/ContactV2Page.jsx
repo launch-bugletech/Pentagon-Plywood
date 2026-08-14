@@ -254,7 +254,7 @@ function ContactV2Page() {
                       </h2>
                     </div>
                     <span className="text-[#D99143] font-bold text-[11px] tracking-[0.15em] font-['Manrope',sans-serif]">
-                      01—03
+                      01-03
                     </span>
                   </div>
 

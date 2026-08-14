@@ -19,6 +19,11 @@ import MarineGradePage from "@/pages/products/plywood/marine-grade/MarineGradePa
 import FireRetardantPage from "@/pages/products/plywood/fire-retardant/FireRetardantPage.jsx";
 import MRBlockboardPage from "@/pages/products/blockboard/mr-grade/MRBlockboardPage.jsx";
 import BWPBlockboardPage from "@/pages/products/blockboard/bwp-grade/BWPBlockboardPage.jsx";
+import FlushDoorsPage from "@/pages/products/flush-doors/FlushDoorsPage.jsx";
+import MRFlushDoorPage from "@/pages/products/flush-doors/mr-grade/MRFlushDoorPage.jsx";
+import BWPFlushDoorPage from "@/pages/products/flush-doors/bwp-grade/BWPFlushDoorPage.jsx";
+import IndustrialChemicalsPage from "@/pages/products/industrial-chemicals/IndustrialChemicalsPage.jsx";
+import FormaldehydePage from "@/pages/products/industrial-chemicals/formaldehyde/FormaldehydePage.jsx";
 import ProductsPage from "@/pages/products/ProductsPage.jsx";
 import ProductsPageV2 from "@/pages/products/archive/ProductPageV2.jsx";
 import ComingSoonPage from "@/pages/system/ComingSoonPage.jsx";
@@ -128,6 +133,31 @@ const routes = {
   [PRODUCT_ROUTES.bwpGradeBlockboard]: makeRoute(
     PRODUCT_ROUTES.bwpGradeBlockboard,
     () => BWPBlockboardPage,
+    "products",
+  ),
+  [PRODUCT_ROUTES.flushDoors]: makeRoute(
+    PRODUCT_ROUTES.flushDoors,
+    () => FlushDoorsPage,
+    "products",
+  ),
+  [PRODUCT_ROUTES.mrGradeFlushDoor]: makeRoute(
+    PRODUCT_ROUTES.mrGradeFlushDoor,
+    () => MRFlushDoorPage,
+    "products",
+  ),
+  [PRODUCT_ROUTES.bwpGradeFlushDoor]: makeRoute(
+    PRODUCT_ROUTES.bwpGradeFlushDoor,
+    () => BWPFlushDoorPage,
+    "products",
+  ),
+  [PRODUCT_ROUTES.industrialChemicals]: makeRoute(
+    PRODUCT_ROUTES.industrialChemicals,
+    () => IndustrialChemicalsPage,
+    "products",
+  ),
+  [PRODUCT_ROUTES.formaldehyde]: makeRoute(
+    PRODUCT_ROUTES.formaldehyde,
+    () => FormaldehydePage,
     "products",
   ),
   [ROUTES.comingSoon]: makeRoute(ROUTES.comingSoon, () => ComingSoonPage, null),

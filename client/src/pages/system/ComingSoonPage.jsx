@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2, Clock, Compass, FileText, Layers, Mail, PhoneCall, Sparkles } from 'lucide-react';
 import { CONTACT_SECTIONS, HOME_SECTIONS, ROUTES } from '@/app/routes.js';
+import submitPentagonEnquiry from '@/services/pentagonEnquiry.js';
 
 function ComingSoonPage() {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const pathFeature = window.location.pathname
     .split('/')
@@ -18,13 +21,29 @@ function ComingSoonPage() {
     document.title = `${feature} | Coming Soon | Pentagon Plywood`;
   }, [feature]);
 
-  const handleNotifySubmit = (e) => {
+  const handleNotifySubmit = async (e) => {
     e.preventDefault();
-    if (email.trim()) {
+    if (!email.trim()) return;
+
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      await submitPentagonEnquiry({
+        enquiryType: "launch-notification",
+        formSource: "coming-soon",
+        email: email.trim(),
+        feature: feature,
+      });
+
       setIsSubmitted(true);
       setTimeout(() => {
         setEmail('');
       }, 500);
+    } catch (err) {
+      setSubmitError(err.message || 'Subscription failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -82,24 +101,32 @@ function ComingSoonPage() {
                   </span>
                 </div>
               ) : (
-                <form onSubmit={handleNotifySubmit} className="flex flex-col sm:flex-row gap-2">
-                  <div className="relative flex-1">
-                    <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
-                    <input
-                      type="email"
-                      required
-                      placeholder="Enter your email for launch updates..."
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full h-12 pl-11 pr-4 rounded-full border border-white/20 bg-white/10 text-white placeholder-white/50 text-xs font-medium focus:outline-none focus:border-[#E8927C] transition-all"
-                    />
+                <form onSubmit={handleNotifySubmit} className="space-y-2">
+                  {submitError && (
+                    <div className="rounded-xl border border-red-400/50 bg-red-950/80 p-2.5 text-xs font-semibold text-red-200">
+                      {submitError}
+                    </div>
+                  )}
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <div className="relative flex-1">
+                      <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
+                      <input
+                        type="email"
+                        required
+                        placeholder="Enter your email for launch updates..."
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full h-12 pl-11 pr-4 rounded-full border border-white/20 bg-white/10 text-white placeholder-white/50 text-xs font-medium focus:outline-none focus:border-[#E8927C] transition-all"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="h-12 px-6 rounded-full bg-[#C86D51] hover:bg-[#A85238] text-white text-xs font-bold tracking-wider uppercase shadow-md hover:shadow-lg transition-all cursor-pointer shrink-0 disabled:opacity-50"
+                    >
+                      {isSubmitting ? "Submitting..." : "Notify Me"}
+                    </button>
                   </div>
-                  <button
-                    type="submit"
-                    className="h-12 px-6 rounded-full bg-[#C86D51] hover:bg-[#A85238] text-white text-xs font-bold tracking-wider uppercase shadow-md hover:shadow-lg transition-all cursor-pointer shrink-0"
-                  >
-                    Notify Me
-                  </button>
                 </form>
               )}
             </div>

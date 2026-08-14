@@ -7,7 +7,7 @@ import wardrobeImage from "../assets/product/Applications/Modern wardrobe with s
 import officeImage from "../assets/product/Applications/Modern office with desks and partitions.png";
 
 export const quickFactsData = [
-  { label: "GRADE", value: "BWP — Boiling Water Proof", icon: "Shield" },
+  { label: "GRADE", value: "BWP - Boiling Water Proof", icon: "Shield" },
   { label: "CONSTRUCTION", value: "Timber-strip core with veneer layers", icon: "Layers" },
   { label: "BEST SUITED FOR", value: "Moisture-conscious furniture & interiors", icon: "Drop" },
   { label: "THICKNESSES", value: "19 mm, 22 mm and 25 mm", icon: "Ruler" },
@@ -91,7 +91,7 @@ export const limitationsData = [
 
 export const specificationsData = [
   ["Product", "BWP Grade Blockboard"],
-  ["Grade", "BWP — Boiling Water Proof"],
+  ["Grade", "BWP: Boiling Water Proof"],
   ["Product category", "Water-resistant blockboard"],
   ["Core construction", "Solid timber-strip core"],
   ["Surface construction", "Crossband and face veneers"],
@@ -100,7 +100,7 @@ export const specificationsData = [
   ["Sheet sizes", "8 × 4 ft, 8 × 3 ft, 7 × 4 ft, 7 × 3 ft, 6 × 4 ft and 6 × 3 ft"],
   ["Common applications", "Shutters, shelves, doors, tables, partitions and furniture"],
   ["Country of origin", "India"],
-  ["Applicable standard", "IS 1659:2004 — Block boards – Specification"],
+  ["Applicable standard", "IS 1659:2004 , Block boards – Specification"],
 ];
 
 export const thicknessesData = [
@@ -323,7 +323,7 @@ export const bwpBlockboardProductData = {
       eyebrow: "IS 1659:2004 Standard",
       title: "Indian Standard for Blockboards.",
       paragraph1:
-        "The relevant Indian Standard for blockboard is IS 1659:2004 — Block boards – Specification (Fourth Revision).",
+        "The relevant Indian Standard for blockboard is IS 1659:2004 - Block boards – Specification (Fourth Revision).",
       paragraph2:
         "Covers classifications including MR and BWP Grade, addressing dimensions, moisture content, water resistance, adhesion, dimensional changes, and mechanical properties.",
       linkText: "View quality certifications",

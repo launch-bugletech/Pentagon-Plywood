@@ -20,7 +20,8 @@ import {
   HOME_SECTIONS,
   ROUTES,
 } from "@/app/routes.js";
-import manufacturingImage from "@/assets/homepage/Plywood-Manufacturing-1024x683.jpg";
+// import manufacturingImage from "@/assets/homepage/Plywood-Manufacturing-1024x683.jpg";
+import manufacturingImage from "@/assets/homepage/Plywood-Manufacturing-1024x683.png"; 
 import interiorImage from "@/assets/product/Applications/Modern kitchen with cabinets and island.png";
 import edgeImage from "@/assets/product/mr plywood/Wood veneer layers on plywood edge.png";
 import plywoodImage from "@/assets/homepage/products/Marine-plywood-1000x1000.webp";
@@ -268,7 +269,7 @@ function AboutPage() {
               </p>
               <p className="mt-4 max-w-2xl leading-7 text-white/65">
                 The group expanded into veneer processing, wood-based panel
-                manufacturing and chemical manufacturing—building greater
+                manufacturing and chemical manufacturing building greater
                 control across the materials and processes behind plywood
                 production.
               </p>
@@ -701,7 +702,7 @@ function AboutPage() {
             />
             <p className="mt-6 max-w-2xl leading-7 text-white/80">
               Pentagon’s wood-based panel operations are located in Yamunanagar,
-              Haryana—one of India’s established centres for plywood and
+              Haryana one of India’s established centres for plywood and
               wood-product manufacturing. Its chemical operations extend from
               Yamunanagar to Morbi, Gujarat.
             </p>

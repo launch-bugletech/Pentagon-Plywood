@@ -559,7 +559,7 @@ function AboutPage() {
         <div className="container about-quality-grid">
           <SectionHeading
             eyebrow="Quality at Every Stage"
-            copy="By the final check, many decisions have already shaped the panel. Pentagon's approach is built around checking during production—not relying only on how the final surface appears."
+            copy="By the final check, many decisions have already shaped the panel. Pentagon's approach is built around checking during production not relying only on how the final surface appears."
           >
             Quality Should Not Begin With the Final Inspection.
           </SectionHeading>
@@ -626,7 +626,7 @@ function AboutPage() {
         <div className="container">
           <SectionHeading
             eyebrow="Built Around Real Requirements"
-            copy="Each customer brings a different question—from grade and thickness to quantity, availability and application."
+            copy="Each customer brings a different question from grade and thickness to quantity, availability and application."
           >
             For the People Who Select, Sell and Build With Wood.
           </SectionHeading>
@@ -671,7 +671,7 @@ function AboutPage() {
             </SectionHeading>
             <p>
               Pentagon Plywood operates from Village Raipur on Khajuri Road in
-              Yamunanagar, Haryana—one of India's recognised centres for plywood
+              Yamunanagar, Haryana one of India's recognised centres for plywood
               and wood-product manufacturing.
             </p>
             <address>

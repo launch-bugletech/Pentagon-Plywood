@@ -1,4 +1,4 @@
-/* Pentagon Plywood — Warm & Crafted Editorial
+/* Pentagon Plywood - Warm & Crafted Editorial
    Design system:
    - Type: DM Serif Display (display) + Manrope (body) + JetBrains Mono (eyebrows/labels)
    - 6 wood-led palette themes toggleable via data-palette on <html>
@@ -2113,7 +2113,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
 .whatsapp-float:hover { transform: scale(1.08); }
 .whatsapp-float svg { width: 30px; height: 30px; }
 
-/* ============ 2026 REDESIGN — CLEAN RETAIL SYSTEM ============ */
+/* ============ 2026 REDESIGN - CLEAN RETAIL SYSTEM ============ */
 .topbar {
   background: var(--accent);
   color: #fff;

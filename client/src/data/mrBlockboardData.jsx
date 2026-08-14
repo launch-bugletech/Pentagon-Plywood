@@ -7,7 +7,7 @@ import livingImage from "../assets/product/Applications/Contemporary living room
 import officeImage from "../assets/product/Applications/Modern office with desks and partitions.png";
 
 export const quickFactsData = [
-  { label: "GRADE", value: "MR — Moisture Resistant", icon: "Shield" },
+  { label: "GRADE", value: "MR - Moisture Resistant", icon: "Shield" },
   { label: "CONSTRUCTION", value: "Timber-strip core with veneer layers", icon: "Layers" },
   { label: "BEST SUITED FOR", value: "Furniture & dry interior applications", icon: "Drop" },
   { label: "THICKNESSES", value: "19 mm, 22 mm and 25 mm", icon: "Ruler" },
@@ -94,7 +94,7 @@ export const limitationsData = [
 
 export const specificationsData = [
   ["Product", "MR Grade Blockboard"],
-  ["Grade", "MR — Moisture Resistant"],
+  ["Grade", "MR - Moisture Resistant"],
   ["Product category", "Interior-grade blockboard"],
   ["Core construction", "Solid timber-strip core"],
   ["Surface construction", "Crossband and face veneer layers"],
@@ -103,7 +103,7 @@ export const specificationsData = [
   ["Sheet sizes", "8 × 4 ft, 8 × 3 ft, 7 × 4 ft, 7 × 3 ft, 6 × 4 ft and 6 × 3 ft"],
   ["Common applications", "Shelves, shutters, tables, doors, partitions and furniture"],
   ["Country of origin", "India"],
-  ["Applicable standard", "IS 1659:2004 — Block boards – Specification"],
+  ["Applicable standard", "IS 1659:2004, Block boards – Specification"],
 ];
 
 export const thicknessesData = [
@@ -227,7 +227,7 @@ export const faqsData = [
   },
   {
     question: "What is the standard for blockboard in India?",
-    answer: "The applicable BIS specification is IS 1659:2004 — Block boards – Specification (Fourth Revision).",
+    answer: "The applicable BIS specification is IS 1659:2004; Block boards – Specification (Fourth Revision).",
   },
   {
     question: "What is the difference between MR and BWP Blockboard?",
@@ -284,11 +284,11 @@ export const mrBlockboardProductData = {
     paragraphs: [
       "Blockboard is different from plywood because of what sits inside the panel. Instead of being constructed entirely from multiple veneer layers, blockboard uses solid timber strips arranged side by side to form the central core, with crossband and face veneers bonded over the core.",
       "A typical blockboard construction includes: Face veneer, Crossband veneer, Solid timber-strip core, Crossband veneer, and Back veneer.",
-      "This construction gives blockboard a different balance of weight, handling and workability, making it a practical option for selected furniture components—especially where the design uses longer panels.",
+      "This construction gives blockboard a different balance of weight, handling and workability, making it a practical option for selected furniture components especially where the design uses longer panels.",
     ],
     callout: {
       title: "Choose MR Grade Blockboard When",
-      copy: "Choose MR Grade Blockboard for furniture and panels installed in bedrooms, living rooms, offices, shops and other relatively dry interiors—especially where the design includes longer vertical or horizontal components.",
+      copy: "Choose MR Grade Blockboard for furniture and panels installed in bedrooms, living rooms, offices, shops and other relatively dry interiors especially where the design includes longer vertical or horizontal components.",
     },
     cta: {
       text: "Ask whether MR Blockboard fits my design",
@@ -330,7 +330,7 @@ export const mrBlockboardProductData = {
       eyebrow: "IS 1659:2004 Standard",
       title: "Indian Standard for Blockboards.",
       paragraph1:
-        "The relevant BIS standard is IS 1659:2004 — Block boards – Specification (Fourth Revision).",
+        "The relevant BIS standard is IS 1659:2004, Block boards – Specification (Fourth Revision).",
       paragraph2:
         "BIS laboratory scopes for the standard include water-resistance, adhesion, dimensional-change, and mechanical-property testing.",
       linkText: "View quality certifications",
@@ -376,7 +376,7 @@ export const mrBlockboardProductData = {
     eyebrow: "Understanding IS 1659",
     title: "The Indian Standard for Blockboards.",
     paragraphs: [
-      "The Bureau of Indian Standards currently identifies IS 1659:2004 — Block boards – Specification (Fourth Revision) as the applicable standard for blockboards.",
+      "The Bureau of Indian Standards currently identifies IS 1659:2004, Block boards – Specification (Fourth Revision) as the applicable standard for blockboards.",
       "Current BIS testing scopes for IS 1659 include dimensions, moisture content, dimensional changes caused by humidity, water resistance, adhesion of plies, mechanical properties, and formaldehyde-related testing.",
       "BIS listings currently include MR and BWP blockboard testing under this standard.",
     ],

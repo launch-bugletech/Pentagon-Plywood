@@ -80,7 +80,7 @@ export const applicationsData = [
 ];
 
 export const limitationsData = [
-  "Cannot catch fire — it reduces ignition rate, but is not non-combustible.",
+  "Cannot catch fire; it reduces ignition rate, but is not non-combustible.",
   "Cannot burn under unlimited fire exposure.",
   "Makes the entire finished furniture or wall system automatically fireproof.",
   "Replaces proper building fire safety systems, sprinklers, or emergency planning.",
@@ -122,7 +122,7 @@ export const standardVsFireRetardantData = [
   ["Flame penetration", "Not its defining classification", "Evaluated under IS 5509"],
   ["Rate of burning", "Not its defining classification", "Evaluated under IS 5509"],
   ["Furniture fabrication", "Yes", "Yes, according to application"],
-  ["Fireproof", "No", "No — fire retardant reduces flame spread"],
+  ["Fireproof", "No", "No, fire retardant reduces flame spread"],
   ["Relevant standard", "Depends on category", "IS 5509:2021"],
 ];
 
@@ -165,7 +165,7 @@ export const whyPentagonData = [
   {
     number: "04",
     title: "Furniture & Interior Focus",
-    copy: "Select the plywood around what it will ultimately become—from cabinets and partitions to furniture and decorative panelling.",
+    copy: "Select the plywood around what it will ultimately become from cabinets and partitions to furniture and decorative panelling.",
   },
   {
     number: "05",
@@ -346,7 +346,7 @@ export const fireRetardantProductData = {
     eyebrow: "Understanding IS 5509:2021",
     title: "The Indian Standard for Fire Retardant Plywood.",
     paragraphs: [
-      "The Bureau of Indian Standards publishes IS 5509:2021 — Fire Retardant Plywood Specification (Third Revision).",
+      "The Bureau of Indian Standards publishes IS 5509:2021 Fire Retardant Plywood Specification (Third Revision).",
       "The standard addresses fire-retardant chemicals, treatment methods, conditioning after treatment, dimensions, tolerances, workmanship, moisture content, flammability, flame penetration, rate of burning, water resistance, static bending strength, and marking requirements.",
       "BIS revised the earlier IS 5509:2000 standard in 2021, with the previous version subsequently withdrawn.",
     ],

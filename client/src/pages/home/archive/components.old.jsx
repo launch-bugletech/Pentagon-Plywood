@@ -69,7 +69,7 @@ const Hero = () => (
           </h1>
           <div className="hero-caption-row">
             <p className="hero-caption">
-              Pentagon Group manufactures wood-based panels, flush doors and industrial chemicals—built through timber trading, veneer processing and integrated manufacturing since 1986.
+              Pentagon Group manufactures wood-based panels, flush doors and industrial chemical built through timber trading, veneer processing and integrated manufacturing since 1986.
             </p>
             <div className="hero-actions">
               <a href="/products" className="btn btn-primary">Explore our products <Icon.Arr/></a>

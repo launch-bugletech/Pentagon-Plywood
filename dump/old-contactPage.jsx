@@ -370,7 +370,7 @@ function ContactPage() {
                     </div>
                     <h2>{selectedType.title}</h2>
                   </div>
-                  <span>{expanded ? "02—02" : "01—02"}</span>
+                  <span>{expanded ? "02-02" : "01-02"}</span>
                 </div>
                 <p className="contact-form-intro">
                   Choose the closest reason for contacting us. Not sure? Keep

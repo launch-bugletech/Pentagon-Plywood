@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import submitPentagonEnquiry from "@/services/pentagonEnquiry.js";
 import {
   Accordion,
   AccordionContent,
@@ -918,7 +919,61 @@ export function ProductFaqsSection({ faqs = {} }) {
 {/* 15. ENQUIRY FORM SECTION */}
 export function ProductEnquirySection({ enquiry = {} }) {
   const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    companyName: "",
+    phone: "",
+    email: "",
+    customerType: "",
+    application: "",
+    thickness: "",
+    sheetSize: "",
+    quantity: "",
+    details: "",
+  });
+
   if (!enquiry.title) return null;
+
+  const update = (key) => (e) => {
+    setForm({ ...form, [key]: e.target.value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const pageTitle = typeof document !== "undefined" ? document.title.split("|")[0].trim() : "";
+      const productName = enquiry.productName || (pageTitle || enquiry.title || "Product Detail").replace(/discuss|enquiry|get quote/gi, "").trim();
+
+      await submitPentagonEnquiry({
+        enquiryType: "product",
+        formSource: "product-detail",
+        productCategory: enquiry.category || "Plywood",
+        productName: productName,
+
+        name: form.name,
+        companyName: form.companyName,
+        phone: form.phone,
+        email: form.email,
+        customerType: form.customerType,
+        application: form.application,
+
+        thickness: form.thickness,
+        quantity: form.quantity ? `${form.quantity} (${form.sheetSize || "Standard size"})` : "",
+        details: form.details,
+      });
+
+      setSent(true);
+    } catch (err) {
+      setSubmitError(err.message || "Failed to submit enquiry. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="mr-enquiry" className="bg-[#143D2B] py-16 text-white sm:py-20">
@@ -957,26 +1012,29 @@ export function ProductEnquirySection({ enquiry = {} }) {
 
         <form
           className="rounded-2xl bg-white p-6 text-[#14211A] shadow-2xl sm:p-8"
-          onSubmit={(event) => {
-            event.preventDefault();
-            setSent(true);
-          }}
+          onSubmit={handleSubmit}
         >
+          {submitError && (
+            <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-xs font-semibold text-red-800">
+              {submitError}
+            </div>
+          )}
+
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Name">
-              <input required placeholder="Your full name" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
+              <input required value={form.name} onChange={update("name")} placeholder="Your full name" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
             </Field>
             <Field label="Company name">
-              <input placeholder="Company / firm" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
+              <input value={form.companyName} onChange={update("companyName")} placeholder="Company / firm" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
             </Field>
             <Field label="Phone number">
-              <input required type="tel" placeholder="+91 · · · · ·" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
+              <input required type="tel" value={form.phone} onChange={update("phone")} placeholder="+91 · · · · ·" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
             </Field>
             <Field label="Email address">
-              <input type="email" placeholder="you@company.com" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
+              <input type="email" value={form.email} onChange={update("email")} placeholder="you@company.com" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
             </Field>
             <Field label="Customer type">
-              <select defaultValue="" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]">
+              <select value={form.customerType} onChange={update("customerType")} className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]">
                 <option value="" disabled>
                   Select customer type
                 </option>
@@ -988,13 +1046,13 @@ export function ProductEnquirySection({ enquiry = {} }) {
               </select>
             </Field>
             <Field label="Furniture / application">
-              <input required placeholder="e.g. wardrobe production" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
+              <input required value={form.application} onChange={update("application")} placeholder="e.g. wardrobe production" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
             </Field>
           </div>
 
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             <Field label="Thickness">
-              <select defaultValue="" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]">
+              <select value={form.thickness} onChange={update("thickness")} className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]">
                 <option value="">Not sure</option>
                 {(enquiry.thicknesses || ["4 mm", "6 mm", "9 mm", "12 mm", "15 mm", "18 mm"]).map(
                   (item) => (
@@ -1004,7 +1062,7 @@ export function ProductEnquirySection({ enquiry = {} }) {
               </select>
             </Field>
             <Field label="Sheet size">
-              <select defaultValue="" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]">
+              <select value={form.sheetSize} onChange={update("sheetSize")} className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]">
                 <option value="">Not sure</option>
                 {(enquiry.sheetSizes || [
                   "8×4 ft",
@@ -1019,7 +1077,7 @@ export function ProductEnquirySection({ enquiry = {} }) {
               </select>
             </Field>
             <Field label="Quantity">
-              <input placeholder="Sheets / Sq.ft" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
+              <input value={form.quantity} onChange={update("quantity")} placeholder="Sheets / Sq.ft" className="w-full min-h-[44px] rounded-lg border border-[#CAD4CC] px-3 text-xs outline-none focus:border-[#143D2B]" />
             </Field>
           </div>
 
@@ -1027,6 +1085,8 @@ export function ProductEnquirySection({ enquiry = {} }) {
             <Field label="Requirement details">
               <textarea
                 rows={3}
+                value={form.details}
+                onChange={update("details")}
                 placeholder="Provide details on project location, delivery date or specific requirements."
                 className="w-full rounded-lg border border-[#CAD4CC] p-3 text-xs outline-none focus:border-[#143D2B]"
               />
@@ -1035,9 +1095,10 @@ export function ProductEnquirySection({ enquiry = {} }) {
 
           <button
             type="submit"
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#143D2B] py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md transition hover:bg-[#0B2A1D] cursor-pointer"
+            disabled={isSubmitting}
+            className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#143D2B] py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md transition hover:bg-[#0B2A1D] cursor-pointer disabled:opacity-50"
           >
-            Submit Inquiry <ArrowRight size={16} />
+            {isSubmitting ? "Submitting..." : "Submit Inquiry"} <ArrowRight size={16} />
           </button>
 
           {sent && (

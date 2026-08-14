@@ -474,7 +474,7 @@ function ApplicationsPage() {
           <Heading
             eyebrow="Application Before Assumption"
             title="The Right Board Depends on Where and How It Will Be Used."
-            copy="Materials that appear similar can behave differently after cutting, fixing, laminating and installation. Selection should begin with the finished component—not only the product name or price."
+            copy="Materials that appear similar can behave differently after cutting, fixing, laminating and installation. Selection should begin with the finished component not only the product name or price."
           />
           <div className="application-factor-list">
             {selectionFactors.map((factor, index) => (
@@ -805,7 +805,7 @@ function ApplicationsPage() {
           <Heading
             light
             eyebrow="Manufactured and Sourced Materials"
-            title="Bring the Application to Pentagon—not Just a Product Name."
+            title="Bring the Application to Pentagon not Just a Product Name."
           />
           <div className="application-supply-grid">
             <div>
@@ -852,7 +852,7 @@ function ApplicationsPage() {
         <div className="container">
           <Heading
             eyebrow="From Requirement to Supply"
-            title="Tell Us What You’re Building—even if the Specification Is Not Final."
+            title="Tell Us What You’re Building even if the Specification Is Not Final."
           />
           <div className="application-process-grid">
             {process.map(([title, copy], index) => (
