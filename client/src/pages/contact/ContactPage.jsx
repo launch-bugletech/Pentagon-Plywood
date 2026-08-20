@@ -137,8 +137,32 @@ function IndiaMap() {
       style: "https://tiles.openfreemap.org/styles/liberty",
       center: PENTAGON_LOCATION,
       zoom: 12,
+      minZoom: 11,
+      maxZoom: 16,
+      maxBounds: [
+        [77.08, 29.9],
+        [77.5, 30.3],
+      ],
       attributionControl: true,
     });
+
+    // Keep normal page scrolling intact. Zoom is available deliberately with Ctrl + scroll.
+    map.scrollZoom.disable();
+    map.dragRotate.disable();
+    map.touchZoomRotate.disableRotation();
+
+    const handleWheel = (event) => {
+      if (!event.ctrlKey) return;
+
+      event.preventDefault();
+      const zoomStep = event.deltaY > 0 ? -0.5 : 0.5;
+      map.zoomTo(map.getZoom() + zoomStep, {
+        around: map.unproject([event.offsetX, event.offsetY]),
+        duration: 0,
+      });
+    };
+
+    container.addEventListener("wheel", handleWheel, { passive: false });
 
     map.addControl(
       new maplibregl.NavigationControl({ showCompass: false }),
@@ -177,6 +201,7 @@ function IndiaMap() {
 
     return () => {
       resizeObserver.disconnect();
+      container.removeEventListener("wheel", handleWheel);
       marker.remove();
       map.remove();
     };
@@ -219,8 +244,12 @@ function FactoryLocationView() {
   return (
     <>
       <div className="relative min-h-[470px] overflow-hidden rounded-[28px] border border-white/15 bg-[#0B2A1D] shadow-2xl">
-        <div className="absolute inset-0">
+      <div className="absolute inset-0">
           <IndiaMap />
+        </div>
+
+        <div className="pointer-events-none absolute right-4 top-4 z-10 rounded-full border border-white/20 bg-[#14211A]/90 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white/85">
+          Hold Ctrl + scroll to zoom
         </div>
 
         <div className="absolute left-4 top-4 z-10 rounded-full border border-white/20 bg-[#14211A]/90 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[0.14em] text-white backdrop-blur-md">
@@ -851,9 +880,9 @@ function SmartEnquiryForm({ enquiryType, onEnquiryTypeChange }) {
       className="rounded-[28px] border border-[#CAD4CC] bg-[#FDFBF8] p-5 shadow-2xl sm:p-8 lg:p-9"
     >
       <div className="flex flex-col gap-4 border-b border-[#CAD4CC]/70 pb-6 sm:flex-row sm:items-start sm:justify-between">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8E510D] block mb-1">
+          {/* <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8E510D] block mb-1">
             Direct Enquiry Desk
-          </span>
+          </span> */}
           <h2 className="font-display text-3xl font-bold text-[#14211A] sm:text-4xl">
             Share Your Requirement
           </h2>
@@ -1039,7 +1068,7 @@ function ContactPage() {
   return (
     <div
       data-palette="pentagon-brand"
-      className="home-theme bg-brand-cream text-brand-charcoal overflow-hidden font-sans pb-16 lg:pb-0"
+      className="home-theme bg-brand-cream text-brand-charcoal font-sans pb-16 lg:pb-0"
     >
       {/* Breadcrumb */}
       <div className="border-b border-white/10 bg-[#143D2B] py-3.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/65">
@@ -1132,8 +1161,9 @@ function ContactPage() {
     "
         >
           {/* LEFT CONTENT */}
-          <div className="lg:col-span-6">
-            <div className="lg:sticky lg:top-28">
+          <div className="lg:col-span-6 lg:self-stretch">
+            {/* Keep the complete left panel below the sticky site header. */}
+            <div className="lg:sticky lg:top-20">
               <div
                 className="
  mb-6
@@ -1273,22 +1303,19 @@ function ContactPage() {
             {directContacts.map((item, index) => {
               const Icon = iconMap[item.iconName] || PhoneCall;
               const isWhatsapp = item.type === "WhatsApp";
+              const isOnPageLink = item.href.startsWith("#");
 
               return (
                 <article
                   key={item.type}
-                  className={`group flex min-h-[260px] flex-col justify-between rounded-3xl border p-6 transition hover:-translate-y-1 hover:shadow-xl ${
-                    isWhatsapp
-                      ? "border-[#25D366]/40 bg-[#F4FFF7]"
-                      : "border-[#CAD4CC] bg-white hover:border-[#143D2B]"
-                  }`}
+                  className="group flex min-h-[260px] flex-col justify-between rounded-3xl border border-[#CAD4CC] bg-white p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:border-[#143D2B] hover:shadow-2xl"
                 >
                   <div>
                     <div className="flex items-center justify-between">
                       <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#143D2B] text-white text-xs font-bold">
                         0{index + 1}
                       </span>
-                      <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#F7F3EC] text-[#143D2B]">
+                      <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#F7F3EC] text-[#143D2B] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                         <Icon className="h-5 w-5" />
                       </span>
                     </div>
@@ -1308,7 +1335,15 @@ function ContactPage() {
                     href={item.href}
                     target={isWhatsapp ? "_blank" : undefined}
                     rel={isWhatsapp ? "noreferrer" : undefined}
-                    className="mt-6 inline-flex items-center gap-2 border-t border-[#CAD4CC]/60 pt-5 text-xs font-bold uppercase tracking-[0.08em] text-[#143D2B]"
+                    onClick={
+                      isOnPageLink
+                        ? (event) => {
+                            event.preventDefault();
+                            scrollToSection(item.href.slice(1));
+                          }
+                        : undefined
+                    }
+                    className="mt-6 inline-flex items-center gap-2 border-t border-[#CAD4CC]/60 pt-5 text-xs font-bold uppercase tracking-[0.08em] text-[#143D2B] transition-colors hover:text-[#C86D51]"
                   >
                     {item.action}{" "}
                     <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
@@ -1322,8 +1357,8 @@ function ContactPage() {
 
       {/* Location */}
       <section
-        className="bg-[#14211A] py-[82px] text-white lg:py-[115px]"
         id="location"
+        className="scroll-mt-24 bg-[#14211A] py-[82px] text-white lg:py-[115px]"
       >
         <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-5 sm:px-7 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
           <div>
@@ -1436,19 +1471,21 @@ function ContactPage() {
         className="bg-[#FDFBF8] py-[78px] lg:py-[105px]"
         id="contact-faq"
       >
-        <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-5 sm:px-7 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
-          <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#C86D51]">
-              Contact FAQs
+        <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-5 sm:px-7 lg:grid-cols-[0.75fr_1.25fr] lg:items-stretch lg:gap-20">
+          <div className="lg:self-stretch">
+            <div className="lg:sticky lg:top-20">
+              <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#C86D51]">
+                Contact FAQs
+              </div>
+              <h2 className="mt-2 font-['Oswald',sans-serif] text-[40px] font-bold leading-[1.05] tracking-[-1px] text-[#14211A] lg:text-[54px]">
+                Useful Details Before You Contact Us.
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-[#65736A]">
+                The contact page only answers the questions needed to start an
+                enquiry. Product education can stay on the product and application
+                pages.
+              </p>
             </div>
-            <h2 className="mt-2 font-['Oswald',sans-serif] text-[40px] font-bold leading-[1.05] tracking-[-1px] text-[#14211A] lg:text-[54px]">
-              Useful Details Before You Contact Us.
-            </h2>
-            <p className="mt-4 text-sm leading-relaxed text-[#65736A]">
-              The contact page only answers the questions needed to start an
-              enquiry. Product education can stay on the product and application
-              pages.
-            </p>
           </div>
 
           <div className="space-y-3">
@@ -1469,7 +1506,7 @@ function ContactPage() {
                     onClick={() => setOpenFaq(isOpen ? -1 : index)}
                     className="flex w-full items-center justify-between gap-4 p-5 text-left"
                   >
-                    <span className="font-['DM_Serif_Display',Georgia,serif] text-lg text-[#14211A] sm:text-xl">
+                    <span className="font-[Manrope, Inter] text-lg text-[#14211A] sm:text-xl">
                       {faq.question}
                     </span>
                     <span
@@ -1484,7 +1521,7 @@ function ContactPage() {
                   </button>
 
                   {isOpen && (
-                    <div className="border-t border-[#CAD4CC]/50 px-5 pb-5 pt-4 text-sm leading-relaxed text-[#65736A]">
+                    <div className="border-t border-[#CAD4CC]/50 px-5 pb-5 pt-4 text-l leading-relaxed text-[#65736A]">
                       {faq.answer}
                     </div>
                   )}

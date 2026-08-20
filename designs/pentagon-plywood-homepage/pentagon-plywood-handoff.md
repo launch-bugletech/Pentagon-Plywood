@@ -49,7 +49,7 @@ Prepare verified WebP or AVIF files with descriptive alternative text:
 
 Search `index.html` for `media-placeholder`. Replace each placeholder `<div>` with a responsive `<picture>` containing AVIF, WebP, and fallback sources. Preserve the existing container class, set explicit `width` and `height`, add useful `alt` text, and use `loading="lazy"` for every below-the-fold image.
 
-The three project entries are marked “Demo project content—confirmation required” and include a CMS comment. Do not remove those notices until Pentagon Plywood confirms the names, locations, brands, quantities, and project descriptions.
+The three project entries are marked “Demo project content; confirmation required” and include a CMS comment. Do not remove those notices until Pentagon Plywood confirms the names, locations, brands, quantities, and project descriptions.
 
 ## Form connection
 

@@ -54,7 +54,7 @@ export const HERO_TRUST_BAR = [
   },
   {
     num: "Quality",
-    title: "Quality You Can Trust",
+    title: "Quality You\nCan Trust",
     desc: "IS certified products with rigorous quality checks",
     iconName: "ShieldCheck",
   },

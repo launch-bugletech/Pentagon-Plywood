@@ -52,7 +52,8 @@ export default function EnquirySection() {
         name: form.name,
         phone: form.phone,
         location: form.location,
-        productCategory: form.category !== CATEGORIES[0] ? form.category : "Plywood",
+        productCategory:
+          form.category !== CATEGORIES[0] ? form.category : "Plywood",
         productName: form.making || form.category,
         quantity: form.quantity,
         details: form.making ? `Making: ${form.making}` : "",
@@ -60,7 +61,9 @@ export default function EnquirySection() {
 
       setSubmitted(true);
     } catch (err) {
-      setSubmitError(err.message || "Failed to submit requirement. Please try again.");
+      setSubmitError(
+        err.message || "Failed to submit requirement. Please try again.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -90,9 +93,9 @@ export default function EnquirySection() {
               LET'S BUILD THE PERFECT FIT
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#14261F] leading-[1.15] tracking-[-0.02em]">
+            <h2 className="font-display text-[38px] sm:text-[44px] lg:text-[52px] font-bold text-brand-charcoal leading-[1.12] tracking-[-1px]">
               Tell us what you're making.
-              <span className="block font-serif font-normal italic text-[#8E510D] mt-1">
+              <span className="block home-heading-accent font-normal not-italic mt-1">
                 We'll help find the required materials.
               </span>
             </h2>
@@ -109,7 +112,7 @@ export default function EnquirySection() {
                 <div className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#E4ECE7] text-[#14261F]">
                   <Check className="h-3.5 w-3.5 stroke-[3]" />
                 </div>
-                <span className="text-xs font-semibold text-[#14261F]">
+                <span className="text-sm font-semibold text-[#14261F]">
                   Dealer &amp; distributor supply
                 </span>
               </div>
@@ -118,7 +121,7 @@ export default function EnquirySection() {
                 <div className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#E4ECE7] text-[#14261F]">
                   <Check className="h-3.5 w-3.5 stroke-[3]" />
                 </div>
-                <span className="text-xs font-semibold text-[#14261F]">
+                <span className="text-sm font-semibold text-[#14261F]">
                   Furniture &amp; interior projects
                 </span>
               </div>
@@ -127,7 +130,7 @@ export default function EnquirySection() {
                 <div className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#E4ECE7] text-[#14261F]">
                   <Check className="h-3.5 w-3.5 stroke-[3]" />
                 </div>
-                <span className="text-xs font-semibold text-[#14261F]">
+                <span className="text-sm font-semibold text-[#14261F]">
                   Bulk board procurement
                 </span>
               </div>
@@ -136,7 +139,7 @@ export default function EnquirySection() {
                 <div className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#E4ECE7] text-[#14261F]">
                   <Check className="h-3.5 w-3.5 stroke-[3]" />
                 </div>
-                <span className="text-xs font-semibold text-[#14261F]">
+                <span className="text-sm font-semibold text-[#14261F]">
                   Industrial &amp; commercial requirements
                 </span>
               </div>
@@ -154,7 +157,7 @@ export default function EnquirySection() {
                   <div className="grid h-14 w-14 place-items-center rounded-full bg-[#E4ECE7] text-[#14261F] mx-auto shadow-sm">
                     <CheckCircle2 className="h-8 w-8 text-[#14261F]" />
                   </div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#14261F]">
+                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-brand-charcoal">
                     Product Requirement Sent
                   </h3>
                   <p className="text-xs sm:text-sm text-[#4E6359] max-w-sm mx-auto font-medium">
@@ -175,9 +178,9 @@ export default function EnquirySection() {
                   {/* Form Header */}
                   <div className="border-b border-[#E8ECE9] pb-4">
                     <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#8E510D] block mb-1">
-                      PRODUCT REQUIREMENT -
+                      PRODUCT REQUIREMENT
                     </span>
-                    <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#14261F]">
+                    <h3 className="font-display text-2xl sm:text-3xl font-bold text-brand-charcoal">
                       Start with the details you know.
                     </h3>
                   </div>
@@ -185,7 +188,7 @@ export default function EnquirySection() {
                   {/* Row 1: Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                     <div>
-                      <label className="text-[10px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
+                      <label className="text-[13px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
                         YOUR FULL NAME *
                       </label>
                       <div className="relative">
@@ -198,13 +201,13 @@ export default function EnquirySection() {
                           onChange={(e) =>
                             setForm({ ...form, name: e.target.value })
                           }
-                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-xs font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
+                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-sm font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="text-[10px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
+                      <label className="text-[13px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
                         PHONE NUMBER *
                       </label>
                       <div className="relative">
@@ -217,7 +220,7 @@ export default function EnquirySection() {
                           onChange={(e) =>
                             setForm({ ...form, phone: e.target.value })
                           }
-                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-xs font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
+                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-sm font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
                         />
                       </div>
                     </div>
@@ -225,7 +228,7 @@ export default function EnquirySection() {
 
                   {/* Row 2: What are you making */}
                   <div>
-                    <label className="text-[10px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
+                    <label className="text-[13px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
                       WHAT ARE YOU MAKING?
                     </label>
                     <input
@@ -235,14 +238,14 @@ export default function EnquirySection() {
                       onChange={(e) =>
                         setForm({ ...form, making: e.target.value })
                       }
-                      className="w-full px-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-xs font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
+                      className="w-full px-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-sm font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
                     />
                   </div>
 
                   {/* Row 3: Product Category & Quantity */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[10px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
+                      <label className="text-[13px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
                         PRODUCT CATEGORY
                       </label>
                       <div className="relative">
@@ -251,7 +254,7 @@ export default function EnquirySection() {
                           onChange={(e) =>
                             setForm({ ...form, category: e.target.value })
                           }
-                          className="w-full px-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-xs font-medium text-[#14261F] appearance-none focus:outline-none focus:border-[#14261F] focus:bg-white transition pr-8 cursor-pointer"
+                          className="w-full px-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-sm font-medium text-[#14261F] appearance-none focus:outline-none focus:border-[#14261F] focus:bg-white transition pr-8 cursor-pointer"
                         >
                           {CATEGORIES.map((c) => (
                             <option key={c} value={c}>
@@ -264,7 +267,7 @@ export default function EnquirySection() {
                     </div>
 
                     <div>
-                      <label className="text-[10px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
+                      <label className="text-[13px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
                         QUANTITY
                       </label>
                       <input
@@ -274,14 +277,14 @@ export default function EnquirySection() {
                         onChange={(e) =>
                           setForm({ ...form, quantity: e.target.value })
                         }
-                        className="w-full px-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-xs font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
+                        className="w-full px-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-sm font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
                       />
                     </div>
                   </div>
 
                   {/* Row 4: Delivery City & State */}
                   <div>
-                    <label className="text-[10px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
+                    <label className="text-[13px] font-extrabold uppercase tracking-wider text-[#5C7268] block mb-1.5">
                       DELIVERY CITY AND STATE
                     </label>
                     <div className="relative">
@@ -293,7 +296,7 @@ export default function EnquirySection() {
                         onChange={(e) =>
                           setForm({ ...form, location: e.target.value })
                         }
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-xs font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
+                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#CBD9D0] bg-[#F9FAF9] text-sm font-medium text-[#14261F] placeholder-[#8BA095] focus:outline-none focus:border-[#14261F] focus:bg-white transition"
                       />
                     </div>
                   </div>
@@ -359,10 +362,15 @@ export default function EnquirySection() {
               <PhoneCall className="h-5 w-5" />
             </div>
             <div>
-              <strong className="text-xs sm:text-sm font-bold text-[#14261F] block leading-tight">
-                +91 70150 85556
-              </strong>
-              <span className="text-[11px] text-[#5C7268] font-medium block leading-tight mt-0.5">
+              <a
+                href="tel:+917015085556"
+                className="flex items-center gap-1.5 hover:text-[#E8927C] transition-colors"
+              >
+                <strong className="text-[15px] sm:text-sm font-bold text-[#14261F] block leading-tight">
+                  +91 70150 85556
+                </strong>
+              </a>
+              <span className="text-[15px] text-[#5C7268] font-medium block leading-tight mt-0.5">
                 Mon – Sat, 9:00 AM – 6:00 PM
               </span>
             </div>
@@ -376,9 +384,16 @@ export default function EnquirySection() {
               <Mail className="h-5 w-5" />
             </div>
             <div>
-              <strong className="text-xs sm:text-sm font-bold text-[#14261F] block leading-tight">
-                sales@pentagonply.com
-              </strong>
+              <a
+                href="mailto:sales@pentagonply.com"
+                className="flex items-center gap-1.5 hover:text-[#E8927C] transition-colors"
+              >
+                {" "}
+                <strong className="text-xs sm:text-sm font-bold text-[#14261F] block leading-tight">
+                  sales@pentagonply.com
+                </strong>
+              </a>
+
               <span className="text-[11px] text-[#5C7268] font-medium block leading-tight mt-0.5">
                 We reply within 24 hours
               </span>

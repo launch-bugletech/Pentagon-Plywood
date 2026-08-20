@@ -42,7 +42,7 @@ import {
 } from "../../components/ui/card.jsx";
 import { Input } from "../../components/ui/input.jsx";
 import { Textarea } from "../../components/ui/textarea.jsx";
-import dealerHero from "../../assets/dealer/Dealer-Herobg.png";
+import dealerHero from "../../assets/dealer/India Map Plywood Brochure Backdrop.png";
 
 const PHONE = "tel:+917015085556";
 const WHATSAPP_BASE = "https://wa.me/917015085556?text=";
@@ -392,264 +392,6 @@ function Field({ label, required, wide, children }) {
   );
 }
 
-function DealerNetworkMap() {
-  const mapContainerRef = useRef(null);
-  const mapRef = useRef(null);
-
-  useEffect(() => {
-    const container = mapContainerRef.current;
-
-    if (!container || mapRef.current) return undefined;
-
-    let map;
-    let resizeObserver;
-    let resizeTimer;
-    let secondResizeTimer;
-
-    const frame = requestAnimationFrame(() => {
-      if (!mapContainerRef.current || mapRef.current) return;
-
-      map = new maplibregl.Map({
-        container: mapContainerRef.current,
-        style: "https://tiles.openfreemap.org/styles/liberty",
-        center: [77.5, 25],
-        zoom: 3.8,
-        minZoom: 3,
-        maxZoom: 16,
-        attributionControl: true,
-      });
-
-      mapRef.current = map;
-
-      // Controls
-      map.addControl(
-        new maplibregl.NavigationControl({
-          showCompass: false,
-        }),
-        "top-right",
-      );
-
-      // Disable unwanted interaction
-      map.scrollZoom.disable();
-      map.dragRotate.disable();
-      map.touchZoomRotate.disableRotation();
-
-      const bounds = new maplibregl.LngLatBounds();
-      const markers = [];
-
-      DEALER_MARKETS.forEach((market) => {
-        bounds.extend(market.coordinates);
-
-        const popup = new maplibregl.Popup({
-          offset: 24,
-          closeButton: false,
-          closeOnClick: true,
-          maxWidth: "260px",
-        }).setHTML(`
-          <div style="
-            font-family: Manrope, Arial, sans-serif;
-            padding: 4px 2px;
-          ">
-            <div style="
-              margin-bottom: 6px;
-              color: #8e510d;
-              font-size: 9px;
-              line-height: 1.2;
-              font-weight: 800;
-              letter-spacing: .14em;
-              text-transform: uppercase;
-            ">
-              Pentagon Dealer Network
-            </div>
-
-            <strong style="
-              display: block;
-              color: #14211a;
-              font-size: 16px;
-              line-height: 1.3;
-              font-weight: 700;
-            ">
-              ${market.name}
-            </strong>
-
-            <p style="
-              margin: 7px 0 0;
-              color: #65736a;
-              font-size: 12px;
-              line-height: 1.55;
-            ">
-              Pentagon has dealer presence in this market.
-              Contact our team to find the appropriate dealer
-              for your city or requirement.
-            </p>
-          </div>
-        `);
-
-        const marker = new maplibregl.Marker({
-          color: "#C86D51",
-          scale: 0.8,
-        })
-          .setLngLat(market.coordinates)
-          .setPopup(popup)
-          .addTo(map);
-
-        markers.push(marker);
-      });
-
-      const fitDealerNetwork = () => {
-        if (!map || !mapContainerRef.current) return;
-
-        map.resize();
-
-        map.fitBounds(bounds, {
-          padding: {
-            top: 105,
-            right: 60,
-            bottom: 155,
-            left: 60,
-          },
-          maxZoom: 5.1,
-          duration: 0,
-        });
-      };
-
-      map.once("load", () => {
-        fitDealerNetwork();
-
-        resizeTimer = window.setTimeout(() => {
-          map.resize();
-          fitDealerNetwork();
-        }, 100);
-
-        secondResizeTimer = window.setTimeout(() => {
-          map.resize();
-        }, 500);
-      });
-
-      map.on("error", (event) => {
-        console.error("Dealer MapLibre error:", event.error);
-      });
-
-      resizeObserver = new ResizeObserver(() => {
-        if (!map) return;
-
-        requestAnimationFrame(() => {
-          map.resize();
-        });
-      });
-
-      resizeObserver.observe(mapContainerRef.current);
-
-      map.__dealerMarkers = markers;
-    });
-
-    return () => {
-      cancelAnimationFrame(frame);
-
-      if (resizeTimer) {
-        window.clearTimeout(resizeTimer);
-      }
-
-      if (secondResizeTimer) {
-        window.clearTimeout(secondResizeTimer);
-      }
-
-      resizeObserver?.disconnect();
-
-      if (map) {
-        map.__dealerMarkers?.forEach((marker) => marker.remove());
-        map.remove();
-      }
-
-      mapRef.current = null;
-    };
-  }, []);
-
-  return (
-    <div
-      className="
-        relative
-        h-[500px]
-        w-full
-        min-w-0
-        overflow-hidden
-        rounded-[28px]
-        border
-        border-white/15
-        bg-[#e9ece7]
-        shadow-2xl
-        lg:h-[560px]
-      "
-    >
-      {/* ACTUAL MAP */}
-      <div
-        ref={mapContainerRef}
-        className="absolute inset-0 h-full w-full"
-        aria-label="Interactive map showing Pentagon dealer presence across India"
-      />
-
-      {/* TOP INFO */}
-      <div className="pointer-events-none absolute left-4 top-4 z-10 sm:left-5 sm:top-5">
-        <div className="rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-lg backdrop-blur-md">
-          <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-[#8E510D]">
-            Pentagon Dealer Network
-          </span>
-
-          <strong className="mt-1 block font-display text-xl font-bold text-[#14211a]">
-            Dealer Presence Across India
-          </strong>
-        </div>
-      </div>
-
-      {/* BOTTOM INFO CARD */}
-      <div className="pointer-events-none absolute bottom-4 left-4 right-4 z-10 sm:bottom-5 sm:left-5 sm:right-5">
-        <div className="rounded-2xl border border-white/70 bg-white/95 p-4 shadow-xl backdrop-blur-md sm:p-5">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <div className="flex items-end gap-2">
-                <strong className="font-display text-3xl font-bold leading-none text-[#143d2b]">
-                  12
-                </strong>
-
-                <span className="pb-0.5 text-xs font-bold uppercase tracking-[0.1em] text-[#65736a]">
-                  States &amp; UTs
-                </span>
-              </div>
-
-              <p className="mt-2 max-w-md text-xs leading-5 text-[#65736a]">
-                Select a marker to see Pentagon dealer presence in that market.
-              </p>
-            </div>
-
-            <a
-              href="#dealer-network-coverage"
-              className="
-                pointer-events-auto
-                inline-flex
-                h-10
-                shrink-0
-                items-center
-                justify-center
-                gap-2
-                rounded-full
-                bg-[#143d2b]
-                px-5
-                text-sm
-                font-semibold
-                text-white
-                transition
-                hover:bg-[#0d291d]
-              "
-            >
-              View Network
-              <ArrowRight size={15} />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function DealersPage() {
   const [route, setRoute] = useState("seller");
@@ -801,41 +543,15 @@ function DealersPage() {
   };
 
 const hero = (
-  <section
-    className="
-      relative
-      overflow-hidden
-      bg-[#143D2B]
-      px-4
-      pb-12
-      pt-14
-      text-white
-      sm:px-6
-      sm:pb-16
-      sm:pt-16
-      lg:px-8
-      lg:pb-16
-      lg:pt-20
-    "
-    style={{
-      backgroundImage: `
-        linear-gradient(
-          90deg,
-          rgba(11, 42, 29, 0.95) 0%,
-          rgba(20, 61, 43, 0.88) 45%,
-          rgba(11, 42, 29, 0.65) 100%
-        ),
-        url(${dealerHero})
-      `,
-      backgroundSize: "cover",
-      backgroundPosition: "center bottom",
-      backgroundRepeat: "no-repeat",
-    }}
-  >
-    {/* Background ambient glow */}
-    <div className="pointer-events-none absolute -left-20 top-1/4 h-[360px] w-[360px] rounded-full bg-[#C86D51]/15 blur-[110px]" />
+  <section className="relative flex min-h-[105vh] flex-col justify-between overflow-hidden border-b border-brand-border/50 bg-brand-cream pb-8 pt-0 text-brand-charcoal lg:pb-10">
+    {/* Full-bleed background, matching the homepage hero treatment. */}
+    <div
+      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${dealerHero})` }}
+    />
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/50 via-white/25 to-transparent" />
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent lg:hidden" />
 
-    {/* HERO GRID */}
     <div
       className={`
         ${wrapClass}
@@ -843,108 +559,37 @@ const hero = (
         z-10
         grid
         items-center
-        gap-12
-        lg:grid-cols-[.88fr_1.12fr]
-        lg:gap-14
+        w-full
+        grid-cols-1
+        gap-8
+        pb-4
+        pt-5
+        lg:grid-cols-12
+        lg:gap-12
       `}
     >
-      {/* LEFT HERO CONTENT */}
-      <div className="relative z-10 py-5 lg:py-8">
-        {/* BADGE */}
-        <div
-          className="
-            inline-flex
-            items-center
-            gap-2
-            rounded-full
-            border
-            border-white/20
-            bg-white/10
-            px-4
-            py-2
-            backdrop-blur-md
-          "
-        >
-          <MapPin size={15} strokeWidth={2} className="text-[#C86D51]" />
-          <span
-            className="
-              text-[10px]
-              font-bold
-              uppercase
-              tracking-[0.18em]
-              text-white
-            "
-          >
-            Pentagon Dealer Network
-          </span>
+      <div className="space-y-6 lg:col-span-8 xl:col-span-7">
+        <div className="text-[11px] font-semibold uppercase leading-tight tracking-[0.2em] text-[#8E510D]">
+          Pentagon Dealer Network
         </div>
 
-        {/* HEADING */}
-        <h1
-          className="
-            mt-7
-            max-w-[670px]
-            font-display
-            text-[44px]
-            font-bold
-            leading-[1.02]
-            tracking-tight
-            text-white
-            sm:text-[58px]
-            lg:text-[66px]
-            xl:text-[72px]
-          "
-        >
-          Bring Better
-          <br />
-          Material Choices
-          <br />
-          <span className="home-heading-accent-on-dark font-normal not-italic block mt-1">
-            Closer to Your Market.
-          </span>
+        <h1 className="font-display text-[34px] font-normal leading-[1.08] tracking-[-0.02em] text-brand-charcoal sm:text-[48px] lg:text-[62px] xl:text-[66px]">
+          <span className="block">Bring Better Material Choices</span>
+          <span className="home-heading-accent mt-1 block">Closer to Your Market.</span>
         </h1>
 
-        {/* COPY */}
-        <p
-          className="
-            mt-6
-            max-w-[525px]
-            text-[15px]
-            font-medium
-            leading-[1.8]
-            text-white/80
-            sm:text-[16px]
-          "
-        >
+        <p className="max-w-xl text-[15px] font-medium leading-[1.65] text-brand-muted sm:text-[18px]">
           Pentagon partners with dealers across India to make plywood,
           blockboard, flush doors and selected allied materials more accessible
           to customers, trade professionals and projects.
         </p>
 
-        {/* ACTIONS */}
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="flex flex-wrap items-center gap-4 pt-2">
           <button
             type="button"
             onClick={() => chooseRoute("seller")}
-            className="
-              inline-flex
-              h-12
-              items-center
-              gap-2.5
-              rounded-full
-              bg-[#C86D51]
-              px-6
-              text-xs
-              font-bold
-              uppercase
-              tracking-wider
-              text-white
-              shadow-lg
-              transition
-              hover:bg-[#b55c42]
-            "
+            className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-brand-forest px-7 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-brand-accent"
           >
-            <MapPin size={17} />
             Find a Dealer
             <ArrowRight size={16} />
           </button>
@@ -952,45 +597,38 @@ const hero = (
           <button
             type="button"
             onClick={() => chooseRoute("dealer")}
-            className="
-              inline-flex
-              h-12
-              items-center
-              gap-2.5
-              rounded-full
-              border
-              border-white/30
-              bg-white/10
-              px-6
-              text-xs
-              font-bold
-              uppercase
-              tracking-wider
-              text-white
-              backdrop-blur-md
-              transition
-              hover:bg-white/20
-            "
+            className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-brand-accent/40 bg-white px-7 text-xs font-bold uppercase tracking-wider text-brand-honey-dark shadow-xs transition-all hover:border-brand-accent hover:bg-brand-soft-brown"
           >
             <Handshake size={17} />
             Become a Dealer
             <ArrowRight size={16} />
           </button>
         </div>
+
+        {/* Reuse the hero artwork as a focused map panel on mobile. */}
+        <div
+          className="h-[300px] overflow-hidden rounded-[28px] border border-[#DECDBB] bg-cover bg-no-repeat shadow-lg sm:h-[350px] lg:hidden"
+          style={{
+            backgroundImage: `url(${dealerHero})`,
+            backgroundPosition: "72% center",
+          }}
+          role="img"
+          aria-label="Pentagon dealer network presence across India"
+        />
       </div>
 
-      {/* RIGHT MAP CARD */}
-      <DealerNetworkMap />
+      {/* Intentionally empty: lets the existing dealer image remain visible, like the homepage hero. */}
+      <div className="hidden min-h-[330px] lg:col-span-4 lg:block xl:col-span-5" />
     </div>
 
-    {/* HERO TRUST STRIP */}
     <div
       className={`
         ${wrapClass}
         relative
         z-10
-        mt-10
-        lg:mt-12
+        mt-6
+        w-full
+        lg:mt-10
       `}
     >
       <div
@@ -999,10 +637,12 @@ const hero = (
           overflow-hidden
           rounded-[22px]
           border
-          border-white/15
-          bg-white/10
-          shadow-2xl
-          backdrop-blur-md
+          border-brand-cool-border
+          bg-white/95
+          p-5
+          shadow-xl
+          sm:p-6
+          lg:p-7
           sm:grid-cols-2
           lg:grid-cols-4
         "
@@ -1040,17 +680,17 @@ const hero = (
               py-5
               ${
                 index === 1
-                  ? "border-t border-white/10 sm:border-l sm:border-t-0"
+                  ? "border-t border-brand-cool-border sm:border-l sm:border-t-0"
                   : ""
               }
               ${
                 index === 2
-                  ? "border-t border-white/10 lg:border-l lg:border-t-0"
+                  ? "border-t border-brand-cool-border lg:border-l lg:border-t-0"
                   : ""
               }
               ${
                 index === 3
-                  ? "border-t border-white/10 sm:border-l lg:border-t-0"
+                  ? "border-t border-brand-cool-border sm:border-l lg:border-t-0"
                   : ""
               }
             `}
@@ -1065,9 +705,9 @@ const hero = (
                 place-items-center
                 rounded-full
                 border
-                border-white/20
-                bg-white/10
-                text-[#C86D51]
+                border-brand-accent/25
+                bg-brand-soft-brown
+                text-brand-honey-dark
               "
             >
               <Icon size={21} strokeWidth={1.7} />
@@ -1081,7 +721,7 @@ const hero = (
                   font-display
                   text-lg
                   font-normal
-                  text-white
+                  text-brand-charcoal
                 "
               >
                 {title}
@@ -1093,7 +733,7 @@ const hero = (
                   block
                   text-xs
                   leading-5
-                  text-white/70
+                  text-brand-muted
                 "
               >
                 {copy}
@@ -1423,7 +1063,7 @@ const dealerCoverageSection = (
   return (
     <main
       data-palette="pentagon-brand"
-      className="home-theme min-h-screen bg-brand-cream text-brand-charcoal overflow-hidden font-sans"
+      className="home-theme min-h-screen bg-brand-cream text-brand-charcoal font-sans"
     >
       {/* BREADCRUMB */}
       <div className="border-b border-white/10 bg-[#143D2B] py-3.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/65 px-4 sm:px-6 lg:px-8">
@@ -2084,24 +1724,26 @@ const dealerCoverageSection = (
 
       {/* FAQ */}
       <section id="dealer-faq" className={`${sectionClass} bg-white`}>
-        <div className={`${wrapClass} grid gap-10 lg:grid-cols-[.7fr_1.3fr]`}>
-          <div>
-            <Heading
-              eyebrow="Questions Before Applying"
-              title="Dealer Network FAQs."
-              copy="Find answers about dealer availability, dealership applications, territory, products and commercial discussions."
-            />
-            <div className="relative mt-6">
-              <Search
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#65736a]"
-                size={18}
+        <div className={`${wrapClass} grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-stretch`}>
+          <div className="lg:self-stretch">
+            <div className="lg:sticky lg:top-20">
+              <Heading
+                eyebrow="Questions Before Applying"
+                title="Dealer Network FAQs."
+                copy="Find answers about dealer availability, dealership applications, territory, products and commercial discussions."
               />
-              <Input
-                className={`${inputClass} pl-10`}
-                value={faqFilter}
-                onChange={(event) => setFaqFilter(event.target.value)}
-                placeholder="Search FAQs"
-              />
+              {/* <div className="relative mt-6">
+                <Search
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-[#65736a]"
+                  size={18}
+                />
+                <Input
+                  className={`${inputClass} pl-10`}
+                  value={faqFilter}
+                  onChange={(event) => setFaqFilter(event.target.value)}
+                  placeholder="Search FAQs"
+                />
+              </div> */}
             </div>
           </div>
           <Accordion

@@ -26,7 +26,7 @@ const promiseData = [
 
 const testimonialData = [
   { quote: "“Pentagon Plywood provides top-notch products at reasonable prices. Highly recommended for any serious project.”", name: "Vikram Singh", role: "Interior Contractor · Delhi" },
-  { quote: "“Remarkable products—innovative, user-friendly and reliable. The finish quality is consistent batch after batch.”", name: "Shiv Kumar Yadav", role: "Furniture Manufacturer · Yamunanagar" },
+  { quote: "“Remarkable products innovative, user-friendly and reliable. The finish quality is consistent batch after batch.”", name: "Shiv Kumar Yadav", role: "Furniture Manufacturer · Yamunanagar" },
   { quote: "“The packaging was eco-friendly, reflecting a real commitment to sustainability. It is a small detail, but it matters.”", name: "Saurabh Mehta", role: "Architect · Chandigarh" }
 ];
 

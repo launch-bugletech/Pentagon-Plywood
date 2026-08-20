@@ -408,7 +408,7 @@ function HomePage() {
                       <IconComponent className="h-5 w-5" />
                     </div>
                     <div>
-                      <strong className="block text-xs sm:text-sm font-bold text-brand-charcoal leading-snug">
+                      <strong className="block text-xs sm:text-sm font-bold text-brand-charcoal leading-snug whitespace-pre-line">
                         {stat.title}
                       </strong>
                       <span className="text-[11px] text-brand-muted block leading-tight mt-0.5">
@@ -942,7 +942,7 @@ function HomePage() {
                           : "opacity-0 max-h-0 overflow-hidden pointer-events-none"
                       }`}
                     >
-                      <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-accent-light block whitespace-nowrap">
+                      <span className="text-[13px] font-extrabold uppercase tracking-widest text-brand-accent-light block whitespace-nowrap">
                         {space.sub}
                       </span>
                     </div>
@@ -986,10 +986,10 @@ function HomePage() {
                 <Layers className="h-5 w-5" />
               </div>
               <div>
-                <strong className="text-xs sm:text-sm font-bold text-brand-charcoal block">
-                  Looking for More Applications &amp; Custom Joinery?
+                <strong className="text-m sm:text-m font-bold text-brand-charcoal block">
+                  Looking for More Applications ?
                 </strong>
-                <span className="text-xs text-brand-muted block mt-0.5 font-medium">
+                <span className="text-m text-brand-muted block mt-0.5 font-medium">
                   From Wall Panelling, Doors &amp; Shutters to Retail, Office
                   &amp; Commercial Interiors.
                 </span>

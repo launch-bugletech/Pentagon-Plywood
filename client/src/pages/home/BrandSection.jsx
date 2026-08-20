@@ -280,9 +280,9 @@ export default function BrandSection() {
           <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#8E510D] block">
             OUR BRAND PORTFOLIO
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[46px] font-bold text-[#14261F] leading-[1.12] tracking-[-0.025em]">
+          <h2 className="font-display text-[38px] sm:text-[44px] lg:text-[52px] font-bold text-brand-charcoal leading-[1.12] tracking-[-1px]">
             Our Brands &amp;{" "}
-            <span className="text-[#B65B31] font-serif font-normal italic">
+            <span className="home-heading-accent font-normal not-italic">
               Trademarks.
             </span>
           </h2>
