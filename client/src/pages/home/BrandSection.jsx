@@ -380,7 +380,7 @@ export default function BrandSection() {
                   }`}
                 >
                   {/* Active / Flagship Badge */}
-                  {isActive ? (
+                  {/* {isActive ? (
                     <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
                       <span className="px-2.5 py-0.5 rounded-full bg-[#14261F] text-white text-[9px] font-extrabold uppercase tracking-wider border border-[#8E510D] shadow-sm flex items-center gap-1 whitespace-nowrap">
                         <Star className="h-2.5 w-2.5 fill-amber-400 text-amber-400" />
@@ -391,7 +391,7 @@ export default function BrandSection() {
                     <div className="absolute top-2 right-2">
                       <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
                     </div>
-                  ) : null}
+                  ) : null} */}
 
                   {/* Logo Image */}
                   <div className="h-20 sm:h-24 w-full flex items-center justify-center pt-2">
@@ -461,10 +461,10 @@ export default function BrandSection() {
             <div className="lg:col-span-8 space-y-5">
               
               {/* Top Badge */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14261F] text-white text-[10px] font-extrabold uppercase tracking-widest border border-[#8E510D]/40 shadow-xs">
+              {/* <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14261F] text-white text-[10px] font-extrabold uppercase tracking-widest border border-[#8E510D]/40 shadow-xs">
                 <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
                 <span>{activeBrand.badge}</span>
-              </div>
+              </div> */}
 
               {/* Title */}
               <h3 className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#14261F] leading-tight">
@@ -488,7 +488,7 @@ export default function BrandSection() {
               </div> */}
 
               {/* 4 Feature Items Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-[#C5D5CC]/60">
+              {/* <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-[#C5D5CC]/60">
                 {activeBrand.features.map((feat, idx) => {
                   const FeatIcon = feat.icon || ShieldCheck;
                   return (
@@ -505,7 +505,7 @@ export default function BrandSection() {
                     </div>
                   );
                 })}
-              </div>
+              </div> */}
 
             </div>
           </div>

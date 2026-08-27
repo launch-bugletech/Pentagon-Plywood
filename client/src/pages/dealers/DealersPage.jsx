@@ -213,6 +213,48 @@ const processSteps = [
   ],
 ];
 
+const partnershipPathwaySteps = [
+  ["01", "Express Interest", "Share a few details through the partnership enquiry form.", ClipboardCheck],
+  ["02", "Connect with Our Team", "Our partnership team will get in touch to understand your business and goals.", Users],
+  ["03", "Review & Evaluation", "We review your application and align on the best model for your market.", BadgeCheck],
+  ["04", "Onboard & Partner", "Complete onboarding and get access to pricing, policies and resources.", Handshake],
+  ["05", "Receive & Set Up", "Get your initial supplies and set up your business with our guidance.", PackageCheck],
+  ["06", "Grow Together", "Leverage our brand, marketing and support to grow profitably.", ArrowRight],
+];
+
+const productPortfolio = [
+  [
+    "Plywood",
+    "Strong. Reliable. Made to Build.",
+    PackageCheck,
+    "https://relgrow.com/shop/wp-content/uploads/2025/12/46184.jpg",
+  ],
+  [
+    "Blockboard",
+    "Solid core. Lasting strength.",
+    Boxes,
+    "https://cdn.prod.website-files.com/67289d9b0c73de42a29a431d/6810bc21fcf741db39407638_Plywood-1-min.jpg",
+  ],
+  [
+    "MDF & HDF",
+    "Smooth finish. Superior stability.",
+    Building2,
+    "https://ik.imagekit.io/fepy/cdn/catalog/product/m/d/mdf16_1_1_1.png",
+  ],
+  [
+    "Decorative Surfaces",
+    "Design-led. Made to inspire.",
+    BadgeCheck,
+    "https://image.made-in-china.com/2f0j00CgNekSbdMPct/High-Pressure-Commercial-Use-Indoor-Decorative-Laminate-Toilet-Compact-Access-Flooring-HPL.webp",
+  ],
+  [
+    "Flush Doors",
+    "Engineered for elegance and strength.",
+    Store,
+    "https://s.alicdn.com/%40sc04/kf/He3269f7070fb4abdb579585467d4926bQ/Modern-Minimalist-Flat-Panel-Interior-Door-Wood-Grain-Texture-Custom-Bedroom-Flush-Door-for-Home-Hotel-Project.jpg",
+  ],
+];
+
 const applicantTypes = [
   "Existing plywood and wood-panel dealers",
   "Building-material retailers & hardware stores",
@@ -587,22 +629,21 @@ const hero = (
         <div className="flex flex-wrap items-center gap-4 pt-2">
           <button
             type="button"
-            onClick={() => chooseRoute("seller")}
+            onClick={() => chooseRoute("dealer")}
             className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-brand-forest px-7 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-brand-accent"
           >
-            Find a Dealer
-            <ArrowRight size={16} />
-          </button>
-
-          <button
-            type="button"
-            onClick={() => chooseRoute("dealer")}
-            className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-brand-accent/40 bg-white px-7 text-xs font-bold uppercase tracking-wider text-brand-honey-dark shadow-xs transition-all hover:border-brand-accent hover:bg-brand-soft-brown"
-          >
-            <Handshake size={17} />
             Become a Dealer
             <ArrowRight size={16} />
           </button>
+
+          <a
+            href={CONTACT_SECTIONS.form}
+            className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-brand-accent/40 bg-white px-7 text-xs font-bold uppercase tracking-wider text-brand-honey-dark shadow-xs transition-all hover:border-brand-accent hover:bg-brand-soft-brown"
+          >
+            <MessageCircle size={17} />
+            Contact Our Team
+            <ArrowRight size={16} />
+          </a>
         </div>
 
         {/* Reuse the hero artwork as a focused map panel on mobile. */}
@@ -746,7 +787,8 @@ const hero = (
   </section>
 );
 
-const routesSection = (
+// Archived in favour of the partnership pathway below.
+const archivedRoutesSection = (
   <section
     id="choose-route"
     className="relative overflow-hidden bg-[#F7F7F5] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28 border-t border-brand-border/40"
@@ -880,6 +922,59 @@ const routesSection = (
             </button>
           </div>
         </article>
+      </div>
+    </div>
+  </section>
+);
+
+const partnershipPathwaySection = (
+  <section
+    id="choose-route"
+    className="relative overflow-hidden border-t border-[#E7DCCE] bg-[#FCF8F2] px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+  >
+    <div className="pointer-events-none absolute -left-20 top-0 h-80 w-80 rounded-full border-[18px] border-[#E8CDB5]/30" />
+    <div className="pointer-events-none absolute -right-20 top-0 h-80 w-80 rounded-full border-[18px] border-[#E8CDB5]/30" />
+    <div className={`${wrapClass} relative`}>
+      <div className="mx-auto max-w-3xl text-center">
+        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#B85C43]">
+          Partnership Pathway
+        </span>
+        <h2 className="mt-3 font-display text-[38px] font-bold leading-[1.05] tracking-tight text-[#143D2B] sm:text-[48px]">
+          Become a Pentagon Dealer.
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-[#4A5750]">
+          Joining the Pentagon Dealer Network is simple, transparent, and built
+          for long-term success. Follow these steps to partner with one of
+          India&apos;s trusted plywood brands.
+        </p>
+      </div>
+
+      <div className="mt-10 rounded-[26px] border border-[#EEE4D9] bg-white/90 p-4 shadow-xl shadow-[#8E510D]/5 sm:p-6">
+        <div className="mb-5 flex items-center gap-3">
+          <strong className="font-display text-lg text-[#143D2B]">
+            Your Journey to Partnership
+          </strong>
+          <span className="h-px flex-1 bg-[#E7DDD1]" />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          {partnershipPathwaySteps.map(([number, title, copy, Icon]) => (
+            <article
+              key={number}
+              className="group relative min-h-[224px] rounded-2xl border border-[#F0E8E0] bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#E5C5AA] hover:shadow-lg"
+            >
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#C86D51] text-[10px] font-bold text-white shadow-sm">
+                {number}
+              </span>
+              <span className="mt-5 grid h-11 w-11 place-items-center rounded-xl bg-[#F7F3EC] text-[#143D2B] transition-transform duration-300 group-hover:scale-110">
+                <Icon size={23} strokeWidth={1.7} />
+              </span>
+              <h3 className="mt-5 font-display text-lg font-bold leading-tight text-[#14211A]">
+                {title}
+              </h3>
+              <p className="mt-3 text-xs leading-5 text-[#65736A]">{copy}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -1077,7 +1172,7 @@ const dealerCoverageSection = (
       </div>
 
       {hero}
-      {routesSection}
+      {partnershipPathwaySection}
       {dealerCoverageSection}
 
       {/* PARTNERSHIP OPPORTUNITY */}
@@ -1110,56 +1205,57 @@ const dealerCoverageSection = (
       </section>
 
       {/* PRODUCTS */}
-      <section id="partner-products" className={sectionClass}>
+      <section id="partner-products" className={`${sectionClass} relative overflow-hidden bg-[#FCF8F2]`}>
+        <div className="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full border-[18px] border-[#E8CDB5]/25" />
+        <div className="pointer-events-none absolute -right-24 top-12 h-72 w-72 rounded-full border-[18px] border-[#E8CDB5]/25" />
         <div className={wrapClass}>
-          <Heading
-            eyebrow="Products for channel discussion"
-            title="A Portfolio for Trade, Projects and Interiors."
-            copy="Discuss Pentagon-manufactured products and selected complementary sourced or traded materials based on current availability and territory requirements."
-          />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              [
-                "Plywood",
-                "MR, BWP, Marine and Fire Retardant grades",
-                PackageCheck,
-              ],
-              [
-                "Blockboard",
-                "Panel solutions for furniture and interior requirements",
-                Boxes,
-              ],
-              [
-                "Flush Doors",
-                "Door solutions for residential and project requirements",
-                Building2,
-              ],
-              [
-                "Sourced / Traded",
-                "Selected complementary materials, subject to availability",
-                Truck,
-              ],
-            ].map(([title, copy, Icon]) => (
-              <Card
+          <div className="relative mx-auto max-w-3xl text-center">
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#B85C43]">
+              Our Product Portfolio
+            </span>
+            <h2 className="mt-3 font-display text-[40px] font-normal leading-[1.04] tracking-tight text-[#143D2B] sm:text-[56px]">
+              Premium Materials. <span className="text-[#C86D51]">Endless Possibilities.</span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-7 text-[#5C655F] sm:text-base">
+              From structural essentials to design-led finishes, our range is
+              engineered to deliver superior quality, performance, and style for
+              every space.
+            </p>
+          </div>
+
+          <div className="relative mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {productPortfolio.map(([title, copy, Icon, image]) => (
+              <article
                 key={title}
-                className="hover:-translate-y-1 hover:shadow-lg"
+                className="group flex min-h-[400px] flex-col overflow-hidden rounded-[22px] border border-white bg-white shadow-lg shadow-[#8E510D]/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
               >
-                <CardHeader>
-                  <Icon className="text-[#8E510D]" size={28} />
-                  <CardTitle className="pt-3 text-xl">{title}</CardTitle>
-                  <CardDescription className="leading-6">
-                    {copy}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
+                <div className="p-5">
+                  <span className="grid h-11 w-11 place-items-center rounded-full bg-[#F7F3EC] text-[#143D2B] transition-transform duration-300 group-hover:scale-110">
+                    <Icon size={21} strokeWidth={1.8} />
+                  </span>
+                  <h3 className="mt-6 font-display text-[25px] font-bold leading-tight text-[#143D2B]">
+                    {title}
+                  </h3>
+                  <span className="mt-3 block h-0.5 w-6 bg-[#C86D51]" />
+                  <p className="mt-4 text-sm leading-6 text-[#65736A]">{copy}</p>
+                </div>
+                <img
+                  src={image}
+                  alt={title}
+                  loading="lazy"
+                  className="mt-auto h-48 w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                />
+              </article>
             ))}
           </div>
-          <a
-            href={ROUTES.products}
-            className="mt-8 inline-flex items-center gap-2 font-semibold text-[#143d2b] hover:text-[#C86D51]"
-          >
-            Explore product portfolio <ArrowRight size={17} />
-          </a>
+          <div className="mt-9 text-center">
+            <a
+              href={ROUTES.products}
+              className="inline-flex items-center gap-2 rounded-full bg-[#143D2B] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:-translate-y-0.5 hover:bg-[#C86D51]"
+            >
+              Explore product portfolio <ArrowRight size={17} />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -1825,21 +1921,20 @@ const dealerCoverageSection = (
       <div className="sticky bottom-3 z-30 mx-auto mb-3 flex w-[calc(100%-1.5rem)] max-w-md gap-2 rounded-2xl border border-[#dbe2dc] bg-white/95 p-2 shadow-xl backdrop-blur lg:hidden">
         <button
           type="button"
-          onClick={() => chooseRoute("seller")}
-          className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#143d2b] text-sm font-semibold text-white"
-        >
-          <MapPin size={16} />
-          Find Dealer
-        </button>
-
-        <button
-          type="button"
           onClick={() => chooseRoute("dealer")}
-          className="flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#C86D51] text-sm font-semibold text-white"
+          className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-xl bg-[#143d2b] px-2 text-xs font-semibold text-white"
         >
           <Handshake size={16} />
-          Apply
+          Become a Dealer
         </button>
+
+        <a
+          href={CONTACT_SECTIONS.form}
+          className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-xl bg-[#C86D51] px-2 text-xs font-semibold text-white"
+        >
+          <MessageCircle size={16} />
+          Contact Our Team
+        </a>
       </div>
     </main>
   );

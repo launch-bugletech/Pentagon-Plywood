@@ -15,7 +15,7 @@ import WardrobeApplication from '../../assets/product/Applications/Modern wardro
 import LivingRoomApplication from "../../assets/product/Applications/Contemporary living room with furniture.png";
 
 // Product & Manufacturing Images
-import manufacturingImage from '../../assets/homepage/Plywood-Manufacturing-1024x683.png'; 
+import manufacturingImage from '../../assets/homepage/Plywood-Manufacturing-1024x683.png';
 import marinePlywoodImage from '../../assets/homepage/products/Marine-plywood-1000x1000.webp';
 import mrPlywoodImage from '../../assets/homepage/products/mr-grade-plywood-1671449588-6629452.webp';
 import blockboardImage from '../../assets/homepage/products/is303-blockboard-1671450145-6629496.webp';
@@ -216,7 +216,7 @@ export const QUALITY_DATA = {
     { num: "04", title: "BIS Standards Compliance", desc: "Certified under IS 303, IS 710, and IS 2202 Bureau of Indian Standards." },
   ],
   certificates: [
-    { logo: isoCertificateImage, name: "ISO 9001:2015", desc: "Quality Management System" },
+    // { logo: isoCertificateImage, name: "ISO 9001:2015", desc: "Quality Management System" },
     { logo: bisCertificateImage, name: "IS 303 / IS 710", desc: "BIS Bureau of Indian Standards" },
     { logo: labCertificateImage, name: "In-House Lab", desc: "Batch-Level Testing Records" },
   ],
