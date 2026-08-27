@@ -90,6 +90,7 @@ const iconMap = {
   Droplet,
   Award,
   Leaf,
+  Handshake,
 };
 
 const PARTNERSHIP_FAQS = [
@@ -532,46 +533,48 @@ function HomePage() {
       </section>
 
       {/* 4. GUIDED SELECTION: "WHAT ARE YOU BUILDING?" */}
-      <section className="py-[82px] lg:py-[120px] bg-brand-cream-alt border-y border-brand-border">
+      <section className="border-y border-brand-border bg-brand-cream-alt py-[76px] lg:py-[104px]">
         <div className="max-w-[1280px] mx-auto px-7">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="text-[#8E510D] font-semibold text-[11px] leading-tight tracking-[0.18em] uppercase mb-2">
-              GUIDED SELECTION
+          <div className="mb-10 grid gap-5 md:grid-cols-[1.08fr_0.92fr] md:items-end lg:mb-12">
+            <div>
+              <div className="mb-3 text-[11px] font-semibold uppercase leading-tight tracking-[0.18em] text-brand-forest">
+                Built for every space
+              </div>
+              <h2 className="font-display text-[40px] font-bold leading-[0.98] tracking-[-1px] text-brand-charcoal sm:text-[48px] lg:text-[58px]">
+                What are you{" "}
+                <em className="home-heading-accent font-normal not-italic">
+                  building?
+                </em>
+              </h2>
             </div>
-            <h2 className="font-display text-[40px] lg:text-[56px] font-bold leading-tight tracking-[-1px] text-brand-charcoal">
-              What Are You{" "}
-              <em className="home-heading-accent font-normal not-italic">
-                Building?
-              </em>
-            </h2>
-            <p className="mt-3 text-brand-slate text-sm leading-relaxed">
-              Tell us the space, and we'll point you to the right board grade. A
-              simpler way to specify plywood, directly from the manufacturer.
+            <p className="max-w-[390px] text-[15px] leading-relaxed text-brand-slate md:ml-auto md:pb-1 lg:text-base">
+              Choose your space type and we'll help you find the right products
+              and solutions.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {GUIDED_SELECTION.map((item, idx) => {
               const IconComp = iconMap[item.iconName] || Layers;
               return (
-                <div
+                <a
                   key={idx}
-                  className="p-6 rounded-2xl border border-brand-border bg-brand-cream hover:border-brand-accent hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                  href={item.href}
+                  className="group relative flex min-h-[148px] items-start gap-4 overflow-hidden rounded-2xl border border-brand-border bg-brand-cream p-5 transition-all duration-300 hover:-translate-y-1 hover:border-brand-accent hover:shadow-[0_16px_30px_rgba(35,54,41,0.12)]"
                 >
-                  <div>
-                    <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-forest text-white mb-4 shadow-sm border border-white/10">
-                      <IconComp className="h-5 w-5" />
-                    </div>
-                    <h3 className="font-display text-xl text-brand-charcoal mb-2">
+                  <div className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-[#EEF0E8] text-brand-forest transition-colors duration-300 group-hover:bg-brand-forest group-hover:text-white">
+                    <IconComp className="h-6 w-6" />
+                  </div>
+                  <div className="min-w-0 pr-5">
+                    <h3 className="mb-1.5 font-display text-[19px] leading-tight text-brand-charcoal">
                       {item.title}
                     </h3>
+                    <p className="text-sm leading-relaxed text-brand-slate">
+                      {item.description}
+                    </p>
                   </div>
-
-                  <div className="mt-4 pt-3 border-t border-[#CAD4CC]/50">
-                    <span className="brand-rec-label">RECOMMENDED</span>
-                    <strong className="brand-rec-title">{item.pick}</strong>
-                  </div>
-                </div>
+                  <ArrowRight className="absolute bottom-5 right-5 h-4 w-4 text-brand-charcoal transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
               );
             })}
           </div>

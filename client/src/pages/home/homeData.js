@@ -132,14 +132,54 @@ export const PRODUCT_TAB_FILTERS = [
 ];
 
 export const GUIDED_SELECTION = [
-  { iconName: "Utensils", title: "Modular Kitchens", rec: "Recommended", pick: "Escotel Marine · BWP IS:710" },
-  { iconName: "Shirt", title: "Wardrobes & Bedroom", rec: "Recommended", pick: "MR Grade · IS 303" },
-  { iconName: "DoorClosed", title: "Doors & Partitions", rec: "Recommended", pick: "Waterproof Flush Doors" },
-  { iconName: "Building2", title: "Office Interiors", rec: "Recommended", pick: "Pentagon Gold · MR" },
-  { iconName: "Droplets", title: "Bathrooms & Wet Areas", rec: "Recommended", pick: "Escotel Marine · BWP" },
-  { iconName: "Store", title: "Retail & Hospitality", rec: "Recommended", pick: "Kalinga Gold · MR" },
-  { iconName: "Layers", title: "Heavy-Load Furniture", rec: "Recommended", pick: "IS 303 Pine Blockboard" },
-  { iconName: "Sun", title: "Outdoor & Exposed", rec: "Recommended", pick: "Escotel Marine · BWP" },
+  {
+    iconName: "Utensils",
+    title: "Modular Kitchens",
+    description: "Beautiful finishes that withstand daily use.",
+    href: "/applications#modular-kitchens",
+  },
+  {
+    iconName: "Shirt",
+    title: "Wardrobes & Storage",
+    description: "Stronger panels for smarter storage.",
+    href: "/applications#wardrobes-storage",
+  },
+  {
+    iconName: "DoorClosed",
+    title: "Doors & Partitions",
+    description: "Reliable doors and partition solutions.",
+    href: "/applications#doors-shutters",
+  },
+  {
+    iconName: "Building2",
+    title: "Office Interiors",
+    description: "Productive spaces, built to last.",
+    href: "/applications#commercial-interiors",
+  },
+  {
+    iconName: "Store",
+    title: "Retail & Hospitality",
+    description: "Design-led solutions for commercial spaces.",
+    href: "/applications#commercial-interiors",
+  },
+  {
+    iconName: "Layers",
+    title: "Wall Panelling",
+    description: "Elevate walls with texture and warmth.",
+    href: "/applications#wall-panelling",
+  },
+  {
+    iconName: "Building2",
+    title: "Home Furniture",
+    description: "From beds to shelves, built your way.",
+    href: "/applications#home-furniture",
+  },
+  {
+    iconName: "Handshake",
+    title: "Dealer & Bulk Supply",
+    description: "Partner benefits and bulk order support.",
+    href: "/dealers-distributors#partner-application",
+  },
 ];
 
 export const BRANDS_DATA = [

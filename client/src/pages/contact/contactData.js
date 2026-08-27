@@ -37,28 +37,12 @@ export const enquiryTypes = [
         iconName: "Building2",
     },
     {
-        value: "export",
-        number: "04",
-        title: "Export Enquiry",
-        copy: "Share the destination, required products, estimated quantity and delivery expectations.",
-        action: "Start an Export Enquiry",
-        iconName: "Globe",
-    },
-    {
         value: "industrial-chemical",
-        number: "05",
+        number: "04",
         title: "Industrial Chemical / Formaldehyde Enquiry",
         copy: "Share your industrial application, required specification, estimated quantity and delivery location for Formaldehyde discussions.",
         action: "Discuss Formaldehyde Supply",
         iconName: "FlaskConical",
-    },
-    {
-        value: "general",
-        number: "06",
-        title: "General Enquiry",
-        copy: "For company information, documentation or anything not covered by the other options.",
-        action: "Contact Our Team",
-        iconName: "HelpCircle",
     },
 ];
 

@@ -15,7 +15,6 @@ import {
   FlaskConical,
   Store,
   Building2,
-  Globe,
   CheckCircle2,
   ChevronDown,
   X,
@@ -61,7 +60,6 @@ const iconMap = {
   Package,
   Store,
   Building2,
-  Globe,
   FlaskConical,
   HelpCircle,
   PhoneCall,
@@ -369,7 +367,7 @@ function EnquiryTypeSelector({ value, onChange }) {
         What can we help you with? <span className="text-[#C86D51]">*</span>
       </legend>
 
-      <div className="grid grid-cols-2 gap-2.5 md:grid-cols-3">
+      <div className="grid grid-cols-2 gap-2.5">
         {enquiryTypes.map((item) => {
           const Icon = iconMap[item.iconName] || HelpCircle;
           const selected = value === item.value;
@@ -379,10 +377,11 @@ function EnquiryTypeSelector({ value, onChange }) {
               key={item.value}
               type="button"
               aria-pressed={selected}
+              aria-current={selected ? "true" : undefined}
               onClick={() => onChange(item.value)}
               className={`group min-h-[94px] rounded-2xl border p-4 text-left transition focus:outline-none focus:ring-2 focus:ring-[#C86D51]/30 ${
                 selected
-                  ? "border-[#143D2B] bg-[#143D2B] text-white shadow-lg"
+                  ? "border-[#143D2B] bg-[#143D2B] text-white shadow-lg ring-2 ring-[#143D2B]/15"
                   : "border-[#CAD4CC] bg-white text-[#14211A] hover:border-[#C86D51]"
               }`}
             >
@@ -428,7 +427,7 @@ function ProductFields() {
         <input
           name="quantity"
           type="text"
-          placeholder="e.g. 80 sheets / 25 doors"
+          placeholder="e.g. 80 sheets / 25 flush doors"
           className={inputClass}
         />
       </Field>
@@ -437,7 +436,7 @@ function ProductFields() {
         <input
           name="application"
           type="text"
-          placeholder="e.g. wardrobe, kitchen cabinets, office furniture"
+          placeholder="e.g. modular kitchen for a home in Karnal"
           className={inputClass}
         />
       </Field>
@@ -445,7 +444,7 @@ function ProductFields() {
       <Field label="Requirement details" className="sm:col-span-2">
         <textarea
           name="details"
-          placeholder="Mention grade, thickness, sheet size, quantity or anything else you already know."
+          placeholder="e.g. 18 mm MR plywood, 8×4 ft, delivery needed in Panipat"
           className={textareaClass}
         />
       </Field>
@@ -461,7 +460,7 @@ function ProjectFields() {
           name="projectType"
           type="text"
           required
-          placeholder="e.g. villa interior / hotel / office"
+          placeholder="e.g. 3BHK interior in Zirakpur / hotel in Manali"
           className={inputClass}
         />
       </Field>
@@ -471,7 +470,7 @@ function ProjectFields() {
           name="projectLocation"
           type="text"
           required
-          placeholder="City & State"
+          placeholder="e.g. Mohali, Punjab"
           className={inputClass}
         />
       </Field>
@@ -509,7 +508,7 @@ function ProjectFields() {
       <Field label="Project / specification notes" className="sm:col-span-2">
         <textarea
           name="details"
-          placeholder="Mention product grades, thicknesses, project stage, required delivery schedule or any special specification."
+          placeholder="e.g. BOQ approved; delivery required at the Gurugram site by 15 October"
           className={textareaClass}
         />
       </Field>
@@ -525,7 +524,7 @@ function DealerFields() {
           name="businessName"
           type="text"
           required
-          placeholder="Your firm name"
+          placeholder="e.g. Sharma Plywood House"
           className={inputClass}
         />
       </Field>
@@ -535,7 +534,7 @@ function DealerFields() {
           name="territory"
           type="text"
           required
-          placeholder="e.g. North Delhi & NCR"
+          placeholder="e.g. Jaipur & Rajasthan"
           className={inputClass}
         />
       </Field>
@@ -553,7 +552,7 @@ function DealerFields() {
         <input
           name="monthlyVolume"
           type="text"
-          placeholder="e.g. 500 sheets / 1 truckload"
+          placeholder="e.g. 500 sheets / one truckload"
           className={inputClass}
         />
       </Field>
@@ -561,69 +560,7 @@ function DealerFields() {
       <Field label="Business note" className="sm:col-span-2">
         <textarea
           name="details"
-          placeholder="Tell us about your showroom, godown, current brands, territory or the partnership you are looking for."
-          className={textareaClass}
-        />
-      </Field>
-    </>
-  );
-}
-
-function ExportFields() {
-  return (
-    <>
-      <Field label="Company name" required>
-        <input
-          name="companyName"
-          type="text"
-          required
-          placeholder="Company name"
-          className={inputClass}
-        />
-      </Field>
-
-      <Field label="Destination country / port" required>
-        <input
-          name="destination"
-          type="text"
-          required
-          placeholder="e.g. UAE · Jebel Ali"
-          className={inputClass}
-        />
-      </Field>
-
-      <Field label="Product required" required>
-        <select
-          name="exportProduct"
-          required
-          defaultValue="Plywood"
-          className={inputClass}
-        >
-          <option value="Plywood">Plywood</option>
-          <option value="Blockboard">Blockboard</option>
-          <option value="Flush Door">Flush Door</option>
-          <option value="Formaldehyde / Industrial Chemical">
-            Formaldehyde / Industrial Chemical
-          </option>
-          <option value="Multiple Products">Multiple Products</option>
-          <option value="Other">Other / Not sure</option>
-        </select>
-      </Field>
-
-      <Field label="Estimated order quantity" required>
-        <input
-          name="exportQuantity"
-          type="text"
-          required
-          placeholder="e.g. 1 container / 500 sheets"
-          className={inputClass}
-        />
-      </Field>
-
-      <Field label="Export requirement details" className="sm:col-span-2">
-        <textarea
-          name="details"
-          placeholder="Share product specifications, delivery expectations, packaging or commercial requirements."
+          placeholder="e.g. 1,200 sq. ft. showroom in Indore with a godown; seeking dealership support"
           className={textareaClass}
         />
       </Field>
@@ -639,7 +576,7 @@ function IndustrialFields() {
           name="companyName"
           type="text"
           required
-          placeholder="Company name"
+          placeholder="e.g. ABC Resins Pvt. Ltd."
           className={inputClass}
         />
       </Field>
@@ -662,7 +599,7 @@ function IndustrialFields() {
           name="industrialQuantity"
           type="text"
           required
-          placeholder="e.g. tanker load / monthly requirement"
+          placeholder="e.g. 20 MT per month / one tanker load"
           className={inputClass}
         />
       </Field>
@@ -672,7 +609,7 @@ function IndustrialFields() {
           name="deliveryLocation"
           type="text"
           required
-          placeholder="City / State / Port"
+          placeholder="e.g. Yamunanagar, Haryana"
           className={inputClass}
         />
       </Field>
@@ -680,24 +617,11 @@ function IndustrialFields() {
       <Field label="Technical requirement" className="sm:col-span-2">
         <textarea
           name="details"
-          placeholder="Share concentration, application, packaging, delivery frequency or other technical requirements."
+          placeholder="e.g. Formaldehyde 37% for resin production; monthly delivery to Yamunanagar"
           className={textareaClass}
         />
       </Field>
     </>
-  );
-}
-
-function GeneralFields() {
-  return (
-    <Field label="How can we help?" required className="sm:col-span-2">
-      <textarea
-        name="details"
-        required
-        placeholder="Write your question or requirement."
-        className={textareaClass}
-      />
-    </Field>
   );
 }
 
@@ -709,13 +633,10 @@ function ConditionalFields({ enquiryType }) {
       return <ProjectFields />;
     case "dealer":
       return <DealerFields />;
-    case "export":
-      return <ExportFields />;
     case "industrial-chemical":
       return <IndustrialFields />;
-    case "general":
     default:
-      return <GeneralFields />;
+      return <ProductFields />;
   }
 }
 
@@ -908,7 +829,7 @@ function SmartEnquiryForm({ enquiryType, onEnquiryTypeChange }) {
             type="text"
             autoComplete="name"
             required
-            placeholder="Your name"
+            placeholder="e.g. Rohan Sharma"
             className={inputClass}
           />
         </Field>
@@ -929,7 +850,7 @@ function SmartEnquiryForm({ enquiryType, onEnquiryTypeChange }) {
             name="email"
             type="email"
             autoComplete="email"
-            placeholder="name@company.com"
+            placeholder="e.g. rohan.sharma@gmail.com"
             className={inputClass}
           />
         </Field>
@@ -940,7 +861,7 @@ function SmartEnquiryForm({ enquiryType, onEnquiryTypeChange }) {
             type="text"
             autoComplete="address-level2"
             required
-            placeholder="e.g. Gurgaon, Haryana"
+            placeholder="e.g. Ludhiana, Punjab"
             className={inputClass}
           />
         </Field>
@@ -1048,7 +969,7 @@ function ContactPage() {
       document.head.appendChild(meta);
     }
     meta.content =
-      "Contact Pentagon Plywood in Yamunanagar for product, project, dealer, bulk, export and industrial enquiries.";
+      "Contact Pentagon Plywood in Yamunanagar for product, project, dealer, bulk and industrial enquiries.";
 
     const params = new URLSearchParams(window.location.search);
     const requestedType = params.get("type");

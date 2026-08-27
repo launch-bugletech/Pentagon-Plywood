@@ -9,22 +9,22 @@ const timeline = [
   [
     "1986",
     "The Beginning",
-    "The group began its journey as a timber merchant, trading wooden logs.",
+    "The group began as a timber merchant, trading wooden logs.",
   ],
   [
     "1987",
     "S. A. Timber Traders",
-    "S. A. Timber Traders was formed in December 1987 and continues to be part of the group today.",
+    "S. A. Timber Traders was formed in December 1987 for the trading of wooden logs and continues to operate today.",
   ],
   [
     "1991",
     "Entering Veneer Processing",
-    "The first peeling machine was installed, enabling wooden logs to be processed into veneer.",
+    "A peeling machine was installed to convert wooden logs into veneer, marking the group's first forward integration.",
   ],
   [
     "1995",
     "Expanding Veneer Capability",
-    "Further machinery expansion brought multiple peeling machines into operation.",
+    "Machinery was expanded with multiple peeling machines installed.",
   ],
   [
     "1996",
@@ -32,34 +32,34 @@ const timeline = [
     "Pentagon Plywood Private Limited was incorporated on 20 September 1996.",
   ],
   [
-    "1986",
+    "1997",
     "Beginning Plywood Manufacturing",
-    "Pressing units at both wood-based units enabled veneer to be converted into plywood.",
+    "Pressing units were installed at both units, converting veneer into plywood and marking the next forward integration.",
   ],
   [
     "2008",
     "Growth in Capacity and Reach",
-    "Machinery and land expansion doubled production capacity and extended business into multiple cities.",
+    "Multiple machinery and land expansions doubled production capacity and expanded the business into cities across India.",
   ],
   [
     "2013",
     "Continued Expansion",
-    "Further investments increased the production capacity of both S. A. Timber Traders and Pentagon Plywood.",
+    "Further machinery and land expansion again increased the production capacity of S. A. Timber Traders and Pentagon Plywood.",
   ],
   [
     "2015–16",
     "Licensed Capacity Doubled",
-    "Licensed production capacity was doubled, creating a stronger foundation for future growth.",
+    "The licensed production capacity was doubled, although actual production capacity was not increased at this stage.",
   ],
   [
     "2017",
     "Backward Integration Into Chemicals",
-    "Synochem Organics Private Limited, a Formaldehyde manufacturing unit in Yamunanagar, became part of the group.",
+    "Synochem Organics Private Limited, a fully functional Formaldehyde manufacturing unit in Yamunanagar, was acquired. Formaldehyde is used to make resin, a major raw material for plywood.",
   ],
   [
     "2018",
     "Expanding Into Gujarat",
-    "Patson Industries, a Formaldehyde manufacturing unit in Morbi, Gujarat, became part of the group.",
+    "Patson Industries, a Formaldehyde manufacturer in Morbi, Gujarat, was acquired, expanding the group into a new territory.",
   ],
   [
     "2023",

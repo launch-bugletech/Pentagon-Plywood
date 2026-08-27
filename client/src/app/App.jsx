@@ -25,6 +25,7 @@ import BWPFlushDoorPage from "@/pages/products/flush-doors/bwp-grade/BWPFlushDoo
 import IndustrialChemicalsPage from "@/pages/products/industrial-chemicals/IndustrialChemicalsPage.jsx";
 import FormaldehydePage from "@/pages/products/industrial-chemicals/formaldehyde/FormaldehydePage.jsx";
 import ProductsPage from "@/pages/products/ProductsPage.jsx";
+import SourcedProductsPage from "@/pages/products/SourcedProductsPage.jsx";
 import ProductsPageV2 from "@/pages/products/archive/ProductPageV2.jsx";
 import ComingSoonPage from "@/pages/system/ComingSoonPage.jsx";
 import NotFoundPage from "@/pages/system/NotFoundPage.jsx";
@@ -96,7 +97,22 @@ const routes = {
   ),
   [ROUTES.tradedProducts]: makeRoute(
     ROUTES.tradedProducts,
-    () => ProductsPage,
+    () => SourcedProductsPage,
+    "products",
+  ),
+  [PRODUCT_ROUTES.decorativeMaterials]: makeRoute(
+    PRODUCT_ROUTES.decorativeMaterials,
+    () => SourcedProductsPage,
+    "products",
+  ),
+  [PRODUCT_ROUTES.engineeredBoards]: makeRoute(
+    PRODUCT_ROUTES.engineeredBoards,
+    () => SourcedProductsPage,
+    "products",
+  ),
+  [PRODUCT_ROUTES.laminatedProducts]: makeRoute(
+    PRODUCT_ROUTES.laminatedProducts,
+    () => SourcedProductsPage,
     "products",
   ),
   [ROUTES.plywoodOverview]: makeRoute(

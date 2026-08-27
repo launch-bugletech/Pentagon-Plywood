@@ -45,6 +45,7 @@ export const sourcedNavigation = [
   {
     id: 'decorative-materials',
     label: 'Decorative Materials',
+    href: PRODUCT_ROUTES.decorativeMaterials,
     children: [
       ['Laminates', PRODUCT_ROUTES.laminates],
       ['Teak Ply', PRODUCT_ROUTES.teakPly],
@@ -53,6 +54,7 @@ export const sourcedNavigation = [
   {
     id: 'engineered-boards',
     label: 'Engineered Boards',
+    href: PRODUCT_ROUTES.engineeredBoards,
     children: [
       ['Particle Board', PRODUCT_ROUTES.particleBoard],
       ['WPC Board', PRODUCT_ROUTES.wpcBoard],
@@ -63,6 +65,7 @@ export const sourcedNavigation = [
   {
     id: 'laminated-products',
     label: 'Laminated Products',
+    href: PRODUCT_ROUTES.laminatedProducts,
     children: [
       ['Laminated Plywood', PRODUCT_ROUTES.laminatedPlywood],
       ['Laminated Blockboard', PRODUCT_ROUTES.laminatedBlockboard],
