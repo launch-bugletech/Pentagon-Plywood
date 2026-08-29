@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import {
+  APPLICATION_ROUTES,
   APPLICATION_SECTIONS,
   CONTACT_SECTIONS,
   ROUTES,
@@ -37,7 +38,7 @@ const Icon = {
 const applicationCards = [
   {
     id: "home-furniture",
-    target: "#detail-home-furniture",
+    target: APPLICATION_ROUTES.homeFurniture,
     number: "01",
     title: "Home Furniture",
     label: "Beds · Tables · Cabinets",
@@ -48,7 +49,7 @@ const applicationCards = [
   },
   {
     id: "modular-kitchens",
-    target: "#detail-modular-kitchens",
+    target: APPLICATION_ROUTES.modularKitchens,
     number: "02",
     title: "Modular Kitchens",
     label: "Cabinets · Shutters · Storage",
@@ -59,7 +60,7 @@ const applicationCards = [
   },
   {
     id: "wardrobes-storage",
-    target: "#detail-wardrobes-storage",
+    target: APPLICATION_ROUTES.wardrobesStorage,
     number: "03",
     title: "Wardrobes & Storage",
     label: "Carcasses · Shelves · Shutters",
@@ -81,7 +82,7 @@ const applicationCards = [
   },
   {
     id: "wall-panelling",
-    target: "#detail-wall-panelling",
+    target: APPLICATION_ROUTES.wallPanelling,
     number: "05",
     title: "Wall Panelling",
     label: "Features · Screens · Partitions",
@@ -92,7 +93,7 @@ const applicationCards = [
   },
   {
     id: "commercial-interiors",
-    target: "#detail-commercial-interiors",
+    target: APPLICATION_ROUTES.officeCommercial,
     number: "06",
     title: "Office & Commercial",
     label: "Workstations · Storage · Counters",
@@ -103,7 +104,7 @@ const applicationCards = [
   },
   {
     id: "retail-hospitality",
-    target: "#detail-commercial-interiors",
+    target: APPLICATION_ROUTES.retailHospitality,
     number: "07",
     title: "Retail & Hospitality",
     label: "Displays · Counters · Furniture",
@@ -114,7 +115,7 @@ const applicationCards = [
   },
   {
     id: "manufacturing-fabrication",
-    target: "#material-planning",
+    target: APPLICATION_ROUTES.furnitureManufacturing,
     number: "08",
     title: "Furniture Fabrication",
     label: "Custom · Repeat · Modular",
@@ -125,7 +126,7 @@ const applicationCards = [
   },
   {
     id: "dealer-bulk-supply",
-    target: "#trade-supply",
+    target: APPLICATION_ROUTES.dealerBulkSupply,
     number: "09",
     title: "Dealer & Bulk Supply",
     label: "Repeat · Project · Distribution",

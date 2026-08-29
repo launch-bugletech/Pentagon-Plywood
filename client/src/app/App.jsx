@@ -12,6 +12,7 @@ import ContactV2Page from "@/pages/contact/archive/ContactV2Page.jsx";
 import DealersPage from "@/pages/dealers/DealersPage.jsx";
 import DealersV2Page from "@/pages/dealers/archive/DealersPage.old.jsx";
 import ApplicationsPage from "@/pages/applications/ApplicationsPage.jsx";
+import ApplicationPage from "@/pages/applications/Application.jsx";
 import PlywoodPage from "@/pages/products/plywood/PlywoodPage.jsx";
 import MRGradePage from "@/pages/products/plywood/mr-grade/MRGradePage.jsx";
 import BWPGradePage from "@/pages/products/plywood/bwp-grade/BWPGradePage.jsx";
@@ -33,7 +34,7 @@ import SiteHeader from "@/components/layout/SiteHeader.jsx";
 import SiteFooter from "@/components/layout/SiteFooter.jsx";
 import SiteCustomizer from "@/components/dev/SiteCustomizer.jsx";
 import AppErrorBoundary from "@/components/system/AppErrorBoundary.jsx";
-import { normalizePath, PRODUCT_ROUTES, ROUTES } from "./routes.js";
+import { APPLICATION_ROUTES, normalizePath, PRODUCT_ROUTES, ROUTES } from "./routes.js";
 import { Toaster } from "@/components/ui/toaster.jsx";
 import { useToast } from "@/hooks/use-toast";
 
@@ -87,6 +88,12 @@ const routes = {
     ROUTES.applications,
     () => ApplicationsPage,
     "applications",
+  ),
+  ...Object.fromEntries(
+    Object.values(APPLICATION_ROUTES).map((path) => [
+      path,
+      makeRoute(path, () => ApplicationPage, "applications"),
+    ]),
   ),
   [ROUTES.products]: makeRoute(ROUTES.products, () => ProductsPage, "products"),
   [ROUTES.productsv2]: makeRoute(ROUTES.productsv2, () => ProductsPageV2, "products"),

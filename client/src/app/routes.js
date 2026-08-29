@@ -69,6 +69,17 @@ export const APPLICATION_SECTIONS = Object.freeze({
   enquiry: `${ROUTES.applications}#application-enquiry`,
 });
 
+export const APPLICATION_ROUTES = Object.freeze({
+  homeFurniture: '/applications/home-furniture',
+  modularKitchens: '/applications/modular-kitchens',
+  wardrobesStorage: '/applications/wardrobes-storage',
+  wallPanelling: '/applications/wall-panelling',
+  officeCommercial: '/applications/office-commercial-interiors',
+  retailHospitality: '/applications/retail-hospitality',
+  furnitureManufacturing: '/applications/furniture-manufacturing',
+  dealerBulkSupply: '/applications/dealer-bulk-supply',
+});
+
 export const HOME_SECTIONS = Object.freeze({
   products: `${ROUTES.home}#products`,
   manufacturing: `${ROUTES.home}#manufacturing`,

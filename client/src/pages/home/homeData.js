@@ -136,13 +136,13 @@ export const GUIDED_SELECTION = [
     iconName: "Utensils",
     title: "Modular Kitchens",
     description: "Beautiful finishes that withstand daily use.",
-    href: "/applications#modular-kitchens",
+    href: "/applications/modular-kitchens",
   },
   {
     iconName: "Shirt",
     title: "Wardrobes & Storage",
     description: "Stronger panels for smarter storage.",
-    href: "/applications#wardrobes-storage",
+    href: "/applications/wardrobes-storage",
   },
   {
     iconName: "DoorClosed",
@@ -154,31 +154,31 @@ export const GUIDED_SELECTION = [
     iconName: "Building2",
     title: "Office Interiors",
     description: "Productive spaces, built to last.",
-    href: "/applications#commercial-interiors",
+    href: "/applications/office-commercial-interiors",
   },
   {
     iconName: "Store",
     title: "Retail & Hospitality",
     description: "Design-led solutions for commercial spaces.",
-    href: "/applications#commercial-interiors",
+    href: "/applications/retail-hospitality",
   },
   {
     iconName: "Layers",
     title: "Wall Panelling",
     description: "Elevate walls with texture and warmth.",
-    href: "/applications#wall-panelling",
+    href: "/applications/wall-panelling",
   },
   {
     iconName: "Building2",
     title: "Home Furniture",
     description: "From beds to shelves, built your way.",
-    href: "/applications#home-furniture",
+    href: "/applications/home-furniture",
   },
   {
     iconName: "Handshake",
     title: "Dealer & Bulk Supply",
     description: "Partner benefits and bulk order support.",
-    href: "/dealers-distributors#partner-application",
+    href: "/applications/dealer-bulk-supply",
   },
 ];
 

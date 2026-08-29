@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  APPLICATION_ROUTES,
   APPLICATION_SECTIONS,
   comingSoonUrl,
   CONTACT_SECTIONS,
@@ -343,19 +344,19 @@ const applicationLinks = [
   ],
   [
     "Home Furniture",
-    APPLICATION_SECTIONS.furniture,
+    APPLICATION_ROUTES.homeFurniture,
     "furniture",
     "Beds, tables, cabinets & bespoke woodwork.",
   ],
   [
     "Modular Kitchens",
-    APPLICATION_SECTIONS.kitchens,
+    APPLICATION_ROUTES.modularKitchens,
     "kitchen",
     "BWP IS:710 100% boiling waterproof panels.",
   ],
   [
     "Wardrobes & Storage",
-    APPLICATION_SECTIONS.wardrobes,
+    APPLICATION_ROUTES.wardrobesStorage,
     "wardrobe",
     "Calibrated core panels for warp-free doors.",
   ],
@@ -367,25 +368,25 @@ const applicationLinks = [
   ],
   [
     "Wall Panelling",
-    APPLICATION_SECTIONS.walls,
+    APPLICATION_ROUTES.wallPanelling,
     "panelling",
     "Decorative acoustic & feature wall linings.",
   ],
   [
     "Commercial Interiors",
-    APPLICATION_SECTIONS.commercial,
+    APPLICATION_ROUTES.officeCommercial,
     "commercial",
     "High-traffic office & institutional paneling.",
   ],
   [
     "Retail & Hospitality",
-    `${ROUTES.applications}#retail-hospitality`,
+    APPLICATION_ROUTES.retailHospitality,
     "retail",
     "Store fixtures, displays & hotel interiors.",
   ],
   [
     "Dealer & Bulk Supply",
-    APPLICATION_SECTIONS.trade,
+    APPLICATION_ROUTES.dealerBulkSupply,
     "dealer",
     "Factory direct dispatches for project buyers.",
   ],

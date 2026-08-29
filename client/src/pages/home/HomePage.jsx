@@ -779,37 +779,39 @@ function HomePage() {
       </section>
 
       {/* 8. QUALITY & CERTIFICATIONS */}
-      <section className="py-[82px] lg:py-[120px] bg-brand-cream" id="quality">
-        <div className="max-w-[1280px] mx-auto px-7 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-6 space-y-6">
+      <section className="bg-[#F8F4ED] py-[82px] lg:py-[120px]" id="quality">
+        <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-10 px-7 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-6">
             <div className="text-[#8E510D] font-semibold text-[11px] leading-tight tracking-[0.18em] uppercase">
               {QUALITY_DATA.eyebrow}
             </div>
 
-            <h2 className="font-display text-[40px] lg:text-[54px] font-bold leading-tight tracking-[-1px] text-brand-charcoal">
+            <h2 className="mt-3 font-display text-[40px] font-bold leading-[1.02] tracking-[-1px] text-brand-charcoal lg:text-[54px]">
               {QUALITY_DATA.title}
             </h2>
 
-            <p className="text-brand-slate text-base leading-relaxed">
+            <p className="mt-5 max-w-[570px] text-base leading-relaxed text-brand-slate">
               {QUALITY_DATA.lead}
             </p>
 
-            <div className="space-y-3.5 pt-2">
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {QUALITY_DATA.processList.map((item) => (
                 <div
                   key={item.num}
-                  className="flex items-start gap-4 p-4 rounded-2xl bg-brand-soft-brown border border-brand-accent/20"
+                  className="group rounded-2xl border border-[#DED5C8] bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#8E510D]/45 hover:shadow-lg"
                 >
-                  <span className="home-number grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-brand-forest text-white font-bold text-xs">
-                    {item.num}
-                  </span>
-                  <div>
-                    <strong className="text-sm font-bold text-brand-charcoal block">
+                  <div className="flex items-start gap-3.5">
+                    <span className="home-number grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#143D2B] text-xs font-bold text-white transition-colors group-hover:bg-[#8E510D]">
+                      {item.num}
+                    </span>
+                    <div>
+                    <strong className="block text-sm font-bold text-brand-charcoal">
                       {item.title}
                     </strong>
-                    <span className="text-xs text-brand-muted block mt-0.5">
+                    <span className="mt-1 block text-xs leading-relaxed text-brand-muted">
                       {item.desc}
                     </span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -817,46 +819,75 @@ function HomePage() {
           </div>
 
           <div className="lg:col-span-6">
-            <div className="p-8 rounded-3xl bg-brand-forest text-white border border-white/20 shadow-2xl space-y-6">
-              <div className="flex items-center justify-between border-b border-white/15 pb-4">
+            <div className="relative overflow-hidden rounded-[30px] border border-[#275440] bg-[#103E2B] p-6 text-white shadow-[0_24px_55px_rgba(18,53,38,0.22)] sm:p-8 lg:p-9">
+              <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full border border-white/10" />
+              <div className="pointer-events-none absolute -right-9 -top-9 h-44 w-44 rounded-full border border-white/10" />
+              <div className="pointer-events-none absolute bottom-0 left-0 h-36 w-full bg-[radial-gradient(ellipse_at_bottom_left,rgba(200,109,81,0.24),transparent_62%)]" />
+
+              <div className="relative">
+                <div className="flex items-start justify-between gap-5 border-b border-white/15 pb-5">
                 <div>
-                  <span className="text-[10px] font-extrabold tracking-widest text-brand-accent uppercase block">
+                  <span className="block text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#E8927C]">
                     VERIFIED PERFORMANCE
                   </span>
-                  <h3 className="text-2xl font-bold">
+                  <h3 className="mt-2 font-display text-[30px] font-bold leading-none sm:text-[34px]">
                     Certified at Every Level
                   </h3>
                 </div>
-                <CheckCircle2 className="h-8 w-8 text-brand-accent" />
-              </div>
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[#E8927C]/50 bg-[#8E510D]/20 text-[#F1AE98]">
+                  <CheckCircle2 className="h-6 w-6" />
+                </span>
+                </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <p className="mt-5 max-w-md text-sm leading-relaxed text-white/72">
+                Every production batch is checked against defined standards before it moves from our facility to your project.
+              </p>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {QUALITY_DATA.certificates.map((cert, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-center"
+                    className="rounded-2xl border border-white/15 bg-white/[0.09] p-5 transition-colors duration-300 hover:bg-white/[0.14]"
                   >
-                    <img
-                      src={cert.logo}
-                      alt={cert.name}
-                      className="h-12 w-auto mx-auto mb-2 object-contain"
-                    />
-                    <strong className="text-xs font-bold text-white block">
-                      {cert.name}
-                    </strong>
-                    <span className="text-[10px] text-white/70 block mt-0.5">
-                      {cert.desc}
-                    </span>
+                    <div className="flex items-center gap-4">
+                      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-white/95 p-2.5">
+                        <img
+                          src={cert.logo}
+                          alt={cert.name}
+                          className="h-full w-full object-contain"
+                        />
+                      </span>
+                      <div>
+                        <strong className="block text-sm font-bold text-white">
+                          {cert.name}
+                        </strong>
+                        <span className="mt-1 block text-[11px] leading-relaxed text-white/68">
+                          {cert.desc}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
 
+              <div className="mt-5 grid grid-cols-2 border-y border-white/15 py-4">
+                <div className="border-r border-white/15 pr-4">
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.13em] text-[#F1AE98]">Standards</span>
+                  <strong className="mt-1 block text-sm text-white">IS 303 · IS 710</strong>
+                </div>
+                <div className="pl-4">
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.13em] text-[#F1AE98]">Testing</span>
+                  <strong className="mt-1 block text-sm text-white">Batch-level checks</strong>
+                </div>
+              </div>
+
               <a
                 href="#enquiry"
-                className="w-full inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#8E510D] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#6B3200] transition-all cursor-pointer"
+                className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#C86D51] text-xs font-bold uppercase tracking-wider text-white transition-all hover:-translate-y-0.5 hover:bg-[#E07D61] hover:shadow-lg"
               >
                 Request Quality Test Reports <ArrowRight className="h-4 w-4" />
               </a>
+              </div>
             </div>
           </div>
         </div>

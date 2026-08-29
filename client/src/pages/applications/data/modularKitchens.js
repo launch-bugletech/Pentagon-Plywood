@@ -1,0 +1,26 @@
+const image = {
+  url: "https://images.unsplash.com/photo-1746004082380-9f50baddd58c?auto=format&fit=crop&w=1800&q=80",
+  source: "https://unsplash.com/photos/yL5MidLxHSo",
+  alt: "Modern Indian modular kitchen with cabinetry and appliances",
+  label: "One kitchen. Several working environments.",
+};
+
+export default {
+  path: "/applications/modular-kitchens", title: "Modular Kitchens", eyebrow: "Materials for Working Kitchens", heroTitle: "A Kitchen Is Not One Material Decision.",
+  intro: ["The cabinet under the sink does not face the same conditions as an overhead cabinet, and a tall pantry does not carry the same load as a shutter.", "Plan the kitchen zone by zone and component by component then choose board, thickness, surface, edges and hardware."],
+  metaDescription: "Compare plywood, MDF, HDHMR, WPC and surfaces for modular-kitchen carcasses, shutters, shelves, drawers and wet zones.", heroImage: image,
+  primaryCta: { label: "Find Materials for My Kitchen", href: "/contact-us?type=product#contact-form" }, secondaryCta: { label: "Share Kitchen Drawing", href: "/contact-us?type=project#contact-form" },
+  quickGuide: { title: "Map moisture, heat and hardware first.", copy: "Different zones expose cabinets to different risks and loads.", items: ["Sink & plumbing", "Steam and heat", "Cabinet load", "Shelf span", "Edge finishing", "Appliance clearance"], materials: ["Plywood", "MDF", "HDHMR", "WPC", "Laminates"] },
+  sections: [
+    {
+      type: "cards", id: "kitchen-zones", eyebrow: "Kitchen Zone Map", title: "One Kitchen. Several Working Environments.", copy: "Treat each zone according to what happens around it.", items: [
+        { title: "Sink & Plumbing", copy: "Give highest attention to leakage risk, cabinet bottoms, cut-outs and exposed edges." }, { title: "Base Cabinets", copy: "Plan drawers, shelf loads, worktop support and wet floor conditions." }, { title: "Overhead Cabinets", copy: "Review wall anchoring, manageable weight, steam and hinge fixing." }, { title: "Tall & Pantry Units", copy: "Check vertical alignment, loaded shelves, tall shutters and hinge quantity." }, { title: "Cooking & Appliances", copy: "Plan heat, steam, ventilation, clearance and service access." }, { title: "Display Areas", copy: "Coordinate visible edges, surface design, lighting and open shelving." },
+      ]
+    },
+    { type: "feature", id: "water-path", eyebrow: "Follow the Water Path", title: "The Surface May Be Protected. The Openings May Not Be.", copy: "Moisture often reaches the core through fabrication details rather than the centre of a finished face.", image, points: ["Seal sink and service cut-outs", "Protect exposed edges and hinge cups", "Keep vulnerable panels clear of wet floors", "Repair plumbing leaks instead of relying only on board grade"], callout: "Board grade + edge treatment + fabrication + plumbing discipline." },
+    { type: "matrix", id: "kitchen-materials", eyebrow: "Component Material Guide", title: "Compare Materials Around the Exact Kitchen Part.", columns: ["Component", "Starting materials", "Think about"], rows: [["Carcass", "Application-suitable plywood, engineered boards", "Moisture, fixing, cabinet dimensions"], ["Shutters", "Plywood, MDF, HDHMR, finished panels", "Weight, routing, hinges, finish"], ["Shelves", "Plywood, engineered board", "Span, load and support"], ["Under-sink zone", "Higher moisture-conscious options", "Leaks, edges, floor and access"], ["Decorative surface", "Laminate, veneer, finished boards", "Substrate, cleaning and balancing"]], note: "No single material automatically suits every kitchen component or site condition." },
+    { type: "process", id: "kitchen-process", eyebrow: "From Drawing to Material Plan", title: "Build the Kitchen Specification Zone by Zone.", steps: [{ title: "Map the kitchen", copy: "Mark sink, cooking, appliance, overhead and pantry zones." }, { title: "List components", copy: "Separate carcasses, shutters, shelves, drawers, backs and tall panels." }, { title: "Plan details", copy: "Select grade, thickness, surface, edge treatment and hardware." }, { title: "Send the BOQ", copy: "Share drawings, quantities, finish codes, location and required date." }] },
+  ],
+  faqs: [["Which board is best for modular kitchens?", "There is no universal answer. Moisture, plumbing, heat, load, hardware, finish and fabrication details all matter."], ["Should the whole kitchen use the same board?", "Not necessarily. Under-sink cabinets, shutters, shelves and overhead units perform differently."], ["Is BWP plywood enough around a leaking sink?", "No material should be expected to solve an unresolved plumbing leak. Fix the source and protect cut-outs and edges."], ["Can MDF be used for kitchen shutters?", "Suitable MDF or HDHMR may be considered for selected routed shutters where product grade and environment are appropriate."], ["Can I upload a kitchen drawing?", "Yes. Plans, elevations, BOQs and finish schedules make the discussion much clearer."]],
+  finalCta: { eyebrow: "Planning a Modular Kitchen?", title: "Share the Zones, Components and Finish.", copy: "Send your kitchen drawing or begin with the sink, storage, appliance and shutter requirements.", label: "Share Kitchen Requirement", href: "/contact-us?type=project#contact-form" },
+};
