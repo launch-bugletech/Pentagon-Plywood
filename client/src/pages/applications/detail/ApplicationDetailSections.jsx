@@ -100,7 +100,7 @@ export function FeatureSection({ section, index }) {
       <div className={`${shell} application-detail-feature ${section.reverse ? "is-reverse" : ""}`}>
         <figure>
           <img src={section.image.url} alt={section.image.alt} />
-          <figcaption><a href={section.image.source} target="_blank" rel="noreferrer">Web image placeholder ↗</a></figcaption>
+          {/* <figcaption><a href={section.image.source} target="_blank" rel="noreferrer">Web image placeholder ↗</a></figcaption> */}
         </figure>
         <div>
           <SectionHeading section={section} />

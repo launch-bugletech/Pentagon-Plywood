@@ -21,6 +21,7 @@ export const ROUTES = Object.freeze({
   mrGradePlywood: '/products/plywood/mr-grade-plywood',
   bwpGradePlywood: '/products/plywood/bwp-grade-plywood',
   comingSoon: '/coming-soon',
+  resourceRequest: '/resource-request',
 });
 
 export const PRODUCT_ROUTES = Object.freeze({
@@ -143,6 +144,10 @@ export const DEALER_SECTIONS = Object.freeze({
 
 export function comingSoonUrl(feature) {
   return `${ROUTES.comingSoon}?feature=${encodeURIComponent(feature)}`;
+}
+
+export function resourceRequestUrl(resource) {
+  return `${ROUTES.resourceRequest}?resource=${encodeURIComponent(resource)}`;
 }
 
 export function normalizePath(pathname) {

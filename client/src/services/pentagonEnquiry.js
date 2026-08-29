@@ -5,7 +5,8 @@
  *
  * Centralized React helper for submitting leads from all website forms
  * (Contact, Home Quote, Dealer Application, Plywood Overview,
- * Product Detail, and Coming Soon Launch Notifications) to Google Apps Script.
+ * Product Detail, resource requests, and Coming Soon Launch Notifications)
+ * to Google Apps Script.
  */
 
 export const PENTAGON_ENQUIRY_API_URL =
@@ -72,8 +73,8 @@ export function getUtmParameters() {
  * Primary helper to submit any enquiry form to the Pentagon Web App backend.
  *
  * @param {Object} rawPayload - The form fields data object.
- * @param {string} [rawPayload.enquiryType="product"] - "product" | "dealer" | "project" | "export" | "industrial-chemical" | "general" | "launch-notification"
- * @param {string} [rawPayload.formSource] - E.g. "home-quote", "contact-main", "dealer-application", "plywood-overview", "product-detail", "coming-soon"
+ * @param {string} [rawPayload.enquiryType="product"] - "product" | "dealer" | "project" | "export" | "industrial-chemical" | "general" | "resource-request" | "launch-notification"
+ * @param {string} [rawPayload.formSource] - E.g. "home-quote", "contact-main", "dealer-application", "plywood-overview", "product-detail", "resource-request", "coming-soon"
  * @param {File|Object} [rawPayload.attachment] - File object or Base64 attachment object
  * @param {boolean} [rawPayload.consent=true] - Customer consent flag
  * @returns {Promise<{ success: boolean, submissionId?: string, message?: string, errors?: string[] }>}

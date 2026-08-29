@@ -2,6 +2,7 @@ import {
   comingSoonUrl,
   HOME_SECTIONS,
   PLYWOOD_SECTIONS,
+  resourceRequestUrl,
   ROUTES,
 } from "../../app/routes.js";
 import pentagonFooterLogo from "../../assets/Brand/logos/Pentagon-footer.svg";
@@ -46,8 +47,8 @@ const footerGroups = [
     links: [
       ["Applications", ROUTES.applications],
       ["Buying guides", HOME_SECTIONS.resources],
-      ["Catalogues (PDF)", comingSoonUrl("Product catalogues")],
-      ["Technical downloads", comingSoonUrl("Technical downloads")],
+      ["Catalogues (PDF)", resourceRequestUrl("Product Catalogue")],
+      ["Technical downloads", resourceRequestUrl("Technical Documents")],
       ["FAQs", PLYWOOD_SECTIONS.faq],
     ],
   },

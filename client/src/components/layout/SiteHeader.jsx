@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   APPLICATION_ROUTES,
   APPLICATION_SECTIONS,
-  comingSoonUrl,
+  resourceRequestUrl,
   CONTACT_SECTIONS,
   HOME_SECTIONS,
   PLYWOOD_SECTIONS,
@@ -395,7 +395,7 @@ const applicationLinks = [
 const resourceLinks = [
   [
     "Product Catalogue",
-    comingSoonUrl("Product Catalogue"),
+    resourceRequestUrl("Product Catalogue"),
     "catalogue",
     "Full range technical specs & grade charts.",
   ],
@@ -419,7 +419,7 @@ const resourceLinks = [
   ],
   [
     "Download Brochure",
-    comingSoonUrl("Download Brochure"),
+    resourceRequestUrl("Company Brochure"),
     "download",
     "PDF company overview & brand summary.",
   ],
@@ -431,7 +431,7 @@ const resourceLinks = [
   ],
   [
     "Technical Documents",
-    `${HOME_SECTIONS.resources}#tech-docs`,
+    resourceRequestUrl("Technical Documents"),
     "tech-doc",
     "TDS, care guides & installation manuals.",
   ],

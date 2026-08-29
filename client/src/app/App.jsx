@@ -29,6 +29,7 @@ import ProductsPage from "@/pages/products/ProductsPage.jsx";
 import SourcedProductsPage from "@/pages/products/SourcedProductsPage.jsx";
 import ProductsPageV2 from "@/pages/products/archive/ProductPageV2.jsx";
 import ComingSoonPage from "@/pages/system/ComingSoonPage.jsx";
+import ResourceRequestPage from "@/pages/resources/ResourceRequestPage.jsx";
 import NotFoundPage from "@/pages/system/NotFoundPage.jsx";
 import SiteHeader from "@/components/layout/SiteHeader.jsx";
 import SiteFooter from "@/components/layout/SiteFooter.jsx";
@@ -184,6 +185,11 @@ const routes = {
     "products",
   ),
   [ROUTES.comingSoon]: makeRoute(ROUTES.comingSoon, () => ComingSoonPage, null),
+  [ROUTES.resourceRequest]: makeRoute(
+    ROUTES.resourceRequest,
+    () => ResourceRequestPage,
+    null,
+  ),
 };
 
 const productPlaceholderPaths = new Set(
